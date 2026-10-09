@@ -1,0 +1,266 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{biblatex}
+\usepackage{amstext}
+
+\title{Honors Physics}
+\author{Fernando Delgado}
+\date{August 2026}
+
+\begin{document}
+\maketitle
+\section{Introduction}
+
+\subsection{MINFLUX concept}
+Single-molecule fluorescence localization with minimum photon flux imaging
+(MINFLUX) can achieve localization precisions in the small nanometer range or better under
+suitable conditions,Potentially adverse conditions, such as a fixed fluorescence dipole or optical
+aberrations, that could cause systematic localization errors, have received little attention up to
+now. \cite{1}
+\subsection{single particle analysis}
+\subsection{motivation requirements}
+\section{EOD}
+\subsection{physical concept}
+\begin{itemize}
+    \item [TEXT] Kerr effect / electro-optic effect: refractive index change under applied E-field
+    \item [TEXT] crystal specification used in the lab EOD (material, dimensions, drive voltage range)
+    \item [TEXT] how applied voltage translates to beam deflection (electro-optic deflector operating principle)
+    \item [FIGURE: diagram] schematic of EOD crystal + applied field + resulting beam deflection
+\end{itemize}
+
+\subsection{characterization}
+
+\subsubsection{intro why}
+\begin{itemize}
+    \item [TEXT] why beam quality matters for MINFLUX (localization precision depends on a clean, predictable PSF)
+    \item [TEXT] why fast EOD response matters (scan speed / photon-budget constraints in MINFLUX)
+    \item [TEXT] limitation cases: beam degradation, pointing drift, deflection nonlinearity, and how each would propagate into localization error
+\end{itemize}
+
+\subsubsection{setup}
+\begin{itemize}
+    \item beam degradation through alignment
+    \begin{itemize}
+        \item [EXPERIMENT] camera + EOD on optical rail, frames captured at multiple fixed positions along beam path (with/without EOD, before/after subsequent optics)
+        \item [GRAPH] ideal Gaussian beam profile vs. measured beam after EOD (2D heatmap + fit overlay)
+        \item [GRAPH] beam quality metrics vs. position along path (drift through alignment)
+        \item [GRAPH] cross-correlation similarity (peak NCC) and beam displacement ($\Delta y$, $\Delta x$) vs. position
+    \end{itemize}
+    \item beam quality
+    \begin{itemize}
+        \item [EXPERIMENT] control (no-EOD) frame vs. EOD-deflected frame, same optical path
+        \item [GRAPH] FWHM$_x$, FWHM$_y$ vs. position/condition
+        \item [GRAPH] ellipticity vs. position/condition
+        \item [GRAPH] $R^2$ (fit quality) vs. position/condition
+        \item [GRAPH] beam radius $\omega$ (fit-derived vs. FWHM-derived) vs. position/condition
+    \end{itemize}
+    \item range angle
+    \begin{itemize}
+        \item [EXPERIMENT] HVA200 voltage sweep (DAQ output, stepped range, settle time), camera records beam centroid at each step
+        \item [GRAPH] voltage vs. angle (calibration curve, mrad/V)
+        \item [GRAPH] voltage vs. beam displacement (px / µm)
+        \item [TABLE/TEXT] measured mrad/kV vs. manufacturer spec (% of spec)
+    \end{itemize}
+    \item polarization based angles
+    \begin{itemize}
+        \item [EXPERIMENT] polarization angle set/measured relative to EOD deflection axis
+        \item [GRAPH] polarization angle vs. deflection-axis position (alignment check)
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{methods}
+\begin{itemize}
+    \item background subtraction (darkest 5–10\% pixels, subtracted before fitting)
+    \item control-frame referencing (baseline / no-deflection reference for all comparisons)
+    \item centroid localization: peak-pixel (live) vs. optimized 2D Gaussian fit (offline)
+    \item frame averaging / repeat counts per condition
+
+    \item beam degradation through alignment
+    \begin{itemize}
+        \item multi-position acquisition along optical path
+        \item 2D Gaussian fit per position (Nelder--Mead least-squares)
+        \item control $\omega$ used as shape reference for non-control positions
+        \item 2D normalized cross-correlation vs. control (similarity, sub-pixel displacement)
+    \end{itemize}
+
+    \item beam quality metrics
+    \begin{itemize}
+        \item FWHM: half-max crossing of background-subtracted profile
+        \item ellipticity: max/min FWHM ratio
+        \item $R^2$: fit vs. measured frame goodness-of-fit
+        \item beam radius $\omega$: from fit and independently from FWHM (cross-check)
+        \item pixel $\to$ physical unit conversion (µm/px)
+        \item fit initialization strategy (peak center, background amplitude, profile-based $\omega$)
+    \end{itemize}
+
+    \item range angle
+    \begin{itemize}
+        \item voltage sweep procedure (start, stop, steps, settle time)
+        \item DAQ output + monitor readback recorded per step
+        \item centroid displacement (px) $\to$ physical displacement (µm)
+        \item small-angle approximation: $\theta = \arctan(\Delta x / L)$
+        \item calibration: mrad/V, validated against manufacturer spec
+    \end{itemize}
+
+    \item polarization-based angles
+    \begin{itemize}
+        \item polarization angle set/measured independently
+        \item correlation vs. deflection axis orientation
+        \item alignment check: electro-optic axis vs. polarization axis
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{results}
+\begin{itemize}
+    \item beam degradation through alignment
+    \begin{itemize}
+        \item [GRAPH] measured vs. ideal Gaussian at each position (2D + profile overlay)
+        \item [GRAPH] FWHM/ellipticity/$R^2$ trend across positions
+        \item [GRAPH] cross-correlation NCC + displacement trend across positions
+        \item [TEXT] where along the path degradation becomes significant
+    \end{itemize}
+    \item beam quality
+    \begin{itemize}
+        \item [GRAPH] summary panel: FWHM, ellipticity, $R^2$, $\omega$ (measured vs. control reference line)
+        \item [TEXT] deviation from ideal circular Gaussian, quantified
+    \end{itemize}
+    \item range angle
+    \begin{itemize}
+        \item [GRAPH] calibration curve with linear fit (mrad/V)
+        \item [TEXT] measured mrad/kV vs. spec, \% agreement
+        \item [TEXT] linear range / where nonlinearity appears (if any)
+    \end{itemize}
+    \item polarization-based angles
+    \begin{itemize}
+        \item [GRAPH] polarization vs. deflection-axis alignment result
+        \item [TEXT] measured axis offset, if any
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{conclusion}
+\begin{itemize}
+    \item [TEXT] EOD beam quality: acceptable/degraded range, key limiting factor
+    \item [TEXT] deflection linearity and agreement with manufacturer spec
+    \item [TEXT] pointing stability / drift implications for MINFLUX acquisition
+    \item [TEXT] recommended operating range/voltage for MINFLUX use
+    \item [TEXT] open issues or measurements needing follow-up (e.g., polarization/axis alignment)
+\end{itemize}
+\section{Donut}
+\subsection{physical concept}
+\begin{itemize}
+    \item [TEXT] Laguerre-Gaussian mode, $p=0$, $l=2$ — donut/vortex intensity profile
+    \item [TEXT] how EOD/phase element generates the LG mode from the Gaussian input
+\end{itemize}
+
+\subsection{characterization}
+
+\subsubsection{intro why}
+\begin{itemize}
+    \item [TEXT] why the central null matters for MINFLUX (localization precision depends on null depth/sharpness)
+    \item [TEXT] limitation cases: imperfect null (extinction ratio), ring asymmetry, deflection-induced null degradation
+\end{itemize}
+
+\subsubsection{setup}
+\begin{itemize}
+    \item donut profile characterization (single frame, fixed position)
+    \begin{itemize}
+        \item [EXPERIMENT] single donut frame vs. ideal LG model and vs. fitted Gaussian
+        \item [GRAPH] X/Y profile: measured vs. LG ideal vs. Gaussian fit
+        \item [GRAPH] radial profile (azimuthal average): measured vs. LG ideal vs. Gaussian
+        \item [GRAPH] azimuthal profile (ring intensity vs. angle) — ring symmetry
+        \item [GRAPH] zoomed 2D heatmap of donut with $r_x$, $r_y$, ER annotated
+    \end{itemize}
+    \item beam quality (donut)
+    \begin{itemize}
+        \item extinction ratio (null depth)
+        \item ring radius ($r_x$, $r_y$)
+        \item beam size: $r_{peak}$, diameter, inner/outer $1/e^2$ radii
+        \item LG fit goodness-of-fit ($R^2$)
+        \item ring symmetry: coefficient of variation, Fourier amplitudes $a_1$ (tilt), $a_2$ (elliptical), $a_4$ (4-fold), ring ellipticity
+    \end{itemize}
+    \item range angle (donut deflection sweep)
+    \begin{itemize}
+        \item [EXPERIMENT] X-axis and Y-axis voltage sweeps, control (no-deflection) reference frame
+        \item [GRAPH] extinction ratio vs. voltage (X and Y axes)
+        \item [GRAPH] normalized cross-correlation (NCC) vs. voltage (X and Y axes)
+        \item [GRAPH] beam center displacement ($\Delta x$, $\Delta y$, px and µm) vs. voltage
+        \item [TABLE] summary CSV: max displacement, min/max ER, min/max NCC per axis (with corresponding voltages)
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{methods}
+\begin{itemize}
+    \item background subtraction (bottom 5\% pixels)
+    \item center detection: centroid of bright ring pixels (30\% peak threshold) — dark null coincides with ring centroid
+    \item ring radius: peak location on cross-profile through center, averaged left/right ($r_x$) and top/bottom ($r_y$)
+
+    \item donut profile fitting
+    \begin{itemize}
+        \item LG ideal model $I(r) = C\,(r/\omega)^4 e^{-2r^2/\omega^2} + bg$, fit by Nelder--Mead least-squares
+        \item comparison Gaussian fit (TEM00) centered at same detected null, for reference
+        \item $R^2$ computed for both LG and Gaussian fits
+    \end{itemize}
+
+    \item extinction ratio (ER)
+    \begin{itemize}
+        \item ER $= (\text{null min intensity} - bg) / (\text{ring peak intensity} - bg)$
+        \item ring peak: mean of top 0.5\% of pixels (robust to hot pixels)
+        \item null region: small window at detected center
+    \end{itemize}
+
+    \item beam size from radial profile
+    \begin{itemize}
+        \item $r_{peak}$: radius of peak azimuthally-averaged intensity
+        \item inner/outer $1/e^2$ radii: interpolated crossing points on either side of the ring peak
+    \end{itemize}
+
+    \item ring symmetry (azimuthal analysis)
+    \begin{itemize}
+        \item intensity sampled at fixed radius over 360°, averaged over a small radial window
+        \item coefficient of variation (uniformity of ring intensity)
+        \item Fourier decomposition of azimuthal profile: $a_1$ (dipole/off-center), $a_2$ (elliptical distortion), $a_4$ (4-fold distortion)
+        \item ring ellipticity: $\max(r_x,r_y)/\min(r_x,r_y)$
+    \end{itemize}
+
+    \item deflection sweep (range angle)
+    \begin{itemize}
+        \item voltage sweep per axis (X, Y), fixed ROI crop around donut center for each step
+        \item center detected independently per frame; displacement relative to control center
+        \item ER recomputed per step (same null/ring-peak method, on cropped ROI)
+        \item NCC computed against the control ROI via 2D normalized cross-correlation
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{results}
+\begin{itemize}
+    \item [GRAPH] measured donut vs. LG ideal vs. Gaussian (profiles + 2D heatmap)
+    \item [TEXT] extinction ratio, $R^2$, beam size values at reference (undeflected) position
+    \item [GRAPH] ring symmetry metrics (CV, $a_1$, $a_2$, $a_4$, ellipticity) at reference position
+    \item [GRAPH] ER and NCC vs. voltage, X and Y axes (deflection-induced degradation)
+    \item [GRAPH] displacement vs. voltage, X and Y axes
+    \item [TEXT] worst-case ER/NCC and corresponding voltage (from summary CSV)
+\end{itemize}
+
+\subsubsection{conclusion}
+\begin{itemize}
+    \item [TEXT] donut null quality (ER) at rest vs. under deflection
+    \item [TEXT] ring symmetry — presence/absence of tilt, ellipticity, or 4-fold distortion
+    \item [TEXT] deflection range over which donut quality remains acceptable for MINFLUX
+    \item [TEXT] recommended operating voltage range / limitations found
+\end{itemize}
+
+\section{Galvometer}
+\subsection{physical concept}
+\subsection{characterization}
+\subsubsection{intro why }
+\subsubsection{setup}
+\subsubsection{methods}
+\subsubsection{results}
+\subsubsection{conclusion}
+\section{references}
+\section{apendix}
+
+
+
+
+\end{document}
