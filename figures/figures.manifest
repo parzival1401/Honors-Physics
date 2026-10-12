@@ -19,3 +19,25 @@ eod-angle-sweep-eod34.png         eod_angle_sweep_*_EOD34_HVA1.png
 eod-angle-sweep-eod35.png         eod_angle_sweep_*_EOD35_HVA2.png
 eod-polarization-hva1.png         eod_sensitivity_by_polarization_*_HVA1.png
 eod-polarization-hva2.png         eod_sensitivity_by_polarization_*_HVA2.png
+
+# Experiment 1 — beam degradation along the path (jun2 dataset, 7 positions
+# plus a control; see the position legend in the experiment's info.txt).
+# Produced by MicroscopeMinFlux.jl dev/analysis/beam_char_mul_pos.jl.
+eod-beam-quality-vs-position.png  beam_quality_all_positions.png
+eod-beam-comparison.png           all_beams_comparison.png
+eod-beam-profile-control.png      control_profile.png
+eod-beam-profile-pos1.png         position1_profile.png
+eod-beam-profile-pos2.png         position2_profile.png
+eod-beam-profile-pos3.png         position3_profile.png
+eod-beam-profile-pos4.png         position4_profile.png
+eod-beam-profile-pos5.png         position5_profile.png
+eod-beam-profile-pos6.png         position6_profile.png
+eod-beam-profile-pos7.png         position7_profile.png
+
+# NOT YET GENERATED — the third graph the manuscript calls for in experiment 1
+# (peak normalised cross-correlation and beam displacement vs position) has no
+# output. The algorithm exists in MicroscopeMinFlux.jl dev/beam_char_analysis.jl
+# as xcorr2d / xcorr_metrics, but that script sweeps stage position for the ODE
+# modes; it has never been run against the jun2 along-the-path dataset. Uncomment
+# once it has been.
+# eod-beam-xcorr-vs-position.png  beam_xcorr_all_positions.png

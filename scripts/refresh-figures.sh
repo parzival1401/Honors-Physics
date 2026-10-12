@@ -15,12 +15,21 @@ FIGDIR="$REPO/figures"
 MANIFEST="$FIGDIR/figures.manifest"
 
 # Where generated figures are produced. Add roots here as analysis moves around.
+#
+# The NAS roots are where the Julia analysis scripts write their output (they
+# save back next to the data they read). A root that is not mounted is skipped,
+# not an error: once a figure has been copied here and committed, every other
+# machine builds from the committed copy and never needs the NAS at all.
+NAS="Y:/Projects/NSF-MINFLUX/projects/Data/Evaluation Experiments/EOD Driver test"
 SOURCE_ROOTS=(
   "$REPO/../project-nsf-minflux/project-log/figures"
   "$REPO/../Honors_physics_paper/figures/eod"
   "$REPO/../Honors_physics_paper/figures/donut"
   "$REPO/../Honors_physics_paper/figures/galvo"
   "$REPO/../Honors_physics_paper/figures/final"
+  "$NAS/beam characterizatiom/gausian/jun2"
+  "$NAS/beam characterizatiom/angle/apr_1"
+  "$NAS/figures"
 )
 
 DRY_RUN=0
