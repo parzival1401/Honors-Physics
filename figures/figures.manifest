@@ -1,0 +1,21 @@
+# Figure manifest: which generated figure feeds which name used in main.tex.
+#
+# Format:  <stable-name>  <TAB or spaces>  <source glob>
+#
+# The stable name on the left is what main.tex cites with \includegraphics.
+# The glob on the right may be date-stamped; refresh-figures.sh picks the
+# NEWEST match and copies it to the stable name. That indirection is the
+# whole point: analysis runs can keep date-stamping their output, while the
+# manuscript keeps citing one unchanging filename.
+#
+# Globs are resolved against the source roots listed in refresh-figures.sh.
+# Lines starting with # and blank lines are ignored.
+#
+# Hand-made assets (bench photographs, drawn schematics) do NOT belong here.
+# Drop those straight into figures/ under a stable name and commit them;
+# there is nothing to refresh.
+
+eod-angle-sweep-eod34.png         eod_angle_sweep_*_EOD34_HVA1.png
+eod-angle-sweep-eod35.png         eod_angle_sweep_*_EOD35_HVA2.png
+eod-polarization-hva1.png         eod_sensitivity_by_polarization_*_HVA1.png
+eod-polarization-hva2.png         eod_sensitivity_by_polarization_*_HVA2.png
