@@ -1,0 +1,22 @@
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.lof
+*.log
+*.lot
+*.out
+*.run.xml
+*.synctex.gz
+*.toc
+
+# Only the compiled output, not figure PDFs
+/main.pdf
+
+# Editor / OS noise
+.DS_Store
+Thumbs.db
+*~

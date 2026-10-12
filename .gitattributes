@@ -1,0 +1,12 @@
+# Shell scripts must stay LF or they will not execute.
+*.sh text eol=lf
+
+# Keep LaTeX and bibliography sources consistent across machines/Overleaf.
+*.tex text
+*.bib text
+
+# Binary assets
+*.pdf binary
+*.png binary
+*.jpg binary
+*.jpeg binary
