@@ -1,6 +1,6 @@
 \documentclass{article}
 \usepackage{graphicx} % Required for inserting images
-\graphicspath{{figures/}} % cite figures by stable name: \includegraphics{eod-polarization-hva1}
+\graphicspath{{figures/}} % cite figures by stable name: \includegraphics{eod-beam-quality}
 \usepackage{biblatex}
 \addbibresource{references.bib}
 \usepackage{amstext}
@@ -150,10 +150,28 @@ reason, and the measurements reported here fix the geometry explicitly.
     \item beam degradation through alignment
     \begin{itemize}
         \item [EXPERIMENT] camera + EOD on optical rail, frames captured at multiple fixed positions along beam path (with/without EOD, before/after subsequent optics)
-        \item [GRAPH] ideal Gaussian beam profile vs. measured beam after EOD (2D heatmap + fit overlay)
-        \item [GRAPH] beam quality metrics vs. position along path (drift through alignment)
-        \item [GRAPH] cross-correlation similarity (peak NCC) and beam displacement ($\Delta y$, $\Delta x$) vs. position
     \end{itemize}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{eod-beam-quality}
+    \caption{Beam shape against stage position for the two deflector modes, each referred to the
+    control measurement shown as a dashed line. The upper panels give the full width at half
+    maximum along $x$ and $y$; the lower panel gives the ellipticity, defined as the ratio of the
+    larger to the smaller width, so that unity denotes a circular beam.}
+    \label{fig:eod-beam-quality}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{eod-beam-xcorr}
+    \caption{Two-dimensional cross-correlation of each frame against the control reference, as a
+    function of stage position. The peak of the normalised cross-correlation measures how closely
+    the beam still resembles the reference, with unity a perfect match; the width of that peak
+    measures beam sharpness; and the two lower panels give the sub-pixel displacement of the beam
+    in $x$ and $y$ relative to the reference.}
+    \label{fig:eod-beam-xcorr}
+\end{figure}
     \item beam quality
     \begin{itemize}
         \item [EXPERIMENT] control (no-EOD) frame vs. EOD-deflected frame, same optical path
