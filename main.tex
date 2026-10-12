@@ -22,21 +22,93 @@ now. \cite{stallingaAbsorptionDipoleEffects2026}
 \subsection{motivation requirements}
 \section{EOD}
 \subsection{physical concept}
+
+An electro-optic deflector (EOD) steers a laser beam by changing the refractive index of a
+solid-state crystal under an applied electric field. Because the deflection is produced by the
+field rather than by a moving surface, the device contains no mechanical parts, and this single
+fact sets both its advantage and its limitation. Solid-state deflectors reach very high angular
+velocities but span only small deflection angles, where mirror-based mechanical scanners cover
+large angles comparatively slowly
+\cite{romerElectroopticAcoustoopticLaser2014,heberleElectroopticAcoustoopticLaser2016}. The two
+families are usefully compared through the number of resolvable spots and the rate at which those
+spots can be addressed; on the latter measure, electro-optic and acousto-optic deflectors exceed
+conventional mechanical scanners by up to an order of magnitude
+\cite{heberleElectroopticAcoustoopticLaser2016}.
+
+The underlying index change is the electro-optic effect. In the quadratic, or Kerr, regime the
+index shift scales with the square of the applied field and arises from the third-order
+nonlinearity of the medium, in contrast to the linear electro-optic effect more commonly exploited
+in optical crystals \cite{qasymehQuadraticElectroOpticKerr2008}. Potassium tantalate niobate,
+KTa$_{1-x}$Nb$_x$O$_3$ (KTN), is attractive for deflector work because its electro-optic response
+is unusually large, and crystals of optical quality have been grown specifically to build
+high-speed beam deflectors and variable-focus lenses \cite{yagiElectroopticKTNDevices2014}.
+
+The way an applied voltage becomes a deflection angle in KTN is less obvious than a simple index
+gradient would suggest. A rectangular crystal carrying uniform electrodes, with none of the prism
+geometry used in conventional electro-optic deflectors, still produces a large deflection: 250~mrad
+($14.3^\circ$) has been measured from a 0.5~mm thick KTN crystal of only 5.0~mm interaction length
+under $\pm250$~V \cite{nakamuraSpacechargecontrolledElectroopticEffect2008}. The mechanism is
+space-charge-controlled conduction. Electrons injected from an Ohmic contact accumulate inside the
+crystal and establish a non-uniform internal field, which through the electro-optic effect becomes
+a refractive-index gradient across the beam path, and it is that gradient which bends the beam
+\cite{nakamuraSpacechargecontrolledElectroopticEffect2008}. Independent analysis of KTN scanners
+reaches the same conclusion, identifying trapped space charges as the principal cause of the
+deflection and of its dependence on operating conditions \cite{bechtoldBeamProfileDeformation2012}.
+
+This mechanism is fast. Electro-optic scanning above $10^4$~rad/s at deflection angles beyond
+$\pm100$~mrad has been demonstrated \cite{bechtoldBeamProfileDeformation2012}, and the scan angle of
+a KTN deflector has been shown to remain unchanged up to a drive frequency of 400~kHz
+\cite{miyazu400KHzBeam2010}.
+
+% TODO: crystal specification for the EOD used in this work — material, dimensions, and drive
+% voltage range. This is instrument-specific and must come from the device datasheet or direct
+% measurement; it cannot be sourced from the literature.
+
 \begin{itemize}
-    \item [TEXT] Kerr effect / electro-optic effect: refractive index change under applied E-field
-    \item [TEXT] crystal specification used in the lab EOD (material, dimensions, drive voltage range)
-    \item [TEXT] how applied voltage translates to beam deflection (electro-optic deflector operating principle)
     \item [FIGURE: diagram] schematic of EOD crystal + applied field + resulting beam deflection
 \end{itemize}
 
 \subsection{characterization}
 
 \subsubsection{intro why}
-\begin{itemize}
-    \item [TEXT] why beam quality matters for MINFLUX (localization precision depends on a clean, predictable PSF)
-    \item [TEXT] why fast EOD response matters (scan speed / photon-budget constraints in MINFLUX)
-    \item [TEXT] limitation cases: beam degradation, pointing drift, deflection nonlinearity, and how each would propagate into localization error
-\end{itemize}
+
+MINFLUX determines an emitter's position by probing it with an intensity minimum rather than by
+collecting the full diffraction pattern of its fluorescence, and this is what allows it to reach
+single-digit nanometer precision while detecting ten to a hundred times fewer photons than
+centroid-based localization
+\cite{balzarottiNanometerResolutionImaging2017,eilersMINFLUXMonitorsRapid2018}. The same property
+is the method's vulnerability. Because the position estimate is referred to the zero of the
+excitation pattern, the quality of that zero is not a cosmetic concern but enters the measurement
+directly, which is why the generation and optimization of toroidal foci is treated as a discipline
+of its own \cite{lopezOptimizationCharacterizationToroidal2023}. Conditions that distort the
+excitation pattern produce not merely a noisier estimate but a biased one: simulations of fixed
+absorption dipoles and optical aberrations in MINFLUX find systematic localization errors reaching
+roughly a quarter of the diameter of the circle spanned by the doughnut centre positions
+\cite{stallingaAbsorptionDipoleEffects2026}. An error of that character cannot be averaged away by
+collecting more photons, which is the reason the beam delivered by the EOD must be characterized
+rather than assumed.
+
+Speed matters for a related reason. The photon economy of MINFLUX is what opens the microsecond
+regime, where molecular jumps and conformational changes become observable
+\cite{eilersMINFLUXMonitorsRapid2018}, and realizing that regime on a conventional microscope stand
+has depended specifically on synchronized electro-optical and galvanometric beam steering together
+with sub-nanometer sample stabilization \cite{schmidtMINFLUXNanometerscale3D2021}. The EOD is
+therefore not an incidental convenience in the beam path but one of the components that the
+achievable time resolution rests on, and its response must hold at the rates the experiment demands.
+
+Three failure modes bear on the measurements that follow. Beam degradation is documented for
+electro-optic scanning in KTN, where the profile deformation depends on the midpoint of the
+deflection angle, on the amplitude of the deflection, and on the laser fluence
+\cite{bechtoldBeamProfileDeformation2012}; a deflection-dependent distortion of this kind would
+make the excitation minimum a function of scan position, and so couple directly into the
+localization. Deflection nonlinearity is the artifact that motivated the substitution of EODs for
+acousto-optic deflectors in high-resolution force-clamp trapping, where the nonlinear response of
+the AODs introduced experimental artifacts that switching to EODs removed
+\cite{woodyElectroopticDeflectorsDeliver2018}; the concern transfers to MINFLUX, since a nonlinear
+mapping from drive voltage to angle misplaces the excitation pattern relative to where the control
+system believes it to be. Pointing drift is the third, and techniques that hold the sample fixed
+within an excitation pattern are known to require active drift correction to approach their
+theoretical limits at all \cite{lopezOpensourceSubNanometerStabilization2025}.
 
 \subsubsection{setup}
 \begin{itemize}
