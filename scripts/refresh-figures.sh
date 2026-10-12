@@ -30,6 +30,8 @@ SOURCE_ROOTS=(
   "$NAS/beam characterizatiom/gausian/jun2"
   "$NAS/beam characterizatiom/angle/apr_1"
   "$NAS/figures"
+  "$REPO/../optics_svg/EOD"
+  "$REPO/../optics_svg"
 )
 
 DRY_RUN=0

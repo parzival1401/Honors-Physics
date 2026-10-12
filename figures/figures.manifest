@@ -34,6 +34,11 @@ eod-beam-profile-pos5.png         position5_profile.png
 eod-beam-profile-pos6.png         position6_profile.png
 eod-beam-profile-pos7.png         position7_profile.png
 
+# Setup schematics drawn by hand (Photoshop sources alongside the exports).
+# These are listed here rather than copied in by hand so that re-exporting the
+# PSD and re-running this script is enough to update the manuscript.
+eod-setup-beam-degradation.png    EOD_exp_1.png
+
 # NOT YET GENERATED — the third graph the manuscript calls for in experiment 1
 # (peak normalised cross-correlation and beam displacement vs position) has no
 # output. The algorithm exists in MicroscopeMinFlux.jl dev/beam_char_analysis.jl
