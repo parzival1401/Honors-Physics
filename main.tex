@@ -183,6 +183,23 @@ reason, and the measurements reported here fix the geometry explicitly.
         \item [GRAPH] $R^2$ (fit quality) vs. position/condition
         \item [GRAPH] beam radius $\omega$ (fit-derived vs. FWHM-derived) vs. position/condition
     \end{itemize}
+\end{itemize}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.85\textwidth]{eod-setup-beam-deflection}
+    \caption{Bench arrangement used to measure beam deflection against drive voltage. The same
+    642~nm, 80~mW source and pair of steering mirrors (M1, M2) deliver the beam to the deflector,
+    which here is driven rather than translated: a USB-6001 data acquisition module issues the
+    command voltage, the HVA200 high-voltage amplifier raises it to the level the crystal
+    requires, and the deflected beam is recorded directly on the camera sensor. Stepping the
+    command voltage and recording the beam centroid at each step is what converts an applied
+    voltage into a deflection angle, with the distance from the crystal to the sensor serving as
+    the lever arm.}
+    \label{fig:eod-setup-beam-deflection}
+\end{figure}
+
+\begin{itemize}
     \item range angle
     \begin{itemize}
         \item [EXPERIMENT] HVA200 voltage sweep (DAQ output, stepped range, settle time), camera records beam centroid at each step

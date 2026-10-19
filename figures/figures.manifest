@@ -20,3 +20,10 @@ eod-setup-beam-degradation.png    EOD_exp_1.png
 # Measured results, from the moving-EOD1 stage sweep (MAR_3 dataset).
 eod-beam-quality.png              beam_quality_plot.png
 eod-beam-xcorr.png                beam_quality_xcorr.png
+
+# ---------------------------------------------------------------------------
+# Experiment 2 — beam deflection against drive voltage
+# ---------------------------------------------------------------------------
+# Setup drawing (Photoshop source alongside the export). The source filename
+# carries a typo, "delfection", which is why the glob does not read cleanly.
+eod-setup-beam-deflection.png     EOD_exp_2_beam delfection.png
