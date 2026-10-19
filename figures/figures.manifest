@@ -37,3 +37,11 @@ eod-setup-relay-two-deflectors.png    EOD_exp_3_relay system_2EOD.png
 # Experiment 4 — donut-forming path built on the relayed deflector pair
 # ---------------------------------------------------------------------------
 donut-setup-creation.png              EOD_exp_4_relay system_2EOD_donut_creation.png
+
+# ---------------------------------------------------------------------------
+# Polarization dependence of the deflection sensitivity (apr10 dataset)
+# ---------------------------------------------------------------------------
+# One panel per drive channel. HVA1 drives the deflector with serial 35,
+# HVA2 the one with serial 34, which is what the source filenames record.
+eod-polarization-hva1.png         HVA1_polarization_angle_35.png
+eod-polarization-hva2.png         HVA2_polarization_angle_34.png

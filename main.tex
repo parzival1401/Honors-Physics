@@ -185,9 +185,10 @@ reason, and the measurements reported here fix the geometry explicitly.
     \centering
     \includegraphics[width=\textwidth]{eod-beam-quality}
     \caption{Beam shape against stage position in millimetres for the two deflector modes, each
-    referred to the control measurement shown as a dashed line. The upper panels give the full
-    width at half maximum along $x$ and $y$; the lower panel gives the ellipticity, defined as
-    the ratio of the larger to the smaller width, so that unity denotes a circular beam.}
+    referred to the control measurement shown as a dashed line. The three panels give, from left
+    to right, the full width at half maximum along $x$, the same along $y$, and the ellipticity,
+    defined as the ratio of the larger to the smaller width, so that unity denotes a circular
+    beam.}
     \label{fig:eod-beam-quality}
 \end{figure}
 
@@ -323,6 +324,41 @@ reason, and the measurements reported here fix the geometry explicitly.
         \item [TEXT] measured axis offset, if any
     \end{itemize}
 \end{itemize}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{eod-polarization-hva1}
+    \caption{Deflection against drive voltage for the first channel (HVA1, driving the deflector
+    with serial 35), measured at three input polarizations: aligned with the deflection axis
+    (parallel), at right angles to it (perpendicular), and with the polarizer removed. The upper
+    panels give the beam centre on the camera, as a radial position and resolved into $x$ and
+    $y$; the deflection appears in $x$ alone, while $y$ stays flat, confirming that this channel
+    steers along a single axis. The lower right panel converts the slope of each sweep into a
+    sensitivity in mrad/kV against the manufacturer's quoted minimum of 3~mrad/kV, using the
+    5.2~$\mu$m pixel pitch and the 190~mm crystal-to-camera distance stated in the title.}
+    \label{fig:eod-polarization-hva1}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{eod-polarization-hva2}
+    \caption{The same measurement for the second channel (HVA2, driving the deflector with serial
+    34), with panels as in Figure~\ref{fig:eod-polarization-hva1}. Both channels show the same
+    ordering, perpendicular above unpolarized above parallel, but they do not agree in magnitude,
+    and in this channel the traces are also separated in $y$, which the first channel does not
+    show.}
+    \label{fig:eod-polarization-hva2}
+\end{figure}
+
+Polarization changes the sensitivity by more than a factor of three. With the input polarized
+perpendicular to the deflection axis each channel exceeds the quoted minimum, at 3.42 and
+3.61~mrad/kV; with the polarization parallel to that axis both fall to about a third of it, 0.96
+and 1.01~mrad/kV; removing the polarizer leaves the channels unmatched, at 2.40 and
+3.21~mrad/kV. Two consequences follow for the control system. The orientation of the input
+polarization has to be fixed and recorded as part of the calibration, since it alone moves the
+volts-to-angle conversion across that range. And the two channels cannot be assumed identical:
+they differ by a third in the unpolarized condition, so a scan pattern built on a single
+sensitivity for both axes would be distorted.
 
 \subsubsection{conclusion}
 \begin{itemize}

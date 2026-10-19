@@ -82,3 +82,29 @@ phase; this should be checked against the bench before the donut section is writ
 | `donut-setup-creation` | bench layout for the donut-forming path |
 
 Setup drawing only; no measurements from this configuration are in the manuscript yet.
+
+## Polarization dependence of the deflection sensitivity
+
+Measured results: NAS `EOD Driver test/beam characterizatiom/polarization/apr10`, acquired
+2026-04-10. One figure per drive channel: `HVA1_polarization_angle_35.png` is channel 1 driving
+the deflector with serial 35, `HVA2_polarization_angle_34.png` is channel 2 driving serial 34.
+The per-frame camera data for each sit in the `EOD34` and `EOD35` subfolders beside them.
+
+Each sweep runs the amplifier output across roughly plus and minus 200 V and records the beam
+centre on the camera, at three input polarizations: parallel to the deflection axis,
+perpendicular to it, and with the polarizer removed. Angles are derived from the displacement
+using a 5.2 micrometre pixel pitch and a 190 mm crystal-to-camera distance, both stated in the
+figure titles; the sensitivity bars are compared against the vendor's quoted minimum of
+3 mrad/kV.
+
+| Figure | Shows |
+|---|---|
+| `eod-polarization-hva1` | beam position and mrad/kV against drive voltage, channel 1 (serial 35) |
+| `eod-polarization-hva2` | the same for channel 2 (serial 34) |
+
+Measured sensitivities, in mrad/kV: perpendicular 3.42 and 3.61, unpolarized 2.40 and 3.21,
+parallel 0.96 and 1.01, for channels 1 and 2 respectively.
+
+Both plots label the deflector mode as "ODE" rather than "EOD" in the legend and title. That
+comes from the analysis script, not from the manuscript, and needs fixing where the plots are
+generated.
