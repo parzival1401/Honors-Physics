@@ -214,6 +214,19 @@ reason, and the measurements reported here fix the geometry explicitly.
     \end{itemize}
 \end{itemize}
 
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{eod-setup-relay-two-deflectors}
+    \caption{Two deflectors in series, relayed onto one another. Lenses L1 and L2 sit one focal
+    length from their neighbouring crystal and two focal lengths apart, forming a relay that
+    images the deflection plane of the first crystal onto the second. That is what allows the two
+    to act as one two-axis deflector: a deflection introduced by the first arrives at the second
+    as a change of angle about a common pivot rather than as a displacement across its aperture,
+    which would clip the beam and make the two axes interact. The half-wave plate between them
+    rotates the polarization into the axis the second crystal needs, each crystal is driven by
+    its own HVA200, and the beam is recorded on the camera.}
+    \label{fig:eod-setup-relay-two-deflectors}
+\end{figure}
 \subsubsection{methods}
 \begin{itemize}
     \item background subtraction (darkest 5–10\% pixels, subtracted before fitting)
@@ -328,6 +341,18 @@ excitation pattern require active drift correction to approach their theoretical
 \cite{lopezOpensourceSubNanometerStabilization2025}.
 
 \subsubsection{setup}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{donut-setup-creation}
+    \caption{Donut-forming path, built on the relayed deflector pair of
+    Figure~\ref{fig:eod-setup-relay-two-deflectors}. The half-wave plate ahead of the second
+    crystal sets the polarization that crystal requires, and a quarter-wave plate immediately
+    after it sets the circular polarization the vortex mode is formed in. The lens train that
+    follows (L3 to L5, at the focal spacings marked beneath the rail) relays and rescales the
+    beam onto the camera, which records the donut directly on the sensor.}
+    \label{fig:donut-setup-creation}
+\end{figure}
 \begin{itemize}
     \item donut profile characterization (single frame, fixed position)
     \begin{itemize}
@@ -426,8 +451,5 @@ excitation pattern require active drift correction to approach their theoretical
 \subsubsection{conclusion}
 \printbibliography
 \section{apendix}
-
-
-
 
 \end{document}

@@ -27,3 +27,13 @@ eod-beam-xcorr.png                beam_quality_xcorr.png
 # Setup drawing (Photoshop source alongside the export). The source filename
 # carries a typo, "delfection", which is why the glob does not read cleanly.
 eod-setup-beam-deflection.png     EOD_exp_2_beam delfection.png
+
+# ---------------------------------------------------------------------------
+# Experiment 3 — two deflectors relayed onto one another
+# ---------------------------------------------------------------------------
+eod-setup-relay-two-deflectors.png    EOD_exp_3_relay system_2EOD.png
+
+# ---------------------------------------------------------------------------
+# Experiment 4 — donut-forming path built on the relayed deflector pair
+# ---------------------------------------------------------------------------
+donut-setup-creation.png              EOD_exp_4_relay system_2EOD_donut_creation.png

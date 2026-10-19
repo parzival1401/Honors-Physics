@@ -47,3 +47,36 @@ The crystal-to-sensor distance is the lever arm that converts measured displacem
 Measured results are not in the manuscript yet. The voltage sweep, the calibration curve in
 mrad/V, and the comparison against the manufacturer specification remain to be produced; this
 entry covers the setup drawing only.
+
+## Experiment 3 — two deflectors relayed onto one another
+
+Setup drawing: `optics_svg/EOD/EOD_exp_3_relay system_2EOD.png`, exported from the Photoshop
+source of the same name in the `optics_svg` root.
+
+Two deflectors in series, each on its own HVA200. Lenses L1 and L2 sit one focal length from the
+neighbouring crystal and two focal lengths apart, so the deflection plane of the first crystal is
+imaged onto the second and the pair acts as a single two-axis deflector. A half-wave plate
+between them rotates the polarization into the second crystal's axis. The beam is recorded
+directly on the camera.
+
+| Figure | Shows |
+|---|---|
+| `eod-setup-relay-two-deflectors` | bench layout for the relayed deflector pair |
+
+Setup drawing only; no measurements from this configuration are in the manuscript yet.
+
+## Experiment 4 — donut creation on the relayed pair
+
+Setup drawing: `optics_svg/EOD/EOD_exp_4_relay system_2EOD_donut_creation.png`, exported from the
+Photoshop source of the same name in the `optics_svg` root.
+
+The relayed deflector pair of experiment 3, with a quarter-wave plate after the second crystal
+and a further lens train (L3 to L5) carrying the beam to the camera. Note that the drawing labels
+no vortex or phase element, so the figure as drawn does not yet show what imposes the helical
+phase; this should be checked against the bench before the donut section is written up.
+
+| Figure | Shows |
+|---|---|
+| `donut-setup-creation` | bench layout for the donut-forming path |
+
+Setup drawing only; no measurements from this configuration are in the manuscript yet.
