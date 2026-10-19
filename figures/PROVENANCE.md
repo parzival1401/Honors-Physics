@@ -16,7 +16,9 @@ the transmitted beam is recorded directly on the camera sensor.
 Measured results: NAS `EOD Driver test/beam characterizatiom/movig EDO1/MAR_3`, acquired
 2026-03-04, with the deflector translated across the beam on the stage. Both figures are referred
 to a control measurement, drawn as a dashed reference line, and both sweep stage position in
-thirty-seconds of an inch across the two deflector modes recorded in the dataset.
+millimetres across the two deflector modes recorded in the dataset. The axes were in
+thirty-seconds of an inch until the figures were regenerated on 2026-10-19; any earlier reading
+of these plots is in those units.
 
 | Figure | Shows |
 |---|---|
