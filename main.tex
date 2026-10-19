@@ -24,51 +24,79 @@ now. \cite{stallingaAbsorptionDipoleEffects2026}
 \section{EOD}
 \subsection{physical concept}
 
-An electro-optic deflector (EOD) steers a laser beam by changing the refractive index of a
-solid-state crystal under an applied electric field. Because the deflection is produced by the
-field rather than by a moving surface, the device contains no mechanical parts, and this single
-fact sets both its advantage and its limitation. Solid-state deflectors reach very high angular
-velocities but span only small deflection angles, where mirror-based mechanical scanners cover
-large angles comparatively slowly
-\cite{romerElectroopticAcoustoopticLaser2014,heberleElectroopticAcoustoopticLaser2016}. The two
-families are usefully compared through the number of resolvable spots and the rate at which those
-spots can be addressed; on the latter measure, electro-optic and acousto-optic deflectors exceed
-conventional mechanical scanners by up to an order of magnitude
-\cite{heberleElectroopticAcoustoopticLaser2016}.
+An electro-optic deflector steers a laser beam without moving anything. It is a transparent
+crystal with electrodes on its faces; applying a voltage changes the crystal's refractive index,
+and that change alone is enough to turn the beam. This subsection sets out why that works, and
+why it is worth the trouble it costs.
 
-Two distinct material mechanisms are used to produce that index change, and the distinction matters
-for what must be calibrated. In the quadratic, or Kerr, regime the index shift scales with the
-square of the applied field and arises from the third-order nonlinearity of the medium; the linear
-electro-optic effect is the one more frequently exploited in optical crystals
-\cite{qasymehQuadraticElectroOpticKerr2008}. The quadratic route is represented by potassium
-tantalate niobate, KTa$_{1-x}$Nb$_x$O$_3$ (KTN), whose electro-optic response is unusually large
-and which has been grown to optical quality specifically for high-speed deflectors
-\cite{yagiElectroopticKTNDevices2014}. In KTN the deflection does not come from a prism geometry at
-all: a rectangular crystal with uniform electrodes yields 250~mrad ($14.3^\circ$) from a 0.5~mm
-thickness and 5.0~mm of interaction length under $\pm250$~V, because electrons injected from an
-Ohmic contact build a space charge whose non-uniform internal field becomes the index gradient that
-bends the beam \cite{nakamuraSpacechargecontrolledElectroopticEffect2008}. Independent analysis of
-KTN scanners reaches the same conclusion, naming trapped space charges as the principal cause of
-both the deflection and its dependence on operating conditions
-\cite{bechtoldBeamProfileDeformation2012}. Such devices are fast, scanning above $10^4$~rad/s beyond
-$\pm100$~mrad \cite{bechtoldBeamProfileDeformation2012}, with the scan angle holding to a drive
-frequency of 400~kHz \cite{miyazu400KHzBeam2010}.
+Light travels more slowly where the refractive index is higher. A beam of finite width can be
+pictured as carrying a wavefront, the surface joining the points that are in step with one
+another, and the beam travels in whatever direction that surface faces. Delay one side of the
+beam more than the other and the surface tilts; the beam then leaves in a new direction.
+Steering a beam therefore needs nothing more than a refractive index that differs across the
+beam's width, and the tilt grows with both the size of that difference and the length of crystal
+over which it acts.
 
-The deflectors used in this work are not of that type. They are lithium tantalate devices, in which
-the steering derives from the linear electro-optic response of the crystal rather than from injected
-space charge, so the deflection angle is expected to follow the applied voltage proportionally and
-the response is referred to the crystal's own axes. That second property is the practical one: the
-sensitivity depends on how the input polarization is oriented with respect to those axes, which
-makes polarization an element of the calibration rather than a detail of the alignment.
+The applied field is what produces the difference. In lithium tantalate the index shift is
+proportional to the field, so doubling the voltage doubles the deflection and reversing the
+voltage reverses it. A uniform field across a uniform slab, however, shifts the index everywhere
+by the same amount: the whole wavefront is delayed, nothing tilts, and the device is a phase
+modulator rather than a deflector. The index change has to vary across the aperture, and a
+deflector is built so that it does, by dividing the crystal into sections whose orientation is
+opposed, so that a single applied voltage raises the index on one side of the beam while lowering
+it on the other.
+
+What makes this convenient is that nothing has to be accelerated. A galvanometer steers by
+turning a mirror, and how quickly it can move and settle is set by the inertia of that mirror and
+by the servo holding it in place. An electro-optic deflector has no moving part at all, so its
+speed is set instead by how fast charge can be pushed onto the electrodes, which is a question of
+the crystal's capacitance and the amplifier driving it. The limit moves from mechanics to
+electronics, and electronics is much the faster of the two. Two consequences follow. There is no
+settling oscillation to wait out, and no wear or vibration to manage. And because there is no
+mass to accelerate, the time to move between two positions scarcely depends on how far apart they
+are: positions can be addressed in any order at the same cost, where a mirror has to travel.
+
+That last property is why the technique suits this instrument. MINFLUX does not raster a beam
+across a field; it parks the excitation at a small number of known positions and compares the
+photon counts collected at each. Time spent moving and settling is time not spent collecting
+photons, and the positions are revisited in rapid alternation rather than swept in sequence, so a
+deflector that jumps between them at electronic speed is worth a great deal more than one that
+covers a wide angle slowly.
+
+The price is paid in three places. The angles available are small, milliradians rather than the
+tens of degrees a mirror gives, so the deflection has to be magnified and relayed by the optics
+that follow. The drive voltages are high, which is why each crystal is fed from a high-voltage
+amplifier rather than directly from a control card. And the response is referred to the crystal's
+own axes, so how much deflection a given voltage produces depends on how the input polarization
+is oriented with respect to those axes; polarization becomes part of the calibration rather than
+a detail of the alignment, and is why a half-wave plate appears between the two deflectors in the
+arrangements described later.
+
+It is worth naming the alternative, because it behaves quite differently. A second family of
+deflectors, built on potassium tantalate niobate, KTa$_{1-x}$Nb$_x$O$_3$ (KTN), reaches far
+larger angles, 250~mrad from a few millimetres of crystal
+\cite{nakamuraSpacechargecontrolledElectroopticEffect2008}, and does so by a different route: the
+index gradient comes from electrons injected into the crystal, whose accumulated charge shapes
+the internal field \cite{nakamuraSpacechargecontrolledElectroopticEffect2008,bechtoldBeamProfileDeformation2012}.
+Those devices are fast and wide-ranging
+\cite{bechtoldBeamProfileDeformation2012,miyazu400KHzBeam2010,yagiElectroopticKTNDevices2014},
+but what they do depends on charge that has been put there and can move, so their behaviour
+drifts with operating conditions \cite{bechtoldBeamProfileDeformation2012}. The deflectors used
+here are not of that type. Their response comes from the crystal itself rather than from injected
+charge, which is why the deflection is expected to follow the applied voltage proportionally, and
+why that proportionality is something the measurements reported below can meaningfully test.
+Against mechanical scanners, both solid-state families trade angular range for addressing rate,
+exceeding conventional mirror scanners by up to an order of magnitude on the latter
+\cite{romerElectroopticAcoustoopticLaser2014,heberleElectroopticAcoustoopticLaser2016}.
 
 Concretely, the instrument carries two Leysop \texttt{ED2-2T-LT-AR561-642} deflectors, one per
 transverse axis, with a 2~mm clear aperture in a 60~mm housing and an antireflection coating
 covering both the 561 and 642~nm excitation lines. Each is driven single-ended through two MHV
-electrode inputs by a Thorlabs HVA200 high-voltage amplifier ($\times20$, $\pm200$~V), which is fed
-in turn from the FPGA through a digital-to-analog converter and an op-amp preamplifier stage. The
-vendor supplies no datasheet for these semi-custom units; the only performance figure given in
-writing is a quoted minimum deflection sensitivity of ${>}3$~mrad/kV, and the deflection pivot is
-stated to lie at the centre of the crystal. Everything else used by the control system is
+electrode inputs by a Thorlabs HVA200 high-voltage amplifier ($\times20$, $\pm200$~V), which is
+fed in turn from the FPGA through a digital-to-analog converter and an op-amp preamplifier stage.
+The vendor supplies no datasheet for these semi-custom units; the only performance figure given
+in writing is a quoted minimum deflection sensitivity of ${>}3$~mrad/kV, and the deflection pivot
+is stated to lie at the centre of the crystal. Everything else used by the control system is
 established by the measurements reported below.
 
 \begin{itemize}
