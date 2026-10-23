@@ -45,3 +45,15 @@ donut-setup-creation.png              EOD_exp_4_relay system_2EOD_donut_creation
 # HVA2 the one with serial 34, which is what the source filenames record.
 eod-polarization-hva1.png         HVA1_polarization_angle_35.png
 eod-polarization-hva2.png         HVA2_polarization_angle_34.png
+
+# ---------------------------------------------------------------------------
+# Beam quality against drive voltage (mar_25 angle dataset)
+# ---------------------------------------------------------------------------
+# These four source names are generic — a bare ordinal and a metric. They are
+# unique only because one source root holds them. If another dataset directory
+# with the same naming is ever added to SOURCE_ROOTS, the newest-match rule
+# will silently pick across datasets; rename at the source if that happens.
+eod-quality-voltage-fwhm.png          1_fwhm.png
+eod-quality-voltage-ellipticity.png   2_ellipticity.png
+eod-quality-voltage-r2.png            3_r2.png
+eod-quality-voltage-omega.png         4_omega.png

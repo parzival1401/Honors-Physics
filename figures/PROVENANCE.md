@@ -53,6 +53,38 @@ An earlier legend for a seven-position `gausian/jun2` dataset described the stat
 by which optics were present rather than by where the camera sat. That dataset is not the one
 cited by the manuscript; the table above supersedes it.
 
+## Beam quality against deflection voltage
+
+Measured results: NAS `EOD Driver test/beam characterizatiom/angle/mar_25`. Both deflectors are
+swept across the drive range while the beam is recorded on the camera, and a two-dimensional
+Gaussian is fitted per frame.
+
+The x axis throughout is the **command voltage**, ±10 V, not the crystal drive. The HVA200
+multiplies it by twenty, so the full sweep corresponds to ±200 V across the electrodes.
+
+| Figure | Source | Shows |
+|---|---|---|
+| `eod-quality-voltage-fwhm` | `1_fwhm.png` | FWHM in x and y against sweep voltage, both units, with the undeflected control as a dashed line |
+| `eod-quality-voltage-ellipticity` | `2_ellipticity.png` | ellipticity (max/min FWHM) against sweep voltage, both units |
+| `eod-quality-voltage-r2` | `3_r2.png` | Gaussian fit R² against sweep voltage, both units |
+| `eod-quality-voltage-omega` | `4_omega.png` | 1/e² radius against sweep voltage, fit-derived and FWHM-derived, both units |
+
+What the set shows, in brief. The widths along the two axes move in opposite senses as the drive
+advances, so the beam turns elliptical rather than changing size uniformly; the measured
+ellipticity stays modest, within about fourteen percent of circular at worst. The two units do
+not track each other — EOD34 departs from circular progressively toward positive drive, while
+EOD35 is worst near the middle of the range.
+
+Two independent indications that the profile is not exactly Gaussian: the fit R² sits between
+roughly 0.94 and 0.97 rather than approaching unity, and the 1/e² radius derived from the fit
+disagrees with the radius derived from the measured FWHM by roughly ten percent, in the same
+direction for both units. For a true Gaussian those two derivations must agree, so the gap is a
+shape discrepancy rather than noise. Worth resolving before any width from these plots is quoted
+as a beam parameter.
+
+The source filenames are generic ordinals (`1_fwhm.png` and so on) and are unique only because a
+single source root holds them; see the warning in the manifest.
+
 ## Experiment 2 — beam deflection against drive voltage
 
 Setup drawing: `optics_svg/EOD/EOD_exp_2_beam delfection.png`, exported from

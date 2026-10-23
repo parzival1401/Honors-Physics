@@ -225,15 +225,57 @@ it on this bench.
 \end{figure}
 
 \begin{itemize}
-    \item beam quality
+    \item beam quality against deflection
     \begin{itemize}
-        \item [EXPERIMENT] control (no-EOD) frame vs. EOD-deflected frame, same optical path
-        \item [GRAPH] FWHM$_x$, FWHM$_y$ vs. position/condition
-        \item [GRAPH] ellipticity vs. position/condition
-        \item [GRAPH] $R^2$ (fit quality) vs. position/condition
-        \item [GRAPH] beam radius $\omega$ (fit-derived vs. FWHM-derived) vs. position/condition
+        \item [EXPERIMENT] both deflectors swept across the drive range while the beam is
+        recorded on the camera, so that beam shape can be followed as a function of the
+        commanded deflection rather than only at a single setting
     \end{itemize}
 \end{itemize}
+
+The sweep is quoted as the command voltage, $\pm10$~V, which the high-voltage amplifier raises
+by a factor of twenty to the $\pm200$~V appearing across the crystal electrodes. Both units are
+shown together throughout, with the undeflected control as a dashed reference where one applies.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{eod-quality-voltage-fwhm}
+    \caption{Full width at half maximum along each transverse axis against sweep voltage, for
+    both deflectors. The two axes of a given unit move in opposite senses as the drive is
+    advanced, which is the signature of the beam becoming elliptical rather than simply growing
+    or shrinking.}
+    \label{fig:eod-quality-voltage-fwhm}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{eod-quality-voltage-ellipticity}
+    \caption{Ellipticity, the ratio of the larger to the smaller width, against sweep voltage;
+    unity denotes a circular beam. The two units do not behave alike: one departs from circular
+    progressively across the range, while the other is furthest from circular near the middle of
+    the range and closest at its positive extreme.}
+    \label{fig:eod-quality-voltage-ellipticity}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{eod-quality-voltage-r2}
+    \caption{Coefficient of determination of the two-dimensional Gaussian fit against sweep
+    voltage. The fit accounts for most but not all of the recorded intensity across the whole
+    range and for both units, so the profile is approximately rather than exactly Gaussian.}
+    \label{fig:eod-quality-voltage-r2}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{eod-quality-voltage-omega}
+    \caption{Beam radius at $1/e^2$ against sweep voltage, obtained two ways for each unit: from
+    the fitted Gaussian and independently from the measured width at half maximum. For a true
+    Gaussian the two must agree. They differ by roughly a tenth of the radius throughout, in the
+    same direction for both units, which is the same departure from Gaussian shape that the fit
+    quality reports.}
+    \label{fig:eod-quality-voltage-omega}
+\end{figure}
 
 \begin{figure}[htbp]
     \centering

@@ -29,6 +29,7 @@ SOURCE_ROOTS=(
   "$REPO/../Honors_physics_paper/figures/final"
   "$NAS/beam characterizatiom/movig EDO1/MAR_3"
   "$NAS/beam characterizatiom/polarization/apr10"
+  "$NAS/beam characterizatiom/angle/mar_25"
   "$NAS/figures"
   "$REPO/../optics_svg/EOD"
   "$REPO/../optics_svg"
