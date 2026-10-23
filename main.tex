@@ -177,17 +177,30 @@ reason, and the measurements reported here fix the geometry explicitly.
 \begin{itemize}
     \item beam degradation through alignment
     \begin{itemize}
-        \item [EXPERIMENT] camera + EOD on optical rail, frames captured at multiple fixed positions along beam path (with/without EOD, before/after subsequent optics), 
-        this plot the beam, qualite vs postions on dfirecnt setups fot he edo and re;lays systems agaisnt the laser ouput so the positions info are measurement of the gaussian of different position:
-p1 control after the output of the fiber optics 
-p2 after the first EOD Before relay system
-p3 after first relay system ; not physically possible to place the camera 
-p4 after second EOD before second relay system 
-p5 after second relay system 
-p6 after beam amplification system 
-
+        \item [EXPERIMENT] camera on an optical rail, frames captured at a series of fixed
+        stations along the beam path, so that beam quality can be compared across the deflector
+        and relay stages against the laser output taken as the reference.
     \end{itemize}
 \end{itemize}
+
+The stations are defined by what precedes them in the path, so that the change between
+consecutive stations isolates the element added between them. Taking the fibre output as the
+reference:
+
+\begin{description}
+    \item[P1 (control)] immediately after the output of the fibre optic.
+    \item[P2] after the first deflector, before the relay system.
+    \item[P3] after the first relay system. \emph{Not measurable:} the camera cannot be placed
+        at this station.
+    \item[P4] after the second deflector, before the second relay system.
+    \item[P5] after the second relay system.
+    \item[P6] after the beam amplification system.
+\end{description}
+
+Five of the six stations therefore yield data. P3 falls inside the relay where there is no room
+for the sensor, so the comparison across the first relay is made between P2 and P4 and carries
+the second deflector with it; the first relay cannot be isolated from the deflector that follows
+it on this bench.
 
 \begin{figure}[htbp]
     \centering

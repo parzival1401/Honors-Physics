@@ -30,6 +30,29 @@ Produced by `MicroscopeMinFlux.jl` `dev/beam_char_analysis.jl` (branch `beam_cha
 two-dimensional Gaussian profiles per frame and computes the cross-correlation metrics through its
 `xcorr2d` and `xcorr_metrics` routines.
 
+### Station definitions for the along-the-path measurement
+
+Distinct from the stage sweep above: here the camera is moved to fixed stations along the beam
+path and the Gaussian profile is fitted at each, so that the change between consecutive stations
+isolates the element added between them. The fibre output is the reference.
+
+| Station | Position in the path | Measurable |
+|---|---|---|
+| P1 (control) | immediately after the fibre optic output | yes |
+| P2 | after the first deflector, before the relay system | yes |
+| P3 | after the first relay system | **no** — no room to place the camera |
+| P4 | after the second deflector, before the second relay system | yes |
+| P5 | after the second relay system | yes |
+| P6 | after the beam amplification system | yes |
+
+Five of six stations yield data. Because P3 cannot be reached, the first relay cannot be
+isolated: the P2-to-P4 comparison spans the first relay *and* the second deflector together, and
+any degradation found there cannot be attributed to one or the other from this dataset alone.
+
+An earlier legend for a seven-position `gausian/jun2` dataset described the stations differently,
+by which optics were present rather than by where the camera sat. That dataset is not the one
+cited by the manuscript; the table above supersedes it.
+
 ## Experiment 2 — beam deflection against drive voltage
 
 Setup drawing: `optics_svg/EOD/EOD_exp_2_beam delfection.png`, exported from
