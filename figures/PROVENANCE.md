@@ -141,8 +141,16 @@ Setup drawing only; no measurements from this configuration are in the manuscrip
 ## Polarization dependence of the deflection sensitivity
 
 Measured results: NAS `EOD Driver test/beam characterizatiom/polarization/apr10`, acquired
-2026-04-10. One figure per drive channel: `HVA1_polarization_angle_35.png` is channel 1 driving
-the deflector with serial 35, `HVA2_polarization_angle_34.png` is channel 2 driving serial 34.
+2026-04-10. One figure per drive channel: `HVA1_polarization_angle_35.png` and
+`HVA2_polarization_angle_34.png`.
+
+**Which crystal each channel drives is unresolved.** The filename suffixes say HVA1 carries
+serial 35 and HVA2 carries serial 34. The project's own EOD audit says the opposite — "EOD34 on
+HVA1 ... EOD35 on HVA2" — and the measured values follow the audit, not the filenames: the audit
+records EOD34 at 0.96 / 2.40 / 3.42 mrad/kV, which is exactly what the HVA1 figure shows, and
+EOD35 at 1.01 / 3.21 / 3.61, which is exactly the HVA2 figure. So the filename suffixes appear to
+be transposed. The manuscript therefore refers to these by drive channel, which is unambiguous,
+and attributes no serial number until the pairing is confirmed at the bench.
 The per-frame camera data for each sit in the `EOD34` and `EOD35` subfolders beside them.
 
 Each sweep runs the amplifier output across roughly plus and minus 200 V and records the beam
@@ -154,8 +162,8 @@ figure titles; the sensitivity bars are compared against the vendor's quoted min
 
 | Figure | Shows |
 |---|---|
-| `eod-polarization-hva1` | beam position and mrad/kV against drive voltage, channel 1 (serial 35) |
-| `eod-polarization-hva2` | the same for channel 2 (serial 34) |
+| `eod-polarization-hva1` | beam position and mrad/kV against drive voltage, drive channel 1 |
+| `eod-polarization-hva2` | the same for drive channel 2 |
 
 Measured sensitivities, in mrad/kV: perpendicular 3.42 and 3.61, unpolarized 2.40 and 3.21,
 parallel 0.96 and 1.01, for channels 1 and 2 respectively.

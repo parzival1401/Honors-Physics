@@ -325,33 +325,78 @@ shift. The peak value measures how far the beam still resembles the reference, a
 of that peak relative to zero lag gives the displacement between them.
 
 \subsubsection{results}
-\begin{itemize}
-    \item beam degradation through alignment
-    \begin{itemize}
-        \item [GRAPH] measured vs. ideal Gaussian at each position (2D + profile overlay)
-        \item [GRAPH] FWHM/ellipticity/$R^2$ trend across positions
-        \item [GRAPH] cross-correlation NCC + displacement trend across positions
-        \item [TEXT] where along the path degradation becomes significant
-    \end{itemize}
-    \item beam quality
-    \begin{itemize}
-        \item [GRAPH] summary panel: FWHM, ellipticity, $R^2$, $\omega$ (measured vs. control reference line)
-        \item [TEXT] deviation from ideal circular Gaussian, quantified
-    \end{itemize}
-    \item range angle
-    \begin{itemize}
-        \item [GRAPH] calibration curve with linear fit (mrad/V)
-        \item [TEXT] measured mrad/kV vs. spec, \% agreement
-        \item [TEXT] linear range / where nonlinearity appears (if any)
-    \end{itemize}
-    \item polarization-based angles
-    \begin{itemize}
-        \item [GRAPH] polarization vs. deflection-axis alignment result
-        \item [TEXT] measured axis offset, if any
-    \end{itemize}
-\end{itemize}
 
 \paragraph{Beam degradation along the path.}
+The clearest result of this measurement is a working range rather than a degradation curve. The
+correlation against the undeflected control, Figure~\ref{fig:eod-beam-xcorr}, rises to
+essentially unity over a plateau running from roughly 10.5 to 12~mm of stage travel and falls
+away steeply on both sides, reaching 0.2 to 0.4 at either extreme. Across that plateau the width
+of the correlation peak is flat and sits on the control value, so where the beam is usable at all
+it is no less sharp than the reference. The displacement behaves the same way: flat within the
+plateau and running to several hundred pixels in $x$ outside it, while $y$ stays near zero
+throughout. The two deflector modes reach the plateau at different stage positions, one about
+0.7~mm earlier than the other, but leave it together.
+
+Within that plateau the beam widths of Figure~\ref{fig:eod-beam-quality} scatter about the
+control values and the ellipticity stays between about 1.0 and 1.3. Approaching the upper end of
+the travel the ellipticity climbs to between 2.3 and 2.6, so the beam is visibly distorted before
+the correlation has fully collapsed.
+
+Points at both extremes of travel read exactly zero in all three panels of
+Figure~\ref{fig:eod-beam-quality}, ellipticity included. A zero ratio of widths is not a physical
+measurement, so these are failures of the width search rather than measurements of a vanished
+beam, and they should be masked rather than plotted. They are left visible here because they mark
+where the measurement stops being meaningful.
+
+\paragraph{Beam quality against deflection.}
+Driving the deflector changes the shape of the beam, but modestly. In
+Figure~\ref{fig:eod-quality-voltage-fwhm} the widths along the two transverse axes of a given
+unit move in opposite senses as the drive advances, one broadening while the other narrows, which
+is a change of shape rather than of size. The ellipticity of
+Figure~\ref{fig:eod-quality-voltage-ellipticity} puts a number on it: at worst about 14 percent
+from circular, reached by one unit at the positive end of the sweep. The two units do not behave
+alike. One departs from circular progressively across the whole range, while the other is
+furthest from circular near the middle of its range and returns to nearly circular at the
+positive extreme.
+
+Two independent measures agree that the profile is not exactly Gaussian. The fit quality of
+Figure~\ref{fig:eod-quality-voltage-r2} lies between about 0.94 and 0.97 across the entire sweep
+for both units, never approaching unity. More tellingly, the two radii of
+Figure~\ref{fig:eod-quality-voltage-omega} differ by roughly a tenth to a seventh of their value
+throughout, in the same direction for both units. Those two quantities are the same radius
+computed two ways and must coincide for a true Gaussian, so their separation measures wings the
+fitted model does not describe. The gap is far smaller than the factor of $\sqrt{2}$ that a
+mismatch of radius conventions would produce, so it is a property of the beam rather than of the
+arithmetic.
+
+\paragraph{Deflection sensitivity and its polarization dependence.}
+Both channels steer along a single axis: the beam centre moves linearly in $x$ across the full
+$\pm200$~V of amplifier output while $y$ remains flat, in
+Figures~\ref{fig:eod-polarization-hva1} and~\ref{fig:eod-polarization-hva2}. The second channel
+shows its three polarization traces displaced from one another in $y$ by a few pixels, but each
+is flat with drive, so this is a fixed offset between configurations rather than a response to
+the applied field. Linearity holds across the whole range in both channels; no departure from a
+straight line is visible at either extreme.
+
+The sensitivity depends strongly on the input polarization. With the polarization perpendicular
+to the deflection axis the two channels give 3.42 and 3.61~mrad/kV; unpolarized, 2.40 and 3.21;
+and parallel to the deflection axis, 0.96 and 1.01. The ratio between the best and worst
+polarization is about 3.6 in both channels, so this is a property of the devices rather than of
+one unit.
+
+Measured against the manufacturer's quoted minimum of 3~mrad/kV, the outcome depends on the
+polarization and not only on the device. Both channels meet the specification at the
+perpendicular setting and fail it by roughly a factor of three at the parallel setting. With the
+polarizer removed the two channels fall on opposite sides of the specification, one above and one
+below. A half-wave plate correctly set is therefore a precondition for the deflectors meeting
+their quoted performance, not an optimization applied on top of it.
+
+Two cautions attach to these numbers. They are proportional to the assumed crystal-to-sensor
+distance of 190~mm, and the manufacturer places the deflection pivot at the centre of a 60~mm
+housing, so an error in where that distance was measured from propagates directly into every
+sensitivity quoted here. And the first recorded point of every sweep, at the negative extreme of
+the drive, sits off the line established by the remainder; it has the character of a settling
+transient and is excluded from the regressions.
 
 \begin{figure}[htbp]
     \centering
