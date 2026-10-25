@@ -3,6 +3,7 @@
 \graphicspath{{figures/}} % cite figures by stable name: \includegraphics{eod-beam-quality}
 \usepackage{biblatex}
 \addbibresource{references.bib}
+\usepackage{amsmath}
 \usepackage{amstext}
 
 \title{Honors Physics}
@@ -320,46 +321,89 @@ shown together throughout, with the undeflected control as a dashed reference wh
     \label{fig:eod-setup-relay-two-deflectors}
 \end{figure}
 \subsubsection{methods}
-\begin{itemize}
-    \item background subtraction (darkest 5–10\% pixels, subtracted before fitting)
-    \item control-frame referencing (baseline / no-deflection reference for all comparisons)
-    \item centroid localization: peak-pixel (live) vs. optimized 2D Gaussian fit (offline)
-    \item frame averaging / repeat counts per condition
 
-    \item beam degradation through alignment
-    \begin{itemize}
-        \item multi-position acquisition along optical path
-        \item 2D Gaussian fit per position (Nelder--Mead least-squares)
-        \item control $\omega$ used as shape reference for non-control positions
-        \item 2D normalized cross-correlation vs. control (similarity, sub-pixel displacement)
-    \end{itemize}
+Every measurement in this section reduces a camera frame to a few numbers describing the beam,
+so the reduction is set out once here and then referred to. All lengths are converted from pixels
+using a sensor pitch of 5.2~\textmu m.
 
-    \item beam quality metrics
-    \begin{itemize}
-        \item FWHM: half-max crossing of background-subtracted profile
-        \item ellipticity: max/min FWHM ratio
-        \item $R^2$: fit vs. measured frame goodness-of-fit
-        \item beam radius $\omega$: from fit and independently from FWHM (cross-check)
-        \item pixel $\to$ physical unit conversion (µm/px)
-        \item fit initialization strategy (peak center, background amplitude, profile-based $\omega$)
-    \end{itemize}
+\paragraph{Preparing a frame.}
+A background level is formed as the mean of the dimmest five percent of pixels in the frame and
+subtracted uniformly, and the result is clipped at zero so that noise below background cannot
+contribute negative weight. The beam centre is then located by a thresholded centroid rather than
+by the brightest pixel. The distinction is not cosmetic: because the centre selects which row and
+column become the measured profiles, and the peak of those profiles sets the half-maximum
+reference, a single hot pixel taken as the centre propagates into every width derived from that
+frame.
 
-    \item range angle
-    \begin{itemize}
-        \item voltage sweep procedure (start, stop, steps, settle time)
-        \item DAQ output + monitor readback recorded per step
-        \item centroid displacement (px) $\to$ physical displacement (µm)
-        \item small-angle approximation: $\theta = \arctan(\Delta x / L)$
-        \item calibration: mrad/V, validated against manufacturer spec
-    \end{itemize}
+\paragraph{Measuring a width.}
+Profiles through the centre are averaged over a band of eleven lines either side rather than read
+from a single line. For a separable Gaussian this is exact: averaging symmetric rows returns the
+same transverse profile scaled by a constant, so the width is preserved while the noise falls as
+the square root of the number of lines. The frames here peak at only tens of counts, and on a
+single line one noise dip is enough to terminate the width search early. The averaged profile is
+then smoothed with a symmetric box filter three pixels either side, chosen because a zero-phase
+filter cannot move the position of a crossing.
 
-    \item polarization-based angles
-    \begin{itemize}
-        \item polarization angle set/measured independently
-        \item correlation vs. deflection axis orientation
-        \item alignment check: electro-optic axis vs. polarization axis
-    \end{itemize}
-\end{itemize}
+The width is taken as the contiguous run of the profile that lies above half of its maximum
+\emph{and contains the centre}, with both crossings linearly interpolated between the bracketing
+samples. Searching instead for the first and last sample anywhere above half maximum, which is
+the obvious implementation, is not equivalent: a second spot elsewhere in the line, or a single
+bright pixel, stretches the reported width from one to the other.
+
+Ellipticity is the ratio of the larger to the smaller of the two axis widths, so unity denotes a
+circular beam.
+
+\paragraph{Fitting a Gaussian.}
+A circularly symmetric Gaussian on a constant pedestal,
+\begin{equation}
+    I(x,y) = C \exp\!\left(-\frac{2\left[(x-x_0)^2 + (y-y_0)^2\right]}{\omega^2}\right) + b ,
+\end{equation}
+is fitted by Nelder--Mead least squares, to at most five thousand iterations, initialised from
+the measured peak amplitude, the centroid, the background level, and a radius taken from the
+profile width. The model carries no rotation angle and no separate widths along the two axes; it
+is the ellipticity above, not the fit, that reports departure from circularity.
+
+The fit runs on a square crop about the centre whose half-side is two and a half times the
+starting radius, floored at 250~pixels. Scaling the crop to the beam matters: at the expanded end
+of this bench the spot is several hundred pixels across, and a crop that holds less than the core
+drives the coefficient of determination down to a value that reads as "not Gaussian" when it
+means only that the window was too small to contain the Gaussian. The reported $R^2$ is computed
+against that crop.
+
+\paragraph{Two radii, and why they are reported together.}
+With the model written as above, $\omega$ is the radius at which the intensity falls to $1/e^2$
+of its peak, and for that convention the width at half maximum and the radius are related by
+$\mathrm{FWHM} = \omega\sqrt{2\ln 2}$. A second radius is therefore obtained from the measured
+width alone, as the mean of the two axis widths divided by $\sqrt{2\ln 2} \approx 1.1774$,
+without reference to the fit.
+
+For a true Gaussian the two must agree, which is the point of computing both. They separate when
+the profile carries wings the model does not describe, so the gap between them is a measurement
+of how far the beam departs from Gaussian rather than a disagreement between two estimates of the
+same thing. The constant is convention-sensitive: the factor $2\sqrt{\ln 2}$ belongs to the
+alternative definition $I \propto \exp(-r^2/\omega^2)$, and using it beside a $1/e^2$ fit
+separates the two radii by a flat factor of $\sqrt{2}$ for purely notational reasons.
+
+\paragraph{Calibrating deflection against drive.}
+The high-voltage amplifier presents a monitor output scaled to one twentieth of its true output
+and inverted; the drive applied to the crystal is recovered by negating that reading and
+multiplying by twenty. Each sweep step records this monitor value together with the commanded
+output and a frame.
+
+Deflection is obtained from the displacement of the beam centre across the sweep. With the
+crystal-to-sensor distance $L$ as the lever arm, the angle follows from the displacement as
+$\theta \simeq \Delta x / L$ in the small-angle limit, which at the milliradian angles here is
+indistinguishable from the exact inverse tangent. The sensitivity is not read from the endpoints
+but from an ordinary least-squares regression of beam centre against recovered drive voltage
+across the whole sweep, expressed in milliradians per kilovolt and compared against the
+manufacturer's quoted minimum of 3~mrad/kV.
+
+\paragraph{Comparing a frame against the control.}
+Where a frame is compared with an undeflected reference, both are mean-subtracted and their
+two-dimensional cross-correlation is computed by Fourier transform, normalised by the square root
+of the product of their summed squares, so that a peak of unity denotes identical frames up to a
+shift. The peak value measures how far the beam still resembles the reference, and the location
+of that peak relative to zero lag gives the displacement between them.
 
 \subsubsection{results}
 \begin{itemize}
