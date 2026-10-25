@@ -165,13 +165,8 @@ reason, and the measurements reported here fix the geometry explicitly.
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.85\textwidth]{eod-setup-beam-degradation}
-    \caption{Bench arrangement used to measure beam degradation along the path. The 642~nm,
-    80~mW source is folded by two steering mirrors (M1, M2) onto the deflector, which is carried
-    on a micrometer stage so that it can be translated without disturbing the alignment, and the
-    transmitted beam is recorded directly on the camera sensor. Frames are captured at a series
-    of fixed positions along the path, with and without the deflector in place and before and
-    after the relay optics, so that any change in the beam can be attributed to the element that
-    was added between one position and the next.}
+    \caption{Bench layout for the beam-degradation measurement: 642~nm source, folding mirrors
+    M1 and M2, deflector on a micrometer stage, beam recorded directly on the camera sensor.}
     \label{fig:eod-setup-beam-degradation}
 \end{figure}
 
@@ -203,92 +198,21 @@ for the sensor, so the comparison across the first relay is made between P2 and 
 the second deflector with it; the first relay cannot be isolated from the deflector that follows
 it on this bench.
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=\textwidth]{eod-beam-quality}
-    \caption{Beam shape against stage position in millimetres for the two deflector modes, each
-    referred to the control measurement shown as a dashed line. The three panels give, from left
-    to right, the full width at half maximum along $x$, the same along $y$, and the ellipticity,
-    defined as the ratio of the larger to the smaller width, so that unity denotes a circular
-    beam.}
-    \label{fig:eod-beam-quality}
-\end{figure}
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=\textwidth]{eod-beam-xcorr}
-    \caption{Two-dimensional cross-correlation of each frame against the control reference, as a
-    function of stage position in millimetres. The peak of the normalised cross-correlation
-    measures how closely the beam still resembles the reference, with unity a perfect match; the
-    width of that peak measures beam sharpness; and the two lower panels give the sub-pixel
-    displacement of the beam in $x$ and $y$ relative to the reference.}
-    \label{fig:eod-beam-xcorr}
-\end{figure}
-
-\begin{itemize}
-    \item beam quality against deflection
-    \begin{itemize}
-        \item [EXPERIMENT] both deflectors swept across the drive range while the beam is
-        recorded on the camera, so that beam shape can be followed as a function of the
-        commanded deflection rather than only at a single setting
-    \end{itemize}
-\end{itemize}
-
-The sweep is quoted as the command voltage, $\pm10$~V, which the high-voltage amplifier raises
-by a factor of twenty to the $\pm200$~V appearing across the crystal electrodes. Both units are
-shown together throughout, with the undeflected control as a dashed reference where one applies.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=\textwidth]{eod-quality-voltage-fwhm}
-    \caption{Full width at half maximum along each transverse axis against sweep voltage, for
-    both deflectors. The two axes of a given unit move in opposite senses as the drive is
-    advanced, which is the signature of the beam becoming elliptical rather than simply growing
-    or shrinking.}
-    \label{fig:eod-quality-voltage-fwhm}
-\end{figure}
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=\textwidth]{eod-quality-voltage-ellipticity}
-    \caption{Ellipticity, the ratio of the larger to the smaller width, against sweep voltage;
-    unity denotes a circular beam. The two units do not behave alike: one departs from circular
-    progressively across the range, while the other is furthest from circular near the middle of
-    the range and closest at its positive extreme.}
-    \label{fig:eod-quality-voltage-ellipticity}
-\end{figure}
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=\textwidth]{eod-quality-voltage-r2}
-    \caption{Coefficient of determination of the two-dimensional Gaussian fit against sweep
-    voltage. The fit accounts for most but not all of the recorded intensity across the whole
-    range and for both units, so the profile is approximately rather than exactly Gaussian.}
-    \label{fig:eod-quality-voltage-r2}
-\end{figure}
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=\textwidth]{eod-quality-voltage-omega}
-    \caption{Beam radius at $1/e^2$ against sweep voltage, obtained two ways for each unit: from
-    the fitted Gaussian and independently from the measured width at half maximum. For a true
-    Gaussian the two must agree. They differ by roughly a tenth of the radius throughout, in the
-    same direction for both units, which is the same departure from Gaussian shape that the fit
-    quality reports.}
-    \label{fig:eod-quality-voltage-omega}
-\end{figure}
+\paragraph{Beam quality against deflection.}
+Rather than translating the deflector, this measurement drives it. Both units are swept across
+the full drive range while the beam is recorded at each step, so that beam shape can be followed
+as a function of the commanded deflection instead of being characterised at a single setting.
+The sweep is quoted throughout as the command voltage, $\pm10$~V, which the high-voltage
+amplifier raises by a factor of twenty to the $\pm200$~V appearing across the crystal electrodes.
+An undeflected control frame is recorded for each unit. The arrangement is that of
+Figure~\ref{fig:eod-setup-beam-deflection}.
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.85\textwidth]{eod-setup-beam-deflection}
-    \caption{Bench arrangement used to measure beam deflection against drive voltage. The same
-    642~nm, 80~mW source and pair of steering mirrors (M1, M2) deliver the beam to the deflector,
-    which here is driven rather than translated: a USB-6001 data acquisition module issues the
-    command voltage, the HVA200 high-voltage amplifier raises it to the level the crystal
-    requires, and the deflected beam is recorded directly on the camera sensor. Stepping the
-    command voltage and recording the beam centroid at each step is what converts an applied
-    voltage into a deflection angle, with the distance from the crystal to the sensor serving as
-    the lever arm.}
+    \caption{Bench layout for the voltage sweep. The deflector is driven rather than translated:
+    a USB-6001 issues the command voltage and an HVA200 raises it to the crystal drive. The
+    crystal-to-sensor distance is the lever arm.}
     \label{fig:eod-setup-beam-deflection}
 \end{figure}
 
@@ -310,14 +234,9 @@ shown together throughout, with the undeflected control as a dashed reference wh
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{eod-setup-relay-two-deflectors}
-    \caption{Two deflectors in series, relayed onto one another. Lenses L1 and L2 sit one focal
-    length from their neighbouring crystal and two focal lengths apart, forming a relay that
-    images the deflection plane of the first crystal onto the second. That is what allows the two
-    to act as one two-axis deflector: a deflection introduced by the first arrives at the second
-    as a change of angle about a common pivot rather than as a displacement across its aperture,
-    which would clip the beam and make the two axes interact. The half-wave plate between them
-    rotates the polarization into the axis the second crystal needs, each crystal is driven by
-    its own HVA200, and the beam is recorded on the camera.}
+    \caption{Two deflectors in series. Lenses L1 and L2, one focal length from each crystal and
+    two focal lengths apart, image the deflection plane of the first onto the second. The
+    half-wave plate between them rotates the polarization into the second crystal's axis.}
     \label{fig:eod-setup-relay-two-deflectors}
 \end{figure}
 \subsubsection{methods}
@@ -432,28 +351,75 @@ of that peak relative to zero lag gives the displacement between them.
     \end{itemize}
 \end{itemize}
 
+\paragraph{Beam degradation along the path.}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{eod-beam-quality}
+    \caption{Width at half maximum along $x$ and $y$, and ellipticity, against stage position in
+    millimetres. Both deflector modes; control dashed. Unity ellipticity is a circular beam.}
+    \label{fig:eod-beam-quality}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{eod-beam-xcorr}
+    \caption{Cross-correlation against the control reference, against stage position in
+    millimetres: peak value, peak width, and beam displacement in $x$ and $y$. A peak of unity
+    denotes an identical beam.}
+    \label{fig:eod-beam-xcorr}
+\end{figure}
+
+\paragraph{Beam quality against deflection.}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{eod-quality-voltage-fwhm}
+    \caption{Width at half maximum on each transverse axis against sweep voltage, both
+    deflectors. Control dashed.}
+    \label{fig:eod-quality-voltage-fwhm}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{eod-quality-voltage-ellipticity}
+    \caption{Ellipticity against sweep voltage, both deflectors. Unity is a circular beam.}
+    \label{fig:eod-quality-voltage-ellipticity}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{eod-quality-voltage-r2}
+    \caption{Goodness of fit $R^2$ of the two-dimensional Gaussian against sweep voltage, both
+    deflectors.}
+    \label{fig:eod-quality-voltage-r2}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{eod-quality-voltage-omega}
+    \caption{Beam radius at $1/e^2$ against sweep voltage, derived from the fit and
+    independently from the measured width. For a true Gaussian the two coincide.}
+    \label{fig:eod-quality-voltage-omega}
+\end{figure}
+
+\paragraph{Deflection sensitivity and its polarization dependence.}
+
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{eod-polarization-hva1}
-    \caption{Deflection against drive voltage for the first channel (HVA1, driving the deflector
-    with serial 35), measured at three input polarizations: aligned with the deflection axis
-    (parallel), at right angles to it (perpendicular), and with the polarizer removed. The upper
-    panels give the beam centre on the camera, as a radial position and resolved into $x$ and
-    $y$; the deflection appears in $x$ alone, while $y$ stays flat, confirming that this channel
-    steers along a single axis. The lower right panel converts the slope of each sweep into a
-    sensitivity in mrad/kV against the manufacturer's quoted minimum of 3~mrad/kV, using the
-    5.2~$\mu$m pixel pitch and the 190~mm crystal-to-camera distance stated in the title.}
+    \caption{Deflection against drive voltage, channel HVA1 (deflector 35), at three input
+    polarizations: parallel to the deflection axis, perpendicular, and unpolarized. Upper panels,
+    beam centre as radial position and resolved into $x$ and $y$; lower right, sensitivity in
+    mrad/kV against the quoted minimum of 3.}
     \label{fig:eod-polarization-hva1}
 \end{figure}
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{eod-polarization-hva2}
-    \caption{The same measurement for the second channel (HVA2, driving the deflector with serial
-    34), with panels as in Figure~\ref{fig:eod-polarization-hva1}. Both channels show the same
-    ordering, perpendicular above unpolarized above parallel, but they do not agree in magnitude,
-    and in this channel the traces are also separated in $y$, which the first channel does not
-    show.}
+    \caption{The same measurement for channel HVA2 (deflector 34); panels as in
+    Figure~\ref{fig:eod-polarization-hva1}.}
     \label{fig:eod-polarization-hva2}
 \end{figure}
 
