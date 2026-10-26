@@ -4,11 +4,11 @@ figure_id: "HVA1_polarization_radial"
 former_title: "HVA1 — Voltage vs Beam Position by Polarization  (pixel size 5.2 µm, EOD→cam 220.0 mm) / Monitor vs √(cx²+cy²)"   # title removed from the image; the caption replaces it
 what_it_shows: "Radial beam-centre position on the camera against HVA1 output voltage, one series per input polarization."
 axes:
-  x: "HVA1 output (V)"
+  x: "EOD34 drive, HVA1 output (V)"
   y: "Position √(cx²+cy²) (px)"
 data:
-  source: "NAS Y:\\Projects\\NSF-MINFLUX\\projects\\Data\\Evaluation Experiments\\EOD Driver test\\beam characterizatiom\\polarization\\apr10 -- acquired 2026-04-10; folder EOD34 is plotted as HVA1 and EOD35 as HVA2"
+  source: "NAS Y:\\Projects\\NSF-MINFLUX\\projects\\Data\\Evaluation Experiments\\EOD Driver test\\beam characterizatiom\\polarization\\apr10 -- acquired 2026-04-10; folder EOD34 = HVA1, folder EOD35 = HVA2"
   script: "MicroscopeMinFlux.jl/dev/polarization_angle.jl"
-  commit: "d390417 on worktree-galvo-delay-analysis"
-created: "2026-10-26 13:12:17"
-notes: "Angles use pixel size 5.2 µm and EOD-to-camera distance 220.0 mm; HVA real output = -monitor x 20. Which crystal serial each channel drives is unresolved (see Honors-Physics figures/PROVENANCE.md)."
+  commit: "feb91d5 on worktree-galvo-delay-analysis"
+created: "2026-10-26 13:35:27"
+notes: "Angles use pixel size 5.2 µm and lever arm 220.0 mm (crystal centre to camera); HVA real output = -monitor x 20. HVA1 drives EOD34 (first in the path, x axis) and HVA2 drives EOD35 (second, y axis), confirmed by the user 2026-10-26."

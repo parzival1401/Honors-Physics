@@ -50,8 +50,8 @@ of these plots is in those units.
 | `eod-beam-xcorr-dx`, `-dy` | beam displacement in x and in y from the correlation peak (`beam_quality_xcorr_dx/dy.png`) |
 
 The manuscript groups the four cross-correlation graphs as `fig:eod-beam-xcorr`. Legends name
-the two units EOD G and EOD P, which are EOD35 and EOD34 respectively (see the naming table);
-the caption states the mapping until the plots are relabelled.
+the deflectors by serial, EOD34 (blue circles) and EOD35 (red squares), since the relabel of
+2026-10-26 (`MicroscopeMinFlux.jl` commit `feb91d5`); earlier versions said EOD P and EOD G.
 
 **Not used: the width and ellipticity graphs from this sweep** (`beam_quality_fwhm_x/y.png`,
 `beam_quality_ellipticity.png`). The user flagged that data as wrong on 2026-10-26, so the
