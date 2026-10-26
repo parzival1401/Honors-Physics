@@ -24,7 +24,7 @@ now. \cite{stallingaAbsorptionDipoleEffects2026}
 \subsection{single particle analysis}
 \subsection{motivation requirements}
 \section{EOD}
-\subsection{physical concept}
+\subsection{Physical concept}
 
 An electro-optic deflector steers a laser beam without moving anything. It is a transparent
 crystal with electrodes on its faces; applying a voltage changes the crystal's refractive index,
@@ -105,9 +105,9 @@ established by the measurements reported below.
     \item [FIGURE: diagram] schematic of EOD crystal + applied field + resulting beam deflection
 \end{itemize}
 
-\subsection{characterization}
+\subsection{Characterization}
 
-\subsubsection{intro why}
+\subsubsection{Motivation}
 
 The EOD pair is what moves the excitation pattern between the positions of a MINFLUX cycle, and the
 control system commands that motion in volts while the experiment is defined in nanometres at the
@@ -132,7 +132,7 @@ Polarization is the second, and it is specific to the linear electro-optic mecha
 above. Because the response is referred to the crystal axes, the sensitivity obtained depends on the
 orientation of the input polarization, and the rotational alignment of each deflector to its crystal
 axis is therefore a calibration parameter rather than a one-time alignment step. This is the reason
-a half-wave plate setting appears among the quantities swept below.
+the input polarization appears among the quantities varied below.
 
 Timing is the third. The photon economy of MINFLUX is what opens the microsecond regime in which
 molecular jumps and conformational changes become observable
@@ -161,7 +161,7 @@ distance from the crystal to that camera, so an error in the assumed lever arm p
 into the quoted sensitivity. An earlier calibration in this project was withdrawn for exactly this
 reason, and the measurements reported here fix the geometry explicitly.
 
-\subsubsection{setup}
+\subsubsection{Setup}
 
 \begin{figure}[htbp]
     \centering
@@ -240,7 +240,7 @@ Figure~\ref{fig:eod-setup-beam-deflection}.
     half-wave plate between them rotates the polarization into the second crystal's axis.}
     \label{fig:eod-setup-relay-two-deflectors}
 \end{figure}
-\subsubsection{methods}
+\subsubsection{Methods}
 
 Every measurement in this section reduces a camera frame to a few numbers describing the beam,
 so the reduction is set out once here and then referred to. All lengths are converted from pixels
@@ -325,7 +325,7 @@ of the product of their summed squares, so that a peak of unity denotes identica
 shift. The peak value measures how far the beam still resembles the reference, and the location
 of that peak relative to zero lag gives the displacement between them.
 
-\subsubsection{results}
+\subsubsection{Results}
 
 \paragraph{Beam degradation along the path.}
 The clearest result of this measurement is a working range rather than a degradation curve. The
@@ -380,8 +380,9 @@ is flat with drive, so this is a fixed offset between configurations rather than
 the applied field. Linearity holds across the whole range in both channels; no departure from a
 straight line is visible at either extreme.
 
-The sensitivity depends strongly on the input polarization. With the polarization perpendicular
-to the deflection axis the two channels give 3.42 and 3.61~mrad/kV; unpolarized, 2.40 and 3.21;
+The sensitivity depends strongly on the input polarization, panel (d) of each figure. With the
+polarization perpendicular to the deflection axis the two channels give 3.42 and 3.61~mrad/kV;
+unpolarized, 2.40 and 3.21;
 and parallel to the deflection axis, 0.96 and 1.01. The ratio between the best and worst
 polarization is about 3.6 in both channels, so this is a property of the devices rather than of
 one unit.
@@ -392,6 +393,12 @@ perpendicular setting and fail it by roughly a factor of three at the parallel s
 polarizer removed the two channels fall on opposite sides of the specification, one above and one
 below. A half-wave plate correctly set is therefore a precondition for the deflectors meeting
 their quoted performance, not an optimization applied on top of it.
+
+Two consequences follow for the control system. The orientation of the input polarization has to
+be fixed and recorded as part of the calibration, since it alone moves the volts-to-angle
+conversion across that range. And the two channels cannot be assumed identical: they differ by a
+third in the unpolarized condition, so a scan pattern built on a single sensitivity for both axes
+would be distorted.
 
 Two cautions attach to these numbers. They are proportional to the assumed crystal-to-sensor
 distance of 190~mm, and the manufacturer places the deflection pivot at the centre of a 60~mm
@@ -458,8 +465,6 @@ transient and is excluded from the regressions.
     \label{fig:eod-beam-xcorr}
 \end{figure}
 
-\paragraph{Beam quality against deflection.}
-
 \begin{figure}[htbp]
     \centering
     \begin{subfigure}{0.48\textwidth}
@@ -492,8 +497,6 @@ transient and is excluded from the regressions.
     coincide for a true Gaussian.}
     \label{fig:eod-quality-voltage}
 \end{figure}
-
-\paragraph{Deflection sensitivity and its polarization dependence.}
 
 \begin{figure}[htbp]
     \centering
@@ -557,17 +560,7 @@ transient and is excluded from the regressions.
     \label{fig:eod-polarization-hva2}
 \end{figure}
 
-Polarization changes the sensitivity by more than a factor of three. With the input polarized
-perpendicular to the deflection axis each channel exceeds the quoted minimum, at 3.42 and
-3.61~mrad/kV; with the polarization parallel to that axis both fall to about a third of it, 0.96
-and 1.01~mrad/kV; removing the polarizer leaves the channels unmatched, at 2.40 and
-3.21~mrad/kV. Two consequences follow for the control system. The orientation of the input
-polarization has to be fixed and recorded as part of the calibration, since it alone moves the
-volts-to-angle conversion across that range. And the two channels cannot be assumed identical:
-they differ by a third in the unpolarized condition, so a scan pattern built on a single
-sensitivity for both axes would be distorted.
-
-\subsubsection{conclusion}
+\subsubsection{Conclusion}
 \begin{itemize}
     \item [TEXT] EOD beam quality: acceptable/degraded range, key limiting factor
     \item [TEXT] deflection linearity and agreement with manufacturer spec
