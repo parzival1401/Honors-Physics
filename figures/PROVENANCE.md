@@ -7,6 +7,15 @@ lives next to the data on the NAS and would otherwise be lost to anyone building
 Only the figures currently cited by the manuscript are kept here. Figures removed from the
 manifest stay recoverable in git history.
 
+Every data figure is one graph per file with no title; `main.tex` groups related graphs as (a),
+(b), ... subfigures and the caption carries what the title used to. Each data PNG has a sidecar
+`<name>.yaml` beside it, copied in by the refresh script, recording the former title, source
+dataset, producing script and commit, axes and notes. The same record is embedded in the PNG
+itself (read it with `exiftool`, or `read_figure_info` from `MicroscopeMinFlux.jl`
+`dev/plot_style.jl`). The split figures were regenerated on 2026-10-26 from `MicroscopeMinFlux.jl`
+commit `3dc9c23` (branch `worktree-galvo-delay-analysis`); the combined multi-panel originals are
+still on the NAS, unused.
+
 ## Experiment 1 — beam degradation along the path
 
 Setup drawing: `optics_svg/EOD/EOD_exp_1.png`, exported from the Photoshop source beside it.
@@ -23,8 +32,14 @@ of these plots is in those units.
 | Figure | Shows |
 |---|---|
 | `eod-setup-beam-degradation` | bench layout for the measurement |
-| `eod-beam-quality` | full width at half maximum in x and y, and ellipticity, against stage position |
-| `eod-beam-xcorr` | peak normalised cross-correlation, cross-correlation peak width, and beam displacement in x and y, against stage position |
+| `eod-beam-quality-fwhm-x`, `-fwhm-y` | full width at half maximum in x and in y against stage position (from `beam_quality_fwhm_x/y.png`) |
+| `eod-beam-quality-ellipticity` | ellipticity, larger over smaller width, against stage position (`beam_quality_ellipticity.png`) |
+| `eod-beam-xcorr-ncc` | peak normalised cross-correlation against the control (`beam_quality_xcorr_ncc.png`) |
+| `eod-beam-xcorr-fwhm` | width of the cross-correlation peak (`beam_quality_xcorr_fwhm.png`) |
+| `eod-beam-xcorr-dx`, `-dy` | beam displacement in x and in y from the correlation peak (`beam_quality_xcorr_dx/dy.png`) |
+
+The manuscript groups the first three as Figure `fig:eod-beam-quality` and the four
+cross-correlation graphs as `fig:eod-beam-xcorr`. Legends name the two modes EOD G and EOD P.
 
 Produced by `MicroscopeMinFlux.jl` `dev/beam_char_analysis.jl` (branch `beam_char`), which fits
 two-dimensional Gaussian profiles per frame and computes the cross-correlation metrics through its
@@ -68,6 +83,9 @@ multiplies it by twenty, so the full sweep corresponds to ±200 V across the ele
 | `eod-quality-voltage-ellipticity` | `2_ellipticity.png` | ellipticity (max/min FWHM) against sweep voltage, both units |
 | `eod-quality-voltage-r2` | `3_r2.png` | Gaussian fit R² against sweep voltage, both units |
 | `eod-quality-voltage-omega` | `4_omega.png` | 1/e² radius against sweep voltage, fit-derived and FWHM-derived, both units |
+
+The manuscript groups all four as one 2×2 figure, `fig:eod-quality-voltage`, (a) to (d) in the
+order above.
 
 What the set shows, in brief. The widths along the two axes move in opposite senses as the drive
 advances, so the beam turns elliptical rather than changing size uniformly; the measured
@@ -141,8 +159,9 @@ Setup drawing only; no measurements from this configuration are in the manuscrip
 ## Polarization dependence of the deflection sensitivity
 
 Measured results: NAS `EOD Driver test/beam characterizatiom/polarization/apr10`, acquired
-2026-04-10. One figure per drive channel: `HVA1_polarization_angle_35.png` and
-`HVA2_polarization_angle_34.png`.
+2026-04-10. Four graphs per drive channel, `HVA<n>_polarization_{radial,cx,cy,mrad_per_kV}.png`.
+These replace the combined `HVA1_polarization_angle_35.png` and `HVA2_polarization_angle_34.png`,
+which carried a serial number in the filename; the split names carry none.
 
 **Which crystal each channel drives is unresolved.** The filename suffixes say HVA1 carries
 serial 35 and HVA2 carries serial 34. The project's own EOD audit says the opposite — "EOD34 on
@@ -156,18 +175,21 @@ The per-frame camera data for each sit in the `EOD34` and `EOD35` subfolders bes
 Each sweep runs the amplifier output across roughly plus and minus 200 V and records the beam
 centre on the camera, at three input polarizations: parallel to the deflection axis,
 perpendicular to it, and with the polarizer removed. Angles are derived from the displacement
-using a 5.2 micrometre pixel pitch and a 190 mm crystal-to-camera distance, both stated in the
-figure titles; the sensitivity bars are compared against the vendor's quoted minimum of
-3 mrad/kV.
+using a 5.2 micrometre pixel pitch and a 190 mm crystal-to-camera distance, both recorded in the
+sidecars (they were stated in the titles of the combined figures); the sensitivity bars are
+compared against the vendor's quoted minimum of 3 mrad/kV.
 
 | Figure | Shows |
 |---|---|
-| `eod-polarization-hva1` | beam position and mrad/kV against drive voltage, drive channel 1 |
-| `eod-polarization-hva2` | the same for drive channel 2 |
+| `eod-polarization-hva1-radial` | radial beam-centre position against amplifier output, drive channel 1 |
+| `eod-polarization-hva1-cx`, `-cy` | beam centre in x and in y against amplifier output, drive channel 1 |
+| `eod-polarization-hva1-mrad-per-kv` | sensitivity per input polarization against the 3 mrad/kV minimum, drive channel 1 |
+| `eod-polarization-hva2-*` | the same four for drive channel 2 |
+
+Each channel is one 2×2 figure in the manuscript, (a) to (d) in the order above.
 
 Measured sensitivities, in mrad/kV: perpendicular 3.42 and 3.61, unpolarized 2.40 and 3.21,
 parallel 0.96 and 1.01, for channels 1 and 2 respectively.
 
-Both plots label the deflector mode as "ODE" rather than "EOD" in the legend and title. That
-comes from the analysis script, not from the manuscript, and needs fixing where the plots are
-generated.
+The combined plots labelled the deflector "ODE" rather than "EOD" in legend and title. The split
+graphs have no title and their legends name only the polarization, so that no longer shows.

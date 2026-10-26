@@ -9,6 +9,8 @@
 # filenames, while the manuscript keeps citing one unchanging name.
 #
 # Globs are resolved against the source roots listed in refresh-figures.sh.
+# A provenance sidecar beside the matched source (same name, .yaml extension)
+# is copied along with it, to the stable name with a .yaml extension.
 # Lines starting with # and blank lines are ignored.
 
 # ---------------------------------------------------------------------------
@@ -17,9 +19,16 @@
 # Setup drawing (Photoshop source alongside the export).
 eod-setup-beam-degradation.png    EOD_exp_1.png
 
-# Measured results, from the moving-EOD1 stage sweep (MAR_3 dataset).
-eod-beam-quality.png              beam_quality_plot.png
-eod-beam-xcorr.png                beam_quality_xcorr.png
+# Measured results, from the moving-EOD1 stage sweep (MAR_3 dataset). One graph
+# per file; main.tex groups them as subfigures. The combined beam_quality_plot.png
+# and beam_quality_xcorr.png these replace are still on the NAS, unused.
+eod-beam-quality-fwhm-x.png       beam_quality_fwhm_x.png
+eod-beam-quality-fwhm-y.png       beam_quality_fwhm_y.png
+eod-beam-quality-ellipticity.png  beam_quality_ellipticity.png
+eod-beam-xcorr-ncc.png            beam_quality_xcorr_ncc.png
+eod-beam-xcorr-fwhm.png           beam_quality_xcorr_fwhm.png
+eod-beam-xcorr-dx.png             beam_quality_xcorr_dx.png
+eod-beam-xcorr-dy.png             beam_quality_xcorr_dy.png
 
 # ---------------------------------------------------------------------------
 # Experiment 2 — beam deflection against drive voltage
@@ -41,10 +50,17 @@ donut-setup-creation.png              EOD_exp_4_relay system_2EOD_donut_creation
 # ---------------------------------------------------------------------------
 # Polarization dependence of the deflection sensitivity (apr10 dataset)
 # ---------------------------------------------------------------------------
-# One panel per drive channel. HVA1 drives the deflector with serial 35,
-# HVA2 the one with serial 34, which is what the source filenames record.
-eod-polarization-hva1.png         HVA1_polarization_angle_35.png
-eod-polarization-hva2.png         HVA2_polarization_angle_34.png
+# Four graphs per drive channel. The split sources carry no serial suffix, and
+# which crystal each channel drives is unresolved (see PROVENANCE.md), so the
+# stable names use the channel only.
+eod-polarization-hva1-radial.png      HVA1_polarization_radial.png
+eod-polarization-hva1-cx.png          HVA1_polarization_cx.png
+eod-polarization-hva1-cy.png          HVA1_polarization_cy.png
+eod-polarization-hva1-mrad-per-kv.png HVA1_polarization_mrad_per_kV.png
+eod-polarization-hva2-radial.png      HVA2_polarization_radial.png
+eod-polarization-hva2-cx.png          HVA2_polarization_cx.png
+eod-polarization-hva2-cy.png          HVA2_polarization_cy.png
+eod-polarization-hva2-mrad-per-kv.png HVA2_polarization_mrad_per_kV.png
 
 # ---------------------------------------------------------------------------
 # Beam quality against drive voltage (mar_25 angle dataset)

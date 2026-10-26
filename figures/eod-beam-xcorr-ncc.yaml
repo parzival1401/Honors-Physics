@@ -1,0 +1,14 @@
+# Provenance for beam_quality_xcorr_ncc.png -- written by save_figure() in dev/plot_style.jl.
+# The same fields are embedded in the PNG (read_figure_info). One figure = one file.
+figure_id: "beam_quality_xcorr_ncc"
+former_title: "Beam Quality — 2D Cross-Correlation vs Control Reference / Peak NCC (similarity to control)"   # title removed from the image; the caption replaces it
+what_it_shows: "Peak normalised cross-correlation of each frame against the mean control frame; 1 = same beam shape as the control."
+axes:
+  x: "Stage position (mm)"
+  y: "Peak NCC (0–1)"
+data:
+  source: "NAS Y:\\Projects\\NSF-MINFLUX\\projects\\Data\\Evaluation Experiments\\EOD Driver test\\beam characterizatiom\\movig EDO1\\MAR_3 -- acquired 2026-03-04, deflector translated across the beam on the stage"
+  script: "MicroscopeMinFlux.jl/dev/beam_char_analysis.jl"
+  commit: "3dc9c23 on worktree-galvo-delay-analysis"
+created: "2026-10-26 12:22:43"
+notes: ""

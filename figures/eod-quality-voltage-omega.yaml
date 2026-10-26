@@ -1,0 +1,14 @@
+# Provenance for 4_omega.png -- written by save_figure() in dev/plot_style.jl.
+# The same fields are embedded in the PNG (read_figure_info). One figure = one file.
+figure_id: "4_omega"
+former_title: "Beam radius w vs sweep voltage -- fit-derived vs FWHM-derived, both units"   # title removed from the image; the caption replaces it
+what_it_shows: "1/e2 beam radius against sweep voltage for both EOD units, from the 2D fit (solid) and from the measured FWHM (dashed)."
+axes:
+  x: "Sweep voltage (V)"
+  y: "w, 1/e2 radius (um)"
+data:
+  source: "NAS Y:\\Projects\\NSF-MINFLUX\\projects\\Data\\Evaluation Experiments\\EOD Driver test\\beam characterizatiom\\angle\\mar_25 -- acquired 2026-03-25; EOD34 swept on HVA1, EOD35 on HVA2; x axis is the command voltage, the HVA200 multiplies it by 20"
+  script: "MicroscopeMinFlux.jl/dev/analysis/angle_beam_quality.jl"
+  commit: "3dc9c23 on worktree-galvo-delay-analysis"
+created: "2026-10-26 12:30:21"
+notes: "FWHM-derived radius uses w = FWHM / sqrt(2 ln 2), matching the fit model I = C exp(-2 r^2 / w^2)."

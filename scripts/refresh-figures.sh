@@ -63,6 +63,20 @@ while read -r stable glob; do
     continue
   fi
 
+  # Provenance sidecar: the analysis writes <name>.yaml beside each PNG. Carry it
+  # to the stable name so the record travels with the figure. Checked before the
+  # PNG comparison so a sidecar still lands when the image itself is unchanged.
+  side_src="${newest%.*}.yaml"
+  side_dest="$FIGDIR/${stable%.*}.yaml"
+  if [ -f "$side_src" ] && ! { [ -f "$side_dest" ] && cmp -s "$side_src" "$side_dest"; }; then
+    if [ "$DRY_RUN" -eq 1 ]; then
+      echo "  WOULD    $(basename "$side_dest")  <-  $(basename "$side_src")"
+    else
+      cp -- "$side_src" "$side_dest"
+      echo "  UPDATED  $(basename "$side_dest")  <-  $(basename "$side_src")"
+    fi
+  fi
+
   dest="$FIGDIR/$stable"
   if [ -f "$dest" ] && cmp -s "$newest" "$dest"; then
     unchanged=$((unchanged+1))

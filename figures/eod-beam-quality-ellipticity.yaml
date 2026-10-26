@@ -1,0 +1,14 @@
+# Provenance for beam_quality_ellipticity.png -- written by save_figure() in dev/plot_style.jl.
+# The same fields are embedded in the PNG (read_figure_info). One figure = one file.
+figure_id: "beam_quality_ellipticity"
+former_title: "Beam Characterization — ODE Drift vs Stage Position / Ellipticity vs Position"   # title removed from the image; the caption replaces it
+what_it_shows: "Ratio of the larger to the smaller FWHM against stage position; 1 = circular."
+axes:
+  x: "Stage position (mm)"
+  y: "Ellipticity (max/min FWHM)"
+data:
+  source: "NAS Y:\\Projects\\NSF-MINFLUX\\projects\\Data\\Evaluation Experiments\\EOD Driver test\\beam characterizatiom\\movig EDO1\\MAR_3 -- acquired 2026-03-04, deflector translated across the beam on the stage"
+  script: "MicroscopeMinFlux.jl/dev/beam_char_analysis.jl"
+  commit: "3dc9c23 on worktree-galvo-delay-analysis"
+created: "2026-10-26 12:22:33"
+notes: "Points at 0 are frames where no beam was found (beam off the sensor), not a measured width."

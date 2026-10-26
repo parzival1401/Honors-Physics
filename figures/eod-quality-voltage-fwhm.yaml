@@ -1,0 +1,14 @@
+# Provenance for 1_fwhm.png -- written by save_figure() in dev/plot_style.jl.
+# The same fields are embedded in the PNG (read_figure_info). One figure = one file.
+figure_id: "1_fwhm"
+former_title: "Beam FWHM vs sweep voltage -- both EOD units"   # title removed from the image; the caption replaces it
+what_it_shows: "FWHM along x (solid) and y (dashed) against sweep voltage for both EOD units, with the undeflected control as a dashed line."
+axes:
+  x: "Sweep voltage (V)"
+  y: "FWHM (um)"
+data:
+  source: "NAS Y:\\Projects\\NSF-MINFLUX\\projects\\Data\\Evaluation Experiments\\EOD Driver test\\beam characterizatiom\\angle\\mar_25 -- acquired 2026-03-25; EOD34 swept on HVA1, EOD35 on HVA2; x axis is the command voltage, the HVA200 multiplies it by 20"
+  script: "MicroscopeMinFlux.jl/dev/analysis/angle_beam_quality.jl"
+  commit: "3dc9c23 on worktree-galvo-delay-analysis"
+created: "2026-10-26 12:30:19"
+notes: ""

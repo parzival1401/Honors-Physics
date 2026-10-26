@@ -1,5 +1,6 @@
 \documentclass{article}
 \usepackage{graphicx} % Required for inserting images
+\usepackage{subcaption} % one graph per image, grouped as (a), (b), ... panels
 \graphicspath{{figures/}} % cite figures by stable name: \includegraphics{eod-beam-quality}
 \usepackage{biblatex}
 \addbibresource{references.bib}
@@ -328,12 +329,13 @@ of that peak relative to zero lag gives the displacement between them.
 
 \paragraph{Beam degradation along the path.}
 The clearest result of this measurement is a working range rather than a degradation curve. The
-correlation against the undeflected control, Figure~\ref{fig:eod-beam-xcorr}, rises to
+correlation against the undeflected control, Figure~\ref{fig:eod-beam-xcorr-ncc}, rises to
 essentially unity over a plateau running from roughly 10.5 to 12~mm of stage travel and falls
 away steeply on both sides, reaching 0.2 to 0.4 at either extreme. Across that plateau the width
-of the correlation peak is flat and sits on the control value, so where the beam is usable at all
-it is no less sharp than the reference. The displacement behaves the same way: flat within the
-plateau and running to several hundred pixels in $x$ outside it, while $y$ stays near zero
+of the correlation peak, Figure~\ref{fig:eod-beam-xcorr-fwhm}, is flat and sits on the control
+value, so where the beam is usable at all it is no less sharp than the reference. The
+displacement, Figures~\ref{fig:eod-beam-xcorr-dx} and~\ref{fig:eod-beam-xcorr-dy}, behaves the
+same way: flat within the plateau and running to several hundred pixels in $x$ outside it, while $y$ stays near zero
 throughout. The two deflector modes reach the plateau at different stage positions, one about
 0.7~mm earlier than the other, but leave it together.
 
@@ -371,7 +373,7 @@ arithmetic.
 
 \paragraph{Deflection sensitivity and its polarization dependence.}
 Both channels steer along a single axis: the beam centre moves linearly in $x$ across the full
-$\pm200$~V of amplifier output while $y$ remains flat, in
+$\pm200$~V of amplifier output while $y$ remains flat, in panels (b) and (c) of
 Figures~\ref{fig:eod-polarization-hva1} and~\ref{fig:eod-polarization-hva2}. The second channel
 shows its three polarization traces displaced from one another in $y$ by a few pixels, but each
 is flat with drive, so this is a fixed offset between configurations rather than a response to
@@ -400,18 +402,59 @@ transient and is excluded from the regressions.
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=\textwidth]{eod-beam-quality}
-    \caption{Width at half maximum along $x$ and $y$, and ellipticity, against stage position in
-    millimetres. Both deflector modes; control dashed. Unity ellipticity is a circular beam.}
+    \begin{subfigure}{0.32\textwidth}
+        \includegraphics[width=\linewidth]{eod-beam-quality-fwhm-x}
+        \caption{}
+        \label{fig:eod-beam-quality-fwhm-x}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.32\textwidth}
+        \includegraphics[width=\linewidth]{eod-beam-quality-fwhm-y}
+        \caption{}
+        \label{fig:eod-beam-quality-fwhm-y}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.32\textwidth}
+        \includegraphics[width=\linewidth]{eod-beam-quality-ellipticity}
+        \caption{}
+        \label{fig:eod-beam-quality-ellipticity}
+    \end{subfigure}
+    \caption{Beam shape against stage position in millimetres as the deflector is translated
+    across the beam, both deflector modes, with the control drawn dashed. (a) Width at half
+    maximum along $x$; (b) along $y$; (c) ellipticity, the ratio of the larger width to the
+    smaller, where unity is a circular beam.}
     \label{fig:eod-beam-quality}
 \end{figure}
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=\textwidth]{eod-beam-xcorr}
-    \caption{Cross-correlation against the control reference, against stage position in
-    millimetres: peak value, peak width, and beam displacement in $x$ and $y$. A peak of unity
-    denotes an identical beam.}
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{eod-beam-xcorr-ncc}
+        \caption{}
+        \label{fig:eod-beam-xcorr-ncc}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{eod-beam-xcorr-fwhm}
+        \caption{}
+        \label{fig:eod-beam-xcorr-fwhm}
+    \end{subfigure}
+
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{eod-beam-xcorr-dx}
+        \caption{}
+        \label{fig:eod-beam-xcorr-dx}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{eod-beam-xcorr-dy}
+        \caption{}
+        \label{fig:eod-beam-xcorr-dy}
+    \end{subfigure}
+    \caption{Cross-correlation of each frame against the control reference, against stage
+    position in millimetres, both deflector modes. (a) Peak normalised correlation, where unity
+    denotes a beam identical to the control; (b) width of the correlation peak; (c) displacement
+    of the beam in $x$ and (d) in $y$, from the location of the peak.}
     \label{fig:eod-beam-xcorr}
 \end{figure}
 
@@ -419,51 +462,97 @@ transient and is excluded from the regressions.
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=\textwidth]{eod-quality-voltage-fwhm}
-    \caption{Width at half maximum on each transverse axis against sweep voltage, both
-    deflectors. Control dashed.}
-    \label{fig:eod-quality-voltage-fwhm}
-\end{figure}
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{eod-quality-voltage-fwhm}
+        \caption{}
+        \label{fig:eod-quality-voltage-fwhm}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{eod-quality-voltage-ellipticity}
+        \caption{}
+        \label{fig:eod-quality-voltage-ellipticity}
+    \end{subfigure}
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=\textwidth]{eod-quality-voltage-ellipticity}
-    \caption{Ellipticity against sweep voltage, both deflectors. Unity is a circular beam.}
-    \label{fig:eod-quality-voltage-ellipticity}
-\end{figure}
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=\textwidth]{eod-quality-voltage-r2}
-    \caption{Goodness of fit $R^2$ of the two-dimensional Gaussian against sweep voltage, both
-    deflectors.}
-    \label{fig:eod-quality-voltage-r2}
-\end{figure}
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=\textwidth]{eod-quality-voltage-omega}
-    \caption{Beam radius at $1/e^2$ against sweep voltage, derived from the fit and
-    independently from the measured width. For a true Gaussian the two coincide.}
-    \label{fig:eod-quality-voltage-omega}
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{eod-quality-voltage-r2}
+        \caption{}
+        \label{fig:eod-quality-voltage-r2}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{eod-quality-voltage-omega}
+        \caption{}
+        \label{fig:eod-quality-voltage-omega}
+    \end{subfigure}
+    \caption{Beam quality against sweep voltage for both deflectors, from a two-dimensional
+    Gaussian fitted to each frame. (a) Width at half maximum on each transverse axis, control
+    dashed; (b) ellipticity, where unity is a circular beam; (c) goodness of fit $R^2$; (d) beam
+    radius at $1/e^2$, derived from the fit and independently from the measured width, which
+    coincide for a true Gaussian.}
+    \label{fig:eod-quality-voltage}
 \end{figure}
 
 \paragraph{Deflection sensitivity and its polarization dependence.}
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=\textwidth]{eod-polarization-hva1}
-    \caption{Deflection against drive voltage, channel HVA1 (deflector 35), at three input
-    polarizations: parallel to the deflection axis, perpendicular, and unpolarized. Upper panels,
-    beam centre as radial position and resolved into $x$ and $y$; lower right, sensitivity in
-    mrad/kV against the quoted minimum of 3.}
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{eod-polarization-hva1-radial}
+        \caption{}
+        \label{fig:eod-polarization-hva1-radial}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{eod-polarization-hva1-cx}
+        \caption{}
+        \label{fig:eod-polarization-hva1-cx}
+    \end{subfigure}
+
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{eod-polarization-hva1-cy}
+        \caption{}
+        \label{fig:eod-polarization-hva1-cy}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{eod-polarization-hva1-mrad-per-kv}
+        \caption{}
+        \label{fig:eod-polarization-hva1-mrad-per-kv}
+    \end{subfigure}
+    \caption{Deflection against amplifier output voltage for drive channel HVA1, at three input
+    polarizations: parallel to the deflection axis, perpendicular to it, and unpolarized. Beam
+    centre on the camera (a) as radial position, and resolved into (b) $x$ and (c) $y$;
+    (d) sensitivity in mrad/kV from the slope of each sweep, against the quoted minimum of 3.}
     \label{fig:eod-polarization-hva1}
 \end{figure}
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=\textwidth]{eod-polarization-hva2}
-    \caption{The same measurement for channel HVA2 (deflector 34); panels as in
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{eod-polarization-hva2-radial}
+        \caption{}
+        \label{fig:eod-polarization-hva2-radial}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{eod-polarization-hva2-cx}
+        \caption{}
+        \label{fig:eod-polarization-hva2-cx}
+    \end{subfigure}
+
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{eod-polarization-hva2-cy}
+        \caption{}
+        \label{fig:eod-polarization-hva2-cy}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{eod-polarization-hva2-mrad-per-kv}
+        \caption{}
+        \label{fig:eod-polarization-hva2-mrad-per-kv}
+    \end{subfigure}
+    \caption{The same measurement for drive channel HVA2; panels (a) to (d) as in
     Figure~\ref{fig:eod-polarization-hva1}.}
     \label{fig:eod-polarization-hva2}
 \end{figure}

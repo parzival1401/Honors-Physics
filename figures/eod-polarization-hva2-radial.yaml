@@ -1,0 +1,14 @@
+# Provenance for HVA2_polarization_radial.png -- written by save_figure() in dev/plot_style.jl.
+# The same fields are embedded in the PNG (read_figure_info). One figure = one file.
+figure_id: "HVA2_polarization_radial"
+former_title: "HVA2 — Voltage vs Beam Position by Polarization  (pixel size 5.2 µm, EOD→cam 190.0 mm) / Monitor vs √(cx²+cy²)"   # title removed from the image; the caption replaces it
+what_it_shows: "Radial beam-centre position on the camera against HVA2 output voltage, one series per input polarization."
+axes:
+  x: "HVA2 output (V)"
+  y: "Position √(cx²+cy²) (px)"
+data:
+  source: "NAS Y:\\Projects\\NSF-MINFLUX\\projects\\Data\\Evaluation Experiments\\EOD Driver test\\beam characterizatiom\\polarization\\apr10 -- acquired 2026-04-10; folder EOD34 is plotted as HVA1 and EOD35 as HVA2"
+  script: "MicroscopeMinFlux.jl/dev/polarization_angle.jl"
+  commit: "3dc9c23 on worktree-galvo-delay-analysis"
+created: "2026-10-26 12:22:40"
+notes: "Angles use pixel size 5.2 µm and EOD-to-camera distance 190.0 mm; HVA real output = -monitor x 20. Which crystal serial each channel drives is unresolved (see Honors-Physics figures/PROVENANCE.md)."

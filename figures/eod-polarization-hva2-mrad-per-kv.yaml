@@ -1,0 +1,14 @@
+# Provenance for HVA2_polarization_mrad_per_kV.png -- written by save_figure() in dev/plot_style.jl.
+# The same fields are embedded in the PNG (read_figure_info). One figure = one file.
+figure_id: "HVA2_polarization_mrad_per_kV"
+former_title: "HVA2 — Voltage vs Beam Position by Polarization  (pixel size 5.2 µm, EOD→cam 190.0 mm) / mrad / kV by Polarization  (spec = 3.0 mrad/kV)"   # title removed from the image; the caption replaces it
+what_it_shows: "Deflection sensitivity from a least-squares slope of beam position against HVA2 output, per input polarization, against the vendor minimum."
+axes:
+  x: "Input polarization"
+  y: "Sensitivity (mrad/kV)"
+data:
+  source: "NAS Y:\\Projects\\NSF-MINFLUX\\projects\\Data\\Evaluation Experiments\\EOD Driver test\\beam characterizatiom\\polarization\\apr10 -- acquired 2026-04-10; folder EOD34 is plotted as HVA1 and EOD35 as HVA2"
+  script: "MicroscopeMinFlux.jl/dev/polarization_angle.jl"
+  commit: "3dc9c23 on worktree-galvo-delay-analysis"
+created: "2026-10-26 12:22:41"
+notes: "Angles use pixel size 5.2 µm and EOD-to-camera distance 190.0 mm; HVA real output = -monitor x 20. Which crystal serial each channel drives is unresolved (see Honors-Physics figures/PROVENANCE.md)."
