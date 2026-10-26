@@ -48,6 +48,23 @@ deflector is built so that it does, by dividing the crystal into sections whose 
 opposed, so that a single applied voltage raises the index on one side of the beam while lowering
 it on the other.
 
+The mechanism is the linear electro-optic, or Pockels, effect. A field $E$ changes the index seen
+by light polarized along a given crystal axis by
+\begin{equation}
+    \Delta n = \tfrac{1}{2}\, n^3 r E ,
+\end{equation}
+where $n$ is the unperturbed index and $r$ the electro-optic coefficient that couples the field to
+that polarization. With a voltage $V$ across an electrode gap $d$, the field is $V/d$, and opposed
+sections turn the index change into a difference of $2\Delta n$ across a beam aperture $w$. Over
+a crystal of length $L$ the wavefront then tilts by
+\begin{equation}
+    \theta \approx \frac{n^3 r L}{d\, w}\, V ,
+\end{equation}
+up to a factor of order unity set by the shape of the sections. Three properties of the device
+follow directly. The deflection is proportional to the voltage. A long, thin crystal deflects
+more per volt. And only the coefficient $r$ for the polarization actually present enters, so the
+sensitivity depends on how the input light is polarized.
+
 What makes this convenient is that nothing has to be accelerated. A galvanometer steers by
 turning a mirror, and how quickly it can move and settle is set by the inertia of that mirror and
 by the servo holding it in place. An electro-optic deflector has no moving part at all, so its
@@ -63,14 +80,21 @@ across a field; it parks the excitation at a small number of known positions and
 photon counts collected at each. Time spent moving and settling is time not spent collecting
 photons, and the positions are revisited in rapid alternation rather than swept in sequence, so a
 deflector that jumps between them at electronic speed is worth a great deal more than one that
-covers a wide angle slowly.
+covers a wide angle slowly. The deflector is also the ruler of the measurement. The position of an
+emitter is computed from the photon counts and from where the pattern is believed to have been
+placed, so any error in the conversion from drive voltage to beam position enters the
+localization directly rather than averaging away. In this project the EOD pair therefore sets
+both how fast the pattern can move and how well its positions are known.
 
 The price is paid in three places. The angles available are small, milliradians rather than the
-tens of degrees a mirror gives, so the deflection has to be magnified and relayed by the optics
-that follow. The drive voltages are high, which is why each crystal is fed from a high-voltage
+tens of degrees a mirror gives: at the 3~mrad/kV quoted for these units, the full $\pm200$~V of
+the amplifier gives about $\pm0.6$~mrad, so the deflection has to be magnified and relayed by the
+optics that follow. The drive voltages are high, which is why each crystal is fed from a high-voltage
 amplifier rather than directly from a control card. And the response is referred to the crystal's
 own axes, so how much deflection a given voltage produces depends on how the input polarization
-is oriented with respect to those axes; polarization becomes part of the calibration rather than
+is oriented with respect to those axes. In lithium tantalate the strongest coefficient, $r_{33}$,
+acts on light polarized along the crystal's optic axis, while light polarized at right angles to
+it sees the much weaker $r_{13}$; polarization therefore becomes part of the calibration rather than
 a detail of the alignment, and is why a half-wave plate appears between the two deflectors in the
 arrangements described later.
 
@@ -104,10 +128,6 @@ established by the measurements reported below.
 The two deflectors are referred to throughout by serial number. EOD34 is the first in the beam
 path, steers the $x$ axis, and is driven by amplifier HVA1; EOD35 follows it, steers $y$, and is
 driven by HVA2. Every result below is attributed to one or the other by these names.
-
-\begin{itemize}
-    \item [FIGURE: diagram] schematic of EOD crystal + applied field + resulting beam deflection
-\end{itemize}
 
 \subsection{Characterization}
 
@@ -169,13 +189,13 @@ pivot at the centre of the crystal rather than to the face of its housing.
 
 \subsubsection{Setup}
 
-All four measurements record the beam directly on the camera sensor, and each reduces the
+Every measurement below records the beam directly on the camera sensor, and each reduces the
 recorded frames by the procedures set out under Methods.
 
 \paragraph{Beam quality across the deflector aperture.}
 A single deflector is mounted on a micrometer stage after two folding mirrors and translated
-across the beam, so that the beam samples the crystal from one edge of its 2~mm aperture to the
-other. A frame is recorded at each stage position, and a control frame recorded on the same
+across the beam over about 4.5~mm, more than twice its 2~mm aperture, so that the beam passes from
+outside one edge of the aperture, through it, to outside the other. A frame is recorded at each stage position, and a control frame recorded on the same
 bench serves as the reference. EOD34 and EOD35 are measured in turn. The arrangement is that of
 Figure~\ref{fig:eod-setup-beam-degradation}.
 
@@ -362,7 +382,11 @@ value, so where the beam is usable at all it is no less sharp than the reference
 displacement, Figures~\ref{fig:eod-beam-xcorr-dx} and~\ref{fig:eod-beam-xcorr-dy}, behaves the
 same way: flat within the plateau and running to several hundred pixels in $x$ outside it, while
 $y$ stays near zero throughout. EOD35 reaches the plateau about 0.7~mm of travel earlier than
-EOD34, but the two leave it together.
+EOD34, but the two leave it together. A plateau about 1.5~mm wide inside a 2~mm aperture is what
+a beam a fraction of a millimetre across would give if the plateau is simply the range over which
+it clears both edges of the aperture, so the fall-off on either side reads as clipping at the
+aperture rather than as degradation within the crystal, and the 0.7~mm offset between the two
+deflectors most simply as a difference in where each crystal sits relative to the stage.
 
 \paragraph{Beam quality along the path.}
 Figure~\ref{fig:eod-path} follows the beam from the fibre output through EOD34, the first relay,
@@ -422,23 +446,33 @@ departure from a straight line is visible at either extreme.
 
 The sensitivity depends strongly on the input polarization, panel (d) of each figure. With the
 polarization perpendicular to the deflection axis, EOD34 gives 2.95~mrad/kV and EOD35 3.12;
-unpolarized, 2.08 and 2.77; and parallel to the deflection axis, 0.83 and 0.88. The ratio between
+with the polarizer removed, 2.08 and 2.77; and parallel to the deflection axis, 0.83 and 0.88. The ratio between
 the best and worst polarization is about 3.5 for both, so this is a property of the device type
-rather than of one crystal.
+rather than of one crystal. It is the ratio the Pockels mechanism predicts: if the perpendicular
+setting puts the light along the optic axis and the parallel setting at right angles to it, the
+two sensitivities stand in the ratio of the coefficients $r_{33}$ and $r_{13}$, which for lithium
+tantalate is about 3.6.
+
+The values with the polarizer removed behave differently, and the difference is instructive. With the polarizer
+removed, the light reaching the crystal keeps whatever polarization the source and the optics
+before it give it, so its sensitivity falls between the two extremes at a point set by that
+uncontrolled state rather than by the crystal. That is why this condition is where the
+two deflectors disagree most, by a third, whereas at the two controlled settings they agree to
+within about six percent.
 
 Measured against the manufacturer's quoted minimum of 3~mrad/kV, the outcome depends on the
 polarization first and on the deflector second. Only at the perpendicular setting do the
 deflectors approach the specification at all: EOD35 meets it, and EOD34 falls short by under two
-percent, a margin comparable to the uncertainty in the lever arm discussed below. Unpolarized,
+percent, a margin comparable to the uncertainty in the lever arm discussed below. With the polarizer removed,
 both fall below it, and at the parallel setting both fail by a factor of
 about three and a half. A half-wave plate correctly set is therefore a precondition for the
 deflectors reaching their quoted performance, not an optimization applied on top of it.
 
 Two consequences follow for the control system. The orientation of the input polarization has to
 be fixed and recorded as part of the calibration, since it alone moves the volts-to-angle
-conversion across that range. And EOD34 and EOD35 cannot be assumed identical: unpolarized, EOD35
-is a third more sensitive than EOD34, so a scan pattern built on a single sensitivity for both
-axes would be distorted.
+conversion across that range. And even with the polarization controlled, EOD34 and EOD35 differ
+by about six percent, so a scan pattern built on a single sensitivity for both axes would be
+stretched along one of them; each deflector needs its own calibration.
 
 Two cautions attach to these numbers. They are inversely proportional to the lever arm, taken
 here as 220~mm: the 190~mm measured on the bench runs from the housing face to the sensor, and
@@ -600,7 +634,7 @@ interval and remains to be measured on the drive chain directly.
         \label{fig:eod-polarization-hva1-mrad-per-kv}
     \end{subfigure}
     \caption{Deflection of EOD34 against the output voltage of its amplifier, HVA1, at three input
-    polarizations: parallel to the deflection axis, perpendicular to it, and unpolarized. Beam
+    polarizations: parallel to the deflection axis, perpendicular to it, and with the polarizer removed. Beam
     centre on the camera (a) as radial position, and resolved into (b) $x$ and (c) $y$;
     (d) sensitivity in mrad/kV from the slope of each sweep, against the quoted minimum of 3.}
     \label{fig:eod-polarization-hva1}
@@ -780,8 +814,10 @@ curvature visible at either extreme, which is what the bulk electro-optic mechan
 magnitude, however, is set as much by polarization as by the device. Only with the input
 perpendicular to the deflection axis do the deflectors approach the quoted 3~mrad/kV: EOD35
 meets it at 3.12, and EOD34 falls just short at 2.95, within the uncertainty of the lever arm.
-Unpolarized or misaligned input costs up to a factor of three and a half. EOD34 and EOD35 also
-differ from each other by up to a third, so each needs its own calibration.
+Polarization along the wrong axis costs a factor of three and a half, the ratio of the crystal's
+two electro-optic coefficients, and leaving it uncontrolled makes the sensitivity depend on the
+source rather than the device. With the polarization fixed, EOD34 and EOD35 still differ by about
+six percent, so each needs its own calibration.
 
 Held at a fixed voltage, EOD35 is as steady as the laser beneath it, at about 0.001~mrad. EOD34
 is equally steady over most of its range but drifts slowly when held at zero or at most negative
