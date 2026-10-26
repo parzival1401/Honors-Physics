@@ -94,7 +94,9 @@ amplifier rather than directly from a control card. And the response is referred
 own axes, so how much deflection a given voltage produces depends on how the input polarization
 is oriented with respect to those axes. In lithium tantalate the strongest coefficient, $r_{33}$,
 acts on light polarized along the crystal's optic axis, while light polarized at right angles to
-it sees the much weaker $r_{13}$; polarization therefore becomes part of the calibration rather than
+it sees $r_{13}$, about a quarter as large
+\cite{yarivPhotonicsOpticalElectronics2007,cassonElectroopticCoefficientsLithium2004};
+polarization therefore becomes part of the calibration rather than
 a detail of the alignment, and is why a half-wave plate appears between the two deflectors in the
 arrangements described later.
 
@@ -115,8 +117,11 @@ Against mechanical scanners, both solid-state families trade angular range for a
 exceeding conventional mirror scanners by up to an order of magnitude on the latter
 \cite{romerElectroopticAcoustoopticLaser2014,heberleElectroopticAcoustoopticLaser2016}.
 
-Concretely, the instrument carries two Leysop \texttt{ED2-2T-LT-AR561-642} deflectors, one per
-transverse axis, with a 2~mm clear aperture in a 60~mm housing and an antireflection coating
+These deflectors were chosen for this instrument for speed. Of the ways to steer the excitation,
+an electro-optic deflector is the one that can switch the pattern between its positions at
+electronic rather than mechanical rates, and the MINFLUX cycle is built on exactly that switching;
+the small angle and high voltage are the costs accepted for it. Concretely, the instrument carries
+two Leysop \texttt{ED2-2T-LT-AR561-642} deflectors, one per transverse axis, with a 2~mm clear aperture in a 60~mm housing and an antireflection coating
 covering both the 561 and 642~nm excitation lines. Each is driven single-ended through two MHV
 electrode inputs by a Thorlabs HVA200 high-voltage amplifier ($\times20$, $\pm200$~V), which is
 fed in turn from the FPGA through a digital-to-analog converter and an op-amp preamplifier stage.
@@ -446,19 +451,29 @@ departure from a straight line is visible at either extreme.
 
 The sensitivity depends strongly on the input polarization, panel (d) of each figure. With the
 polarization perpendicular to the deflection axis, EOD34 gives 2.95~mrad/kV and EOD35 3.12;
-with the polarizer removed, 2.08 and 2.77; and parallel to the deflection axis, 0.83 and 0.88. The ratio between
-the best and worst polarization is about 3.5 for both, so this is a property of the device type
-rather than of one crystal. It is the ratio the Pockels mechanism predicts: if the perpendicular
-setting puts the light along the optic axis and the parallel setting at right angles to it, the
-two sensitivities stand in the ratio of the coefficients $r_{33}$ and $r_{13}$, which for lithium
-tantalate is about 3.6.
+with the polarizer removed, 2.08 and 2.77; and parallel to the deflection axis, 0.83 and 0.88. The
+ratio between the best and worst polarization is about 3.5 for both, so this is a property of the
+device type rather than of one crystal. It is the size of effect the Pockels mechanism predicts.
+If the perpendicular setting puts the light along the optic axis and the parallel setting at
+right angles to it, the two sensitivities stand in the ratio of the coefficients $r_{33}$ and
+$r_{13}$, the two indices of lithium tantalate being nearly equal. Reported values near 633~nm
+put $r_{33}$ at 30 to 36~pm/V and $r_{13}$ at 7 to 8~pm/V, a ratio of roughly four
+\cite{yarivPhotonicsOpticalElectronics2007,cassonElectroopticCoefficientsLithium2004}. A measured
+ratio at the low end of that range is expected, since any small misalignment of the polarizer
+mixes some of the stronger response into the weaker setting.
 
-The values with the polarizer removed behave differently, and the difference is instructive. With the polarizer
-removed, the light reaching the crystal keeps whatever polarization the source and the optics
-before it give it, so its sensitivity falls between the two extremes at a point set by that
-uncontrolled state rather than by the crystal. That is why this condition is where the
-two deflectors disagree most, by a third, whereas at the two controlled settings they agree to
-within about six percent.
+The values with the polarizer removed behave differently, and the difference is instructive. The
+laser is linearly polarized at its output, so with the polarizer removed each crystal still sees
+linearly polarized light, but at whatever angle $\varphi$ to its optic axis the source and the
+optics before it happen to set. The light then divides between the two axes, and the measured
+sensitivity is the weighted mean
+\begin{equation}
+    S(\varphi) = S_\perp \cos^2\varphi + S_\parallel \sin^2\varphi ,
+\end{equation}
+which places the input about $40^\circ$ from the optic axis of EOD34 and about $23^\circ$ from
+that of EOD35. That is why this condition is where the two deflectors disagree most, by a third,
+whereas at the two controlled settings they agree to within about six percent: the gap belongs to
+how each crystal sits relative to the laser's polarization, not to the crystals.
 
 Measured against the manufacturer's quoted minimum of 3~mrad/kV, the outcome depends on the
 polarization first and on the deflector second. Only at the perpendicular setting do the
@@ -814,9 +829,9 @@ curvature visible at either extreme, which is what the bulk electro-optic mechan
 magnitude, however, is set as much by polarization as by the device. Only with the input
 perpendicular to the deflection axis do the deflectors approach the quoted 3~mrad/kV: EOD35
 meets it at 3.12, and EOD34 falls just short at 2.95, within the uncertainty of the lever arm.
-Polarization along the wrong axis costs a factor of three and a half, the ratio of the crystal's
-two electro-optic coefficients, and leaving it uncontrolled makes the sensitivity depend on the
-source rather than the device. With the polarization fixed, EOD34 and EOD35 still differ by about
+Polarization along the wrong axis costs a factor of three and a half, close to the ratio of the
+crystal's two electro-optic coefficients, and leaving it uncontrolled makes the sensitivity
+depend on how the laser's polarization meets each crystal rather than on the device. With the polarization fixed, EOD34 and EOD35 still differ by about
 six percent, so each needs its own calibration.
 
 Held at a fixed voltage, EOD35 is as steady as the laser beneath it, at about 0.001~mrad. EOD34
