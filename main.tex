@@ -159,7 +159,8 @@ Finally, the geometry through which an angle is inferred has to be measured rath
 Deflection angle is not observed directly but reconstructed from a displacement on a camera and the
 distance from the crystal to that camera, so an error in the assumed lever arm propagates in full
 into the quoted sensitivity. An earlier calibration in this project was withdrawn for exactly this
-reason, and the measurements reported here fix the geometry explicitly.
+reason, and the measurements reported here refer the lever arm explicitly to the deflection
+pivot at the centre of the crystal rather than to the face of its housing.
 
 \subsubsection{Setup}
 
@@ -327,8 +328,11 @@ of that peak relative to zero lag gives the displacement between them.
 
 \subsubsection{Results}
 
-\paragraph{Beam degradation along the path.}
-The clearest result of this measurement is a working range rather than a degradation curve. The
+\paragraph{Beam quality across the deflector aperture.}
+Here each deflector is translated across the beam on its stage. The two traces in every panel,
+EOD G and EOD P, are the instrument's two deflectors: units of the same model, identical in
+construction, one serving the $x$ axis of the scan and the other the $y$ axis. The clearest
+result of this measurement is a working range rather than a degradation curve. The
 correlation against the undeflected control, Figure~\ref{fig:eod-beam-xcorr-ncc}, rises to
 essentially unity over a plateau running from roughly 10.5 to 12~mm of stage travel and falls
 away steeply on both sides, reaching 0.2 to 0.4 at either extreme. Across that plateau the width
@@ -336,7 +340,7 @@ of the correlation peak, Figure~\ref{fig:eod-beam-xcorr-fwhm}, is flat and sits 
 value, so where the beam is usable at all it is no less sharp than the reference. The
 displacement, Figures~\ref{fig:eod-beam-xcorr-dx} and~\ref{fig:eod-beam-xcorr-dy}, behaves the
 same way: flat within the plateau and running to several hundred pixels in $x$ outside it, while $y$ stays near zero
-throughout. The two deflector modes reach the plateau at different stage positions, one about
+throughout. The two units reach the plateau at different stage positions, one about
 0.7~mm earlier than the other, but leave it together.
 
 Within that plateau the beam widths of Figure~\ref{fig:eod-beam-quality} scatter about the
@@ -381,18 +385,18 @@ the applied field. Linearity holds across the whole range in both channels; no d
 straight line is visible at either extreme.
 
 The sensitivity depends strongly on the input polarization, panel (d) of each figure. With the
-polarization perpendicular to the deflection axis the two channels give 3.42 and 3.61~mrad/kV;
-unpolarized, 2.40 and 3.21;
-and parallel to the deflection axis, 0.96 and 1.01. The ratio between the best and worst
-polarization is about 3.6 in both channels, so this is a property of the devices rather than of
-one unit.
+polarization perpendicular to the deflection axis the two channels give 2.95 and 3.12~mrad/kV;
+unpolarized, 2.07 and 2.77; and parallel to the deflection axis, 0.83 and 0.87. The ratio between
+the best and worst polarization is about 3.6 in both channels, so this is a property of the
+devices rather than of one unit.
 
 Measured against the manufacturer's quoted minimum of 3~mrad/kV, the outcome depends on the
-polarization and not only on the device. Both channels meet the specification at the
-perpendicular setting and fail it by roughly a factor of three at the parallel setting. With the
-polarizer removed the two channels fall on opposite sides of the specification, one above and one
-below. A half-wave plate correctly set is therefore a precondition for the deflectors meeting
-their quoted performance, not an optimization applied on top of it.
+polarization first and on the unit second. Only at the perpendicular setting do the deflectors
+approach the specification at all: the second channel meets it, and the first falls short by
+under two percent, a margin comparable to the uncertainty in the lever arm discussed below.
+Unpolarized, both channels fall below it, and at the parallel setting both fail by a factor of
+about three and a half. A half-wave plate correctly set is therefore a precondition for the
+deflectors reaching their quoted performance, not an optimization applied on top of it.
 
 Two consequences follow for the control system. The orientation of the input polarization has to
 be fixed and recorded as part of the calibration, since it alone moves the volts-to-angle
@@ -400,10 +404,12 @@ conversion across that range. And the two channels cannot be assumed identical: 
 third in the unpolarized condition, so a scan pattern built on a single sensitivity for both axes
 would be distorted.
 
-Two cautions attach to these numbers. They are proportional to the assumed crystal-to-sensor
-distance of 190~mm, and the manufacturer places the deflection pivot at the centre of a 60~mm
-housing, so an error in where that distance was measured from propagates directly into every
-sensitivity quoted here. And the first recorded point of every sweep, at the negative extreme of
+Two cautions attach to these numbers. They are inversely proportional to the lever arm, taken
+here as 220~mm: the 190~mm measured on the bench runs from the housing face to the sensor, and
+the manufacturer places the deflection pivot at the centre of the 60~mm housing, a further
+30~mm back. Referring the angle to the housing face instead would overstate every sensitivity by
+about sixteen percent and carry both channels above the specification at the perpendicular
+setting, so where that distance is measured from is not a detail. And the first recorded point of every sweep, at the negative extreme of
 the drive, sits off the line established by the remainder; it has the character of a settling
 transient and is excluded from the regressions.
 
@@ -427,7 +433,7 @@ transient and is excluded from the regressions.
         \label{fig:eod-beam-quality-ellipticity}
     \end{subfigure}
     \caption{Beam shape against stage position in millimetres as the deflector is translated
-    across the beam, both deflector modes, with the control drawn dashed. (a) Width at half
+    across the beam, both deflectors, with the control drawn dashed. (a) Width at half
     maximum along $x$; (b) along $y$; (c) ellipticity, the ratio of the larger width to the
     smaller, where unity is a circular beam.}
     \label{fig:eod-beam-quality}
@@ -459,7 +465,7 @@ transient and is excluded from the regressions.
         \label{fig:eod-beam-xcorr-dy}
     \end{subfigure}
     \caption{Cross-correlation of each frame against the control reference, against stage
-    position in millimetres, both deflector modes. (a) Peak normalised correlation, where unity
+    position in millimetres, both deflectors. (a) Peak normalised correlation, where unity
     denotes a beam identical to the control; (b) width of the correlation peak; (c) displacement
     of the beam in $x$ and (d) in $y$, from the location of the peak.}
     \label{fig:eod-beam-xcorr}
