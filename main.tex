@@ -1,7 +1,7 @@
 \documentclass{article}
 \usepackage{graphicx} % Required for inserting images
 \usepackage{subcaption} % one graph per image, grouped as (a), (b), ... panels
-\graphicspath{{figures/}} % cite figures by stable name: \includegraphics{eod-beam-quality}
+\graphicspath{{figures/}} % cite figures by stable name: \includegraphics{eod-beam-xcorr-ncc}
 \usepackage{biblatex}
 \addbibresource{references.bib}
 \usepackage{amsmath}
@@ -339,20 +339,9 @@ away steeply on both sides, reaching 0.2 to 0.4 at either extreme. Across that p
 of the correlation peak, Figure~\ref{fig:eod-beam-xcorr-fwhm}, is flat and sits on the control
 value, so where the beam is usable at all it is no less sharp than the reference. The
 displacement, Figures~\ref{fig:eod-beam-xcorr-dx} and~\ref{fig:eod-beam-xcorr-dy}, behaves the
-same way: flat within the plateau and running to several hundred pixels in $x$ outside it, while $y$ stays near zero
-throughout. The two units reach the plateau at different stage positions, one about
+same way: flat within the plateau and running to several hundred pixels in $x$ outside it, while
+$y$ stays near zero throughout. The two units reach the plateau at different stage positions, one about
 0.7~mm earlier than the other, but leave it together.
-
-Within that plateau the beam widths of Figure~\ref{fig:eod-beam-quality} scatter about the
-control values and the ellipticity stays between about 1.0 and 1.3. Approaching the upper end of
-the travel the ellipticity climbs to between 2.3 and 2.6, so the beam is visibly distorted before
-the correlation has fully collapsed.
-
-Points at both extremes of travel read exactly zero in all three panels of
-Figure~\ref{fig:eod-beam-quality}, ellipticity included. A zero ratio of widths is not a physical
-measurement, so these are failures of the width search rather than measurements of a vanished
-beam, and they should be masked rather than plotted. They are left visible here because they mark
-where the measurement stops being meaningful.
 
 \paragraph{Beam quality along the path.}
 Figure~\ref{fig:eod-path} follows the beam from the fibre output through the assembled deflector
@@ -438,32 +427,6 @@ about sixteen percent and carry both channels above the specification at the per
 setting, so where that distance is measured from is not a detail. And the first recorded point of every sweep, at the negative extreme of
 the drive, sits off the line established by the remainder; it has the character of a settling
 transient and is excluded from the regressions.
-
-\begin{figure}[htbp]
-    \centering
-    \begin{subfigure}{0.32\textwidth}
-        \includegraphics[width=\linewidth]{eod-beam-quality-fwhm-x}
-        \caption{}
-        \label{fig:eod-beam-quality-fwhm-x}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}{0.32\textwidth}
-        \includegraphics[width=\linewidth]{eod-beam-quality-fwhm-y}
-        \caption{}
-        \label{fig:eod-beam-quality-fwhm-y}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}{0.32\textwidth}
-        \includegraphics[width=\linewidth]{eod-beam-quality-ellipticity}
-        \caption{}
-        \label{fig:eod-beam-quality-ellipticity}
-    \end{subfigure}
-    \caption{Beam shape against stage position in millimetres as the deflector is translated
-    across the beam, both deflectors, with the control drawn dashed. (a) Width at half
-    maximum along $x$; (b) along $y$; (c) ellipticity, the ratio of the larger width to the
-    smaller, where unity is a circular beam.}
-    \label{fig:eod-beam-quality}
-\end{figure}
 
 \begin{figure}[htbp]
     \centering

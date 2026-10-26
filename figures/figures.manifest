@@ -22,9 +22,9 @@ eod-setup-beam-degradation.png    EOD_exp_1.png
 # Measured results, from the moving-EOD1 stage sweep (MAR_3 dataset). One graph
 # per file; main.tex groups them as subfigures. The combined beam_quality_plot.png
 # and beam_quality_xcorr.png these replace are still on the NAS, unused.
-eod-beam-quality-fwhm-x.png       beam_quality_fwhm_x.png
-eod-beam-quality-fwhm-y.png       beam_quality_fwhm_y.png
-eod-beam-quality-ellipticity.png  beam_quality_ellipticity.png
+# The width and ellipticity graphs from this sweep (beam_quality_fwhm_x/y,
+# beam_quality_ellipticity) are deliberately NOT used: the user flagged that
+# data as wrong on 2026-10-26. Only the cross-correlation set is cited.
 eod-beam-xcorr-ncc.png            beam_quality_xcorr_ncc.png
 eod-beam-xcorr-fwhm.png           beam_quality_xcorr_fwhm.png
 eod-beam-xcorr-dx.png             beam_quality_xcorr_dx.png

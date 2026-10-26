@@ -32,14 +32,18 @@ of these plots is in those units.
 | Figure | Shows |
 |---|---|
 | `eod-setup-beam-degradation` | bench layout for the measurement |
-| `eod-beam-quality-fwhm-x`, `-fwhm-y` | full width at half maximum in x and in y against stage position (from `beam_quality_fwhm_x/y.png`) |
-| `eod-beam-quality-ellipticity` | ellipticity, larger over smaller width, against stage position (`beam_quality_ellipticity.png`) |
 | `eod-beam-xcorr-ncc` | peak normalised cross-correlation against the control (`beam_quality_xcorr_ncc.png`) |
 | `eod-beam-xcorr-fwhm` | width of the cross-correlation peak (`beam_quality_xcorr_fwhm.png`) |
 | `eod-beam-xcorr-dx`, `-dy` | beam displacement in x and in y from the correlation peak (`beam_quality_xcorr_dx/dy.png`) |
 
-The manuscript groups the first three as Figure `fig:eod-beam-quality` and the four
-cross-correlation graphs as `fig:eod-beam-xcorr`. Legends name the two modes EOD G and EOD P.
+The manuscript groups the four cross-correlation graphs as `fig:eod-beam-xcorr`. Legends name
+the two units EOD G and EOD P: the same model, one per scan axis.
+
+**Not used: the width and ellipticity graphs from this sweep** (`beam_quality_fwhm_x/y.png`,
+`beam_quality_ellipticity.png`). The user flagged that data as wrong on 2026-10-26, so the
+figure and the text built on it were removed from the manuscript; they remain in git history
+only as a record, not for reuse. Their sweep also read exactly zero at both ends of travel, where
+the width search failed.
 
 Produced by `MicroscopeMinFlux.jl` `dev/beam_char_analysis.jl` (branch `beam_char`), which fits
 two-dimensional Gaussian profiles per frame and computes the cross-correlation metrics through its
