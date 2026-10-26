@@ -9,6 +9,6 @@ axes:
 data:
   source: "NAS Y:\\Projects\\NSF-MINFLUX\\projects\\Data\\Evaluation Experiments\\EOD Driver test\\beam characterizatiom\\polarization\\apr10 -- acquired 2026-04-10; folder EOD34 = HVA1, folder EOD35 = HVA2"
   script: "MicroscopeMinFlux.jl/dev/polarization_angle.jl"
-  commit: "2f5b2dc on worktree-galvo-delay-analysis"
-created: "2026-10-26 14:38:52"
+  commit: "1598356 on worktree-galvo-delay-analysis"
+created: "2026-10-26 14:51:38"
 notes: "Angles use pixel size 5.2 µm and lever arm 220.0 mm (crystal centre to camera); HVA real output = -monitor x 20. HVA1 drives EOD34 (first in the path, x axis) and HVA2 drives EOD35 (second, y axis), confirmed by the user 2026-10-26."

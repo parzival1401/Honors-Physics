@@ -9,6 +9,6 @@ axes:
 data:
   source: "NAS Y:\\Projects\\NSF-MINFLUX\\projects\\Data\\Evaluation Experiments\\EOD Driver test\\beam characterizatiom\\gausian\\may 26 -- acquired 2026-05-26; camera moved to fixed stations along the beam path, one frame per station"
   script: "MicroscopeMinFlux.jl/dev/analysis/beam_quality_positions.jl"
-  commit: "2f5b2dc on worktree-galvo-delay-analysis"
-created: "2026-10-26 14:38:52"
+  commit: "1598356 on worktree-galvo-delay-analysis"
+created: "2026-10-26 14:51:39"
 notes: "Positions: P1 = control after the output of the fiber optics; P2 = after the first EOD Before relay system; P4 = after second EOD before second relay system; P5 = after second relay system; P6 = after beam amplification system. P3 (after the first relay) could not be measured -- no room for the camera. Ringed points (P6) peak below 15 counts, so the half-max threshold sits in the noise and the width is soft."
