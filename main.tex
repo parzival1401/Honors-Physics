@@ -764,13 +764,43 @@ interval and remains to be measured on the drive chain directly.
 \end{figure}
 
 \subsubsection{Conclusion}
-\begin{itemize}
-    \item [TEXT] EOD beam quality: acceptable/degraded range, key limiting factor
-    \item [TEXT] deflection linearity and agreement with manufacturer spec
-    \item [TEXT] pointing stability / drift implications for MINFLUX acquisition
-    \item [TEXT] recommended operating range/voltage for MINFLUX use
-    \item [TEXT] open issues or measurements needing follow-up (e.g., polarization/axis alignment)
-\end{itemize}
+
+The deflectors pass the beam with its shape largely intact, provided they are aligned within
+their working range. Translated across the beam, each reproduces the control to a correlation
+near unity only over about 1.5~mm of stage travel, so lateral alignment of the crystal, not the
+crystal itself, is the first limit on beam quality. Within that range, driving the deflectors
+across their full span leaves the beam within 14 percent of circular, and along the assembled
+path the ellipticity stays below 1.2 at every station that can be measured. What the path does
+cost is Gaussian character: the fit quality falls from 0.965 at the fibre to 0.90 through EOD34,
+the first relay and EOD35, and the two independent radii disagree by a tenth or more throughout,
+so the beam handed downstream carries wings that a Gaussian model does not describe.
+
+The deflection is linear in drive across the full $\pm200$~V for both deflectors, with no
+curvature visible at either extreme, which is what the bulk electro-optic mechanism predicts. Its
+magnitude, however, is set as much by polarization as by the device. Only with the input
+perpendicular to the deflection axis do the deflectors approach the quoted 3~mrad/kV: EOD35
+meets it at 3.12, and EOD34 falls just short at 2.95, within the uncertainty of the lever arm.
+Unpolarized or misaligned input costs up to a factor of three and a half. EOD34 and EOD35 also
+differ from each other by up to a third, so each needs its own calibration.
+
+Held at a fixed voltage, EOD35 is as steady as the laser beneath it, at about 0.001~mrad. EOD34
+is equally steady over most of its range but drifts slowly when held at zero or at most negative
+drives, by up to 0.03~mrad over half a minute. For MINFLUX acquisition this matters less as noise
+than as a systematic offset: a pattern calibrated on EOD34 shortly after a large step would carry
+the drift into its positions.
+
+For operation, these results recommend fixing the input polarization perpendicular to each
+deflection axis with the half-wave plate and recording it as part of the calibration; calibrating
+EOD34 and EOD35 separately, each against a lever arm referred to the crystal centre; centring each
+crystal laterally within its working range; and, until the drift of EOD34 is understood, allowing
+it to settle, or recalibrating, after large steps toward negative drive.
+
+Several questions remain open. The microsecond settling of the drive chain, on which the MINFLUX
+cycle depends, is beyond the reach of the camera and has not been measured. Whether EOD34 meets
+its specification turns on the lever arm: its shortfall corresponds to about 4~mm in 220. The first relay cannot be
+separated from EOD35, because station P3 is inaccessible; the station data rest on one frame
+each; and the final station, after the amplification stage, is too dim to interpret. The origin
+of the non-Gaussian wings, and of the slow drift in EOD34 alone, has yet to be identified.
 \section{Donut}
 \subsection{physical concept}
 \begin{itemize}
