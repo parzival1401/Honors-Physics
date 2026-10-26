@@ -585,7 +585,7 @@ interval and remains to be measured on the drive chain directly.
     P5, after the second relay; P6, after the amplification stage. P3, inside the first relay,
     could not be reached. (a) Width at half maximum along $x$ and $y$, on a logarithmic axis;
     (b) ellipticity, dashed at unity for a circular beam; (c) Gaussian fit $R^2$, dashed at a
-    perfect fit. The ringed point, P6, peaks below 15 counts, so its width and fit are not
+    perfect fit. The ringed point, P6, marked low signal, peaks below 15 counts, so its width and fit are not
     reliable.}
     \label{fig:eod-path}
 \end{figure}
@@ -615,10 +615,12 @@ interval and remains to be measured on the drive chain directly.
         \caption{}
         \label{fig:eod-quality-voltage-omega}
     \end{subfigure}
-    \caption{Beam quality against sweep voltage for EOD34 and EOD35, from a two-dimensional
-    Gaussian fitted to each frame. (a) Width at half maximum on each transverse axis, control
-    dashed; (b) ellipticity, where unity is a circular beam; (c) goodness of fit $R^2$; (d) beam
-    radius at $1/e^2$, derived from the fit and independently from the measured width, which
+    \caption{Beam quality against command voltage for EOD34 and EOD35, from a two-dimensional
+    Gaussian fitted to each frame; EOD34 in blue circles, EOD35 in red squares. (a) Width at half
+    maximum, solid along $x$ and dashed along $y$, with the control as a grey dashed line;
+    (b) ellipticity, the larger width at half maximum over the smaller, so that unity is a
+    circular beam; (c) goodness of fit $R^2$; (d) beam
+    radius at $1/e^2$, solid from the fit and dashed derived from the measured width, which
     coincide for a true Gaussian.}
     \label{fig:eod-quality-voltage}
 \end{figure}
@@ -775,7 +777,7 @@ interval and remains to be measured on the drive chain directly.
         \label{fig:eod-stab-angular-eod35}
     \end{subfigure}
     \caption{Angular deviation of the beam from its hold mean, one box per held command voltage,
-    for (a) EOD34 and (b) EOD35, with the standard deviation of each hold marked above its box.
+    for (a) EOD34 and (b) EOD35.
     Lever arm 380~mm. Note the different vertical scales.}
     \label{fig:eod-stab-angular}
 \end{figure}
