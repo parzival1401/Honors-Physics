@@ -101,6 +101,10 @@ in writing is a quoted minimum deflection sensitivity of ${>}3$~mrad/kV, and the
 is stated to lie at the centre of the crystal. Everything else used by the control system is
 established by the measurements reported below.
 
+The two deflectors are referred to throughout by serial number. EOD34 is the first in the beam
+path, steers the $x$ axis, and is driven by amplifier HVA1; EOD35 follows it, steers $y$, and is
+driven by HVA2. Every result below is attributed to one or the other by these names.
+
 \begin{itemize}
     \item [FIGURE: diagram] schematic of EOD crystal + applied field + resulting beam deflection
 \end{itemize}
@@ -115,7 +119,7 @@ sample. Everything in this subsection exists to establish that conversion and to
 can be trusted. The need is sharper here than for a catalogue component, because these are
 semi-custom units for which the manufacturer supplies no datasheet: the single performance figure
 available in writing is a quoted minimum sensitivity of ${>}3$~mrad/kV. A quoted minimum is not a
-calibration. It cannot say whether the two units match, whether the response is linear across the
+calibration. It cannot say whether EOD34 and EOD35 match, whether the response is linear across the
 drive range, how the sensitivity depends on input polarization, or how quickly the deflection
 settles after a commanded step, and each of those enters the position of the excitation pattern
 directly.
@@ -171,7 +175,7 @@ recorded frames by the procedures set out under Methods.
 A single deflector is mounted on a micrometer stage after two folding mirrors and translated
 across the beam, so that the beam samples the crystal from one edge of its 2~mm aperture to the
 other. A frame is recorded at each stage position, and a control frame recorded on the same
-bench serves as the reference. Both units are measured in turn. The arrangement is that of
+bench serves as the reference. EOD34 and EOD35 are measured in turn. The arrangement is that of
 Figure~\ref{fig:eod-setup-beam-degradation}.
 
 \begin{figure}[htbp]
@@ -192,35 +196,34 @@ change between consecutive stations isolates the element added between them:
 
 \begin{description}
     \item[P1 (control)] immediately after the output of the fibre optic.
-    \item[P2] after the first deflector, before the relay system.
+    \item[P2] after EOD34, before the first relay system.
     \item[P3] after the first relay system. \emph{Not measurable:} the camera cannot be placed
         at this station.
-    \item[P4] after the second deflector, before the second relay system.
+    \item[P4] after EOD35, before the second relay system.
     \item[P5] after the second relay system.
     \item[P6] after the beam amplification system.
 \end{description}
 
 Five of the six stations therefore yield data. P3 falls inside the relay where there is no room
 for the sensor, so the comparison across the first relay is made between P2 and P4 and carries
-the second deflector with it; the first relay cannot be isolated from the deflector that follows
-it on this bench.
+EOD35 with it; the first relay cannot be isolated from EOD35 on this bench.
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\textwidth]{eod-setup-relay-two-deflectors}
-    \caption{Two deflectors in series. Lenses L1 and L2, one focal length from each crystal and
-    two focal lengths apart, image the deflection plane of the first onto the second. The
-    half-wave plate between them rotates the polarization into the second crystal's axis.}
+    \caption{The two deflectors in series, EOD34 first. Lenses L1 and L2, one focal length from
+    each crystal and two focal lengths apart, image the deflection plane of EOD34 onto EOD35.
+    The half-wave plate between them rotates the polarization into the axis of EOD35.}
     \label{fig:eod-setup-relay-two-deflectors}
 \end{figure}
 
 \paragraph{Beam quality against deflection.}
-Rather than translating the deflector, this measurement drives it. Both units are swept across
-the full drive range while the beam is recorded at each step, so that beam shape can be followed
+Rather than translating the deflector, this measurement drives it. EOD34 and EOD35 are each
+swept across the full drive range while the beam is recorded at each step, so that beam shape can be followed
 as a function of the commanded deflection instead of being characterised at a single setting.
 The sweep is quoted throughout as the command voltage, $\pm10$~V, which the high-voltage
 amplifier raises by a factor of twenty to the $\pm200$~V appearing across the crystal electrodes.
-An undeflected control frame is recorded for each unit. The arrangement is that of
+An undeflected control frame is recorded for each deflector. The arrangement is that of
 Figure~\ref{fig:eod-setup-beam-deflection}.
 
 \begin{figure}[htbp]
@@ -233,7 +236,7 @@ Figure~\ref{fig:eod-setup-beam-deflection}.
 \end{figure}
 
 \paragraph{Deflection sensitivity and polarization.}
-On the same bench, each drive channel is swept across roughly $\pm200$~V of amplifier output
+On the same bench, EOD34 and EOD35 are each swept across roughly $\pm200$~V of amplifier output
 while the camera records the beam centre at every step. The sweep is repeated at three input
 polarizations, set by a linear polarizer ahead of the crystal: parallel to the deflection axis,
 perpendicular to it, and with the polarizer removed. The crystal-to-sensor distance, which
@@ -329,10 +332,10 @@ of that peak relative to zero lag gives the displacement between them.
 \subsubsection{Results}
 
 \paragraph{Beam quality across the deflector aperture.}
-Here each deflector is translated across the beam on its stage. The two traces in every panel,
-EOD G and EOD P, are the instrument's two deflectors: units of the same model, identical in
-construction, one serving the $x$ axis of the scan and the other the $y$ axis. The clearest
-result of this measurement is a working range rather than a degradation curve. The
+Here EOD34 and EOD35 are each translated across the beam on the stage. The two are the same
+model and identical in construction, so differences between their traces reflect the individual
+crystals and their mounting rather than design. The clearest result of this measurement is a
+working range rather than a degradation curve. The
 correlation against the undeflected control, Figure~\ref{fig:eod-beam-xcorr-ncc}, rises to
 essentially unity over a plateau running from roughly 10.5 to 12~mm of stage travel and falls
 away steeply on both sides, reaching 0.2 to 0.4 at either extreme. Across that plateau the width
@@ -340,27 +343,27 @@ of the correlation peak, Figure~\ref{fig:eod-beam-xcorr-fwhm}, is flat and sits 
 value, so where the beam is usable at all it is no less sharp than the reference. The
 displacement, Figures~\ref{fig:eod-beam-xcorr-dx} and~\ref{fig:eod-beam-xcorr-dy}, behaves the
 same way: flat within the plateau and running to several hundred pixels in $x$ outside it, while
-$y$ stays near zero throughout. The two units reach the plateau at different stage positions, one about
-0.7~mm earlier than the other, but leave it together.
+$y$ stays near zero throughout. EOD35 reaches the plateau about 0.7~mm of travel earlier than
+EOD34, but the two leave it together.
 
 \paragraph{Beam quality along the path.}
-Figure~\ref{fig:eod-path} follows the beam from the fibre output through the assembled deflector
-pair. Because the stations sit at different distances along the path, the absolute widths of
-Figure~\ref{fig:eod-path-fwhm} change partly through ordinary propagation; the ellipticity and the
+Figure~\ref{fig:eod-path} follows the beam from the fibre output through EOD34, the first relay,
+EOD35 and the second relay. Because the stations sit at different distances along the path, the
+absolute widths of Figure~\ref{fig:eod-path-fwhm} change partly through ordinary propagation; the ellipticity and the
 fit quality are the measures of shape, and they are read here against the control rather than
 against an ideal. The control at P1 is very nearly circular, with an ellipticity of 1.01, and its
 Gaussian fit reaches an $R^2$ of 0.965, which sets the ceiling for the later stations.
 
-The first deflector is where the shape changes most. Between P1 and P2 the width along $x$ grows
-by about a quarter, from roughly 570 to 720~\textmu m, while the width along $y$ grows by under a
-tenth, and the ellipticity rises to 1.17. Across the first relay and the second deflector
-together, P2 to P4, the beam rounds again to an ellipticity of 1.08, but the fit quality falls to
+EOD34 is where the shape changes most. Between P1 and P2 the width along $x$, its deflection
+axis, grows by about a quarter, from roughly 570 to 720~\textmu m, while the width along $y$ grows
+by under a tenth, and the ellipticity rises to 1.17. Across the first relay and EOD35 together,
+P2 to P4, the beam rounds again to an ellipticity of 1.08, but the fit quality falls to
 0.90, so the profile moves further from Gaussian even as it becomes more nearly circular. The
 second relay, P4 to P5, leaves the fit quality unchanged but exchanges the axes: the width along
 $x$ returns to the control value while that along $y$ keeps growing, and the ellipticity reaches
 1.19, now elongated along $y$. At every measurable station before the amplification stage the
 ellipticity therefore stays below 1.2, and the loss of Gaussian character, from 0.965 to 0.90,
-is accumulated entirely through the deflector pair and its first relay.
+is accumulated entirely through EOD34, the first relay and EOD35.
 
 Station P6 is reported but not interpreted. After the amplification stage the beam is more than
 six times wider than at any earlier station, which is the expansion that stage exists to provide,
@@ -371,62 +374,62 @@ stations are not distinguishable from frame-to-frame scatter.
 
 \paragraph{Beam quality against deflection.}
 Driving the deflector changes the shape of the beam, but modestly. In
-Figure~\ref{fig:eod-quality-voltage-fwhm} the widths along the two transverse axes of a given
-unit move in opposite senses as the drive advances, one broadening while the other narrows, which
-is a change of shape rather than of size. The ellipticity of
+Figure~\ref{fig:eod-quality-voltage-fwhm} the widths along the two transverse axes of each
+deflector move in opposite senses as the drive advances, one broadening while the other narrows,
+which is a change of shape rather than of size. The ellipticity of
 Figure~\ref{fig:eod-quality-voltage-ellipticity} puts a number on it: at worst about 14 percent
-from circular, reached by one unit at the positive end of the sweep. The two units do not behave
-alike. One departs from circular progressively across the whole range, while the other is
+from circular, reached by EOD34 at the positive end of the sweep. The two deflectors do not
+behave alike. EOD34 departs from circular progressively toward positive drive, while EOD35 is
 furthest from circular near the middle of its range and returns to nearly circular at the
 positive extreme.
 
 Two independent measures agree that the profile is not exactly Gaussian. The fit quality of
 Figure~\ref{fig:eod-quality-voltage-r2} lies between about 0.94 and 0.97 across the entire sweep
-for both units, never approaching unity. More tellingly, the two radii of
+for both EOD34 and EOD35, never approaching unity. More tellingly, the two radii of
 Figure~\ref{fig:eod-quality-voltage-omega} differ by roughly a tenth to a seventh of their value
-throughout, in the same direction for both units. Those two quantities are the same radius
+throughout, in the same direction for both deflectors. Those two quantities are the same radius
 computed two ways and must coincide for a true Gaussian, so their separation measures wings the
 fitted model does not describe. The gap is far smaller than the factor of $\sqrt{2}$ that a
 mismatch of radius conventions would produce, so it is a property of the beam rather than of the
 arithmetic.
 
 \paragraph{Deflection sensitivity and its polarization dependence.}
-Both channels steer along a single axis: the beam centre moves linearly in $x$ across the full
-$\pm200$~V of amplifier output while $y$ remains flat, in panels (b) and (c) of
-Figures~\ref{fig:eod-polarization-hva1} and~\ref{fig:eod-polarization-hva2}. The second channel
-shows its three polarization traces displaced from one another in $y$ by a few pixels, but each
-is flat with drive, so this is a fixed offset between configurations rather than a response to
-the applied field. Linearity holds across the whole range in both channels; no departure from a
-straight line is visible at either extreme.
+Each deflector steers along a single axis: the beam centre moves linearly in $x$ on the camera
+across the full $\pm200$~V of amplifier output while $y$ remains flat, in panels (b) and (c) of
+Figure~\ref{fig:eod-polarization-hva1} for EOD34 and Figure~\ref{fig:eod-polarization-hva2} for
+EOD35. EOD35 shows its three polarization traces displaced from one another in $y$ by a few
+pixels, but each is flat with drive, so this is a fixed offset between configurations rather than
+a response to the applied field. Linearity holds across the whole range for both deflectors; no
+departure from a straight line is visible at either extreme.
 
 The sensitivity depends strongly on the input polarization, panel (d) of each figure. With the
-polarization perpendicular to the deflection axis the two channels give 2.95 and 3.12~mrad/kV;
+polarization perpendicular to the deflection axis, EOD34 gives 2.95~mrad/kV and EOD35 3.12;
 unpolarized, 2.08 and 2.77; and parallel to the deflection axis, 0.83 and 0.88. The ratio between
-the best and worst polarization is about 3.5 in both channels, so this is a property of the
-devices rather than of one unit.
+the best and worst polarization is about 3.5 for both, so this is a property of the device type
+rather than of one crystal.
 
 Measured against the manufacturer's quoted minimum of 3~mrad/kV, the outcome depends on the
-polarization first and on the unit second. Only at the perpendicular setting do the deflectors
-approach the specification at all: the second channel meets it, and the first falls short by
-under two percent, a margin comparable to the uncertainty in the lever arm discussed below.
-Unpolarized, both channels fall below it, and at the parallel setting both fail by a factor of
+polarization first and on the deflector second. Only at the perpendicular setting do the
+deflectors approach the specification at all: EOD35 meets it, and EOD34 falls short by under two
+percent, a margin comparable to the uncertainty in the lever arm discussed below. Unpolarized,
+both fall below it, and at the parallel setting both fail by a factor of
 about three and a half. A half-wave plate correctly set is therefore a precondition for the
 deflectors reaching their quoted performance, not an optimization applied on top of it.
 
 Two consequences follow for the control system. The orientation of the input polarization has to
 be fixed and recorded as part of the calibration, since it alone moves the volts-to-angle
-conversion across that range. And the two channels cannot be assumed identical: they differ by a
-third in the unpolarized condition, so a scan pattern built on a single sensitivity for both axes
-would be distorted.
+conversion across that range. And EOD34 and EOD35 cannot be assumed identical: unpolarized, EOD35
+is a third more sensitive than EOD34, so a scan pattern built on a single sensitivity for both
+axes would be distorted.
 
 Two cautions attach to these numbers. They are inversely proportional to the lever arm, taken
 here as 220~mm: the 190~mm measured on the bench runs from the housing face to the sensor, and
 the manufacturer places the deflection pivot at the centre of the 60~mm housing, a further
 30~mm back. Referring the angle to the housing face instead would overstate every sensitivity by
-about sixteen percent and carry both channels above the specification at the perpendicular
-setting, so where that distance is measured from is not a detail. And the first recorded point of every sweep, at the negative extreme of
-the drive, sits off the line established by the remainder; it has the character of a settling
-transient and is excluded from the regressions.
+about sixteen percent and carry both deflectors above the specification at the perpendicular
+setting, so where that distance is measured from is not a detail. And the first recorded point
+of every sweep, at the negative extreme of the drive, sits off the line established by the
+remainder; it has the character of a settling transient and is excluded from the regressions.
 
 \begin{figure}[htbp]
     \centering
@@ -454,7 +457,8 @@ transient and is excluded from the regressions.
         \label{fig:eod-beam-xcorr-dy}
     \end{subfigure}
     \caption{Cross-correlation of each frame against the control reference, against stage
-    position in millimetres, both deflectors. (a) Peak normalised correlation, where unity
+    position in millimetres, for EOD34 (legend EOD P) and EOD35 (legend EOD G). (a) Peak
+    normalised correlation, where unity
     denotes a beam identical to the control; (b) width of the correlation peak; (c) displacement
     of the beam in $x$ and (d) in $y$, from the location of the peak.}
     \label{fig:eod-beam-xcorr}
@@ -480,7 +484,7 @@ transient and is excluded from the regressions.
         \label{fig:eod-path-r2}
     \end{subfigure}
     \caption{Beam quality at fixed stations along the path, one frame per station: P1, the
-    control at the fibre output; P2, after the first deflector; P4, after the second deflector;
+    control at the fibre output; P2, after EOD34; P4, after EOD35;
     P5, after the second relay; P6, after the amplification stage. P3, inside the first relay,
     could not be reached. (a) Width at half maximum along $x$ and $y$, on a logarithmic axis;
     (b) ellipticity, dashed at unity for a circular beam; (c) Gaussian fit $R^2$, dashed at a
@@ -514,7 +518,7 @@ transient and is excluded from the regressions.
         \caption{}
         \label{fig:eod-quality-voltage-omega}
     \end{subfigure}
-    \caption{Beam quality against sweep voltage for both deflectors, from a two-dimensional
+    \caption{Beam quality against sweep voltage for EOD34 and EOD35, from a two-dimensional
     Gaussian fitted to each frame. (a) Width at half maximum on each transverse axis, control
     dashed; (b) ellipticity, where unity is a circular beam; (c) goodness of fit $R^2$; (d) beam
     radius at $1/e^2$, derived from the fit and independently from the measured width, which
@@ -547,7 +551,7 @@ transient and is excluded from the regressions.
         \caption{}
         \label{fig:eod-polarization-hva1-mrad-per-kv}
     \end{subfigure}
-    \caption{Deflection against amplifier output voltage for drive channel HVA1, at three input
+    \caption{Deflection of EOD34 against the output voltage of its amplifier, HVA1, at three input
     polarizations: parallel to the deflection axis, perpendicular to it, and unpolarized. Beam
     centre on the camera (a) as radial position, and resolved into (b) $x$ and (c) $y$;
     (d) sensitivity in mrad/kV from the slope of each sweep, against the quoted minimum of 3.}
@@ -579,7 +583,7 @@ transient and is excluded from the regressions.
         \caption{}
         \label{fig:eod-polarization-hva2-mrad-per-kv}
     \end{subfigure}
-    \caption{The same measurement for drive channel HVA2; panels (a) to (d) as in
+    \caption{The same measurement for EOD35, driven by HVA2; panels (a) to (d) as in
     Figure~\ref{fig:eod-polarization-hva1}.}
     \label{fig:eod-polarization-hva2}
 \end{figure}

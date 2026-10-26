@@ -56,9 +56,8 @@ donut-setup-creation.png              EOD_exp_4_relay system_2EOD_donut_creation
 # ---------------------------------------------------------------------------
 # Polarization dependence of the deflection sensitivity (apr10 dataset)
 # ---------------------------------------------------------------------------
-# Four graphs per drive channel. The split sources carry no serial suffix, and
-# which crystal each channel drives is unresolved (see PROVENANCE.md), so the
-# stable names use the channel only.
+# Four graphs per deflector, named by amplifier: HVA1 drives EOD34, HVA2 drives
+# EOD35 (confirmed 2026-10-26; see the naming table in PROVENANCE.md).
 eod-polarization-hva1-radial.png      HVA1_polarization_radial.png
 eod-polarization-hva1-cx.png          HVA1_polarization_cx.png
 eod-polarization-hva1-cy.png          HVA1_polarization_cy.png

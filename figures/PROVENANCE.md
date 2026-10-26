@@ -16,6 +16,19 @@ itself (read it with `exiftool`, or `read_figure_info` from `MicroscopeMinFlux.j
 commit `3dc9c23` (branch `worktree-galvo-delay-analysis`); the combined multi-panel originals are
 still on the NAS, unused.
 
+## Naming the two deflectors
+
+The manuscript names the deflectors by serial number only, everywhere. Confirmed by the user on
+2026-10-26:
+
+| Serial | Position in path | Scan axis | Amplifier | Legend in the MAR_3 stage-sweep plots |
+|---|---|---|---|---|
+| EOD34 | first after the fibre | x | HVA1 | EOD P |
+| EOD35 | second | y | HVA2 | EOD G |
+
+Datasets label them in other ways (EOD G/P, ODE1/ODE2, HVA1/HVA2 file prefixes, "first/second
+deflector"); translate through this table rather than carrying those labels into the text.
+
 ## Experiment 1 — beam degradation along the path
 
 Setup drawing: `optics_svg/EOD/EOD_exp_1.png`, exported from the Photoshop source beside it.
@@ -37,7 +50,8 @@ of these plots is in those units.
 | `eod-beam-xcorr-dx`, `-dy` | beam displacement in x and in y from the correlation peak (`beam_quality_xcorr_dx/dy.png`) |
 
 The manuscript groups the four cross-correlation graphs as `fig:eod-beam-xcorr`. Legends name
-the two units EOD G and EOD P: the same model, one per scan axis.
+the two units EOD G and EOD P, which are EOD35 and EOD34 respectively (see the naming table);
+the caption states the mapping until the plots are relabelled.
 
 **Not used: the width and ellipticity graphs from this sweep** (`beam_quality_fwhm_x/y.png`,
 `beam_quality_ellipticity.png`). The user flagged that data as wrong on 2026-10-26, so the
@@ -58,14 +72,14 @@ isolates the element added between them. The fibre output is the reference.
 | Station | Position in the path | Measurable |
 |---|---|---|
 | P1 (control) | immediately after the fibre optic output | yes |
-| P2 | after the first deflector, before the relay system | yes |
+| P2 | after EOD34, before the first relay system | yes |
 | P3 | after the first relay system | **no** — no room to place the camera |
-| P4 | after the second deflector, before the second relay system | yes |
+| P4 | after EOD35, before the second relay system | yes |
 | P5 | after the second relay system | yes |
 | P6 | after the beam amplification system | yes |
 
 Five of six stations yield data. Because P3 cannot be reached, the first relay cannot be
-isolated: the P2-to-P4 comparison spans the first relay *and* the second deflector together, and
+isolated: the P2-to-P4 comparison spans the first relay *and* EOD35 together, and
 any degradation found there cannot be attributed to one or the other from this dataset alone.
 
 Measured results: NAS `EOD Driver test/beam characterizatiom/gausian/may 26`, acquired
@@ -182,14 +196,12 @@ Measured results: NAS `EOD Driver test/beam characterizatiom/polarization/apr10`
 These replace the combined `HVA1_polarization_angle_35.png` and `HVA2_polarization_angle_34.png`,
 which carried a serial number in the filename; the split names carry none.
 
-**Which crystal each channel drives is unresolved.** The filename suffixes say HVA1 carries
-serial 35 and HVA2 carries serial 34. The project's own EOD audit says the opposite — "EOD34 on
-HVA1 ... EOD35 on HVA2" — and the measured values follow the audit, not the filenames: the audit
-records EOD34 at 0.96 / 2.40 / 3.42 mrad/kV, which is exactly what the HVA1 figure shows, and
-EOD35 at 1.01 / 3.21 / 3.61, which is exactly the HVA2 figure. So the filename suffixes appear to
-be transposed. The manuscript therefore refers to these by drive channel, which is unambiguous,
-and attributes no serial number until the pairing is confirmed at the bench.
-The per-frame camera data for each sit in the `EOD34` and `EOD35` subfolders beside them.
+**HVA1 drives EOD34 and HVA2 drives EOD35** (confirmed by the user, 2026-10-26). The old
+combined filenames carried the suffixes the other way round (`HVA1_..._35`, `HVA2_..._34`); those
+suffixes were wrong. The data folders, the project's EOD audit and the measured values all agree
+with the confirmed pairing: the audit records EOD34 at 0.96 / 2.40 / 3.42 mrad/kV (190 mm), which
+is exactly the HVA1 result, and EOD35 at 1.01 / 3.21 / 3.61, exactly the HVA2 result. The
+per-frame camera data for each sit in the `EOD34` and `EOD35` subfolders beside them.
 
 Each sweep runs the amplifier output across roughly plus and minus 200 V and records the beam
 centre on the camera, at three input polarizations: parallel to the deflection axis,
@@ -205,15 +217,16 @@ every sensitivity by the factor 220/190, about sixteen percent.
 
 | Figure | Shows |
 |---|---|
-| `eod-polarization-hva1-radial` | radial beam-centre position against amplifier output, drive channel 1 |
-| `eod-polarization-hva1-cx`, `-cy` | beam centre in x and in y against amplifier output, drive channel 1 |
-| `eod-polarization-hva1-mrad-per-kv` | sensitivity per input polarization against the 3 mrad/kV minimum, drive channel 1 |
-| `eod-polarization-hva2-*` | the same four for drive channel 2 |
+| `eod-polarization-hva1-radial` | radial beam-centre position against amplifier output, EOD34 |
+| `eod-polarization-hva1-cx`, `-cy` | beam centre in x and in y against amplifier output, EOD34 |
+| `eod-polarization-hva1-mrad-per-kv` | sensitivity per input polarization against the 3 mrad/kV minimum, EOD34 |
+| `eod-polarization-hva2-*` | the same four for EOD35 |
 
-Each channel is one 2×2 figure in the manuscript, (a) to (d) in the order above.
+Each deflector is one 2×2 figure in the manuscript, (a) to (d) in the order above. The stable
+filenames keep the amplifier name; the text and captions use the serial.
 
 Measured sensitivities at 220 mm, in mrad/kV: perpendicular 2.95 and 3.12, unpolarized 2.08 and
-2.77, parallel 0.83 and 0.88, for channels 1 and 2 respectively. At 190 mm these were 3.42 and
+2.77, parallel 0.83 and 0.88, for EOD34 and EOD35 respectively. At 190 mm these were 3.42 and
 3.61, 2.40 and 3.21, 0.96 and 1.01; the audit values quoted above are the 190 mm ones.
 
 The combined plots labelled the deflector "ODE" rather than "EOD" in legend and title. The split
