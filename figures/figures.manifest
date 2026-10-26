@@ -78,3 +78,34 @@ eod-quality-voltage-fwhm.png          1_fwhm.png
 eod-quality-voltage-ellipticity.png   2_ellipticity.png
 eod-quality-voltage-r2.png            3_r2.png
 eod-quality-voltage-omega.png         4_omega.png
+
+# ---------------------------------------------------------------------------
+# Pointing stability at held drive voltages (angle_stability/apr_4)
+# ---------------------------------------------------------------------------
+# Sources say EOD1/EOD2: EOD1 = HVA1 = EOD34, EOD2 = HVA2 = EOD35. Stable names
+# use the serial. Lever arm 380 mm (350 mm bench distance + 30 mm to the
+# crystal centre; a different bench from the polarization one). These source
+# names are generic and unique only within apr_4; the ODE*_ files beside them
+# are old diagnostics and must not be matched.
+eod-stab-eod34-timeseries-m10v.png    EOD1_timeseries_m10V.png
+eod-stab-eod34-timeseries-0v.png      EOD1_timeseries_0V.png
+eod-stab-eod34-timeseries-p10v.png    EOD1_timeseries_p10V.png
+eod-stab-eod35-timeseries-m10v.png    EOD2_timeseries_m10V.png
+eod-stab-eod35-timeseries-0v.png      EOD2_timeseries_0V.png
+eod-stab-eod35-timeseries-p10v.png    EOD2_timeseries_p10V.png
+eod-stab-eod34-std.png                EOD1_stability_std_vs_voltage.png
+eod-stab-eod34-p2p.png                EOD1_stability_p2p_vs_voltage.png
+eod-stab-eod35-std.png                EOD2_stability_std_vs_voltage.png
+eod-stab-eod35-p2p.png                EOD2_stability_p2p_vs_voltage.png
+eod-stab-eod34-angular.png            EOD1_boxplot_angular_mrad.png
+eod-stab-eod35-angular.png            EOD2_boxplot_angular_mrad.png
+
+# ---------------------------------------------------------------------------
+# Laser pointing stability baseline (stability_laser/MAR_27)
+# ---------------------------------------------------------------------------
+# Measures the laser and bench, not the deflector (HVA1 monitor stayed within
+# 0.5 V). Lever arm 380 mm; time axis from file timestamps (673 s).
+laser-stab-angular-x.png              stability_angular_deviation_x_mrad.png
+laser-stab-angular-y.png              stability_angular_deviation_y_mrad.png
+laser-stab-angular-total.png          stability_angular_deviation_total_mrad.png
+laser-stab-xy-scatter.png             stability_xy_scatter.png

@@ -146,8 +146,9 @@ with sub-nanometer sample stabilization \cite{schmidtMINFLUXNanometerscale3D2021
 this places on the deflector is that the step settling of the whole drive chain be small compared
 with the dwell at each position of the pattern, so that the excitation is stationary during every
 sub-exposure. Whether that holds is a property of the amplifier and preamplifier as much as of the
-crystal, which is why the characterization below treats the drive chain rather than the deflector
-alone.
+crystal. The camera-rate measurements reported below cannot reach that timescale; what they
+establish is whether a held deflection stays put over seconds, and the microsecond step response
+of the drive chain is left as the measurement still to be made.
 
 Beam quality is the fourth, and it is a question about what the EOD hands downstream. The deflectors
 sit ahead of the element that shapes the excitation pattern, so a Gaussian beam that leaves them
@@ -244,6 +245,16 @@ converts displacement into angle, is measured on the bench as 190~mm from the fa
 deflector housing; the analysis refers it to the deflection pivot at the centre of the crystal,
 30~mm further back, for a lever arm of 220~mm.
 
+\paragraph{Pointing stability.}
+Stability is measured on a separate bench with a longer lever arm, 350~mm from the housing face
+to the sensor and so 380~mm from the deflection pivot. EOD34 and EOD35 are each held in turn at
+nine command voltages from $-10$ to $+10$~V in steps of 2.5~V, and the camera records 40 frames
+at each held voltage, about 0.9~s apart, so that every hold lasts roughly 36~s. A baseline run
+records the beam for 673~s, about 0.67~s per frame, with the deflector drive inactive: the
+amplifier monitor stays within 0.5~V and the beam does not follow the command, so that run
+measures the pointing stability of the laser and the bench alone, against which the deflectors
+are compared. Neither run resolves anything faster than the camera frame interval.
+
 \subsubsection{Methods}
 
 Every measurement in this section reduces a camera frame to a few numbers describing the beam,
@@ -328,6 +339,13 @@ two-dimensional cross-correlation is computed by Fourier transform, normalised b
 of the product of their summed squares, so that a peak of unity denotes identical frames up to a
 shift. The peak value measures how far the beam still resembles the reference, and the location
 of that peak relative to zero lag gives the displacement between them.
+
+\paragraph{Quantifying pointing stability.}
+Within each held voltage the beam centre of every frame is referred to the mean centre of that
+hold, so that the deflection itself is removed and only the wander about it remains. The spread
+of that wander is summarised by its standard deviation and its peak-to-peak range, computed on
+the radial displacement, and converted to angle through the lever arm as above. At 380~mm one
+camera pixel corresponds to about 0.014~mrad.
 
 \subsubsection{Results}
 
@@ -430,6 +448,36 @@ about sixteen percent and carry both deflectors above the specification at the p
 setting, so where that distance is measured from is not a detail. And the first recorded point
 of every sweep, at the negative extreme of the drive, sits off the line established by the
 remainder; it has the character of a settling transient and is excluded from the regressions.
+
+\paragraph{Pointing stability.}
+The laser and bench alone set the floor, Figure~\ref{fig:laser-stab}. Over 673~s the beam wanders
+with a standard deviation of 0.0019~mrad in $x$ and 0.0046~mrad in $y$, 0.0022~mrad in total,
+and a peak-to-peak range of 0.012, 0.020 and 0.012~mrad respectively. The larger figure in $y$
+comes from a slow drift across the run rather than from frame-to-frame scatter.
+
+Against that floor EOD35 adds nothing measurable. Its wander within a hold, panels (c) and (d) of
+Figure~\ref{fig:eod-stab-spread} and Figure~\ref{fig:eod-stab-angular-eod35}, has a standard
+deviation of about 0.001~mrad at eight of the nine voltages and 0.002~mrad at the ninth, $-5$~V,
+comparable to the laser alone; the laser figure includes drift accumulated over 673~s rather than
+36~s, so the two are not strictly like for like, but neither suggests that EOD35 adds noise of its
+own. Its time series, the lower row of Figure~\ref{fig:eod-stab-timeseries}, scatter about the
+hold mean without trend.
+
+EOD34 matches that floor at $-2.5$~V and at every positive voltage, but not at $-10$, $-7.5$,
+$-5$ and 0~V, where the standard deviation rises to between 0.003 and 0.007~mrad,
+Figure~\ref{fig:eod-stab-angular-eod34}. The time series show why: at those voltages the beam
+does not scatter but drifts, relaxing steadily through the hold, by about two pixels or
+0.03~mrad over 36~s at 0~V, Figure~\ref{fig:eod-stab-eod34-timeseries-0v}, and mostly along
+$y$. That is a slow settling after the voltage is set, on a timescale of seconds to tens of
+seconds, and it appears in one deflector only. It is small against the deflection itself: at the
+worst voltage its standard deviation is about one percent of the half-range of EOD34, about
+0.59~mrad at the perpendicular polarization, and the full drift at 0~V about five percent. But it
+is systematic rather than random, and a calibration taken immediately after a large step would
+inherit it.
+
+These measurements bound the stability of a held deflection over seconds; they say nothing about
+the microsecond settling that the MINFLUX cycle depends on, which lies far below the camera frame
+interval and remains to be measured on the drive chain directly.
 
 \begin{figure}[htbp]
     \centering
@@ -586,6 +634,133 @@ remainder; it has the character of a settling transient and is excluded from the
     \caption{The same measurement for EOD35, driven by HVA2; panels (a) to (d) as in
     Figure~\ref{fig:eod-polarization-hva1}.}
     \label{fig:eod-polarization-hva2}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}{0.32\textwidth}
+        \includegraphics[width=\linewidth]{eod-stab-eod34-timeseries-m10v}
+        \caption{}
+        \label{fig:eod-stab-eod34-timeseries-m10v}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.32\textwidth}
+        \includegraphics[width=\linewidth]{eod-stab-eod34-timeseries-0v}
+        \caption{}
+        \label{fig:eod-stab-eod34-timeseries-0v}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.32\textwidth}
+        \includegraphics[width=\linewidth]{eod-stab-eod34-timeseries-p10v}
+        \caption{}
+        \label{fig:eod-stab-eod34-timeseries-p10v}
+    \end{subfigure}
+
+    \begin{subfigure}{0.32\textwidth}
+        \includegraphics[width=\linewidth]{eod-stab-eod35-timeseries-m10v}
+        \caption{}
+        \label{fig:eod-stab-eod35-timeseries-m10v}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.32\textwidth}
+        \includegraphics[width=\linewidth]{eod-stab-eod35-timeseries-0v}
+        \caption{}
+        \label{fig:eod-stab-eod35-timeseries-0v}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.32\textwidth}
+        \includegraphics[width=\linewidth]{eod-stab-eod35-timeseries-p10v}
+        \caption{}
+        \label{fig:eod-stab-eod35-timeseries-p10v}
+    \end{subfigure}
+    \caption{Beam-centre deviation from the hold mean, frame by frame, in $x$ and $y$, while the
+    deflector is held at a fixed command voltage; 40 frames about 0.9~s apart. Upper row, EOD34
+    held at (a) $-10$~V, (b) 0~V and (c) $+10$~V; lower row, EOD35 at (d) $-10$~V, (e) 0~V and
+    (f) $+10$~V. Panels in a row share a vertical range. Lever arm 380~mm.}
+    \label{fig:eod-stab-timeseries}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{eod-stab-eod34-std}
+        \caption{}
+        \label{fig:eod-stab-eod34-std}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{eod-stab-eod34-p2p}
+        \caption{}
+        \label{fig:eod-stab-eod34-p2p}
+    \end{subfigure}
+
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{eod-stab-eod35-std}
+        \caption{}
+        \label{fig:eod-stab-eod35-std}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{eod-stab-eod35-p2p}
+        \caption{}
+        \label{fig:eod-stab-eod35-p2p}
+    \end{subfigure}
+    \caption{Spread of the radial beam-centre position within each held voltage, in pixels,
+    against command voltage. EOD34: (a) standard deviation, (b) peak-to-peak range. EOD35:
+    (c) standard deviation, (d) peak-to-peak range. One pixel is about 0.014~mrad at the 380~mm
+    lever arm.}
+    \label{fig:eod-stab-spread}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{eod-stab-eod34-angular}
+        \caption{}
+        \label{fig:eod-stab-angular-eod34}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{eod-stab-eod35-angular}
+        \caption{}
+        \label{fig:eod-stab-angular-eod35}
+    \end{subfigure}
+    \caption{Angular deviation of the beam from its hold mean, one box per held command voltage,
+    for (a) EOD34 and (b) EOD35, with the standard deviation of each hold marked above its box.
+    Lever arm 380~mm. Note the different vertical scales.}
+    \label{fig:eod-stab-angular}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{laser-stab-angular-x}
+        \caption{}
+        \label{fig:laser-stab-x}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{laser-stab-angular-y}
+        \caption{}
+        \label{fig:laser-stab-y}
+    \end{subfigure}
+
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{laser-stab-angular-total}
+        \caption{}
+        \label{fig:laser-stab-total}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{laser-stab-xy-scatter}
+        \caption{}
+        \label{fig:laser-stab-scatter}
+    \end{subfigure}
+    \caption{Pointing stability of the laser and bench alone, with the deflector drive
+    inactive, over 673~s. Angular deviation from the mean in (a) $x$, (b) $y$ and (c) total,
+    against elapsed time from the frame timestamps; (d) beam-centre displacement on the camera,
+    coloured by time. Lever arm 380~mm.}
+    \label{fig:laser-stab}
 \end{figure}
 
 \subsubsection{Conclusion}

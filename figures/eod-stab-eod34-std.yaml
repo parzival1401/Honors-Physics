@@ -1,0 +1,14 @@
+# Provenance for EOD1_stability_std_vs_voltage.png -- written by save_figure() in dev/plot_style.jl.
+# The same fields are embedded in the PNG (read_figure_info). One figure = one file.
+figure_id: "EOD1_stability_std_vs_voltage"
+former_title: "ODE1 — Stability Metrics vs Applied Voltage / Std of Radial Displacement"   # title removed from the image; the caption replaces it
+what_it_shows: "Std of Radial Displacement of the beam centre within each held step, against command voltage (EOD1)."
+axes:
+  x: "Command voltage (V)"
+  y: "Std of Δr (px)"
+data:
+  source: "NAS Y:\\Projects\\NSF-MINFLUX\\projects\\Data\\Evaluation Experiments\\EOD Driver test\\beam characterizatiom\\angle_stability\\apr_4 -- acquired 2026-04-03/04; EOD1 = HVA1 (folder EOD34); 40 frames held at each command voltage"
+  script: "MicroscopeMinFlux.jl/dev/angle_stability_multiple_angles.jl"
+  commit: "89db96a on worktree-galvo-delay-analysis"
+created: "2026-10-26 13:19:52"
+notes: "Angles use pixel size 5.2 µm and lever arm 380.0 mm (bench 350 mm + 30 mm housing face to crystal centre). Voltage is the command voltage; the HVA200 multiplies it by 20."

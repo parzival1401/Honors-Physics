@@ -1,0 +1,14 @@
+# Provenance for EOD2_boxplot_angular_mrad.png -- written by save_figure() in dev/plot_style.jl.
+# The same fields are embedded in the PNG (read_figure_info). One figure = one file.
+figure_id: "EOD2_boxplot_angular_mrad"
+former_title: "ODE2 — Angular Deviation per Voltage Step (mrad) / Δθ radial (mrad)"   # title removed from the image; the caption replaces it
+what_it_shows: "Radial angular deviation of the beam from its step mean, one box per held command voltage (EOD2)."
+axes:
+  x: "Command voltage (V)"
+  y: "Δθ (mrad)"
+data:
+  source: "NAS Y:\\Projects\\NSF-MINFLUX\\projects\\Data\\Evaluation Experiments\\EOD Driver test\\beam characterizatiom\\angle_stability\\apr_4 -- acquired 2026-04-03/04; EOD2 = HVA2 (folder EOD35); 40 frames held at each command voltage"
+  script: "MicroscopeMinFlux.jl/dev/angle_stability_multiple_angles.jl"
+  commit: "89db96a on worktree-galvo-delay-analysis"
+created: "2026-10-26 13:20:00"
+notes: "Angles use pixel size 5.2 µm and lever arm 380.0 mm (bench 350 mm + 30 mm housing face to crystal centre). Voltage is the command voltage; the HVA200 multiplies it by 20. σ labels are the standard deviation of Δθ within each step."

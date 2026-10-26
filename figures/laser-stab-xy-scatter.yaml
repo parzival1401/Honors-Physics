@@ -1,0 +1,14 @@
+# Provenance for stability_xy_scatter.png -- written by save_figure() in dev/plot_style.jl.
+# The same fields are embedded in the PNG (read_figure_info). One figure = one file.
+figure_id: "stability_xy_scatter"
+former_title: "Beam Position Scatter (XY)"   # title removed from the image; the caption replaces it
+what_it_shows: "Beam-centre displacement from its mean position on the camera, coloured by time."
+axes:
+  x: "ΔX (µm)"
+  y: "ΔY (µm)"
+data:
+  source: "NAS Y:\\Projects\\NSF-MINFLUX\\projects\\Data\\Evaluation Experiments\\EOD Driver test\\beam characterizatiom\\stability_laser\\MAR_27 -- acquired 2026-03-27; laser pointing stability: 1000 frames logged through the sweep program, but the HVA1 monitor stays within 0.5 V and the beam does not follow the command, so this is the laser + bench, not EOD deflection"
+  script: "MicroscopeMinFlux.jl/dev/angle_stability.jl"
+  commit: "89db96a on worktree-galvo-delay-analysis"
+created: "2026-10-26 13:19:54"
+notes: "Angles use pixel size 5.2 µm and lever arm 380.0 mm (bench 350 mm + 30 mm housing face to crystal centre). Time is from the file timestamps, not step x settle_time. "
