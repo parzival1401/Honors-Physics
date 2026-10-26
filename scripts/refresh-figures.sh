@@ -30,6 +30,7 @@ SOURCE_ROOTS=(
   "$NAS/beam characterizatiom/movig EDO1/MAR_3"
   "$NAS/beam characterizatiom/polarization/apr10"
   "$NAS/beam characterizatiom/angle/mar_25"
+  "$NAS/beam characterizatiom/gausian/may 26"
   "$NAS/figures"
   "$REPO/../optics_svg/EOD"
   "$REPO/../optics_svg"

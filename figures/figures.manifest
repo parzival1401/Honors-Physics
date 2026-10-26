@@ -30,6 +30,12 @@ eod-beam-xcorr-fwhm.png           beam_quality_xcorr_fwhm.png
 eod-beam-xcorr-dx.png             beam_quality_xcorr_dx.png
 eod-beam-xcorr-dy.png             beam_quality_xcorr_dy.png
 
+# Along-the-path stations (gausian/may 26 dataset): camera at fixed stations,
+# one frame each. Replaces the combined beam_quality_3panel.png on the NAS.
+eod-path-fwhm.png                 beam_quality_positions_fwhm.png
+eod-path-ellipticity.png          beam_quality_positions_ellipticity.png
+eod-path-r2.png                   beam_quality_positions_r2.png
+
 # ---------------------------------------------------------------------------
 # Experiment 2 — beam deflection against drive voltage
 # ---------------------------------------------------------------------------

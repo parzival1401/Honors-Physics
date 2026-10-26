@@ -164,26 +164,31 @@ pivot at the centre of the crystal rather than to the face of its housing.
 
 \subsubsection{Setup}
 
+All four measurements record the beam directly on the camera sensor, and each reduces the
+recorded frames by the procedures set out under Methods.
+
+\paragraph{Beam quality across the deflector aperture.}
+A single deflector is mounted on a micrometer stage after two folding mirrors and translated
+across the beam, so that the beam samples the crystal from one edge of its 2~mm aperture to the
+other. A frame is recorded at each stage position, and a control frame recorded on the same
+bench serves as the reference. Both units are measured in turn. The arrangement is that of
+Figure~\ref{fig:eod-setup-beam-degradation}.
+
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.85\textwidth]{eod-setup-beam-degradation}
-    \caption{Bench layout for the beam-degradation measurement: 642~nm source, folding mirrors
+    \caption{Bench layout for the translation measurement: 642~nm source, folding mirrors
     M1 and M2, deflector on a micrometer stage, beam recorded directly on the camera sensor.}
     \label{fig:eod-setup-beam-degradation}
 \end{figure}
 
-\begin{itemize}
-    \item beam degradation through alignment
-    \begin{itemize}
-        \item [EXPERIMENT] camera on an optical rail, frames captured at a series of fixed
-        stations along the beam path, so that beam quality can be compared across the deflector
-        and relay stages against the laser output taken as the reference.
-    \end{itemize}
-\end{itemize}
-
-The stations are defined by what precedes them in the path, so that the change between
-consecutive stations isolates the element added between them. Taking the fibre output as the
-reference:
+\paragraph{Beam quality along the path.}
+Here nothing is moved but the camera. The two deflectors are assembled in their working
+configuration, relayed onto one another as in Figure~\ref{fig:eod-setup-relay-two-deflectors},
+and the camera is placed in turn at fixed stations along the beam, one frame at each, so that
+beam quality can be compared across the deflector and relay stages against the fibre output
+taken as the reference. The stations are defined by what precedes them in the path, so that the
+change between consecutive stations isolates the element added between them:
 
 \begin{description}
     \item[P1 (control)] immediately after the output of the fibre optic.
@@ -199,6 +204,15 @@ Five of the six stations therefore yield data. P3 falls inside the relay where t
 for the sensor, so the comparison across the first relay is made between P2 and P4 and carries
 the second deflector with it; the first relay cannot be isolated from the deflector that follows
 it on this bench.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{eod-setup-relay-two-deflectors}
+    \caption{Two deflectors in series. Lenses L1 and L2, one focal length from each crystal and
+    two focal lengths apart, image the deflection plane of the first onto the second. The
+    half-wave plate between them rotates the polarization into the second crystal's axis.}
+    \label{fig:eod-setup-relay-two-deflectors}
+\end{figure}
 
 \paragraph{Beam quality against deflection.}
 Rather than translating the deflector, this measurement drives it. Both units are swept across
@@ -218,29 +232,15 @@ Figure~\ref{fig:eod-setup-beam-deflection}.
     \label{fig:eod-setup-beam-deflection}
 \end{figure}
 
-\begin{itemize}
-    \item range angle
-    \begin{itemize}
-        \item [EXPERIMENT] HVA200 voltage sweep (DAQ output, stepped range, settle time), camera records beam centroid at each step
-        \item [GRAPH] voltage vs. angle (calibration curve, mrad/V)
-        \item [GRAPH] voltage vs. beam displacement (px / µm)
-        \item [TABLE/TEXT] measured mrad/kV vs. manufacturer spec (% of spec)
-    \end{itemize}
-    \item polarization based angles
-    \begin{itemize}
-        \item [EXPERIMENT] polarization angle set/measured relative to EOD deflection axis
-        \item [GRAPH] polarization angle vs. deflection-axis position (alignment check)
-    \end{itemize}
-\end{itemize}
+\paragraph{Deflection sensitivity and polarization.}
+On the same bench, each drive channel is swept across roughly $\pm200$~V of amplifier output
+while the camera records the beam centre at every step. The sweep is repeated at three input
+polarizations, set by a linear polarizer ahead of the crystal: parallel to the deflection axis,
+perpendicular to it, and with the polarizer removed. The crystal-to-sensor distance, which
+converts displacement into angle, is measured on the bench as 190~mm from the face of the
+deflector housing; the analysis refers it to the deflection pivot at the centre of the crystal,
+30~mm further back, for a lever arm of 220~mm.
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=\textwidth]{eod-setup-relay-two-deflectors}
-    \caption{Two deflectors in series. Lenses L1 and L2, one focal length from each crystal and
-    two focal lengths apart, image the deflection plane of the first onto the second. The
-    half-wave plate between them rotates the polarization into the second crystal's axis.}
-    \label{fig:eod-setup-relay-two-deflectors}
-\end{figure}
 \subsubsection{Methods}
 
 Every measurement in this section reduces a camera frame to a few numbers describing the beam,
@@ -354,6 +354,32 @@ measurement, so these are failures of the width search rather than measurements 
 beam, and they should be masked rather than plotted. They are left visible here because they mark
 where the measurement stops being meaningful.
 
+\paragraph{Beam quality along the path.}
+Figure~\ref{fig:eod-path} follows the beam from the fibre output through the assembled deflector
+pair. Because the stations sit at different distances along the path, the absolute widths of
+Figure~\ref{fig:eod-path-fwhm} change partly through ordinary propagation; the ellipticity and the
+fit quality are the measures of shape, and they are read here against the control rather than
+against an ideal. The control at P1 is very nearly circular, with an ellipticity of 1.01, and its
+Gaussian fit reaches an $R^2$ of 0.965, which sets the ceiling for the later stations.
+
+The first deflector is where the shape changes most. Between P1 and P2 the width along $x$ grows
+by about a quarter, from roughly 570 to 720~\textmu m, while the width along $y$ grows by under a
+tenth, and the ellipticity rises to 1.17. Across the first relay and the second deflector
+together, P2 to P4, the beam rounds again to an ellipticity of 1.08, but the fit quality falls to
+0.90, so the profile moves further from Gaussian even as it becomes more nearly circular. The
+second relay, P4 to P5, leaves the fit quality unchanged but exchanges the axes: the width along
+$x$ returns to the control value while that along $y$ keeps growing, and the ellipticity reaches
+1.19, now elongated along $y$. At every measurable station before the amplification stage the
+ellipticity therefore stays below 1.2, and the loss of Gaussian character, from 0.965 to 0.90,
+is accumulated entirely through the deflector pair and its first relay.
+
+Station P6 is reported but not interpreted. After the amplification stage the beam is more than
+six times wider than at any earlier station, which is the expansion that stage exists to provide,
+but its peak reaches only 9 counts, below the 15-count level at which the half-maximum search
+rises clear of the noise, so the width, the ellipticity and the fit at P6 are not reliable
+measures of shape. Each station is also a single frame, so differences of a few percent between
+stations are not distinguishable from frame-to-frame scatter.
+
 \paragraph{Beam quality against deflection.}
 Driving the deflector changes the shape of the beam, but modestly. In
 Figure~\ref{fig:eod-quality-voltage-fwhm} the widths along the two transverse axes of a given
@@ -386,8 +412,8 @@ straight line is visible at either extreme.
 
 The sensitivity depends strongly on the input polarization, panel (d) of each figure. With the
 polarization perpendicular to the deflection axis the two channels give 2.95 and 3.12~mrad/kV;
-unpolarized, 2.07 and 2.77; and parallel to the deflection axis, 0.83 and 0.87. The ratio between
-the best and worst polarization is about 3.6 in both channels, so this is a property of the
+unpolarized, 2.08 and 2.77; and parallel to the deflection axis, 0.83 and 0.88. The ratio between
+the best and worst polarization is about 3.5 in both channels, so this is a property of the
 devices rather than of one unit.
 
 Measured against the manufacturer's quoted minimum of 3~mrad/kV, the outcome depends on the
@@ -469,6 +495,35 @@ transient and is excluded from the regressions.
     denotes a beam identical to the control; (b) width of the correlation peak; (c) displacement
     of the beam in $x$ and (d) in $y$, from the location of the peak.}
     \label{fig:eod-beam-xcorr}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}{0.32\textwidth}
+        \includegraphics[width=\linewidth]{eod-path-fwhm}
+        \caption{}
+        \label{fig:eod-path-fwhm}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.32\textwidth}
+        \includegraphics[width=\linewidth]{eod-path-ellipticity}
+        \caption{}
+        \label{fig:eod-path-ellipticity}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.32\textwidth}
+        \includegraphics[width=\linewidth]{eod-path-r2}
+        \caption{}
+        \label{fig:eod-path-r2}
+    \end{subfigure}
+    \caption{Beam quality at fixed stations along the path, one frame per station: P1, the
+    control at the fibre output; P2, after the first deflector; P4, after the second deflector;
+    P5, after the second relay; P6, after the amplification stage. P3, inside the first relay,
+    could not be reached. (a) Width at half maximum along $x$ and $y$, on a logarithmic axis;
+    (b) ellipticity, dashed at unity for a circular beam; (c) Gaussian fit $R^2$, dashed at a
+    perfect fit. The ringed point, P6, peaks below 15 counts, so its width and fit are not
+    reliable.}
+    \label{fig:eod-path}
 \end{figure}
 
 \begin{figure}[htbp]

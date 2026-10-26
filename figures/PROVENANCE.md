@@ -64,6 +64,21 @@ Five of six stations yield data. Because P3 cannot be reached, the first relay c
 isolated: the P2-to-P4 comparison spans the first relay *and* the second deflector together, and
 any degradation found there cannot be attributed to one or the other from this dataset alone.
 
+Measured results: NAS `EOD Driver test/beam characterizatiom/gausian/may 26`, acquired
+2026-05-26, one frame per station; the station key is also in `specs.txt` there. Produced by
+`MicroscopeMinFlux.jl` `dev/analysis/beam_quality_positions.jl` (commit `4ca3fba`). These three
+replace the combined `beam_quality_3panel.png`, which stays on the NAS unused.
+
+| Figure | Source | Shows |
+|---|---|---|
+| `eod-path-fwhm` | `beam_quality_positions_fwhm.png` | FWHM in x and y at each station, log axis |
+| `eod-path-ellipticity` | `beam_quality_positions_ellipticity.png` | ellipticity (max/min FWHM) at each station |
+| `eod-path-r2` | `beam_quality_positions_r2.png` | Gaussian fit R² at each station |
+
+The manuscript groups them as `fig:eod-path`, (a) to (c). P6 is ringed in every panel: its peak
+is 9 counts, below the 15-count level at which the half-maximum search clears the noise, so its
+width and fit are soft. Its FWHM is roughly six to seven times the others, hence the log axis.
+
 An earlier legend for a seven-position `gausian/jun2` dataset described the stations differently,
 by which optics were present rather than by where the camera sat. That dataset is not the one
 cited by the manuscript; the table above supersedes it.
@@ -175,9 +190,14 @@ The per-frame camera data for each sit in the `EOD34` and `EOD35` subfolders bes
 Each sweep runs the amplifier output across roughly plus and minus 200 V and records the beam
 centre on the camera, at three input polarizations: parallel to the deflection axis,
 perpendicular to it, and with the polarizer removed. Angles are derived from the displacement
-using a 5.2 micrometre pixel pitch and a 190 mm crystal-to-camera distance, both recorded in the
-sidecars (they were stated in the titles of the combined figures); the sensitivity bars are
-compared against the vendor's quoted minimum of 3 mrad/kV.
+using a 5.2 micrometre pixel pitch and a 220 mm lever arm, both recorded in the sidecars; the
+sensitivity bars are compared against the vendor's quoted minimum of 3 mrad/kV.
+
+**Lever arm.** The 190 mm measured on the bench runs from the deflector housing face to the
+sensor. The vendor puts the deflection pivot at the centre of the 60 mm housing, 30 mm further
+back, so the angle is referred to 220 mm. The figures were regenerated at 220 mm on 2026-10-26
+(`MicroscopeMinFlux.jl` commit `d390417`); anything computed earlier used 190 mm and overstates
+every sensitivity by the factor 220/190, about sixteen percent.
 
 | Figure | Shows |
 |---|---|
@@ -188,8 +208,9 @@ compared against the vendor's quoted minimum of 3 mrad/kV.
 
 Each channel is one 2×2 figure in the manuscript, (a) to (d) in the order above.
 
-Measured sensitivities, in mrad/kV: perpendicular 3.42 and 3.61, unpolarized 2.40 and 3.21,
-parallel 0.96 and 1.01, for channels 1 and 2 respectively.
+Measured sensitivities at 220 mm, in mrad/kV: perpendicular 2.95 and 3.12, unpolarized 2.08 and
+2.77, parallel 0.83 and 0.88, for channels 1 and 2 respectively. At 190 mm these were 3.42 and
+3.61, 2.40 and 3.21, 0.96 and 1.01; the audit values quoted above are the 190 mm ones.
 
 The combined plots labelled the deflector "ODE" rather than "EOD" in legend and title. The split
 graphs have no title and their legends name only the polarization, so that no longer shows.
