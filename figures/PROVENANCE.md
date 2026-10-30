@@ -287,14 +287,16 @@ MicroscopeMinFlux.jl `dev/analysis/donut_jun4_thesis.jl` at ce95c01 (branch
 worktree-galvo-delay-analysis, not pushed). Every per-run number is in `donut_runs_summary.csv`,
 and every sweep step is in `deflec_donut/donut_sweep_steps.csv`.
 
-Bench, from the user's corrected drawing of 2026-10-30, in path order:
+Bench, from the user's third drawing of 2026-10-30, in path order (the two earlier drawings
+placed the QWP and the plate differently):
 
 1. EOD34, then the L1–L2 relay.
 2. A half-wave plate, then EOD35.
 3. The L3–L4 and L5–L6 relays.
-4. A quarter-wave plate one focal length past L6, in the plane conjugate to both deflectors.
+4. The vortex plate (Vortex Photonics V-633-10-1, charge 1), one focal length past L6, in the
+   plane conjugate to both deflectors.
 5. Fold mirror M3.
-6. The vortex plate (Vortex Photonics V-633-10-1, charge 1), just ahead of L7.
+6. A quarter-wave plate, just ahead of L7.
 7. The camera in the focal plane of L7: a Thorlabs DCx, MONO8 8-bit, 5.2 µm pixels, 10 ms
    exposure.
 

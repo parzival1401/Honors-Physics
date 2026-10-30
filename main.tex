@@ -1011,8 +1011,10 @@ Polarization adds one more condition, but only at high numerical aperture. When 
 focused tightly by a microscope objective, part of the field turns to point along the axis, and that
 component can fill the zero unless the beam is circularly polarized with the handedness opposite to
 the twist of its phase \cite{lopezOptimizationCharacterizationToroidal2023}. This is why a
-quarter-wave plate sets circular polarization ahead of the vortex plate, both on the bench below
-and in the instrument \cite{becerraQuantifyingProteinInteractions2024}. The bench measurements
+quarter-wave plate sets the beam to circular polarization before it is focused, both on the bench
+below and in the instrument \cite{becerraQuantifyingProteinInteractions2024}; since the vortex
+plate imposes the same phase on any polarization, the waveplate may stand on either side of it.
+The bench measurements
 focus the donut with a single lens of low numerical aperture, where the field remains transverse
 and the polarization should not affect the null, so they test the vortex itself; the handedness
 condition has to be verified at the focus of the objective.
@@ -1061,13 +1063,12 @@ in turn onto a plane one focal length beyond L6, conjugate to both deflectors. T
 also the beam expander. Its magnification of $100/13.5\approx7.4$ should take the beam of about
 1~mm that passes the deflectors to about 7~mm, inside the 5 to 10~mm window recommended for the
 plate, and reduce every deflection angle by the same factor; the beam size at the plate was not
-measured. A quarter-wave plate sits in that
-plane and sets the beam to circular polarization. Mirror M3 then folds the beam onto the vortex
-phase plate, a Vortex Photonics \texttt{V-633-10-1} of charge one, placed just ahead of lens L7.
-Because the plate lies a short distance past the conjugate plane rather than in it, a deflection
-mostly tilts the beam as it crosses the plate but also shifts it slightly across the plate's centre,
-in proportion to that distance; in the instrument the plate sits at a pupil-conjugate plane, where
-the shift vanishes. The camera lies at the focal plane of L7, where the dark core is fully formed,
+measured. The vortex phase plate, a Vortex Photonics \texttt{V-633-10-1} of charge one, sits in
+that conjugate plane. A deflection therefore tilts the beam as it crosses the plate without moving
+it across the plate's centre, which is the arrangement the instrument uses to steer the donut
+without degrading it. Mirror M3 then folds the beam through a quarter-wave plate, which sets it to
+circular polarization, and into lens L7. The camera lies at the focal plane of L7, where the dark
+core is fully formed,
 and because a lens maps angle to position in its focal plane, a deflection appears as a
 displacement of the donut on the sensor, recorded directly with 5.2~\textmu m pixels.
 
@@ -1087,9 +1088,9 @@ swept the same way with EOD34 held at 0~V.
     \caption{Donut-forming bench, built on the relayed deflector pair of
     Figure~\ref{fig:eod-setup-relay-two-deflectors}. A half-wave plate (HWP) ahead of EOD35 sets
     the polarization that crystal requires. The relays L3--L4 and L5--L6 image the deflectors onto
-    a plane one focal length beyond L6, where a quarter-wave plate (QWP) sets circular
-    polarization; mirror M3 folds the beam onto the vortex phase plate ahead of L7, and the camera
-    lies at the focal plane of L7, where the donut forms. Spacings are marked beneath the rail in
+    the vortex phase plate, one focal length beyond L6; mirror M3 folds the beam through a
+    quarter-wave plate (QWP), which sets circular polarization, into L7, and the camera lies at the
+    focal plane of L7, where the donut forms. Spacings are marked beneath the rail in
     focal lengths.}
     \label{fig:donut-setup-creation}
 \end{figure}
@@ -1267,10 +1268,10 @@ Figure~\ref{fig:donut-sweep-disp-eod34}; across the full $\pm10$~V, the $\pm200$
 amplifier, it travels about $\pm48$~\textmu m, a little over half the ring radius. Throughout both
 sweeps the cross-correlation with the control stays at or above 0.987, with a mean of 0.994,
 Figure~\ref{fig:donut-sweep-ncc}. It falls by about one percent from the centre of the range to
-either end, alike for both deflectors and symmetric in voltage. A decline of that form is what
-would follow if the beam crossed the vortex plate slightly off its centre at large deflections, as
-it does on this bench with the plate a short distance past the conjugate plane, but these data do
-not isolate the cause. The extinction ratio shows no change at all within what the camera can
+either end, alike for both deflectors and symmetric in voltage. A decline of that form would follow
+if the beam passed the lenses further from their axes at large deflections and picked up
+aberration, or if the plate sat slightly off the plane conjugate to the deflectors, so that a
+deflection also moved the beam a little across it; these data do not isolate the cause. The extinction ratio shows no change at all within what the camera can
 resolve, Figure~\ref{fig:donut-sweep-er}: it sits on the one-unit floor, near 0.04, across both
 sweeps, as it does in the control at $0.035\pm0.016$.
 
@@ -1367,8 +1368,8 @@ should be measured, so that the ring size and the displacements can be referred 
 and converted to angle. The null should be measured with a detector that can resolve it: a
 higher bit depth and longer or averaged exposures on the camera, or a photodiode behind a pinhole at
 the centre of the donut. The plate should be centred finely on the beam, using the one-sided
-component of the ring as the error signal, and placed in the plane conjugate to the deflectors, as it
-is in the instrument, so that deflection cannot move the beam across it. And the rotation of EOD35
+component of the ring as the error signal, and its axial position checked against the plane
+conjugate to the deflectors, so that deflection cannot move the beam across it. And the rotation of EOD35
 should be removed in its mount or carried into a two-axis calibration. Two questions remain beyond
 the bench altogether: whether the null survives the high numerical aperture of the objective, where
 the handedness of the circular polarization decides it, and how deep it is at the sample.
