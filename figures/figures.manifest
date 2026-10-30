@@ -127,3 +127,15 @@ donut-sweep-ncc.png               donut_sweep_ncc.png
 donut-sweep-er.png                donut_sweep_er.png
 donut-sweep-disp-eod34.png        donut_sweep_disp_eod34.png
 donut-sweep-disp-eod35.png        donut_sweep_disp_eod35.png
+
+# ---------------------------------------------------------------------------
+# EOD step response (EOD_delay/10-16-26 high speed), October 2026
+# ---------------------------------------------------------------------------
+# CH1 = HVA200 monitor, CH2 = PDQ80A difference output. Detector signal is a
+# fraction of the full throw; t = 0 at the drive's 50% crossing. Per-capture
+# numbers in delay_edges_summary.csv beside the figures.
+eod-delay-trace-10khz.png         delay_trace_10khz.png
+eod-delay-trace-50khz.png         delay_trace_50khz.png
+eod-delay-vs-frequency.png        delay_vs_frequency.png
+eod-delay-settled-fraction.png    delay_settled_fraction.png
+eod-delay-step-response.png       delay_step_response.png

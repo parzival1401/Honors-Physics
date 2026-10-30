@@ -380,13 +380,15 @@ are compared. Neither run resolves anything faster than the camera frame interva
 \paragraph{Step response.}
 How quickly the beam follows a change of drive is measured without the camera. The deflected beam
 falls on a Thorlabs PDQ80A quadrant photodiode, whose difference output is proportional to the
-position of the beam on the detector for small displacements, with a bandwidth of 150~kHz. Each
-deflector in turn is driven with a square wave of about 4.4~V peak to peak of command voltage,
-roughly 88~V at the amplifier output, at nine frequencies from 1 to 50~kHz. A two-channel
+position of the beam on the detector for small displacements, with a specified bandwidth of
+150~kHz. Each deflector in turn is driven with a square wave at frequencies from 1 to 50~kHz, of
+a few volts peak to peak of command voltage, about 4.4~V, and so of the order of 90~V at the
+amplifier output. A two-channel
 oscilloscope records the monitor output of the HVA200 amplifier on one channel and the detector on
 the other. Because the reference is the amplifier's own output, the timing measured is that of
 the deflector and the detection, from the voltage reaching the crystal to the beam arriving at its
-new position, and excludes the amplifier itself. The two deflectors were recorded in October 2026.
+new position, and excludes the amplifier itself. EOD35 was recorded on 16 October 2026 and EOD34
+on 19 October.
 
 \subsubsection{Methods}
 
@@ -479,6 +481,29 @@ hold, so that the deflection itself is removed and only the wander about it rema
 of that wander is summarised by its standard deviation and its peak-to-peak range, computed on
 the radial displacement, and converted to angle through the lever arm as above. At 380~mm one
 camera pixel corresponds to about 0.014~mrad.
+
+\paragraph{Timing an edge.}
+The oscilloscope stores 2500 points per channel at 8 bits, with a sample interval that ranges
+from 2~\textmu s in the slowest captures to 0.1~\textmu s in the fastest. Each drive edge is
+located at the time its trace crosses half its swing, interpolated between samples; the half-way
+point is used rather than the customary tenth because, at the vertical scale recorded, one
+quantization level is already about a tenth of the drive swing, and a threshold that low fires on
+noise. The raw detector samples around every edge of a capture are aligned on those times and
+averaged, without smoothing. The detector signal is then expressed as a fraction of the full
+throw, the difference between the two levels at which the beam comes to rest, taken from the
+captures whose half period is long enough, 40~\textmu s or more, for the beam to settle; the
+detector gain is the same in every file, so the throw carries over to the faster captures where
+the beam never settles. The delay is the time from the drive's half-swing crossing to the beam
+reaching a tenth of its throw, and a delay shorter than one sample interval is reported as
+unresolved. The approach is summarised in two ways: by the fraction of the throw reached 5, 10 and
+25~\textmu s after the edge, and by a fit to the averaged steps from 10 to 50~kHz of a delayed
+two-stage response,
+\begin{equation}
+    x(t) = 1 - a\,e^{-(t-t_0)/\tau_f} - (1-a)\,e^{-(t-t_0)/\tau_s}, \qquad t > t_0,
+\end{equation}
+with a delay $t_0$, a fast stage of share $a$ and time constant $\tau_f$, and a slow stage of time
+constant $\tau_s$. Rising and falling edges are treated separately, and captures found to be
+byte-for-byte copies of another are discarded.
 
 \subsubsection{Results}
 
@@ -919,8 +944,87 @@ is systematic rather than random, and a calibration taken immediately after a la
 inherit it.
 
 These measurements bound the stability of a held deflection over seconds; they say nothing about
-the microsecond settling that the MINFLUX cycle depends on, which lies far below the camera frame
-interval and remains to be measured on the drive chain directly.
+the microsecond response on which the MINFLUX cycle depends, which lies far below the camera frame
+interval and is measured next.
+
+\paragraph{Step response.}
+The beam follows a step of drive after a short delay and in two stages,
+Figure~\ref{fig:eod-delay}. It begins to move between 0.42 and 0.53~\textmu s after the amplifier
+output crosses half its swing, measured to the point where the beam has covered a tenth of its
+throw, for both deflectors at every frequency from 10 to 50~kHz,
+Figure~\ref{fig:eod-delay-vs-frequency}. Falling edges agree with rising ones to within
+0.06~\textmu s, and the delay shows no trend with frequency beyond that scatter. A detector with a
+150~kHz bandwidth would itself lag a step's tenth point by about 0.1~\textmu s, so at most that
+much of the delay belongs to the detection; the rest, about 0.35 to 0.4~\textmu s, is the time for
+the voltage at the amplifier output to begin moving the beam. At 1, 2 and, for EOD35, 5~kHz the
+oscilloscope samples too coarsely to resolve a delay this short.
+
+The approach to the new position is not a single exponential. Averaged over all the edges of a
+capture, the step consists of a fast stage, which carries 41 percent of the throw for EOD34 with a
+time constant of 0.32~\textmu s and 59 percent for EOD35 with 0.85~\textmu s, and a slow stage,
+which carries the remainder with a time constant of 3.7~\textmu s for EOD34 and 2.8~\textmu s for
+EOD35, Figure~\ref{fig:eod-delay-step-response}. In practical terms, 5~\textmu s after the edge
+EOD34 has covered 80 to 82 percent of its throw and EOD35 91 to 94 percent; at 10~\textmu s the
+figures are 96 to 97 and 98 to 100 percent; and by 25~\textmu s both have arrived within the noise,
+Figure~\ref{fig:eod-delay-settled-fraction}. The averaged steps from 10 to 50~kHz lie on top of one
+another, so the response is the same at every rate tested: at 50~kHz the half period of
+10~\textmu s simply ends before the slow stage is complete, Figure~\ref{fig:eod-delay-trace-50khz},
+and that truncation, not a faster response, is why a rise time read from each trace in isolation
+appears to shorten as the frequency rises.
+
+Neither stage can be laid entirely on the detector. The fast stage of EOD34, at 0.32~\textmu s, is
+quicker than a single 150~kHz pole would allow, so the detector on this path responds faster than
+its specified bandwidth; the fast time constants are therefore best read as upper bounds on how
+quickly the deflector itself responds. The slow stage, at 3 to 4~\textmu s, is several times slower
+than the detector has just been shown to be, and a single detector pole cannot in any case produce
+two separate stages. It belongs to the drive or to the crystal. The amplifier monitor shows a clean
+edge, 0.37 to 0.51~\textmu s from ten to ninety percent, but it need not report the voltage
+across the crystal itself, and a slow charging of the crystal's capacitance through the cable and
+the amplifier output might not appear on it. These data cannot separate that from a response of
+the crystal itself.
+
+For the MINFLUX cycle of four positions in 100~\textmu s, each held for about 25~\textmu s, the
+deflectors arrive within every dwell, but not at its start. During the first 5~\textmu s of a dwell
+EOD34 is still up to a fifth of the step short of its target and EOD35 up to a tenth, so photons
+counted then are counted at an intermediate position. The delay of half a microsecond is
+negligible against the dwell and, being fixed, could be compensated in timing; the slow stage is
+what matters.
+
+\begin{figure}[!htbp]
+    \centering
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{eod-delay-trace-50khz}
+        \caption{}
+        \label{fig:eod-delay-trace-50khz}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{eod-delay-step-response}
+        \caption{}
+        \label{fig:eod-delay-step-response}
+    \end{subfigure}
+
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{eod-delay-vs-frequency}
+        \caption{}
+        \label{fig:eod-delay-vs-frequency}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{eod-delay-settled-fraction}
+        \caption{}
+        \label{fig:eod-delay-settled-fraction}
+    \end{subfigure}
+    \caption{Step response of EOD34 and EOD35, from the amplifier monitor to the quadrant
+    photodiode, as a fraction of the full throw. (a) Drive and response at 50~kHz, where the half
+    period ends before the response settles. (b) Rising step at 10~kHz averaged over all edges,
+    with the two-stage fit, against an ideal step seen through a 150~kHz detector alone. (c) Delay
+    from the drive's half-swing crossing to a tenth of the throw against drive frequency: rising
+    edges with their standard error, falling edges as crosses, unresolved captures hollow, and the
+    lag a 150~kHz detector would add dotted. (d) Fraction of the throw reached 5, 10 and
+    25~\textmu s after the edge.}
+    \label{fig:eod-delay}
+\end{figure}
 
 \FloatBarrier % keep the results figures out of the conclusion
 
@@ -952,14 +1056,27 @@ drives, by up to 0.03~mrad over half a minute. For MINFLUX acquisition this matt
 than as a systematic offset: a pattern calibrated on EOD34 shortly after a large step would carry
 the drift into its positions.
 
+On the microsecond scale the deflectors are fast enough for the MINFLUX cycle, but not
+instantaneous. The beam begins to move about half a microsecond after the amplifier output, a
+fixed delay that timing can absorb, and then arrives in two stages: most of the way within about a
+microsecond, and the remainder over a slower stage with a time constant of 3 to 4~\textmu s. Both
+deflectors are within the noise of their target by 25~\textmu s, the dwell of each position in a
+100~\textmu s cycle of four, but in the first 5~\textmu s of a dwell EOD34 is up to a fifth of the
+step short and EOD35 up to a tenth. The response is the same at every rate from 10 to 50~kHz, so it
+is a fixed property of the chain rather than a limit that tightens with speed.
+
 For operation, these results recommend fixing the input polarization perpendicular to each
 deflection axis with the half-wave plate and recording it as part of the calibration; calibrating
 EOD34 and EOD35 separately, each against a lever arm referred to the crystal centre; centring each
-crystal laterally within its working range; and, until the drift of EOD34 is understood, allowing
-it to settle, or recalibrating, after large steps toward negative drive.
+crystal laterally within its working range; until the drift of EOD34 is understood, allowing
+it to settle, or recalibrating, after large steps toward negative drive; and either discarding the
+photons of the first few microseconds of each dwell or shaping the drive step to cancel the slow
+stage, which is possible precisely because the response does not change with rate.
 
-Several questions remain open. The microsecond settling of the drive chain, on which the MINFLUX
-cycle depends, is beyond the reach of the camera and has not been measured. Whether EOD34 meets
+Several questions remain open. The origin of the slow stage of the step response, in the
+amplifier charging the crystal or in the crystal itself, could be settled by measuring the voltage
+across the crystal with a high-voltage probe alongside the beam; and the fast stage is resolved
+only as an upper bound, because the detector on this path is at the limit of its speed. Whether EOD34 meets
 its specification turns on the lever arm: its shortfall corresponds to about 4~mm in 220. The first relay cannot be
 separated from EOD35, because station P3 is inaccessible; the station data rest on one frame
 each; and the final station, after the amplification stage, is too dim to interpret. The origin

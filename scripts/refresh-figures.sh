@@ -33,6 +33,7 @@ SOURCE_ROOTS=(
   "$NAS/beam characterizatiom/gausian/may 26"
   "$NAS/beam characterizatiom/angle_stability/apr_4"
   "$NAS/beam characterizatiom/stability_laser/MAR_27"
+  "$NAS/EOD_delay/10-16-26 high speed"
   "$NAS/beam characterizatiom/donut/jun4"
   "$NAS/beam characterizatiom/donut/jun4/deflec_donut"
   "$NAS/beam characterizatiom/donut/jun4/optimazed_donut_pol_2026-06-04_140736"

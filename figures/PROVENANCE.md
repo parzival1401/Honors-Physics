@@ -338,3 +338,58 @@ Sweep pairing: X = HVA1 = EOD34, Y = HVA2 = EOD35, from the sweep_channel attrib
 Manuscript: `fig:donut-static`, `tab:donut-runs`, `fig:donut-runs`, `fig:donut-sweep`.
 
 **Lens focal lengths (user, 2026-10-30):** 100 mm for every lens except L5, 13.5 mm; L5-L6 is a 7.4x expander and the camera is 100 mm after L7. These do not reproduce the data: they predict about 0.8 um/V displacement and a ring a few um in radius, against 4.8 um/V and 86 um measured. Displacements therefore stay in um at the camera until the L7-to-camera distance and the beam size at the plate are measured.
+
+## EOD step response (October 2026)
+
+Measured results: NAS `EOD Driver test/EOD_delay/10-16-26 high speed/{EOD34,EDO35}`. The folder
+`EDO35` is a misspelling of EOD35. Scope stamps: EOD35 16 Oct 2026, EOD34 19 Oct 2026 (a
+recapture). Analysis: MicroscopeMinFlux.jl `dev/analysis/EOD_delay_thesis.jl` at 4655371
+(branch worktree-galvo-delay-analysis, not pushed). Per-capture numbers are in
+`delay_edges_summary.csv`.
+
+Bench:
+
+- CH1 is the HVA200 monitor output.
+- CH2 is the PDQ80A quadrant detector's difference output (150 kHz specified). It swings
+  symmetrically through 0 V: ±92 mV for EOD34, ±164 mV for EOD35.
+- Square drive at 1–50 kHz, about 4.4 Vpp command. The monitor reads about ±2.0 V for EOD34 and
+  ±2.9 V for EOD35, which is unexplained.
+- Whether the X or Y difference output was used is not recorded.
+
+Corrections to the first summaries:
+
+- **Rise times at 1–8 kHz.** The 13–15 µs values were 2.5-sample Gaussian smoothing at
+  2 µs/sample.
+- **Rise times at higher frequency.** The apparent shortening with frequency was the half period
+  truncating the slow stage.
+- **Delay.** It now runs from the drive's 50% crossing; on 8-bit data the drive's 10% crossing
+  fires on noise.
+- **Duplicates.** EOD34 5 and 8 kHz are copies of 2 kHz, and EOD35 8 kHz is a copy of 5 kHz.
+
+Key numbers (10–50 kHz):
+
+- **Delay to 10% of throw:** EOD34 0.44–0.53 µs, EOD35 0.42–0.50 µs. Falling edges agree within
+  0.06 µs.
+- **Two-stage fit:**
+
+  | Unit | t0 (µs) | Fast share | τf (µs) | τs (µs) |
+  |---|---|---|---|---|
+  | EOD34 | 0.46 | 0.41 | 0.32 | 3.69 |
+  | EOD35 | 0.36 | 0.59 | 0.85 | 2.83 |
+
+- **Fraction of throw reached:**
+
+  | Unit | at 5 µs | at 10 µs | at 25 µs |
+  |---|---|---|---|
+  | EOD34 | 0.80–0.82 | 0.96–0.97 | 1.00 |
+  | EOD35 | 0.91–0.94 | 0.98–1.00 | 1.00 |
+
+| Figure | Shows |
+|---|---|
+| `eod-delay-trace-50khz` | drive and both responses over three edges at 50 kHz |
+| `eod-delay-step-response` | 10 kHz edge-averaged step, two-stage fit, ideal 150 kHz detector |
+| `eod-delay-vs-frequency` | delay against frequency, rising ±SEM, falling ×, unresolved hollow |
+| `eod-delay-settled-fraction` | fraction of throw at 5, 10, 25 µs against frequency |
+| `eod-delay-trace-10khz` | copied but not used in the manuscript |
+
+Manuscript figure: `fig:eod-delay` (2×2).
