@@ -1010,11 +1010,12 @@ than the other; an uneven ring is the signature of a decentred plate.
 Polarization adds one more condition, but only at high numerical aperture. When the beam is
 focused tightly by a microscope objective, part of the field turns to point along the axis, and that
 component can fill the zero unless the beam is circularly polarized with the handedness opposite to
-the twist of its phase \cite{lopezOptimizationCharacterizationToroidal2023}. This is why a
-quarter-wave plate sets circular polarization ahead of the vortex plate in the instrument. The bench
-measurements below image the donut through a long-focal-length lens, where the field remains
-transverse and the polarization does not affect the null, so they test the vortex itself; the
-polarization condition has to be verified at the focus of the objective.
+the twist of its phase \cite{lopezOptimizationCharacterizationToroidal2023}, which is why the
+instrument path carries a quarter-wave plate \cite{becerraQuantifyingProteinInteractions2024}. The
+bench measurements below focus the donut with a single lens of low numerical aperture, where the
+field remains transverse and the polarization does not affect the null, so they test the vortex
+itself; the bench carries no quarter-wave plate, and the polarization condition has to be verified
+at the focus of the objective.
 
 \subsection{Characterization}
 
@@ -1052,15 +1053,22 @@ excitation pattern require active drift correction to approach their theoretical
 The donut is formed on the relayed deflector bench of Section~\ref{sec:eod}, extended by a lens
 train and the vortex plate, Figure~\ref{fig:donut-setup-creation}. The 642~nm source is folded by
 two mirrors into EOD34, whose deflection plane lenses L1 and L2 relay onto EOD35, with a half-wave
-plate between them setting the input polarization of the second crystal. Lenses L3 to L5 relay and
-expand the beam, and the vortex phase plate, a Vortex Photonics \texttt{V-633-10-1} of charge one,
-sits between L5 and the final lens, L6. The camera is placed at the focal plane of L6, where the
-dark core is fully formed, and records the donut directly on its sensor with 5.2~\textmu m pixels.
+plate between them setting the input polarization of the second crystal. Two further relays follow
+EOD35, each a pair of lenses two focal lengths apart: L3 and L4 image the deflection plane of EOD35
+onto an intermediate plane one focal length beyond L4, and L5 and L6 image that plane in turn onto
+the vortex phase plate, a Vortex Photonics \texttt{V-633-10-1} of charge one, placed one focal
+length beyond L6. The plate therefore sits in a plane conjugate to both deflectors: a deflection
+tilts the beam as it crosses the plate but does not move it across the plate's centre, which is the
+arrangement the instrument relies on to steer the donut without degrading it. After the plate the
+beam is folded by mirror M3 into lens L7, and the camera lies at the focal plane of L7. There the
+dark core is fully formed, and because that plane is the Fourier plane of the plate, a tilt at the
+plate appears as a displacement of the donut on the sensor, recorded directly with 5.2~\textmu m
+pixels.
 
 Three measurements were made, all on 4 June 2026. The first records the donut at rest, both
 deflectors at 0~V, as single frames: a characterization frame and a second frame taken after the
 alignment had been adjusted to darken the centre. The second compares the donut with and without a
-polarizer ahead of the quarter-wave plate, and then with the waveplates set for the darkest centre.
+polarizer in the beam, and then with the polarization adjusted for the darkest centre.
 The third sweeps each deflector in turn across its full range while the donut is recorded, to test
 whether the null survives deflection. A control frame is taken with both deflectors at 0~V, and then
 EOD34 is swept from $+10$ to $-10$~V of command voltage, the full $\pm200$~V at the amplifier, in
@@ -1071,10 +1079,11 @@ swept the same way with EOD34 held at 0~V.
     \centering
     \includegraphics[width=\textwidth]{donut-setup-creation}
     \caption{Donut-forming bench, built on the relayed deflector pair of
-    Figure~\ref{fig:eod-setup-relay-two-deflectors}. A half-wave plate ahead of EOD35 sets the
-    polarization that crystal requires. Lenses L3 to L5 relay and expand the beam; the vortex phase
-    plate sits between L5 and the final lens, L6, and the camera lies at the focal plane of L6,
-    where the donut forms.}
+    Figure~\ref{fig:eod-setup-relay-two-deflectors}. A half-wave plate (HWP) ahead of EOD35 sets
+    the polarization that crystal requires. The relays L3--L4 and L5--L6 image the deflectors onto
+    the vortex phase plate, one focal length beyond L6; mirror M3 folds the beam into L7, and the
+    camera lies at the focal plane of L7, where the donut forms. Spacings are marked beneath the
+    rail in focal lengths.}
     \label{fig:donut-setup-creation}
 \end{figure}
 
