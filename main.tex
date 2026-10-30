@@ -1,6 +1,17 @@
 \documentclass{article}
 \usepackage{graphicx} % Required for inserting images
 \usepackage{subcaption} % one graph per image, grouped as (a), (b), ... panels
+\usepackage[section]{placeins} % figures never float past the end of their section
+% The EOD results carry many full-width panel figures. LaTeX's defaults leave too little room for
+% them on a text page, so they all pile up at the end; these limits let each one sit beside the
+% paragraph that describes it.
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.8}
+\renewcommand{\textfraction}{0.07}
+\renewcommand{\floatpagefraction}{0.75}
+\setcounter{topnumber}{3}
+\setcounter{bottomnumber}{2}
+\setcounter{totalnumber}{4}
 \graphicspath{{figures/}} % cite figures by stable name: \includegraphics{eod-beam-xcorr-ncc}
 \usepackage{biblatex}
 \addbibresource{references.bib}
@@ -290,7 +301,7 @@ outside one edge of the aperture, through it, to outside the other. A frame is r
 bench serves as the reference. EOD34 and EOD35 are measured in turn. The arrangement is that of
 Figure~\ref{fig:eod-setup-beam-degradation}.
 
-\begin{figure}[htbp]
+\begin{figure}[!htbp]
     \centering
     \includegraphics[width=0.85\textwidth]{eod-setup-beam-degradation}
     \caption{Bench layout for the translation measurement: 642~nm source, folding mirrors
@@ -320,7 +331,7 @@ Five of the six stations therefore yield data. P3 falls inside the relay where t
 for the sensor, so the comparison across the first relay is made between P2 and P4 and carries
 EOD35 with it; the first relay cannot be isolated from EOD35 on this bench.
 
-\begin{figure}[htbp]
+\begin{figure}[!htbp]
     \centering
     \includegraphics[width=\textwidth]{eod-setup-relay-two-deflectors}
     \caption{The two deflectors in series, EOD34 first. Lenses L1 and L2, one focal length from
@@ -338,7 +349,7 @@ amplifier raises by a factor of twenty to the $\pm200$~V appearing across the cr
 An undeflected control frame is recorded for each deflector. The arrangement is that of
 Figure~\ref{fig:eod-setup-beam-deflection}.
 
-\begin{figure}[htbp]
+\begin{figure}[!htbp]
     \centering
     \includegraphics[width=0.85\textwidth]{eod-setup-beam-deflection}
     \caption{Bench layout for the voltage sweep. The deflector is driven rather than translated:
@@ -479,6 +490,39 @@ it clears both edges of the aperture, so the fall-off on either side reads as cl
 aperture rather than as degradation within the crystal, and the 0.7~mm offset between the two
 deflectors most simply as a difference in where each crystal sits relative to the stage.
 
+\begin{figure}[!htbp]
+    \centering
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{eod-beam-xcorr-ncc}
+        \caption{}
+        \label{fig:eod-beam-xcorr-ncc}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{eod-beam-xcorr-fwhm}
+        \caption{}
+        \label{fig:eod-beam-xcorr-fwhm}
+    \end{subfigure}
+
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{eod-beam-xcorr-dx}
+        \caption{}
+        \label{fig:eod-beam-xcorr-dx}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{eod-beam-xcorr-dy}
+        \caption{}
+        \label{fig:eod-beam-xcorr-dy}
+    \end{subfigure}
+    \caption{Cross-correlation of each frame against the control reference, against stage
+    position in millimetres, for EOD34 and EOD35. (a) Peak
+    normalised correlation, where unity
+    denotes a beam identical to the control; (b) width of the correlation peak; (c) displacement
+    of the beam in $x$ and (d) in $y$, from the location of the peak.}
+    \label{fig:eod-beam-xcorr}
+\end{figure}
+
 \paragraph{Beam quality along the path.}
 Figure~\ref{fig:eod-path} follows the beam from the fibre output through EOD34, the first relay,
 EOD35 and the second relay. Because the stations sit at different distances along the path, the
@@ -505,6 +549,35 @@ rises clear of the noise, so the width, the ellipticity and the fit at P6 are no
 measures of shape. Each station is also a single frame, so differences of a few percent between
 stations are not distinguishable from frame-to-frame scatter.
 
+\begin{figure}[!htbp]
+    \centering
+    \begin{subfigure}{0.32\textwidth}
+        \includegraphics[width=\linewidth]{eod-path-fwhm}
+        \caption{}
+        \label{fig:eod-path-fwhm}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.32\textwidth}
+        \includegraphics[width=\linewidth]{eod-path-ellipticity}
+        \caption{}
+        \label{fig:eod-path-ellipticity}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.32\textwidth}
+        \includegraphics[width=\linewidth]{eod-path-r2}
+        \caption{}
+        \label{fig:eod-path-r2}
+    \end{subfigure}
+    \caption{Beam quality at fixed stations along the path, one frame per station: P1, the
+    control at the fibre output; P2, after EOD34; P4, after EOD35;
+    P5, after the second relay; P6, after the amplification stage. P3, inside the first relay,
+    could not be reached. (a) Width at half maximum along $x$ and $y$, on a logarithmic axis;
+    (b) ellipticity, dashed at unity for a circular beam; (c) Gaussian fit $R^2$, dashed at a
+    perfect fit. The ringed point, P6, marked low signal, peaks below 15 counts, so its width and fit are not
+    reliable.}
+    \label{fig:eod-path}
+\end{figure}
+
 \paragraph{Beam quality against deflection.}
 Driving the deflector changes the shape of the beam, but modestly. In
 Figure~\ref{fig:eod-quality-voltage-fwhm} the widths along the two transverse axes of each
@@ -526,6 +599,41 @@ fitted model does not describe. The gap is far smaller than the factor of $\sqrt
 mismatch of radius conventions would produce, so it is a property of the beam rather than of the
 arithmetic.
 
+\begin{figure}[!htbp]
+    \centering
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{eod-quality-voltage-fwhm}
+        \caption{}
+        \label{fig:eod-quality-voltage-fwhm}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{eod-quality-voltage-ellipticity}
+        \caption{}
+        \label{fig:eod-quality-voltage-ellipticity}
+    \end{subfigure}
+
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{eod-quality-voltage-r2}
+        \caption{}
+        \label{fig:eod-quality-voltage-r2}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{eod-quality-voltage-omega}
+        \caption{}
+        \label{fig:eod-quality-voltage-omega}
+    \end{subfigure}
+    \caption{Beam quality against command voltage for EOD34 and EOD35, from a two-dimensional
+    Gaussian fitted to each frame; EOD34 in blue circles, EOD35 in red squares. (a) Width at half
+    maximum, solid along $x$ and dashed along $y$, with the control as a grey dashed line;
+    (b) ellipticity, the larger width at half maximum over the smaller, so that unity is a
+    circular beam; (c) goodness of fit $R^2$; (d) beam
+    radius at $1/e^2$, solid from the fit and dashed derived from the measured width, which
+    coincide for a true Gaussian.}
+    \label{fig:eod-quality-voltage}
+\end{figure}
+
 \paragraph{Deflection sensitivity and its polarization dependence.}
 Each deflector steers along a single axis: the beam centre moves linearly in $x$ on the camera
 across the full $\pm200$~V of amplifier output while $y$ remains flat, in panels (b) and (c) of
@@ -534,6 +642,68 @@ EOD35. EOD35 shows its three polarization traces displaced from one another in $
 pixels, but each is flat with drive, so this is a fixed offset between configurations rather than
 a response to the applied field. Linearity holds across the whole range for both deflectors; no
 departure from a straight line is visible at either extreme.
+
+\begin{figure}[!htbp]
+    \centering
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{eod-polarization-hva1-radial}
+        \caption{}
+        \label{fig:eod-polarization-hva1-radial}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{eod-polarization-hva1-cx}
+        \caption{}
+        \label{fig:eod-polarization-hva1-cx}
+    \end{subfigure}
+
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{eod-polarization-hva1-cy}
+        \caption{}
+        \label{fig:eod-polarization-hva1-cy}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{eod-polarization-hva1-mrad-per-kv}
+        \caption{}
+        \label{fig:eod-polarization-hva1-mrad-per-kv}
+    \end{subfigure}
+    \caption{Deflection of EOD34 against the output voltage of its amplifier, HVA1, at three input
+    polarizations: parallel to the deflection axis, perpendicular to it, and with the polarizer removed. Beam
+    centre on the camera (a) as radial position, and resolved into (b) $x$ and (c) $y$;
+    (d) sensitivity in mrad/kV from the slope of each sweep, against the quoted minimum of 3.}
+    \label{fig:eod-polarization-hva1}
+\end{figure}
+
+\begin{figure}[!htbp]
+    \centering
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{eod-polarization-hva2-radial}
+        \caption{}
+        \label{fig:eod-polarization-hva2-radial}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{eod-polarization-hva2-cx}
+        \caption{}
+        \label{fig:eod-polarization-hva2-cx}
+    \end{subfigure}
+
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{eod-polarization-hva2-cy}
+        \caption{}
+        \label{fig:eod-polarization-hva2-cy}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{eod-polarization-hva2-mrad-per-kv}
+        \caption{}
+        \label{fig:eod-polarization-hva2-mrad-per-kv}
+    \end{subfigure}
+    \caption{The same measurement for EOD35, driven by HVA2; panels (a) to (d) as in
+    Figure~\ref{fig:eod-polarization-hva1}.}
+    \label{fig:eod-polarization-hva2}
+\end{figure}
 
 The sensitivity depends strongly on the input polarization, panel (d) of each figure. With the
 polarization perpendicular to the deflection axis, EOD34 gives 2.95~mrad/kV and EOD35 3.12;
@@ -590,6 +760,38 @@ with a standard deviation of 0.0019~mrad in $x$ and 0.0046~mrad in $y$, 0.0022~m
 and a peak-to-peak range of 0.012, 0.020 and 0.012~mrad respectively. The larger figure in $y$
 comes from a slow drift across the run rather than from frame-to-frame scatter.
 
+\begin{figure}[!htbp]
+    \centering
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{laser-stab-angular-x}
+        \caption{}
+        \label{fig:laser-stab-x}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{laser-stab-angular-y}
+        \caption{}
+        \label{fig:laser-stab-y}
+    \end{subfigure}
+
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{laser-stab-angular-total}
+        \caption{}
+        \label{fig:laser-stab-total}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{laser-stab-xy-scatter}
+        \caption{}
+        \label{fig:laser-stab-scatter}
+    \end{subfigure}
+    \caption{Pointing stability of the laser and bench alone, with the deflector drive
+    inactive, over 673~s. Angular deviation from the mean in (a) $x$, (b) $y$ and (c) total,
+    against elapsed time from the frame timestamps; (d) beam-centre displacement on the camera,
+    coloured by time. Lever arm 380~mm.}
+    \label{fig:laser-stab}
+\end{figure}
+
 Against that floor EOD35 adds nothing measurable. Its wander within a hold, panels (c) and (d) of
 Figure~\ref{fig:eod-stab-spread} and Figure~\ref{fig:eod-stab-angular-eod35}, has a standard
 deviation of about 0.001~mrad at eight of the nine voltages and 0.002~mrad at the ninth, $-5$~V,
@@ -598,182 +800,58 @@ comparable to the laser alone; the laser figure includes drift accumulated over 
 own. Its time series, the lower row of Figure~\ref{fig:eod-stab-timeseries}, scatter about the
 hold mean without trend.
 
-EOD34 matches that floor at $-2.5$~V and at every positive voltage, but not at $-10$, $-7.5$,
-$-5$ and 0~V, where the standard deviation rises to between 0.003 and 0.007~mrad,
-Figure~\ref{fig:eod-stab-angular-eod34}. The time series show why: at those voltages the beam
-does not scatter but drifts, relaxing steadily through the hold, by about two pixels or
-0.03~mrad over 36~s at 0~V, Figure~\ref{fig:eod-stab-eod34-timeseries-0v}, and mostly along
-$y$. That is a slow settling after the voltage is set, on a timescale of seconds to tens of
-seconds, and it appears in one deflector only. It is small against the deflection itself: at the
-worst voltage its standard deviation is about one percent of the half-range of EOD34, about
-0.59~mrad at the perpendicular polarization, and the full drift at 0~V about five percent. But it
-is systematic rather than random, and a calibration taken immediately after a large step would
-inherit it.
-
-These measurements bound the stability of a held deflection over seconds; they say nothing about
-the microsecond settling that the MINFLUX cycle depends on, which lies far below the camera frame
-interval and remains to be measured on the drive chain directly.
-
-\begin{figure}[htbp]
+\begin{figure}[!htbp]
     \centering
     \begin{subfigure}{0.48\textwidth}
-        \includegraphics[width=\linewidth]{eod-beam-xcorr-ncc}
+        \includegraphics[width=\linewidth]{eod-stab-eod34-std}
         \caption{}
-        \label{fig:eod-beam-xcorr-ncc}
+        \label{fig:eod-stab-eod34-std}
     \end{subfigure}
     \hfill
     \begin{subfigure}{0.48\textwidth}
-        \includegraphics[width=\linewidth]{eod-beam-xcorr-fwhm}
+        \includegraphics[width=\linewidth]{eod-stab-eod34-p2p}
         \caption{}
-        \label{fig:eod-beam-xcorr-fwhm}
+        \label{fig:eod-stab-eod34-p2p}
     \end{subfigure}
 
     \begin{subfigure}{0.48\textwidth}
-        \includegraphics[width=\linewidth]{eod-beam-xcorr-dx}
+        \includegraphics[width=\linewidth]{eod-stab-eod35-std}
         \caption{}
-        \label{fig:eod-beam-xcorr-dx}
+        \label{fig:eod-stab-eod35-std}
     \end{subfigure}
     \hfill
     \begin{subfigure}{0.48\textwidth}
-        \includegraphics[width=\linewidth]{eod-beam-xcorr-dy}
+        \includegraphics[width=\linewidth]{eod-stab-eod35-p2p}
         \caption{}
-        \label{fig:eod-beam-xcorr-dy}
+        \label{fig:eod-stab-eod35-p2p}
     \end{subfigure}
-    \caption{Cross-correlation of each frame against the control reference, against stage
-    position in millimetres, for EOD34 and EOD35. (a) Peak
-    normalised correlation, where unity
-    denotes a beam identical to the control; (b) width of the correlation peak; (c) displacement
-    of the beam in $x$ and (d) in $y$, from the location of the peak.}
-    \label{fig:eod-beam-xcorr}
+    \caption{Spread of the radial beam-centre position within each held voltage, in pixels,
+    against command voltage. EOD34: (a) standard deviation, (b) peak-to-peak range. EOD35:
+    (c) standard deviation, (d) peak-to-peak range. One pixel is about 0.014~mrad at the 380~mm
+    lever arm.}
+    \label{fig:eod-stab-spread}
 \end{figure}
 
-\begin{figure}[htbp]
-    \centering
-    \begin{subfigure}{0.32\textwidth}
-        \includegraphics[width=\linewidth]{eod-path-fwhm}
-        \caption{}
-        \label{fig:eod-path-fwhm}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}{0.32\textwidth}
-        \includegraphics[width=\linewidth]{eod-path-ellipticity}
-        \caption{}
-        \label{fig:eod-path-ellipticity}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}{0.32\textwidth}
-        \includegraphics[width=\linewidth]{eod-path-r2}
-        \caption{}
-        \label{fig:eod-path-r2}
-    \end{subfigure}
-    \caption{Beam quality at fixed stations along the path, one frame per station: P1, the
-    control at the fibre output; P2, after EOD34; P4, after EOD35;
-    P5, after the second relay; P6, after the amplification stage. P3, inside the first relay,
-    could not be reached. (a) Width at half maximum along $x$ and $y$, on a logarithmic axis;
-    (b) ellipticity, dashed at unity for a circular beam; (c) Gaussian fit $R^2$, dashed at a
-    perfect fit. The ringed point, P6, marked low signal, peaks below 15 counts, so its width and fit are not
-    reliable.}
-    \label{fig:eod-path}
-\end{figure}
-
-\begin{figure}[htbp]
+\begin{figure}[!htbp]
     \centering
     \begin{subfigure}{0.48\textwidth}
-        \includegraphics[width=\linewidth]{eod-quality-voltage-fwhm}
+        \includegraphics[width=\linewidth]{eod-stab-eod34-angular}
         \caption{}
-        \label{fig:eod-quality-voltage-fwhm}
+        \label{fig:eod-stab-angular-eod34}
     \end{subfigure}
     \hfill
     \begin{subfigure}{0.48\textwidth}
-        \includegraphics[width=\linewidth]{eod-quality-voltage-ellipticity}
+        \includegraphics[width=\linewidth]{eod-stab-eod35-angular}
         \caption{}
-        \label{fig:eod-quality-voltage-ellipticity}
+        \label{fig:eod-stab-angular-eod35}
     \end{subfigure}
-
-    \begin{subfigure}{0.48\textwidth}
-        \includegraphics[width=\linewidth]{eod-quality-voltage-r2}
-        \caption{}
-        \label{fig:eod-quality-voltage-r2}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}{0.48\textwidth}
-        \includegraphics[width=\linewidth]{eod-quality-voltage-omega}
-        \caption{}
-        \label{fig:eod-quality-voltage-omega}
-    \end{subfigure}
-    \caption{Beam quality against command voltage for EOD34 and EOD35, from a two-dimensional
-    Gaussian fitted to each frame; EOD34 in blue circles, EOD35 in red squares. (a) Width at half
-    maximum, solid along $x$ and dashed along $y$, with the control as a grey dashed line;
-    (b) ellipticity, the larger width at half maximum over the smaller, so that unity is a
-    circular beam; (c) goodness of fit $R^2$; (d) beam
-    radius at $1/e^2$, solid from the fit and dashed derived from the measured width, which
-    coincide for a true Gaussian.}
-    \label{fig:eod-quality-voltage}
+    \caption{Angular deviation of the beam from its hold mean, one box per held command voltage,
+    for (a) EOD34 and (b) EOD35.
+    Lever arm 380~mm. Note the different vertical scales.}
+    \label{fig:eod-stab-angular}
 \end{figure}
 
-\begin{figure}[htbp]
-    \centering
-    \begin{subfigure}{0.48\textwidth}
-        \includegraphics[width=\linewidth]{eod-polarization-hva1-radial}
-        \caption{}
-        \label{fig:eod-polarization-hva1-radial}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}{0.48\textwidth}
-        \includegraphics[width=\linewidth]{eod-polarization-hva1-cx}
-        \caption{}
-        \label{fig:eod-polarization-hva1-cx}
-    \end{subfigure}
-
-    \begin{subfigure}{0.48\textwidth}
-        \includegraphics[width=\linewidth]{eod-polarization-hva1-cy}
-        \caption{}
-        \label{fig:eod-polarization-hva1-cy}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}{0.48\textwidth}
-        \includegraphics[width=\linewidth]{eod-polarization-hva1-mrad-per-kv}
-        \caption{}
-        \label{fig:eod-polarization-hva1-mrad-per-kv}
-    \end{subfigure}
-    \caption{Deflection of EOD34 against the output voltage of its amplifier, HVA1, at three input
-    polarizations: parallel to the deflection axis, perpendicular to it, and with the polarizer removed. Beam
-    centre on the camera (a) as radial position, and resolved into (b) $x$ and (c) $y$;
-    (d) sensitivity in mrad/kV from the slope of each sweep, against the quoted minimum of 3.}
-    \label{fig:eod-polarization-hva1}
-\end{figure}
-
-\begin{figure}[htbp]
-    \centering
-    \begin{subfigure}{0.48\textwidth}
-        \includegraphics[width=\linewidth]{eod-polarization-hva2-radial}
-        \caption{}
-        \label{fig:eod-polarization-hva2-radial}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}{0.48\textwidth}
-        \includegraphics[width=\linewidth]{eod-polarization-hva2-cx}
-        \caption{}
-        \label{fig:eod-polarization-hva2-cx}
-    \end{subfigure}
-
-    \begin{subfigure}{0.48\textwidth}
-        \includegraphics[width=\linewidth]{eod-polarization-hva2-cy}
-        \caption{}
-        \label{fig:eod-polarization-hva2-cy}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}{0.48\textwidth}
-        \includegraphics[width=\linewidth]{eod-polarization-hva2-mrad-per-kv}
-        \caption{}
-        \label{fig:eod-polarization-hva2-mrad-per-kv}
-    \end{subfigure}
-    \caption{The same measurement for EOD35, driven by HVA2; panels (a) to (d) as in
-    Figure~\ref{fig:eod-polarization-hva1}.}
-    \label{fig:eod-polarization-hva2}
-\end{figure}
-
-\begin{figure}[htbp]
+\begin{figure}[!htbp]
     \centering
     \begin{subfigure}{0.32\textwidth}
         \includegraphics[width=\linewidth]{eod-stab-eod34-timeseries-m10v}
@@ -817,88 +895,23 @@ interval and remains to be measured on the drive chain directly.
     \label{fig:eod-stab-timeseries}
 \end{figure}
 
-\begin{figure}[htbp]
-    \centering
-    \begin{subfigure}{0.48\textwidth}
-        \includegraphics[width=\linewidth]{eod-stab-eod34-std}
-        \caption{}
-        \label{fig:eod-stab-eod34-std}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}{0.48\textwidth}
-        \includegraphics[width=\linewidth]{eod-stab-eod34-p2p}
-        \caption{}
-        \label{fig:eod-stab-eod34-p2p}
-    \end{subfigure}
+EOD34 matches that floor at $-2.5$~V and at every positive voltage, but not at $-10$, $-7.5$,
+$-5$ and 0~V, where the standard deviation rises to between 0.003 and 0.007~mrad,
+Figure~\ref{fig:eod-stab-angular-eod34}. The time series show why: at those voltages the beam
+does not scatter but drifts, relaxing steadily through the hold, by about two pixels or
+0.03~mrad over 36~s at 0~V, Figure~\ref{fig:eod-stab-eod34-timeseries-0v}, and mostly along
+$y$. That is a slow settling after the voltage is set, on a timescale of seconds to tens of
+seconds, and it appears in one deflector only. It is small against the deflection itself: at the
+worst voltage its standard deviation is about one percent of the half-range of EOD34, about
+0.59~mrad at the perpendicular polarization, and the full drift at 0~V about five percent. But it
+is systematic rather than random, and a calibration taken immediately after a large step would
+inherit it.
 
-    \begin{subfigure}{0.48\textwidth}
-        \includegraphics[width=\linewidth]{eod-stab-eod35-std}
-        \caption{}
-        \label{fig:eod-stab-eod35-std}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}{0.48\textwidth}
-        \includegraphics[width=\linewidth]{eod-stab-eod35-p2p}
-        \caption{}
-        \label{fig:eod-stab-eod35-p2p}
-    \end{subfigure}
-    \caption{Spread of the radial beam-centre position within each held voltage, in pixels,
-    against command voltage. EOD34: (a) standard deviation, (b) peak-to-peak range. EOD35:
-    (c) standard deviation, (d) peak-to-peak range. One pixel is about 0.014~mrad at the 380~mm
-    lever arm.}
-    \label{fig:eod-stab-spread}
-\end{figure}
+These measurements bound the stability of a held deflection over seconds; they say nothing about
+the microsecond settling that the MINFLUX cycle depends on, which lies far below the camera frame
+interval and remains to be measured on the drive chain directly.
 
-\begin{figure}[htbp]
-    \centering
-    \begin{subfigure}{0.48\textwidth}
-        \includegraphics[width=\linewidth]{eod-stab-eod34-angular}
-        \caption{}
-        \label{fig:eod-stab-angular-eod34}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}{0.48\textwidth}
-        \includegraphics[width=\linewidth]{eod-stab-eod35-angular}
-        \caption{}
-        \label{fig:eod-stab-angular-eod35}
-    \end{subfigure}
-    \caption{Angular deviation of the beam from its hold mean, one box per held command voltage,
-    for (a) EOD34 and (b) EOD35.
-    Lever arm 380~mm. Note the different vertical scales.}
-    \label{fig:eod-stab-angular}
-\end{figure}
-
-\begin{figure}[htbp]
-    \centering
-    \begin{subfigure}{0.48\textwidth}
-        \includegraphics[width=\linewidth]{laser-stab-angular-x}
-        \caption{}
-        \label{fig:laser-stab-x}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}{0.48\textwidth}
-        \includegraphics[width=\linewidth]{laser-stab-angular-y}
-        \caption{}
-        \label{fig:laser-stab-y}
-    \end{subfigure}
-
-    \begin{subfigure}{0.48\textwidth}
-        \includegraphics[width=\linewidth]{laser-stab-angular-total}
-        \caption{}
-        \label{fig:laser-stab-total}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}{0.48\textwidth}
-        \includegraphics[width=\linewidth]{laser-stab-xy-scatter}
-        \caption{}
-        \label{fig:laser-stab-scatter}
-    \end{subfigure}
-    \caption{Pointing stability of the laser and bench alone, with the deflector drive
-    inactive, over 673~s. Angular deviation from the mean in (a) $x$, (b) $y$ and (c) total,
-    against elapsed time from the frame timestamps; (d) beam-centre displacement on the camera,
-    coloured by time. Lever arm 380~mm.}
-    \label{fig:laser-stab}
-\end{figure}
+\FloatBarrier % keep the results figures out of the conclusion
 
 \subsubsection{Conclusion}
 
@@ -978,7 +991,7 @@ excitation pattern require active drift correction to approach their theoretical
 
 \subsubsection{setup}
 
-\begin{figure}[htbp]
+\begin{figure}[!htbp]
     \centering
     \includegraphics[width=\textwidth]{donut-setup-creation}
     \caption{Donut-forming path, built on the relayed deflector pair of
