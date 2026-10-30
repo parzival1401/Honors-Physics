@@ -268,9 +268,9 @@ with sub-nanometer sample stabilization \cite{schmidtMINFLUXNanometerscale3D2021
 this places on the deflector is that the step settling of the whole drive chain be small compared
 with the dwell at each position of the pattern, so that the excitation is stationary during every
 sub-exposure. Whether that holds is a property of the amplifier and preamplifier as much as of the
-crystal. The camera-rate measurements reported below cannot reach that timescale; what they
-establish is whether a held deflection stays put over seconds, and the microsecond step response
-of the drive chain is left as the measurement still to be made.
+crystal. The camera-rate measurements reported below cannot reach that timescale; they establish
+whether a held deflection stays put over seconds. The microsecond step response is measured
+separately, with a fast position detector in place of the camera.
 
 Beam quality is the fourth, and it is a question about what the EOD hands downstream. The deflectors
 sit ahead of the element that shapes the excitation pattern, so a Gaussian beam that leaves them
@@ -376,6 +376,17 @@ records the beam for 673~s, about 0.67~s per frame, with the deflector drive ina
 amplifier monitor stays within 0.5~V and the beam does not follow the command, so that run
 measures the pointing stability of the laser and the bench alone, against which the deflectors
 are compared. Neither run resolves anything faster than the camera frame interval.
+
+\paragraph{Step response.}
+How quickly the beam follows a change of drive is measured without the camera. The deflected beam
+falls on a Thorlabs PDQ80A quadrant photodiode, whose difference output is proportional to the
+position of the beam on the detector for small displacements, with a bandwidth of 150~kHz. Each
+deflector in turn is driven with a square wave of about 4.4~V peak to peak of command voltage,
+roughly 88~V at the amplifier output, at nine frequencies from 1 to 50~kHz. A two-channel
+oscilloscope records the monitor output of the HVA200 amplifier on one channel and the detector on
+the other. Because the reference is the amplifier's own output, the timing measured is that of
+the deflector and the detection, from the voltage reaching the crystal to the beam arriving at its
+new position, and excludes the amplifier itself. The two deflectors were recorded in October 2026.
 
 \subsubsection{Methods}
 
