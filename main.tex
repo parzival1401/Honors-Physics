@@ -1053,10 +1053,15 @@ excitation pattern require active drift correction to approach their theoretical
 The donut is formed on the relayed deflector bench of Section~\ref{sec:eod}, extended by a lens
 train and the vortex plate, Figure~\ref{fig:donut-setup-creation}. The 642~nm source is folded by
 two mirrors into EOD34, whose deflection plane lenses L1 and L2 relay onto EOD35, with a half-wave
-plate between them setting the input polarization of the second crystal. Two further relays follow
-EOD35, each a pair of lenses two focal lengths apart: L3 and L4 image the deflection plane of EOD35
-onto an intermediate plane one focal length beyond L4, and L5 and L6 image that plane in turn onto
-a plane one focal length beyond L6, conjugate to both deflectors. A quarter-wave plate sits in that
+plate between them setting the input polarization of the second crystal. Every lens has a focal
+length of 100~mm except L5, of 13.5~mm. Two further relays follow EOD35, each a pair of lenses
+separated by the sum of their focal lengths: L3 and L4 image the deflection plane of EOD35 at unit
+magnification onto an intermediate plane one focal length beyond L4, and L5 and L6 image that plane
+in turn onto a plane one focal length beyond L6, conjugate to both deflectors. The second relay is
+also the beam expander. Its magnification of $100/13.5\approx7.4$ should take the beam of about
+1~mm that passes the deflectors to about 7~mm, inside the 5 to 10~mm window recommended for the
+plate, and reduce every deflection angle by the same factor; the beam size at the plate was not
+measured. A quarter-wave plate sits in that
 plane and sets the beam to circular polarization. Mirror M3 then folds the beam onto the vortex
 phase plate, a Vortex Photonics \texttt{V-633-10-1} of charge one, placed just ahead of lens L7.
 Because the plate lies a short distance past the conjugate plane rather than in it, a deflection
@@ -1283,8 +1288,20 @@ axis as actually mounted. The two sensitivities measured here, 4.82 and 4.47~\te
 seven percent, and in the opposite sense from the six percent found at the perpendicular setting of
 the polarization measurements. Each deflector's response depends on the polarization it receives in
 this particular path, which is a reminder that the calibration belongs to the assembled optics rather
-than to the deflector alone. Converting these displacements to angle requires the focal length of
-L7, since the camera lies in its focal plane.
+than to the deflector alone.
+
+These displacements are left in micrometres at the camera, because the recorded geometry does not
+account for their scale. With the camera at the focal plane of the 100~mm lens L7 and the beam
+expanded 7.4 times ahead of it, a deflector delivering the 2.95~mrad/kV of Section~\ref{sec:eod}
+should move the donut by about 0.8~\textmu m per volt of command; the measured 4.8~\textmu m/V is
+six times that. The size of the ring disagrees in the same direction. An expanded beam of about
+7~mm focused by a 100~mm lens would form a ring only a few micrometres in radius, under one pixel,
+whereas the fitted ring radius is 86~\textmu m, some twenty times larger. Both discrepancies would
+follow if the beam reaching L7 were much smaller than expected or if the camera sat away from the
+focal plane, where a ring grows and a deflection moves it further, but neither has been checked.
+Until the camera distance and the beam size at the plate are measured, these displacements cannot
+be converted to deflection angles, and the ring radius describes the image on the camera rather
+than the donut at a known focus.
 
 \begin{figure}[!htbp]
     \centering
@@ -1340,9 +1357,14 @@ The donut survives deflection. Across the full drive of either deflector its sha
 one percent of the undeflected pattern and its null stays below what the camera can resolve, while it
 moves linearly at 4.82 and 4.47~\textmu m/V. The one finding that needs action is geometric: the
 deflection axis of EOD35 is rotated $14^\circ$ from that of EOD34, so the two scan axes are not
-orthogonal, and either the mount or the calibration has to account for it.
+orthogonal, and either the mount or the calibration has to account for it. The absolute scale of
+these numbers is less secure than their linearity: both the ring size and the displacement per volt
+are many times larger than the recorded lens train predicts, so the geometry between the plate and
+the camera needs to be measured before either is converted to the sample.
 
-Three steps would close the gaps. The null should be measured with a detector that can resolve it: a
+Four steps would close the gaps. The distance from L7 to the camera and the beam size at the plate
+should be measured, so that the ring size and the displacements can be referred to a known focus
+and converted to angle. The null should be measured with a detector that can resolve it: a
 higher bit depth and longer or averaged exposures on the camera, or a photodiode behind a pinhole at
 the centre of the donut. The plate should be centred finely on the beam, using the one-sided
 component of the ring as the error signal, and placed in the plane conjugate to the deflectors, as it

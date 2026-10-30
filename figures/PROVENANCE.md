@@ -334,3 +334,5 @@ Sweep pairing: X = HVA1 = EOD34, Y = HVA2 = EOD35, from the sweep_channel attrib
 | `donut-sweep-disp-eod34`, `-eod35` | displacement at the camera with straight-line fits |
 
 Manuscript: `fig:donut-static`, `tab:donut-runs`, `fig:donut-runs`, `fig:donut-sweep`.
+
+**Lens focal lengths (user, 2026-10-30):** 100 mm for every lens except L5, 13.5 mm; L5-L6 is a 7.4x expander and the camera is 100 mm after L7. These do not reproduce the data: they predict about 0.8 um/V displacement and a ring a few um in radius, against 4.8 um/V and 86 um measured. Displacements therefore stay in um at the camera until the L7-to-camera distance and the beam size at the plate are measured.
