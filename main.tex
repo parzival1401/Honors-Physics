@@ -954,15 +954,71 @@ separated from EOD35, because station P3 is inaccessible; the station data rest 
 each; and the final station, after the amplification stage, is too dim to interpret. The origin
 of the non-Gaussian wings, and of the slow drift in EOD34 alone, has yet to be identified.
 \section{Donut}
-\subsection{physical concept}
-\begin{itemize}
-    \item [TEXT] Laguerre-Gaussian mode, $p=0$, $l=2$ — donut/vortex intensity profile
-    \item [TEXT] how EOD/phase element generates the LG mode from the Gaussian input
-\end{itemize}
+\label{sec:donut}
+\subsection{Physical concept}
 
-\subsection{characterization}
+The excitation beam of MINFLUX is a ring of light around a dark centre, and the dark centre is the
+part that matters: it is the reference point against which every emitter is located. A beam with a
+true zero on its axis cannot be made by blocking the centre of an ordinary beam, because
+diffraction refills any obscured region as the beam propagates. It is made instead by giving the
+beam a twisted wavefront. If the field carries a phase that winds around the axis,
+\begin{equation}
+    E(r,\phi) = A(r)\,e^{i\ell\phi},
+\end{equation}
+with $\ell$ an integer, then on the axis itself the phase takes every value at once and the field
+has no single value to take. The only consistent amplitude there is zero. The beam therefore has a
+dark line along its axis that is enforced by the geometry of the phase rather than by any balance
+of amplitudes, so it persists as the beam propagates and is focused and does not depend on the
+size of the beam. The integer $\ell$ is the topological charge, and such beams carry an orbital
+angular momentum of $\ell\hbar$ per photon \cite{allenOrbitalAngularMomentum1992}.
 
-\subsubsection{intro why}
+The simplest beams of this kind are the Laguerre--Gaussian modes. With no radial nodes their
+intensity is
+\begin{equation}
+    I(r) = I_0 \left(\frac{2r^2}{w^2}\right)^{|\ell|} e^{-2r^2/w^2},
+    \label{eq:lg-intensity}
+\end{equation}
+a single bright ring of radius $r_\mathrm{peak} = w\sqrt{|\ell|/2}$ around the zero
+\cite{allenOrbitalAngularMomentum1992}. Near the axis the intensity rises as $r^{2|\ell|}$. For
+charge one that rise is quadratic, which is the steep, well-defined dependence on position that
+MINFLUX exploits \cite{balzarottiNanometerResolutionImaging2017}; a charge-two beam would rise as
+$r^4$, leaving a broader, flatter dark region that says less about where an emitter sits. The
+instrument uses charge one.
+
+The twist is applied by a spiral phase plate, a transparent plate whose thickness rises steadily
+with angle around its centre, by one wavelength's worth of optical path over a full turn
+\cite{beijersbergenHelicalwavefrontLaserBeams1994}. A beam crossing it acquires the phase
+$e^{i\phi}$ without any change to its intensity, so immediately after the plate the beam is still
+Gaussian in brightness; the dark core opens only as it propagates, and it is fully formed in the
+focal plane of a lens. What forms there is not a single Laguerre--Gaussian mode. A Gaussian beam
+given a vortex phase is a superposition of charge-one modes with several radial orders, a
+hypergeometric-Gaussian beam \cite{karimiHypergeometricGaussianModes2007}, which shares the zero on
+the axis and the quadratic rise around it but carries weaker outer wings than
+Equation~\ref{eq:lg-intensity} predicts. A fit to the single mode is therefore expected to describe
+the core and the ring better than the tails, and that is how it is used below.
+
+Two properties of the plate set limits on the null. The plate is cut for 633~nm and is used here
+at 642~nm, so its phase step falls short of a full turn by about one and a half percent. A winding
+of $\alpha$ turns, with $\alpha$ not an integer, is a mixture of integer charges in which charge $m$
+carries the fraction $\mathrm{sinc}^2[\pi(\alpha-m)]$ of the power. For $\alpha \approx 0.986$ the
+uncharged part, which is bright on the axis, carries about $2\times10^{-4}$ of the power, enough to
+lift the floor of the null slightly but far below what the camera used here can resolve. The second
+is centring. Moving the plate off the beam axis does not remove the zero, which the topology
+guarantees, but displaces it from the centre of the beam and makes the ring brighter on one side
+than the other; an uneven ring is the signature of a decentred plate.
+
+Polarization adds one more condition, but only at high numerical aperture. When the beam is
+focused tightly by a microscope objective, part of the field turns to point along the axis, and that
+component can fill the zero unless the beam is circularly polarized with the handedness opposite to
+the twist of its phase \cite{lopezOptimizationCharacterizationToroidal2023}. This is why a
+quarter-wave plate sets circular polarization ahead of the vortex plate in the instrument. The bench
+measurements below image the donut through a long-focal-length lens, where the field remains
+transverse and the polarization does not affect the null, so they test the vortex itself; the
+polarization condition has to be verified at the focus of the objective.
+
+\subsection{Characterization}
+
+\subsubsection{Motivation}
 
 MINFLUX determines an emitter's position by probing it with an intensity minimum rather than by
 collecting the full diffraction pattern of its fluorescence, and this is what allows it to reach
@@ -972,7 +1028,9 @@ centroid-based localization
 the method's vulnerability. Because the position estimate is referred to the zero of the excitation
 pattern, the quality of that zero is not a cosmetic concern but enters the measurement directly,
 which is why the generation and optimization of toroidal foci is treated as a discipline of its own
-\cite{lopezOptimizationCharacterizationToroidal2023}.
+\cite{lopezOptimizationCharacterizationToroidal2023}. Three properties of the donut decide whether
+it can serve: how dark the centre is relative to the ring, how symmetric the ring is around it, and
+whether both survive the deflection that moves the pattern.
 
 Conditions that distort the excitation pattern produce not merely a noisier estimate but a biased
 one: simulations of fixed absorption dipoles and optical aberrations in MINFLUX find systematic
@@ -983,96 +1041,83 @@ merely noisy measurement and what makes the depth and symmetry of the null worth
 own right.
 
 A further limitation is that the null must survive being moved. The pattern is translated across the
-field by the deflectors characterized in the previous section, and a null that degrades with
+field by the deflectors characterized in Section~\ref{sec:eod}, and a null that degrades with
 deflection would make the localization bias a function of scan position. Residual drift bears on the
 same quantity from the other direction, since techniques that hold the sample fixed within an
 excitation pattern require active drift correction to approach their theoretical limits at all
 \cite{lopezOpensourceSubNanometerStabilization2025}.
 
-\subsubsection{setup}
+\subsubsection{Setup}
+
+The donut is formed on the relayed deflector bench of Section~\ref{sec:eod}, extended by a lens
+train and the vortex plate, Figure~\ref{fig:donut-setup-creation}. The 642~nm source is folded by
+two mirrors into EOD34, whose deflection plane lenses L1 and L2 relay onto EOD35, with a half-wave
+plate between them setting the input polarization of the second crystal. Lenses L3 to L5 relay and
+expand the beam, and the vortex phase plate, a Vortex Photonics \texttt{V-633-10-1} of charge one,
+sits between L5 and the final lens, L6. The camera is placed at the focal plane of L6, where the
+dark core is fully formed, and records the donut directly on its sensor with 5.2~\textmu m pixels.
+
+Three measurements were made, all on 4 June 2026. The first records the donut at rest, both
+deflectors at 0~V, as single frames: a characterization frame and a second frame taken after the
+alignment had been adjusted to darken the centre. The second compares the donut with and without a
+polarizer ahead of the quarter-wave plate, and then with the waveplates set for the darkest centre.
+The third sweeps each deflector in turn across its full range while the donut is recorded, to test
+whether the null survives deflection. A control frame is taken with both deflectors at 0~V, and then
+EOD34 is swept from $+10$ to $-10$~V of command voltage, the full $\pm200$~V at the amplifier, in
+200 steps of about 0.1~V and roughly half a second each, with EOD35 held at 0~V; EOD35 is then
+swept the same way with EOD34 held at 0~V.
 
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=\textwidth]{donut-setup-creation}
-    \caption{Donut-forming path, built on the relayed deflector pair of
-    Figure~\ref{fig:eod-setup-relay-two-deflectors}. The half-wave plate ahead of the second
-    crystal sets the polarization that crystal requires, and a quarter-wave plate immediately
-    after it sets the circular polarization the vortex mode is formed in. The lens train that
-    follows (L3 to L5, at the focal spacings marked beneath the rail) relays and rescales the
-    beam onto the camera, which records the donut directly on the sensor.}
+    \caption{Donut-forming bench, built on the relayed deflector pair of
+    Figure~\ref{fig:eod-setup-relay-two-deflectors}. A half-wave plate ahead of EOD35 sets the
+    polarization that crystal requires. Lenses L3 to L5 relay and expand the beam; the vortex phase
+    plate sits between L5 and the final lens, L6, and the camera lies at the focal plane of L6,
+    where the donut forms.}
     \label{fig:donut-setup-creation}
 \end{figure}
-\begin{itemize}
-    \item donut profile characterization (single frame, fixed position)
-    \begin{itemize}
-        \item [EXPERIMENT] single donut frame vs. ideal LG model and vs. fitted Gaussian
-        \item [GRAPH] X/Y profile: measured vs. LG ideal vs. Gaussian fit
-        \item [GRAPH] radial profile (azimuthal average): measured vs. LG ideal vs. Gaussian
-        \item [GRAPH] azimuthal profile (ring intensity vs. angle) — ring symmetry
-        \item [GRAPH] zoomed 2D heatmap of donut with $r_x$, $r_y$, ER annotated
-    \end{itemize}
-    \item beam quality (donut)
-    \begin{itemize}
-        \item extinction ratio (null depth)
-        \item ring radius ($r_x$, $r_y$)
-        \item beam size: $r_{peak}$, diameter, inner/outer $1/e^2$ radii
-        \item LG fit goodness-of-fit ($R^2$)
-        \item ring symmetry: coefficient of variation, Fourier amplitudes $a_1$ (tilt), $a_2$ (elliptical), $a_4$ (4-fold), ring ellipticity
-    \end{itemize}
-    \item range angle (donut deflection sweep)
-    \begin{itemize}
-        \item [EXPERIMENT] X-axis and Y-axis voltage sweeps, control (no-deflection) reference frame
-        \item [GRAPH] extinction ratio vs. voltage (X and Y axes)
-        \item [GRAPH] normalized cross-correlation (NCC) vs. voltage (X and Y axes)
-        \item [GRAPH] beam center displacement ($\Delta x$, $\Delta y$, px and µm) vs. voltage
-        \item [TABLE] summary CSV: max displacement, min/max ER, min/max NCC per axis (with corresponding voltages)
-    \end{itemize}
-\end{itemize}
 
-\subsubsection{methods}
-\begin{itemize}
-    \item background subtraction (bottom 5\% pixels)
-    \item center detection: centroid of bright ring pixels (30\% peak threshold) — dark null coincides with ring centroid
-    \item ring radius: peak location on cross-profile through center, averaged left/right ($r_x$) and top/bottom ($r_y$)
+\subsubsection{Methods}
 
-    \item donut profile fitting
-    \begin{itemize}
-        \item LG ideal model $I(r) = C\,(r/\omega)^4 e^{-2r^2/\omega^2} + bg$, fit by Nelder--Mead least-squares
-        \item comparison Gaussian fit (TEM00) centered at same detected null, for reference
-        \item $R^2$ computed for both LG and Gaussian fits
-    \end{itemize}
+Each frame is reduced to a small set of numbers describing the donut, after subtracting a
+background taken as the level of the darkest five percent of pixels. The centre is found as the
+centroid of the bright ring, the pixels above thirty percent of the peak; for a symmetric ring this
+coincides with the dark core. Profiles through that centre along the two camera axes give the ring
+radius on each axis, from the peak positions on either side, and their ratio gives the ellipticity
+of the ring.
 
-    \item extinction ratio (ER)
-    \begin{itemize}
-        \item ER $= (\text{null min intensity} - bg) / (\text{ring peak intensity} - bg)$
-        \item ring peak: mean of top 0.5\% of pixels (robust to hot pixels)
-        \item null region: small window at detected center
-    \end{itemize}
+The shape of the ring is compared with Equation~\ref{eq:lg-intensity} for charge one by a
+least-squares fit to the azimuthally averaged radial profile, with the amplitude, the waist $w$ and
+a constant background free, and the goodness of fit $R^2$ reported. A Gaussian centred on the same
+point is fitted for comparison, since a donut that fits a Gaussian better than a vortex has failed
+to form. From the radial profile itself, independent of any model, come the radius of peak
+intensity and the inner and outer radii at which the intensity falls to $1/e^2$ of that peak.
 
-    \item beam size from radial profile
-    \begin{itemize}
-        \item $r_{peak}$: radius of peak azimuthally-averaged intensity
-        \item inner/outer $1/e^2$ radii: interpolated crossing points on either side of the ring peak
-    \end{itemize}
+The depth of the null is reported as the extinction ratio, the background-subtracted intensity at
+the centre divided by that at the ring peak; lower is better. The ring peak is the mean of the
+brightest half percent of pixels, which makes it robust to isolated hot pixels, and the centre is
+the mean over a small window at the detected core. The camera records the ring at a few tens of
+counts per pixel, so a single count at the centre already corresponds to an extinction ratio of a
+few percent; a centre that reads at or below one count is reported as an upper bound rather than a
+value.
 
-    \item ring symmetry (azimuthal analysis)
-    \begin{itemize}
-        \item intensity sampled at fixed radius over 360°, averaged over a small radial window
-        \item coefficient of variation (uniformity of ring intensity)
-        \item Fourier decomposition of azimuthal profile: $a_1$ (dipole/off-center), $a_2$ (elliptical distortion), $a_4$ (4-fold distortion)
-        \item ring ellipticity: $\max(r_x,r_y)/\min(r_x,r_y)$
-    \end{itemize}
+The symmetry of the ring is measured on a circle at the radius of peak intensity, sampling the
+intensity around the full turn and averaging over a narrow band of radii. The spread of that
+azimuthal profile, as a coefficient of variation, measures how uneven the ring is, and its Fourier
+components separate the causes: the first, $a_1$, a ring brighter on one side, the signature of a
+decentred plate or a tilted beam; the second, $a_2$, an elliptical ring, as from astigmatism; and the
+fourth, $a_4$, a fourfold distortion.
 
-    \item deflection sweep (range angle)
-    \begin{itemize}
-        \item voltage sweep per axis (X, Y), fixed ROI crop around donut center for each step
-        \item center detected independently per frame; displacement relative to control center
-        \item ER recomputed per step (same null/ring-peak method, on cropped ROI)
-        \item NCC computed against the control ROI via 2D normalized cross-correlation
-    \end{itemize}
-\end{itemize}
+For the deflection sweep, each frame is cropped to a fixed $100\times100$~pixel region around the
+donut. The centre is located independently in every frame and its displacement taken relative to the
+control frame; the extinction ratio is recomputed per frame; and the frame as a whole is compared with
+the control by the peak of their normalised cross-correlation, which is unity for an identical
+pattern. The first frame of each sweep, taken immediately after the step to the starting voltage,
+carries the same settling transient as the deflection sweeps of Section~\ref{sec:eod} and is excluded.
 
-\subsubsection{results}
+\subsubsection{Results}
+% Pending: written once the June 4 figures are regenerated with the charge-one fit.
 \begin{itemize}
     \item [GRAPH] measured donut vs. LG ideal vs. Gaussian (profiles + 2D heatmap)
     \item [TEXT] extinction ratio, $R^2$, beam size values at reference (undeflected) position
@@ -1082,7 +1127,7 @@ excitation pattern require active drift correction to approach their theoretical
     \item [TEXT] worst-case ER/NCC and corresponding voltage (from summary CSV)
 \end{itemize}
 
-\subsubsection{conclusion}
+\subsubsection{Conclusion}
 \begin{itemize}
     \item [TEXT] donut null quality (ER) at rest vs. under deflection
     \item [TEXT] ring symmetry — presence/absence of tilt, ellipticity, or 4-fold distortion
