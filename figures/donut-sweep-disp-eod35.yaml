@@ -1,0 +1,14 @@
+# Provenance for donut_sweep_disp_eod35.png -- written by save_figure() in dev/plot_style.jl.
+# The same fields are embedded in the PNG (read_figure_info). One figure = one file.
+figure_id: "donut_sweep_disp_eod35"
+former_title: "Y Axis — Center Shift (µm)"   # title removed from the image; the caption replaces it
+what_it_shows: "Donut displacement at the camera while EOD35 is swept: Δx and Δy with straight-line fits."
+axes:
+  x: "command voltage to HVA2 (V)"
+  y: "fitted l=1 centre minus the control centre, at the camera (µm)"
+data:
+  source: "Y:\\Projects\\NSF-MINFLUX\\projects\\Data\\Evaluation Experiments\\EOD Driver test\\beam characterizatiom\\donut\\jun4\\deflec_donut\\y_axis_donut_2026-06-04_141411"
+  script: "MicroscopeMinFlux.jl/dev/analysis/donut_jun4_thesis.jl"
+  commit: "ce95c01 on worktree-galvo-delay-analysis"
+created: "2026-10-30 11:54:27"
+notes: "Jun 4 donut deflection sweep, ±10 V command in 200 steps (+10 V first), 0.2 s settle. X sweep drives HVA1 = EOD34, Y sweep drives HVA2 = EOD35 (sweep_channel attribute; serial pairing user-confirmed 2026-10-26). Bench (user's redrawing, 2026-10-30): 642 nm source; EOD34 (x, HVA1); L1-L2 relay; HWP; EOD35 (y, HVA2); L3-L4 relay; L5-L6 relay; QWP one focal length beyond L6 (the plane conjugate to both deflectors); fold mirror M3; vortex plate (Vortex Photonics V-633-10-1, l = 1) just ahead of L7; camera (Thorlabs DCx, MONO8 8-bit, 5.2 µm pixels, 10 ms exposure) in the focal plane of L7, so a displacement there is f7 × the beam tilt at L7. 'Polarizer' runs have a polarizer ahead of the QWP. Camera x/y are the first/second index of the stored frame (x = 1280-px side). X-sweep step 1 (+10 V, its first frame) is excluded: it is the first-point transient also seen in the polarization sweeps -- zero displacement and NCC back at the control value, although the HVA1 monitor already reads the full drive, so the frame predates the move. The Y sweep's step 1 agrees with its steps 2-3 and is kept. The HVA monitors read with the opposite sign to the command. EOD34 (X sweep): dx/dV = 0.9277 ± 0.0009 px/V (4.824 µm/V), dy/dV = 0.0005 ± 0.0007 px/V (0.003 µm/V); deflection direction is 0.0° from the camera x axis. EOD35 (Y sweep): dx/dV = -0.2083 ± 0.0006 px/V (-1.083 µm/V), dy/dV = 0.8332 ± 0.0006 px/V (4.333 µm/V); deflection direction is -14.0° from the camera y axis."

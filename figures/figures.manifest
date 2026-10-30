@@ -109,3 +109,21 @@ laser-stab-angular-x.png              stability_angular_deviation_x_mrad.png
 laser-stab-angular-y.png              stability_angular_deviation_y_mrad.png
 laser-stab-angular-total.png          stability_angular_deviation_total_mrad.png
 laser-stab-xy-scatter.png             stability_xy_scatter.png
+
+# ---------------------------------------------------------------------------
+# Donut beam, Jun 4 dataset (donut/jun4), charge-one refit
+# ---------------------------------------------------------------------------
+# The static figures come from the cleanest run, optimazed_donut_pol (polarizer
+# ahead of the QWP, waveplates set for the darkest centre). Runs are compared in
+# donut_runs_*; every per-run number is in donut_runs_summary.csv beside them.
+donut-static-image.png            optimazed_donut_pol_thesis_image.png
+donut-static-radial.png           optimazed_donut_pol_thesis_radial.png
+donut-static-residual.png         optimazed_donut_pol_thesis_residual.png
+donut-static-azimuthal.png        optimazed_donut_pol_thesis_azimuthal.png
+donut-runs-er.png                 donut_runs_er.png
+donut-runs-cv.png                 donut_runs_cv.png
+# Deflection sweep: X sweep = HVA1 = EOD34, Y sweep = HVA2 = EOD35.
+donut-sweep-ncc.png               donut_sweep_ncc.png
+donut-sweep-er.png                donut_sweep_er.png
+donut-sweep-disp-eod34.png        donut_sweep_disp_eod34.png
+donut-sweep-disp-eod35.png        donut_sweep_disp_eod35.png

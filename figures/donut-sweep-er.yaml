@@ -1,0 +1,14 @@
+# Provenance for donut_sweep_er.png -- written by save_figure() in dev/plot_style.jl.
+# The same fields are embedded in the PNG (read_figure_info). One figure = one file.
+figure_id: "donut_sweep_er"
+former_title: "Axis — ER vs Voltage"   # title removed from the image; the caption replaces it
+what_it_shows: "Extinction ratio of the donut during the sweep: filled = resolved null, open = 2σ upper bound; dotted = one ADU over the ring peak."
+axes:
+  x: "command voltage to the HVA (V)"
+  y: "extinction ratio (null - bg)/ring peak"
+data:
+  source: "Y:\\Projects\\NSF-MINFLUX\\projects\\Data\\Evaluation Experiments\\EOD Driver test\\beam characterizatiom\\donut\\jun4\\deflec_donut\\x_axis_donut_2026-06-04_141208 and Y:\\Projects\\NSF-MINFLUX\\projects\\Data\\Evaluation Experiments\\EOD Driver test\\beam characterizatiom\\donut\\jun4\\deflec_donut\\y_axis_donut_2026-06-04_141411; control Y:\\Projects\\NSF-MINFLUX\\projects\\Data\\Evaluation Experiments\\EOD Driver test\\beam characterizatiom\\donut\\jun4\\deflec_donut\\control_*"
+  script: "MicroscopeMinFlux.jl/dev/analysis/donut_jun4_thesis.jl"
+  commit: "ce95c01 on worktree-galvo-delay-analysis"
+created: "2026-10-30 11:54:26"
+notes: "Jun 4 donut deflection sweep, ±10 V command in 200 steps (+10 V first), 0.2 s settle. X sweep drives HVA1 = EOD34, Y sweep drives HVA2 = EOD35 (sweep_channel attribute; serial pairing user-confirmed 2026-10-26). Bench (user's redrawing, 2026-10-30): 642 nm source; EOD34 (x, HVA1); L1-L2 relay; HWP; EOD35 (y, HVA2); L3-L4 relay; L5-L6 relay; QWP one focal length beyond L6 (the plane conjugate to both deflectors); fold mirror M3; vortex plate (Vortex Photonics V-633-10-1, l = 1) just ahead of L7; camera (Thorlabs DCx, MONO8 8-bit, 5.2 µm pixels, 10 ms exposure) in the focal plane of L7, so a displacement there is f7 × the beam tilt at L7. 'Polarizer' runs have a polarizer ahead of the QWP. Camera x/y are the first/second index of the stored frame (x = 1280-px side). X-sweep step 1 (+10 V, its first frame) is excluded: it is the first-point transient also seen in the polarization sweeps -- zero displacement and NCC back at the control value, although the HVA1 monitor already reads the full drive, so the frame predates the move. The Y sweep's step 1 agrees with its steps 2-3 and is kept. The HVA monitors read with the opposite sign to the command. Resolved nulls: EOD34 141/199, EOD35 187/200. Control: ER 0.0345 ± 0.0163, ring peak 25.560 ADU. Per-step values: Y:\\Projects\\NSF-MINFLUX\\projects\\Data\\Evaluation Experiments\\EOD Driver test\\beam characterizatiom\\donut\\jun4\\deflec_donut\\donut_sweep_steps.csv"

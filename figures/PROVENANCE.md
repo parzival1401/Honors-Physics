@@ -279,3 +279,58 @@ Three corrections to what the old combined figure implied:
 | `laser-stab-xy-scatter` | beam-centre displacement on the camera, coloured by time |
 
 Manuscript figure: `fig:laser-stab` (2×2).
+
+## Donut beam (jun4)
+
+Measured results: NAS `EOD Driver test/beam characterizatiom/donut/jun4`, analysed by
+MicroscopeMinFlux.jl `dev/analysis/donut_jun4_thesis.jl` at ce95c01 (branch
+worktree-galvo-delay-analysis, not pushed). Every per-run number is in `donut_runs_summary.csv`,
+and every sweep step is in `deflec_donut/donut_sweep_steps.csv`.
+
+Bench, from the user's corrected drawing of 2026-10-30, in path order:
+
+1. EOD34, then the L1–L2 relay.
+2. A half-wave plate, then EOD35.
+3. The L3–L4 and L5–L6 relays.
+4. A quarter-wave plate one focal length past L6, in the plane conjugate to both deflectors.
+5. Fold mirror M3.
+6. The vortex plate (Vortex Photonics V-633-10-1, charge 1), just ahead of L7.
+7. The camera in the focal plane of L7: a Thorlabs DCx, MONO8 8-bit, 5.2 µm pixels, 10 ms
+   exposure.
+
+"Polarizer" runs have a polarizer ahead of the QWP. The focal length of L7 is not recorded, so
+displacements stay in µm at the camera.
+
+Corrections to the earlier analysis of this data:
+
+- **Fit model.** The old fit used a charge-2 model, (r/w)^4. The refit is charge 1. The l=1 and
+  l=2 R² values agree within 0.03, so the radial profile alone cannot fix the charge; the charge
+  is the plate's.
+- **Extinction-ratio extremes.** Both were artifacts.
+  - 1.33 (donut_pol): the ring centre was misdetected.
+  - 0.0005 (min_ER): the minimum pixel, which was 0.
+  - Now the null is the mean of the darkest 3×3 spot inside 0.5 r_peak, against an annulus
+    background. It is reported as an upper bound when unresolved.
+  - Only the optimized run resolves a null: 0.048 ± 0.018, on a 1-ADU floor of 0.039.
+- **Sweep control.** The old control ER of 0.0175 was the minimum-pixel artifact; the control is
+  0.035 ± 0.016.
+- **Symmetry measures.** CV and the Fourier terms now use background-subtracted profiles, with
+  m_k = 2|F_k|/|F_0|.
+- **First frame excluded.** Step 1 of the X sweep (+10 V) predates the move and is excluded.
+
+Sweep pairing: X = HVA1 = EOD34, Y = HVA2 = EOD35, from the sweep_channel attribute.
+
+- **EOD34:** 4.82 µm/V along x, with no cross-motion.
+- **EOD35:** 4.33 µm/V along y plus −1.08 µm/V along x, i.e. 4.47 µm/V at −14.0° from y. The
+  EOD35 axis is rotated 14° relative to EOD34.
+
+| Figure | Shows |
+|---|---|
+| `donut-static-image` | optimized run, camera frame about the fitted centre, fitted ring radius and null marked |
+| `donut-static-radial`, `-residual` | radial profile against l=1, l=2 and Gaussian fits, and the residuals |
+| `donut-static-azimuthal` | ring intensity around r_peak |
+| `donut-runs-er`, `donut-runs-cv` | extinction ratio (or bound) and ring CV for the five runs |
+| `donut-sweep-ncc`, `donut-sweep-er` | shape similarity to the control and extinction ratio during both sweeps |
+| `donut-sweep-disp-eod34`, `-eod35` | displacement at the camera with straight-line fits |
+
+Manuscript: `fig:donut-static`, `tab:donut-runs`, `fig:donut-runs`, `fig:donut-sweep`.

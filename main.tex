@@ -1091,60 +1091,265 @@ swept the same way with EOD34 held at 0~V.
 
 \subsubsection{Methods}
 
-Each frame is reduced to a small set of numbers describing the donut, after subtracting a
-background taken as the level of the darkest five percent of pixels. The centre is found as the
-centroid of the bright ring, the pixels above thirty percent of the peak; for a symmetric ring this
-coincides with the dark core. Profiles through that centre along the two camera axes give the ring
-radius on each axis, from the peak positions on either side, and their ratio gives the ellipticity
-of the ring.
+Every frame is recorded by a Thorlabs DCx camera in 8-bit monochrome mode with a 10~ms exposure, so
+intensities are in camera units (ADU) from 0 to 255; the gain that converts them to photons is not
+known. Each frame is reduced to a small set of numbers describing the donut. The background is the
+mean level in an annulus five to eight ring radii from the centre, well clear of the beam.
 
-The shape of the ring is compared with Equation~\ref{eq:lg-intensity} for charge one by a
-least-squares fit to the azimuthally averaged radial profile, with the amplitude, the waist $w$ and
-a constant background free, and the goodness of fit $R^2$ reported. A Gaussian centred on the same
-point is fitted for comparison, since a donut that fits a Gaussian better than a vortex has failed
-to form. From the radial profile itself, independent of any model, come the radius of peak
-intensity and the inner and outer radii at which the intensity falls to $1/e^2$ of that peak.
+The shape of the donut is compared with Equation~\ref{eq:lg-intensity} by a two-dimensional
+least-squares fit over a square of $81\times81$ pixels around the beam, with the centre, the
+amplitude, the waist $w$ and a constant background all free. The fit is made for charge one, for
+charge two, and for a Gaussian, on the same pixels, and the goodness of fit $R^2$ of each is
+reported; a donut that fits a Gaussian better than a vortex has failed to form. The fitted centre
+also serves as the centre of the ring for every quantity below. From the azimuthally averaged radial
+profile about that centre, in one-pixel bins, come two model-free sizes: the radius of peak
+intensity and the outer radius at which the intensity falls to $1/e^2$ of that peak. The matching
+inner radius lies within a few pixels of the null, where it cannot be resolved, and is not used.
 
 The depth of the null is reported as the extinction ratio, the background-subtracted intensity at
-the centre divided by that at the ring peak; lower is better. The ring peak is the mean of the
-brightest half percent of pixels, which makes it robust to isolated hot pixels, and the centre is
-the mean over a small window at the detected core. The camera records the ring at a few tens of
-counts per pixel, so a single count at the centre already corresponds to an extinction ratio of a
-few percent; a centre that reads at or below one count is reported as an upper bound rather than a
-value.
+the null divided by that at the ring peak; lower is better. The ring is often brighter on one side,
+which moves its darkest point away from the ring centre, so the null is located as the darkest
+$3\times3$-pixel spot within half a ring radius of the centre and its intensity taken as the mean of
+the nine pixels there. The ring peak is the maximum of the background-subtracted azimuthal average.
+Treating each unit as a count gives the uncertainty of the null. Where the net null is less than
+twice its uncertainty it is not resolved, and the result is reported as an upper bound, the larger
+of the net null plus twice its uncertainty and one unit, divided by the ring peak. Two floors frame
+these numbers. One unit divided by the ring peak, between 0.02 and 0.08 here, is the smallest
+extinction ratio the camera can register. And because a nine-pixel window has finite size, even a
+perfect charge-one ring sampled this way would read about 0.013.
 
 The symmetry of the ring is measured on a circle at the radius of peak intensity, sampling the
-intensity around the full turn and averaging over a narrow band of radii. The spread of that
-azimuthal profile, as a coefficient of variation, measures how uneven the ring is, and its Fourier
-components separate the causes: the first, $a_1$, a ring brighter on one side, the signature of a
-decentred plate or a tilted beam; the second, $a_2$, an elliptical ring, as from astigmatism; and the
-fourth, $a_4$, a fourfold distortion.
+intensity around the full turn. The spread of that azimuthal profile, as a coefficient of variation,
+measures how uneven the ring is, and its Fourier components separate the causes. Writing the profile
+as $I(\theta)\approx I_0\left[1+\sum_k m_k\cos(k\theta-\theta_k)\right]$, the first component,
+$m_1$, describes a ring brighter on one side, the signature of a decentred plate or a tilted beam;
+the second, $m_2$, an elliptical ring, as from astigmatism; and the fourth, $m_4$, a fourfold
+distortion.
 
-For the deflection sweep, each frame is cropped to a fixed $100\times100$~pixel region around the
-donut. The centre is located independently in every frame and its displacement taken relative to the
-control frame; the extinction ratio is recomputed per frame; and the frame as a whole is compared with
-the control by the peak of their normalised cross-correlation, which is unity for an identical
-pattern. The first frame of each sweep, taken immediately after the step to the starting voltage,
-carries the same settling transient as the deflection sweeps of Section~\ref{sec:eod} and is excluded.
+For the deflection sweep, the centre of every frame is located by the same fit and its displacement
+taken relative to the control frame, and straight lines are fitted to the displacement against
+command voltage along both camera axes. The extinction ratio is recomputed for every frame. The
+shape of each frame is compared with the control by the normalised cross-correlation of a
+101-pixel square cropped about each frame's own centre, which is unity for an identical pattern;
+because each crop follows its donut, this measures a change of shape rather than the displacement.
+The first frame of the EOD34 sweep, recorded at $+10$~V before the beam had moved, carries the same
+settling transient as the deflection sweeps of Section~\ref{sec:eod} and is excluded; the first
+frame of the EOD35 sweep agrees with those that follow it and is kept.
 
 \subsubsection{Results}
-% Pending: written once the June 4 figures are regenerated with the charge-one fit.
-\begin{itemize}
-    \item [GRAPH] measured donut vs. LG ideal vs. Gaussian (profiles + 2D heatmap)
-    \item [TEXT] extinction ratio, $R^2$, beam size values at reference (undeflected) position
-    \item [GRAPH] ring symmetry metrics (CV, $a_1$, $a_2$, $a_4$, ellipticity) at reference position
-    \item [GRAPH] ER and NCC vs. voltage, X and Y axes (deflection-induced degradation)
-    \item [GRAPH] displacement vs. voltage, X and Y axes
-    \item [TEXT] worst-case ER/NCC and corresponding voltage (from summary CSV)
-\end{itemize}
+
+\paragraph{The donut at rest.}
+A donut forms. Figure~\ref{fig:donut-static} shows the cleanest run, taken with the polarizer in
+place and the waveplates set for the darkest centre: a closed ring around a dark core, with its
+intensity peak 86~\textmu m from the centre at the camera and an outer $1/e^2$ radius of
+190~\textmu m. The charge-one fit reaches $R^2 = 0.89$ against 0.61 for the Gaussian, and its
+residuals, Figure~\ref{fig:donut-static-residual}, stay within about 2.5 units across the profile
+where the Gaussian misses the core by twenty. Across the five runs, Table~\ref{tab:donut-runs}, a
+vortex fits better than a Gaussian in four. The exception is the run without the polarizer, whose
+ring is so lopsided that no centred, symmetric profile describes it well.
+
+The radial profile cannot by itself confirm the charge. The charge-one and charge-two fits agree to
+within 0.03 in $R^2$ in every run, and in the cleanest one the charge-two curve follows the peak of
+the ring slightly more closely, Figure~\ref{fig:donut-static-radial}. That is the expected outcome
+rather than a contradiction. The ring is only about sixteen pixels in radius, it sits on a broad
+halo, and the focused beam is a mixture of radial orders rather than the single mode of
+Equation~\ref{eq:lg-intensity} \cite{karimiHypergeometricGaussianModes2007}, so the shape of the
+ring alone does not separate the two models. The charge is that of the plate, one.
+
+\begin{table}[!htbp]
+    \centering
+    \small
+    \begin{tabular}{lccccccc}
+        \hline
+        Run & $R^2$, $\ell=1$ & $R^2$, $\ell=2$ & $R^2$, Gauss. & Ring peak (ADU) & Extinction ratio & CV & $m_1$ \\
+        \hline
+        Initial                & 0.80 & 0.79 & 0.61 & 12 & $<0.10$           & 0.17 & 0.18 \\
+        Darkened centre        & 0.70 & 0.70 & 0.60 & 42 & $<0.030$          & 0.42 & 0.53 \\
+        No polarizer           & 0.60 & 0.57 & 0.64 & 50 & $<0.030$          & 0.50 & 0.62 \\
+        Polarizer              & 0.64 & 0.63 & 0.61 & 14 & $<0.071$          & 0.52 & 0.68 \\
+        Polarizer, optimized   & 0.89 & 0.90 & 0.61 & 26 & $0.048 \pm 0.018$ & 0.15 & 0.16 \\
+        \hline
+    \end{tabular}
+    \caption{The five donut runs of 4 June 2026, in the order taken. Fit quality for the
+    charge-one, charge-two and Gaussian models; ring peak in camera units; extinction ratio, as an
+    upper bound where the null is not resolved; and ring symmetry, as the coefficient of variation
+    around the ring and its one-sided component $m_1$. The fitted ring radius lies between 83 and
+    91~\textmu m in every run.}
+    \label{tab:donut-runs}
+\end{table}
+
+\begin{figure}[!htbp]
+    \centering
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{donut-static-image}
+        \caption{}
+        \label{fig:donut-static-image}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{donut-static-radial}
+        \caption{}
+        \label{fig:donut-static-radial}
+    \end{subfigure}
+
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{donut-static-residual}
+        \caption{}
+        \label{fig:donut-static-residual}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{donut-static-azimuthal}
+        \caption{}
+        \label{fig:donut-static-azimuthal}
+    \end{subfigure}
+    \caption{The donut at rest, from the run with the polarizer in place and the waveplates
+    optimized. (a) Camera frame about the fitted centre (cross), with the fitted ring radius dashed
+    and the null used for the extinction ratio circled. (b) Azimuthally averaged radial profile
+    against the charge-one, charge-two and Gaussian fits. (c) Residual of each fit. (d) Intensity
+    around the ring at the radius of peak intensity, with its mean dashed.}
+    \label{fig:donut-static}
+\end{figure}
+
+How dark the centre is cannot be read from these data beyond a bound. In four of the five runs the
+null reads less than one unit above the background, within its uncertainty, and only an upper
+bound can be given, Figure~\ref{fig:donut-runs-er}; the best of those bounds is 0.03. The fifth, the
+optimized run, resolves a null at $0.048\pm0.018$, but that lies barely above the 0.039 that a single
+unit represents at its ring peak. The limit is the camera, not the donut. With 8-bit values and a ring
+peak of only 12 to 50 units at a 10~ms exposure, one unit of signal at the centre is already two to
+eight percent of the ring, and the estimate of $2\times10^{-4}$ for the design-wavelength mismatch
+lies two orders of magnitude below anything this measurement can see. What the data establish is
+that the centre is dark to within a few percent of the ring, and no more.
+
+The symmetry of the ring is where the runs differ most, Figure~\ref{fig:donut-runs-cv}. The
+coefficient of variation around the ring runs from 0.15 to 0.52, and in every run the largest
+Fourier component is the first, a ring brighter on one side; the elliptical component is usually
+next, and the fourfold one stays small, between 0.03 and 0.08. A one-sided ring is the signature of a plate
+that is not centred on the beam, and the position of the null agrees: it lies 9 to 41~\textmu m
+from the centre of the ring, displaced from it as a decentred vortex is. The optimized run is the
+most even, with a variation of 0.15 and the null within 9~\textmu m of the ring centre, so the
+alignment can bring the ring close to symmetric. The runs with and without the polarizer, taken
+seconds apart, are equally lopsided, at 0.50 and 0.52; inserting the polarizer reduced the ring
+peak by a factor of about three and a half but did not change the shape. Since the image at this
+low numerical aperture should not depend on polarization, the improvement in the optimized run,
+taken half an hour later, is more likely due to the alignment adjusted in between than to the
+polarization itself. Single frames cannot separate the two.
+
+\begin{figure}[!htbp]
+    \centering
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{donut-runs-er}
+        \caption{}
+        \label{fig:donut-runs-er}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{donut-runs-cv}
+        \caption{}
+        \label{fig:donut-runs-cv}
+    \end{subfigure}
+    \caption{The five runs of Table~\ref{tab:donut-runs} compared. (a) Extinction ratio: measured
+    with $\pm1\sigma$ where the null is resolved, a triangle marking the upper bound where it is
+    not, and a bar at the one-unit floor of each run. (b) Coefficient of variation of the intensity
+    around the ring.}
+    \label{fig:donut-runs}
+\end{figure}
+
+\paragraph{The donut under deflection.}
+The donut follows the deflectors linearly and keeps its shape. Driving EOD34 moves it along the
+camera $x$ axis at $4.82$~\textmu m/V of command voltage, with no measurable motion along $y$,
+Figure~\ref{fig:donut-sweep-disp-eod34}; across the full $\pm10$~V, the $\pm200$~V of the
+amplifier, it travels about $\pm48$~\textmu m, a little over half the ring radius. Throughout both
+sweeps the cross-correlation with the control stays at or above 0.987, with a mean of 0.994,
+Figure~\ref{fig:donut-sweep-ncc}. It falls by about one percent from the centre of the range to
+either end, alike for both deflectors and symmetric in voltage. A decline of that form is what
+would follow if the beam crossed the vortex plate slightly off its centre at large deflections, as
+it does on this bench with the plate a short distance past the conjugate plane, but these data do
+not isolate the cause. The extinction ratio shows no change at all within what the camera can
+resolve, Figure~\ref{fig:donut-sweep-er}: it sits on the one-unit floor, near 0.04, across both
+sweeps, as it does in the control at $0.035\pm0.016$.
+
+EOD35 does not steer along the camera axes. Its sweep moves the donut by $4.33$~\textmu m/V along
+$y$ but also by $-1.08$~\textmu m/V along $x$, Figure~\ref{fig:donut-sweep-disp-eod35}: a
+deflection of $4.47$~\textmu m/V directed $14.0^\circ$ away from the $y$ axis. EOD34, with no
+cross-motion, defines the camera axes, so the deflection axis of EOD35 is rotated by
+$14^\circ$ about the beam relative to that of EOD34, and the two scan axes meet at about $76^\circ$
+rather than at a right angle. A pattern computed on the assumption of orthogonal axes would be
+sheared by that amount. Either the second deflector has to be turned in its mount to bring the
+axes square, or the calibration has to carry both components of each deflector's motion rather
+than a single sensitivity per axis. The rotation also bears on the polarization of
+Section~\ref{sec:eod}, since the half-wave plate ahead of EOD35 must align the light to the crystal
+axis as actually mounted. The two sensitivities measured here, 4.82 and 4.47~\textmu m/V, differ by
+seven percent, and in the opposite sense from the six percent found at the perpendicular setting of
+the polarization measurements. Each deflector's response depends on the polarization it receives in
+this particular path, which is a reminder that the calibration belongs to the assembled optics rather
+than to the deflector alone. Converting these displacements to angle requires the focal length of
+L7, since the camera lies in its focal plane.
+
+\begin{figure}[!htbp]
+    \centering
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{donut-sweep-ncc}
+        \caption{}
+        \label{fig:donut-sweep-ncc}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{donut-sweep-er}
+        \caption{}
+        \label{fig:donut-sweep-er}
+    \end{subfigure}
+
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{donut-sweep-disp-eod34}
+        \caption{}
+        \label{fig:donut-sweep-disp-eod34}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{donut-sweep-disp-eod35}
+        \caption{}
+        \label{fig:donut-sweep-disp-eod35}
+    \end{subfigure}
+    \caption{The donut as each deflector is swept across $\pm10$~V of command voltage, the other
+    held at 0~V. (a) Normalised cross-correlation with the undeflected control, each frame cropped
+    about its own centre so that only a change of shape registers. (b) Extinction ratio: filled where
+    the null is resolved, open for an upper bound, with the one-unit floor dotted. (c, d)
+    Displacement of the donut at the camera while sweeping (c) EOD34 and (d) EOD35, along $x$ and
+    $y$, with straight-line fits.}
+    \label{fig:donut-sweep}
+\end{figure}
+
+\FloatBarrier % keep the donut figures out of the conclusion
 
 \subsubsection{Conclusion}
-\begin{itemize}
-    \item [TEXT] donut null quality (ER) at rest vs. under deflection
-    \item [TEXT] ring symmetry — presence/absence of tilt, ellipticity, or 4-fold distortion
-    \item [TEXT] deflection range over which donut quality remains acceptable for MINFLUX
-    \item [TEXT] recommended operating voltage range / limitations found
-\end{itemize}
+
+The vortex plate forms a donut on this bench: a closed ring about 86~\textmu m in radius at the
+camera, around a centre that fits a vortex far better than a Gaussian. Its centre is dark to within a
+few percent of the ring, but this camera cannot say how much darker. With 8-bit values and rings of
+12 to 50 units, the best bound is 0.03 and the one resolved value, $0.048\pm0.018$, sits on the
+camera's floor. The quantity MINFLUX depends on most has therefore not yet been measured, only bounded.
+
+The ring is uneven, and the evenness depends on the alignment. Its dominant distortion is a ring
+brighter on one side, with the null displaced from the ring centre by up to 41~\textmu m, which is
+what a vortex plate off the beam centre produces. The best alignment brings the variation around the
+ring down to fifteen percent and the null to within 9~\textmu m of the centre. Polarization, as
+expected at low numerical aperture, did not change the shape in these frames.
+
+The donut survives deflection. Across the full drive of either deflector its shape stays within about
+one percent of the undeflected pattern and its null stays below what the camera can resolve, while it
+moves linearly at 4.82 and 4.47~\textmu m/V. The one finding that needs action is geometric: the
+deflection axis of EOD35 is rotated $14^\circ$ from that of EOD34, so the two scan axes are not
+orthogonal, and either the mount or the calibration has to account for it.
+
+Three steps would close the gaps. The null should be measured with a detector that can resolve it: a
+higher bit depth and longer or averaged exposures on the camera, or a photodiode behind a pinhole at
+the centre of the donut. The plate should be centred finely on the beam, using the one-sided
+component of the ring as the error signal, and placed in the plane conjugate to the deflectors, as it
+is in the instrument, so that deflection cannot move the beam across it. And the rotation of EOD35
+should be removed in its mount or carried into a two-axis calibration. Two questions remain beyond
+the bench altogether: whether the null survives the high numerical aperture of the objective, where
+the handedness of the circular polarization decides it, and how deep it is at the sample.
 
 \section{Galvometer}
 \label{sec:galvo}
