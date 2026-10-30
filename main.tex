@@ -16,14 +16,100 @@
 \section{Introduction}
 
 \subsection{MINFLUX concept}
-Single-molecule fluorescence localization with minimum photon flux imaging
-(MINFLUX) can achieve localization precisions in the small nanometer range or better under
-suitable conditions,Potentially adverse conditions, such as a fixed fluorescence dipole or optical
-aberrations, that could cause systematic localization errors, have received little attention up to
-now. \cite{stallingaAbsorptionDipoleEffects2026}
+
+A single fluorescent molecule seen through a microscope does not appear as a point. Diffraction
+spreads its light into a spot a few hundred nanometres across, and the conventional way to locate
+the molecule is to record that spot on a camera and find its centre. The centre can be found far
+more finely than the spot is wide, but only by collecting many photons: the precision improves as
+the width of the spot divided by the square root of the number of photons detected. Every photon
+carries only a little information, because each one could have landed anywhere in a spot hundreds
+of nanometres wide. Reaching a few nanometres therefore takes thousands of photons, and a
+fluorophore emits them slowly enough that camera-based tracking samples a molecule only every ten
+milliseconds or so, at precisions above ten nanometres
+\cite{eilersMINFLUXMonitorsRapid2018}. For tracking membrane proteins the frame time is
+typically 10 to 30~ms \cite{becerraQuantifyingProteinInteractions2024}.
+
+MINFLUX, for minimal photon fluxes, reverses where the information comes from
+\cite{balzarottiNanometerResolutionImaging2017}. Instead of reading the position from the shape of
+the emitted light, it reads it from the excitation light, which the experimenter controls. The
+molecule is illuminated with a beam shaped as a doughnut: a ring of light around a central point
+where the intensity falls to zero. A fluorophore emits at a rate proportional to the excitation
+intensity it sees, so a molecule sitting exactly at the zero stays dark, and its emission rises
+steeply as it moves away from it. The zero is placed in turn at a small set of known positions
+around the molecule's estimated location, commonly three on a circle of diameter $L$ together
+with one at the centre, and the photons collected at each position are counted. The molecule is
+closest to whichever position returns the fewest photons, and the ratios between the counts fix
+where it lies between them. Combining those counts with the known exposure positions gives the
+position estimate.
+
+The gain comes from where the molecule sits on the excitation profile. Near the zero the
+intensity changes fastest relative to its own value, so a small displacement produces a large
+relative change in the counts. Each detected photon therefore says much more about position than a
+camera photon does. In the first demonstration this required 22 times fewer photons than centroid
+localization, reached about 1~nm precision, and increased the temporal resolution of single-molecule
+tracking a hundredfold \cite{balzarottiNanometerResolutionImaging2017}. The precision is no longer
+set by the width of a diffraction-limited spot but by the size of the probing pattern: it scales as
+$L/\sqrt{N}$ for $N$ detected photons, so shrinking the pattern improves the precision at a fixed
+photon budget. Since then MINFLUX has been extended to three dimensions and multiple colours in
+cells \cite{gwoschMINFLUXNanoscopyDelivers2020,papeMulticolor3DMINFLUX2020}. It has also been
+implemented on a standard microscope stand \cite{schmidtMINFLUXNanometerscale3D2021} and used to
+follow molecular motion on sub-millisecond timescales. Fluorophores have been localized to about
+2~nm in 400~$\mu$s \cite{eilersMINFLUXMonitorsRapid2018}, and to better than 20~nm within about
+100~$\mu$s \cite{schmidtMINFLUXNanometerscale3D2021}. The steps of motor proteins have been
+resolved inside living cells \cite{deguchiDirectObservationMotor}.
+
+The same dependence on the pattern is the method's main liability. Because every position is
+computed relative to where the zero is believed to have been placed, anything that moves, distorts
+or mislocates the pattern biases the result, and that bias does not average away with more photons.
+Simulations of fixed absorption dipoles and optical aberrations find systematic errors of up to
+about a quarter of the pattern diameter \cite{stallingaAbsorptionDipoleEffects2026}. The quality of
+the doughnut's zero has become a subject of its own \cite{lopezOptimizationCharacterizationToroidal2023},
+and the sample must be held still to sub-nanometre precision
+\cite{lopezOpensourceSubNanometerStabilization2025}.
+
+\paragraph{MINFLUX in this project.} The project this work belongs to aims to measure how membrane
+receptors pair up into dimers in living cells, and how long those pairs last. The receptors studied
+are the epidermal growth factor receptor (EGFR) and its relative RON. Simulations predict fast
+binding and unbinding events that video-rate tracking cannot capture
+\cite{becerraQuantifyingProteinInteractions2024}. The proposal therefore calls for a MINFLUX system
+that tracks single proteins and protein pairs at kHz rates, and combines it with a mode sorter that
+measures the separation between the two members of a pair. Its worked example sets the scale of the
+instrument. A scan cycle of 100~$\mu$s, a pattern 30~nm across and 42 detected photons per cycle
+localize a molecule with a precision of 1.7~nm at a rate of 10~kHz. The stated target is a
+centroid precision below 2~nm from single fluorophores at 10~kHz
+\cite{becerraQuantifyingProteinInteractions2024}.
+
+\paragraph{Why two kinds of beam steering.} Tracking asks two different things of the optics that
+move the excitation, and the proposal assigns them to two different devices
+\cite{becerraQuantifyingProteinInteractions2024}. The first is to step the doughnut between the
+positions of the pattern within every cycle. With four exposures in 100~$\mu$s each position is
+held for about 25~$\mu$s, so a move between positions must take a small fraction of that. The
+positions are only tens of nanometres apart in the sample, but they must be placed exactly,
+because they are the reference against which the molecule is located. In the proposal this task
+belongs to two electro-optic deflectors, one for each transverse axis, which translate the beam
+``at MHz speed and high precision''. An electro-optic deflector has no moving part, so it can
+switch at electronic rates, but its range is small (Section~\ref{sec:eod}). A calibration error in
+it scales or distorts the pattern itself, and so biases every localization in the way described
+above.
+
+The second task is to follow the molecule. A receptor diffusing in the membrane does not stay
+inside a 30~nm pattern. The diffusion coefficients measured for EGFR, about 0.25 to
+0.37~$\mu$m$^2$/s \cite{becerraQuantifyingProteinInteractions2024}, carry it of order a
+micrometre in a second, far beyond what the deflectors can reach. The proposal therefore
+re-centres the whole pattern on each new position estimate through a feedback loop driving a
+two-axis galvanometer mirror system. Here range matters more than speed. A galvanometer moves a
+mirror and so cannot jump within microseconds, but it can steer across the whole field, and it only
+needs to keep pace with the molecule rather than with the scan cycle. MINFLUX built on a standard
+microscope stand divides the work the same way, synchronizing electro-optic and galvanometric beam
+steering
+\cite{schmidtMINFLUXNanometerscale3D2021}. The deflectors make the measurement and the galvanometer
+keeps it centred on the molecule. The tracking precision depends on how well each is known, which
+is why both are characterized in this work: the deflector pair in Section~\ref{sec:eod} and the
+galvanometer in Section~\ref{sec:galvo}.
 \subsection{single particle analysis}
 \subsection{motivation requirements}
 \section{EOD}
+\label{sec:eod}
 \subsection{Physical concept}
 
 An electro-optic deflector steers a laser beam without moving anything. It is a transparent
@@ -992,6 +1078,7 @@ excitation pattern require active drift correction to approach their theoretical
 \end{itemize}
 
 \section{Galvometer}
+\label{sec:galvo}
 \subsection{physical concept}
 \subsection{characterization}
 \subsubsection{intro why }
