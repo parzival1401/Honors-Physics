@@ -18,12 +18,38 @@
 \usepackage{amsmath}
 \usepackage{amstext}
 
-\title{Honors Physics}
+\title{Electro-Optic Deflector and Galvanometer Characterization for High-Speed Beam Scanning in
+MINFLUX Microscopy}
 \author{Fernando Delgado}
-\date{August 2026}
+\date{November 2026}
 
 \begin{document}
 \maketitle
+
+\begin{abstract}
+MINFLUX locates a single fluorescent molecule by probing it with the dark centre of a donut-shaped
+excitation beam. The beam is stepped between a few positions around the molecule within every
+cycle of about 100~\textmu s and re-centred on the molecule as it moves, so the precision of the
+method rests on the hardware that moves the beam. This work characterizes that hardware for a
+MINFLUX tracking instrument under construction: a pair of electro-optic deflectors that step the
+pattern, the donut they move, and a pair of galvanometer scanners that re-centre it. The
+deflectors are driven from a data acquisition card through high-voltage amplifiers, whose low input
+impedance at first limited the drive to about three quarters of its range until buffer amplifiers
+were added. They then deflect linearly across $\pm200$~V, by 2.95 and 3.12~mrad/kV with the input
+polarization perpendicular to the deflection axis and three and a half times less with it parallel.
+They begin to move about half a microsecond after the drive and settle within 25~\textmu s, the
+dwell of one pattern position, but arrive in two stages, reaching 80 to 94\% of a step within the
+first 5~\textmu s. A vortex phase plate forms a charge-one donut whose centre is dark to below the
+resolution of the camera, a few percent of the ring, and whose shape changes by about one percent
+under the full deflection of either axis; the same measurement shows the two deflection axes
+$14^\circ$ from perpendicular. The galvanometers deflect the beam by $2.03^\circ$ and $1.44^\circ$
+per volt, the lower value set by the fold geometry of the second mirror, return to within a few
+microradians, and complete a move 0.4 to 0.45~ms after the command. Together these results give
+the calibration and timing the control system needs, and they identify what remains: the depth of
+the null with a better detector, the donut under two-axis scanning, and the transfer of every
+scale to the sample plane.
+\end{abstract}
+
 \section{Introduction}
 
 \subsection{MINFLUX concept}
@@ -68,7 +94,7 @@ implemented on a standard microscope stand \cite{schmidtMINFLUXNanometerscale3D2
 follow molecular motion on sub-millisecond timescales. Fluorophores have been localized to about
 2~nm in 400~$\mu$s \cite{eilersMINFLUXMonitorsRapid2018}, and to better than 20~nm within about
 100~$\mu$s \cite{schmidtMINFLUXNanometerscale3D2021}. The steps of motor proteins have been
-resolved inside living cells \cite{deguchiDirectObservationMotor}.
+resolved inside living cells \cite{deguchiDirectObservationMotor2023}.
 
 The same dependence on the pattern is the method's main liability. Because every position is
 computed relative to where the zero is believed to have been placed, anything that moves, distorts
@@ -118,8 +144,37 @@ steering
 keeps it centred on the molecule. The tracking precision depends on how well each is known, which
 is why both are characterized in this work: the deflector pair in Section~\ref{sec:eod} and the
 galvanometer in Section~\ref{sec:galvo}.
-\subsection{single particle analysis}
-\subsection{motivation requirements}
+\subsection{Requirements and goals of this work}
+\label{sec:goals}
+
+The worked example of the proposal translates into requirements on each part of the beam-steering
+hardware. The pattern positions are the reference for every localization, so they must be known
+more finely than the precision sought. With a target below 2~nm and a pattern 30~nm across, a
+scale error of one percent already moves the positions by 0.3~nm. The deflectors must therefore be
+calibrated to about a percent and must hold their positions to a fraction of a nanometre over a
+measurement. Each position is held for about 25~\textmu s, and photons counted while the beam is
+still moving are assigned to the wrong position, so a step must be complete within a small
+fraction of that dwell. The zero must be dark, since light at the centre of the donut is
+indistinguishable from a molecule sitting off it, and it must stay dark and keep its shape wherever
+the deflectors place it. The re-centring must keep pace with the molecule. At the diffusion
+coefficient of EGFR, a molecule wanders 15~nm, half the pattern, in about 0.2~ms, which sets the
+scale against which the delay of the galvanometers has to be judged.
+
+The proposal for this thesis set three goals against those requirements, all aimed at the
+electro-optic deflectors:
+\begin{enumerate}
+    \item to characterize the deflection range and behaviour of the deflectors, establishing the
+        parameters for precise high-speed scanning (Section~\ref{sec:eod});
+    \item to implement the hardware control interface, a National Instruments data acquisition card
+        driving the deflectors through HVA200 high-voltage amplifiers (Section~\ref{sec:eod},
+        Setup);
+    \item to evaluate how deflection affects the donut, its shape and the integrity of its central
+        null, under two-axis scanning (Section~\ref{sec:donut}).
+\end{enumerate}
+The galvanometer pair was added to that plan, because the re-centring it performs is the other half
+of the steering and is calibrated with the same bench and the same methods
+(Section~\ref{sec:galvo}). Section~\ref{sec:conclusion} returns to these goals and collects the
+operating parameters the measurements establish.
 \section{EOD}
 \label{sec:eod}
 \subsection{Physical concept}
@@ -322,6 +377,12 @@ and the monitor follow the setpoint linearly across the full $\pm10$~V, and the 
 $\pm200$~V with their gain of $-20$. The external supply at first added high-frequency noise to the
 command. Decoupling capacitors from each supply rail to ground removed it. The circuit was built
 on 13 March 2026, before any of the driven measurements reported below.
+
+This card is the control path for calibration and for every measurement here in which the drive is
+held or swept slowly. It is not the path for switching the pattern. The USB-6001 updates its outputs at most 5000 times per second,
+far too slowly to step between four positions in 100~\textmu s, so the step response below is driven
+by a function generator instead, and in the instrument the fast command comes from the FPGA through
+a high-speed digital-to-analog converter, as described above.
 
 \begin{figure}[!htbp]
     \centering
@@ -1530,7 +1591,10 @@ these numbers is less secure than their linearity: both the ring size and the di
 are many times larger than the recorded lens train predicts, so the geometry between the plate and
 the camera needs to be measured before either is converted to the sample.
 
-Four steps would close the gaps. The distance from L7 to the camera and the beam size at the plate
+Five steps would close the gaps. The donut should be recorded with both deflectors driven
+together, across the two-dimensional pattern the instrument will use: every sweep here moved one
+axis with the other held at zero, so the two-axis scanning named in the goals of this work
+(Section~\ref{sec:goals}) has not yet been tested. The distance from L7 to the camera and the beam size at the plate
 should be measured, so that the ring size and the displacements can be referred to a known focus
 and converted to angle. The null should be measured with a detector that can resolve it: a
 higher bit depth and longer or averaged exposures on the camera, or a photodiode behind a pinhole at
@@ -2012,7 +2076,139 @@ in the relay and repeating the sweep. And the scale factors must be carried from
 scanner to displacement at the sample, which depends on the relay to the objective and is outside
 this bench.
 \FloatBarrier
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+This work set out to establish whether the beam-steering hardware of a MINFLUX tracking instrument
+meets the requirements of Section~\ref{sec:goals}, and to measure the parameters its control system
+needs. Taken goal by goal, the results are as follows.
+
+The first goal, characterizing the deflectors, is met. Both deflect linearly across the full
+$\pm200$~V, by 2.95 and 3.12~mrad/kV once the input polarization is set perpendicular to the
+deflection axis, which makes the half-wave plate part of the calibration rather than an alignment
+detail. Their six percent difference means each needs its own calibration. Held at a fixed drive,
+EOD35 is as steady as the laser, while EOD34 drifts by up to 0.03~mrad near zero and negative
+drive, a behaviour still to be explained. They begin to move half a microsecond after the drive and
+settle well within the 25~\textmu s dwell, but the slow second stage leaves EOD34 up to a fifth of
+a step short in the first 5~\textmu s, so the first microseconds of each dwell need either to be
+discarded or to be corrected by shaping the drive.
+
+The second goal, the control interface, is met for calibration and slow control. The data
+acquisition card drives both amplifiers across their full range once a voltage follower stands
+between them, and the impedance mismatch that first limited the drive is understood. The card is
+too slow to switch the pattern, so that task falls to the instrument's FPGA path, whose timing the
+step-response measurements already describe from the amplifier onward.
+
+The third goal, the donut under deflection, is met in part. The vortex plate forms a charge-one
+donut whose shape changes by about one percent under the full deflection of either axis, so
+deflection does not visibly degrade it. Two parts of the goal remain open. The depth of the null is
+bounded at a few percent only by the camera, and each axis was deflected alone, never in the
+two-axis pattern itself. The same measurement found the two deflection axes $14^\circ$ from
+perpendicular, which the calibration must carry.
+
+The galvanometers, added to the original plan, re-centre the pattern with a well-determined scale,
+$2.03^\circ$ and $1.44^\circ$ per volt, and return to within a few microradians. Their move,
+complete 0.4 to 0.45~ms after the command, is longer than the 0.2~ms in which a diffusing receptor
+wanders half the pattern. Small corrections are therefore better made by offsetting the pattern
+with the deflectors, within their range, and the galvanometers kept for the larger moves, the
+division of labour used in MINFLUX on a standard microscope stand
+\cite{schmidtMINFLUXNanometerscale3D2021}.
+
+The operating parameters established here are collected in Tables~\ref{tab:eod-parameters}
+and~\ref{tab:galvo-parameters}. Every scale in them is referred to the bench, at the deflector or the
+scanner. Carrying them to the sample through the relay and objective is the step that joins this
+characterization to the tracking measurement itself.
+
+\begin{table}[!htbp]
+    \centering
+    \small
+    \begin{tabular}{p{0.36\textwidth}p{0.27\textwidth}p{0.27\textwidth}}
+        \hline
+        Parameter & EOD34 & EOD35 \\
+        \hline
+        Axis & $x$ & $y$, $14^\circ$ from perpendicular to $x$ \\
+        Sensitivity, polarization perpendicular & 2.95~mrad/kV & 3.12~mrad/kV \\
+        Sensitivity, polarization parallel & about 3.5 times lower & about 3.5 times lower \\
+        Drive range & $\pm10$~V command, $\pm200$~V & $\pm10$~V command, $\pm200$~V \\
+        Delay after amplifier output & 0.42 to 0.53~\textmu s & 0.42 to 0.53~\textmu s \\
+        Fraction of step at 5~\textmu s & 0.80 to 0.82 & 0.91 to 0.94 \\
+        Fraction of step at 10~\textmu s & 0.96 to 0.97 & 0.98 to 1.00 \\
+        Settled & by 25~\textmu s & by 25~\textmu s \\
+        Hold stability & up to 0.03~mrad in 30~s & about 0.001~mrad \\
+        Lateral working range & about 1.5~mm & about 1.5~mm \\
+        \hline
+    \end{tabular}
+    \caption{Operating parameters of the electro-optic deflectors (Section~\ref{sec:eod} and
+    Section~\ref{sec:donut}). Sensitivities are referred to the centre of the crystal; the hold
+    drift of EOD34 appears near zero and at negative drive.}
+    \label{tab:eod-parameters}
+\end{table}
+
+\begin{table}[!htbp]
+    \centering
+    \small
+    \begin{tabular}{p{0.36\textwidth}p{0.27\textwidth}p{0.27\textwidth}}
+        \hline
+        Parameter & G1 ($x$) & G2 ($y$) \\
+        \hline
+        Scale factor (optical) & $2.029^\circ$/V & $1.445^\circ$/V \\
+        Residuals over $\pm1$~V & 6.2~\textmu m rms, slope $-2.5\%$ & 0.5~\textmu m rms \\
+        Repeatability of return & 1.1~\textmu rad & 3.2~\textmu rad \\
+        Drift, power held & about 2~\textmu rad/min & about 0.3~\textmu rad/min \\
+        Delay to 10\% / 50\% of a step & 152--168 / 246--261~\textmu s & 152--168 / 246--261~\textmu s \\
+        Rise, 10 to 90\% & 198 to 205~\textmu s & 211 to 218~\textmu s \\
+        Settling to $\pm2\%$, from 10\% & 240 to 258~\textmu s & 274 to 288~\textmu s \\
+        Overshoot & 1.6 to 1.8\% & 0.33 to 0.49\% \\
+        \hline
+    \end{tabular}
+    \caption{Operating parameters of the galvanometer pair (Section~\ref{sec:galvo}). Angles are
+    beam angles at the scanner; the two scan directions meet $7.6^\circ$ from perpendicular on the
+    camera.}
+    \label{tab:galvo-parameters}
+\end{table}
+
+\FloatBarrier
 \printbibliography
-\section{apendix}
+
+\appendix
+\section{Equipment}
+\label{app:equipment}
+
+\begin{table}[!htbp]
+    \centering
+    \small
+    \begin{tabular}{p{0.22\textwidth}p{0.33\textwidth}p{0.37\textwidth}}
+        \hline
+        Component & Model & Role and key specifications \\
+        \hline
+        Laser diode & Thorlabs HL6366DG & 642~nm, 80~mW; KLD101 driver, LDM9T mount \\
+        Electro-optic deflectors & Leysop ED2-2T-LT-AR561-642 ($\times2$) & EOD34, EOD35; 2~mm aperture, 60~mm housing \\
+        High-voltage amplifiers & Thorlabs HVA200 ($\times2$) & HVA1, HVA2; gain $-20$, $\pm200$~V, 1~k$\Omega$ input \\
+        Buffer amplifiers & LF411 ($\times2$) & Unity-gain followers, $\pm15$~V supply \\
+        Data acquisition & NI USB-6001 & 2 outputs, $\pm10$~V, $\pm5$~mA, 5~kS/s; 8 inputs \\
+        Galvanometer scanners & Cambridge Technology 6230K ($\times2$) & G1, G2; 12~mm Si mirrors, $40^\circ$ optical \\
+        Galvanometer drivers & Cambridge Technology 671 ($\times2$) & Analog servo, $\pm10$~V command \\
+        Galvanometer command & ARC TriggerScope~4 & Digital-to-analog command over USB \\
+        Vortex phase plate & Vortex Photonics V-633-10-1 & Charge one, designed for 633~nm \\
+        Camera & Thorlabs DCx series & 5.2~\textmu m pixels, 8-bit \\
+        Quadrant photodiode & Thorlabs PDQ80A & 7.8~mm active area, 150~kHz \\
+        Oscilloscope & Tektronix TDS1000B series & Two channels, timing measurements \\
+        \hline
+    \end{tabular}
+    \caption{Hardware used in this work.}
+    \label{tab:equipment}
+\end{table}
+
+\section{Data and analysis}
+\label{app:data}
+
+The raw data of every measurement are kept on the Lidke laboratory data server, under the project's
+evaluation experiments for the deflector drive and the galvanometers, in folders named by date. The
+analyses were written in Julia and are kept in the instrument's control repository,
+\texttt{MicroscopeMinFlux.jl}, under \texttt{dev/analysis}. Each figure in this document is
+saved with a provenance record naming the data it was drawn from, the script and the commit that
+produced it, and the bench facts it assumes, so that every graph can be traced to its source and
+regenerated.
 
 \end{document}
