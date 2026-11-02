@@ -27,6 +27,7 @@
 \section{Introduction}
 
 \subsection{MINFLUX concept}
+\label{sec:minflux}
 
 A single fluorescent molecule seen through a microscope does not appear as a point. Diffraction
 spreads its light into a spot a few hundred nanometres across, and the conventional way to locate
@@ -1502,15 +1503,320 @@ should be removed in its mount or carried into a two-axis calibration. Two quest
 the bench altogether: whether the null survives the high numerical aperture of the objective, where
 the handedness of the circular polarization decides it, and how deep it is at the sample.
 
-\section{Galvometer}
+\section{Galvanometer}
 \label{sec:galvo}
-\subsection{physical concept}
-\subsection{characterization}
-\subsubsection{intro why }
-\subsubsection{setup}
-\subsubsection{methods}
-\subsubsection{results}
-\subsubsection{conclusion}
+\subsection{Physical concept}
+
+A galvanometer scanner steers a beam with a mirror that turns. The mirror is bonded to the shaft
+of a small limited-rotation motor: a permanent-magnet rotor sits inside a fixed coil, and current
+through the coil exerts a torque on the rotor proportional to that current. Nothing in that
+arrangement fixes where the shaft points, so a position detector on the shaft measures its angle,
+and a servo amplifier compares that angle with the commanded one and drives whatever coil current
+closes the gap \cite{marshallHandbookOpticalLaser2012}. The command is a voltage, and in steady
+state the mirror angle is proportional to it. The scanners used here are Cambridge Technology
+6230K galvanometers, each driven by its own Model 671 analog servo, carrying 12~mm silicon mirrors.
+
+The servo is what makes the device precise, and it also sets the limits on its precision. A
+mirror that is held by feedback returns to the angle its detector reports, so its repeatability and
+drift are those of the detector rather than of the mechanism: the manufacturer specifies a
+linearity of 99.9\% over $20^\circ$, a zero drift of at most 15~\textmu rad and a scale drift of
+at most 50~ppm per degree Celsius for this series. Its speed is limited by the opposite end of the
+loop. The rotor and mirror have inertia, the coil current is finite, and the servo has to bring the
+mirror to rest at the new angle without overshooting it, so a commanded step is followed by a delay
+before the mirror moves, a rise as it swings, and a settling interval as it comes to rest. For
+mirrors of this size these times are hundreds of microseconds, a thousand times longer than the
+electro-optic deflectors of Section~\ref{sec:eod}. This is the trade the instrument is built
+around: the galvanometer is slow, but it can turn the beam through tens of degrees rather than
+milliradians.
+
+\paragraph{From mirror angle to beam angle.}
+Turning a mirror through an angle $\theta$ turns the reflected beam through $2\theta$ when the
+mirror turns about an axis perpendicular to the plane of incidence, the plane containing the
+incoming and reflected beams. That doubling is why galvanometer angles are quoted in optical
+degrees, twice the mechanical ones. It holds only for that orientation of the axis. A mirror at
+an angle of incidence $i$, turned instead about an axis that lies in its own surface and in the
+plane of incidence, tips the reflected beam out of that plane by $2\theta\cos i$, which for the
+$45^\circ$ fold of a scanning mirror is $\sqrt{2}\,\theta$ rather than $2\theta$. Which case
+applies depends only on how the scanner is mounted relative to the beam, and it matters below.
+
+The Model 671 converts command voltage to mirror angle at a fixed scale factor, which on these units
+was set at the factory for a full scan of $40^\circ$ optical over the $\pm10$~V command range.
+That is $2^\circ$ of optical deflection per volt, or $1^\circ$ of mechanical rotation per volt,
+half the driver's generic factor of $0.5$~V per mechanical degree. The scale factor is what turns
+the voltages written by the control software into beam angles, and so it is the first thing
+measured below.
+
+\paragraph{Two mirrors, one pivot.}
+Two scanners are needed to steer in two dimensions, one per axis, and two mirrors cannot occupy
+the same place. If the beam simply passed from one mirror to the next, the first mirror's
+deflection would move the beam across the face of the second, and after both the beam would
+pivot about two different points. A microscope needs the opposite: the scanned beam must pivot
+about a single point that is imaged onto the back focal plane of the objective, so that tilting
+the beam there translates the focus across the sample without moving the beam on the pupil and
+clipping it \cite{pawleyHandbookBiologicalConfocal2006}. The standard remedy, and the one used
+here, is a relay between the mirrors. Two lenses of focal length $f$, the first placed $f$ from
+the first mirror and the second $f$ from the second mirror with $2f$ between them, form a 4f
+system that images the first mirror onto the second at unit magnification. A beam leaving the first
+mirror at angle $\theta$ arrives at the second mirror at its centre at angle $-\theta$, whatever the
+value of $\theta$, so both deflections pivot about the second mirror, and a further relay can carry
+that single pivot to the objective.
+
+\paragraph{From beam angle to position.}
+An angle becomes a position wherever the beam meets a lens or a screen. A lens of focal length
+$f$ maps a beam entering it at angle $\theta$ to a point a distance $f\tan\theta \approx f\theta$
+from its axis in its back focal plane, independent of where the beam crosses the lens; a bare
+detector a distance $L$ from the pivot sees the beam move by $L\theta$. The bench below uses the
+first arrangement to calibrate angle against voltage and the second to follow the beam in time.
+
+\paragraph{The role in the instrument.}
+In the tracking scheme of Section~\ref{sec:minflux}, the galvanometer pair re-centres the whole
+excitation pattern on the molecule after each position estimate, while the deflectors probe within
+it. Each localization is the sum of a position within the pattern and the position of the pattern
+itself, and the galvanometer supplies the second term. Its calibration therefore enters every
+trajectory as directly as the deflectors' calibration does: a scale error stretches the track, a
+drift walks it, and a step that has not settled moves the pattern while photons are being counted.
+
+\subsection{Characterization}
+
+\subsubsection{Motivation}
+
+The galvanometer pair is characterized to answer three questions, each tied to one way it enters
+the tracking measurement. The first is how far the beam turns per volt on each axis. The control
+software can only re-centre the pattern by the amount it intends if it knows that scale, and the
+two axes need not share it. The second is whether the mirror returns to the same angle when it
+is commanded back to the same voltage, and whether that angle wanders with time. The
+re-centring loop assumes that a given command puts the pattern at a given place; a mirror that
+lands differently from one visit to the next, or drifts, adds its error to every localization in
+the way the deflector drift of Section~\ref{sec:eod} would.
+
+The third question is how long a move takes, and it bears on the design of the feedback loop
+rather than on accuracy. The pattern cycle of the proposal is 100~\textmu s, while a galvanometer
+step takes several hundred microseconds to complete. The re-centring can therefore run only once
+every few pattern cycles, and the molecule keeps moving while it does. At the diffusion
+coefficient of EGFR, about 0.3~\textmu m$^2$/s \cite{becerraQuantifyingProteinInteractions2024},
+a molecule moves $\sqrt{2Dt} \approx 13$~nm along each axis in 300~\textmu s, a substantial
+fraction of a 30~nm pattern. The delay and settling of the mirror are thus the latency of the
+tracking loop, and they decide how far the molecule can stray from the centre of the pattern
+before the pattern catches up.
+
+\subsubsection{Setup}
+
+The bench reproduces the scanning stage of the instrument on its own,
+Figure~\ref{fig:galvo-setup}. The 642~nm source, the same laser as in Section~\ref{sec:eod}, is
+folded by mirrors M1 and M2 onto the first scanner, G1, which steers the beam in $x$. Lenses L1
+and L2, both of focal length 100~mm, form a 4f relay that images G1 onto the second scanner, G2,
+which steers in $y$. After G2 the beam passes to one of two detectors. For the angle calibration
+it passes through a third 100~mm lens, L3, onto the camera at its focal plane, with the
+5.2~\textmu m pixels used throughout this work; the 100~mm focal length is then the conversion from
+angle to position. For every measurement in time it falls instead on a Thorlabs PDQ80A quadrant
+photodiode, 7.8~mm across, placed bare 200~mm from the scanner, whose difference outputs follow
+the position of the spot without the frame rate of a camera.
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.85\textwidth]{galvo-setup}
+    \caption{Galvanometer bench. The 642~nm source is folded by M1 and M2 onto G1, the $x$
+    scanner. L1 and L2 (both $f = 100$~mm) relay G1 onto G2, the $y$ scanner, at unit
+    magnification, so that both deflections pivot about G2. For the angle calibration, L3
+    ($f = 100$~mm) maps the beam angle onto the camera at its focal plane; for the measurements in
+    time, a quadrant photodiode replaces L3 and the camera, 200~mm from the scanner.}
+    \label{fig:galvo-setup}
+\end{figure}
+
+The scanners are commanded in two ways. For the calibration, the return and the step response, a
+Triggerscope~4 digital-to-analog converter writes the command voltage under the control of the
+acquisition software, with G1 on its first channel and G2 on its second, and the quadrant
+photodiode's $x$, $y$ and sum outputs are read by an NI USB-6001 data acquisition card. For the
+timing measurements, a function generator drives the servo input directly and an oscilloscope
+records the generator on one channel and the scanner's response on the other. Five measurements
+were made between 16 September and 16 October 2026.
+
+\paragraph{Angle calibration.}
+On 16 September each axis in turn was swept from $-1$ to $+1$~V in steps of 0.01~V, one camera
+frame per step, with the other axis held at 0~V. A narrower sweep of $\pm0.1$~V was recorded on
+the $x$ axis.
+
+\paragraph{Power cycling.}
+The same day, the spot was recorded on the camera with the servo drivers powered off and then
+powered on with both axes commanded to 0~V. On 28 September the comparison was repeated thirteen
+times on the quadrant photodiode, alternating off and on, with 3~s allowed for settling before each
+reading.
+
+\paragraph{Return and drift.}
+On 30 September each axis was pulsed repeatedly from 0~V to 0.05~V and back, for twenty cycles,
+with the other axis held at 0~V. The detector was read at both levels after 50~ms of settling, so
+each cycle records one return to the same commanded position.
+
+\paragraph{Step response.}
+On 2 October each axis was driven with a 0.05~V square wave at 10, 50, 100, 200 and 300~Hz for 150
+cycles, read on the quadrant photodiode at 10\,000 samples per second per channel. The command was
+streamed point by point by the software, which reproduces the commanded frequency exactly up to
+300~Hz; above it the converter drops commands, so the set stops there.
+
+\paragraph{Delay.}
+On 7 October the function generator drove each axis with a square wave of 0.56~V peak to peak at
+1, 100, 500 and 1000~Hz, with the oscilloscope recording the generator on its first channel and
+the photodiode on its second. On 16 October the measurement was repeated at 1~kHz with smaller
+steps, 5, 10, 50 and 100~mV peak to peak, on both axes.
+
+\subsubsection{Methods}
+
+\paragraph{Angle from the camera.}
+Each calibration frame is reduced to the centroid of the spot, converted to micrometres by the
+pixel size, and to an optical angle by dividing by the 100~mm focal length of L3. The angle is
+fitted against the command voltage by a straight line, whose slope is the scale factor of that
+axis in optical degrees per volt. Frames in which the spot has left the sensor are excluded.
+
+\paragraph{Position from the quadrant photodiode.}
+The photodiode reports the difference between the light on opposite halves of its face. Divided by
+the sum of all four quadrants, after subtracting the dark level, that difference becomes a
+dimensionless position that is independent of laser power. Its scale depends on the size of the
+spot rather than on the detector alone, so it is converted to micrometres from each run's own
+data: a run that visits two commanded voltages moves the spot by a distance known from the
+calibrated scale factor and the 200~mm standoff, and the ratio of that distance to the change in
+the normalized signal gives the scale. A run whose sum signal falls toward the dark level is
+rejected, since its position is then a ratio of noise to noise.
+
+\paragraph{Repeatability and drift.}
+For the return measurements the readings at 0~V are averaged within each cycle and a straight line
+is fitted through the per-cycle values against cycle number. The scatter about that line is the
+repeatability; the change along it over the run is the drift. The two are kept apart because a
+slow walk of the whole pattern and a cycle-to-cycle scatter are different failures with different
+remedies. Each is judged against the measurement noise, the scatter of the readings within a single
+dwell while the mirror is held still: a repeatability at or below that noise means the mirror
+returns better than this detector can tell.
+
+\paragraph{Step response.}
+A single cycle at 10\,000 samples per second contains only a handful of points across a transient of
+a few hundred microseconds. Many cycles are therefore folded into one, each aligned on its own
+measured edge rather than on the nominal period, since the software-paced command jitters by a
+fifth of a period or more. The sampling rate is chosen not to divide the drive frequency, so that
+successive cycles sample different phases and fill in the transient. The folded step gives the
+overshoot, as a percentage of the step, and the settling time; the scatter between cycles at each
+phase gives the noise floor against which the overshoot is judged.
+
+\paragraph{Delay.}
+The delay is measured edge by edge from the oscilloscope traces. On 7 October it runs from the
+generator crossing the midpoint of its swing to the photodiode signal crossing the midpoint of its
+own, each midpoint taken from its own channel so that the very different amplitudes of the two do
+not matter, with the crossings interpolated between samples. Every rising and falling edge in each
+record is measured, from 9 to 25 per capture, and the two directions are reported separately. The
+photodiode signal is inverted relative to the command on this bench, and its polarity is fixed by
+sliding each polarity across the plausible range of delays and keeping the better match; that range
+must stay below half a period, beyond which an inverted square wave and a delayed one cannot be
+told apart. The 16 October set is timed instead from 10\% of the drive's swing to 10\% of the
+response, and gives the 10 to 90\% rise of the response as well.
+
+\subsubsection{Results}
+
+\paragraph{Scale factor.}
+Over the range in which the spot stays on the sensor, the beam angle follows the command voltage on
+a straight line on both axes. G1 deflects the beam by $2.03^\circ$ per volt in $x$ and G2 by
+$1.45^\circ$ per volt in $y$ ($R^2 \geq 0.9999$ on both). Below about $-0.87$~V the spot runs off
+the edge of the camera and the frames carry no position; those points are not a property of the
+scanners. On the camera these scale factors are 3.54~mm and 2.52~mm of displacement per volt; on
+the quadrant photodiode at 200~mm, 7.09~mm and 5.04~mm per volt.
+
+The $x$ value agrees within 1.5\% with the factory setting of $2^\circ$ per volt. The $y$ value
+does not: it is 28\% low. Its ratio to the $x$ value, 0.712, is within 1\% of $\cos 45^\circ =
+0.707$, the factor by which a $45^\circ$ fold mirror turned about an axis in its plane of incidence
+deflects the beam less than one turned about the perpendicular axis. On this bench both scanners
+fold the beam in the plane of the table, G1 steering within that plane and G2 out of it, which is
+the geometry that would produce exactly this factor. The two scanners therefore appear to rotate
+equally per volt, as configured, with the difference between the axes arising from how G2 meets the
+beam rather than from G2 itself. Whatever its cause, the consequence for the instrument is the same:
+each axis needs its own measured scale factor, and the generic $4^\circ$ per volt of the servo
+documentation would overstate the deflection by a factor of two in $x$ and nearly three in $y$.
+
+\paragraph{Power cycling.}
+With the drivers powered off, the unheld mirrors come to rest 2.33~mm from their commanded zero on
+the camera, mostly along $x$, an offset of $1.3^\circ$ in beam angle. Powered on again, they return
+to zero. Over thirteen cycles on the quadrant photodiode, the position held while powered fluctuates
+about its trend by $5\times10^{-4}$ in $x$ and $8\times10^{-4}$ in $y$ in units of the normalized
+signal, below the measurement noise of $19\times10^{-4}$ and $10\times10^{-4}$. The first reading
+after power-up in that series had not settled and is excluded. Losing power is therefore not a
+loss of calibration: the servo brings each mirror back to the angle its own detector reads as zero,
+to within what this bench resolves.
+
+\paragraph{Return and drift.}
+Commanded repeatedly away and back, both mirrors return to the same place to within the
+measurement noise. Over twenty returns the scatter about the trend is 0.19~\textmu m in $x$ against
+a noise of 0.38~\textmu m, and 0.68~\textmu m in $y$ against 0.58~\textmu m, or about 1 and
+3~\textmu rad of beam angle at the 200~mm standoff. Superposed on that is a slow walk. In $x$ the
+return position moves by $-1.3$~\textmu m over the run, seven times its own cycle-to-cycle scatter;
+in $y$ it moves by only 0.2~\textmu m, within the scatter. The repeatability is at or below the
+8~\textmu rad specified for these scanners, and the walk in $x$, about 7~\textmu rad, is of the
+size their specified zero drift of 15~\textmu rad per degree Celsius would give for a fraction of a
+degree of warming. A walk of that kind moves the whole pattern without degrading it, and is the
+kind of error that an independent drift reference \cite{lopezOpensourceSubNanometerStabilization2025}
+removes.
+
+\paragraph{Step response.}
+Both axes follow a commanded step cleanly at every frequency measured. From 50 to 300~Hz the
+mirror in $x$ overshoots its final position by 0.8 to 1.2\% of the step and settles within 280 to
+310~\textmu s of the edge of its own motion; the mirror in $y$ overshoots by 0.33 to 0.42\% and settles within 310 to
+335~\textmu s. Neither figure changes with frequency over that range, which is what a property of
+the mirror and its servo should do, and the overshoot is close to the cycle-to-cycle noise on
+several runs, so it is bounded at about 1.3\% rather than ranked axis by axis. At 10~Hz the fold
+resolves the transient in coarser steps and the settling is reported as 600~\textmu s; that is the
+resolution of the fold, not a slower mirror. The two axes are not identical, $x$ overshooting
+about three times more and settling about 30~\textmu s faster than $y$, but neither is the weaker
+in every respect.
+
+\paragraph{Delay.}
+Between 100~Hz and 1~kHz, the beam follows the command after a fixed delay of 274~\textmu s in
+$x$ and 273~\textmu s in $y$, measured midpoint to midpoint. The delay changes by less than 3\%
+across a tenfold change in frequency, within the scatter. A fixed delay is a phase lag that grows
+in proportion to frequency, $10^\circ$ at 100~Hz but $99^\circ$ at 1~kHz, where the beam is a
+quarter of a cycle behind the command; it has to be compensated as a time offset, the same at every
+rate, not as a phase fitted at each frequency. In $x$ the delay depends on direction. The mirror
+reaches its midpoint 312~\textmu s after a rising command and 242~\textmu s after a falling one,
+at all three frequencies, so the 35~\textmu s spread of the pooled $x$ value is this systematic
+asymmetry and not noise. In $y$ the two directions differ by only about 15~\textmu s, 274 to
+283~\textmu s against 263 to 268~\textmu s. The 1~Hz records were sampled at 1~ms intervals, longer
+than the delay itself, and cannot resolve it.
+
+The smaller steps of 16 October give the start of the motion rather than its midpoint. From 10\%
+of the drive to 10\% of the response, the delay is 171 to 184~\textmu s in $x$ and 166 to
+180~\textmu s in $y$ for steps of 10 to 100~mV, and the 10 to 90\% rise of the response takes
+about 190 to 205~\textmu s on both axes. The 5~mV steps are at the noise floor and scatter widely.
+Adding the time from 10\% to 50\% of a rise of that length to the 10\% delay recovers roughly the
+274~\textmu s measured midpoint to midpoint, so the two sets agree once their different reference
+points are allowed for. The response time does not depend on the size of the step from 10 to
+100~mV, as expected of a linear servo far from its current limit.
+
+\subsubsection{Conclusion}
+
+The galvanometer pair does what the tracking scheme asks of it, and the measurements give the
+numbers its control software needs. Each axis turns the beam in proportion to its command, but the
+two axes do not share a scale factor: $2.03^\circ$ per volt in $x$ against $1.45^\circ$ in $y$,
+with the difference in $y$ consistent with the way G2 is mounted rather than with a fault in the
+scanner. Neither matches the generic factor of the servo documentation, so the measured values, not
+the nominal one, must be written into the control software, and the $y$ value must be measured again
+whenever the scanners are remounted.
+
+Positioning is repeatable to the limit of the detector, about a micrometre at the bench detector or
+a few microradians of beam angle, both after a commanded move and after power has been removed and
+restored. The slow walk seen in $x$, of a few microradians over a run, is consistent with the
+specified thermal drift of the scanners; it moves the pattern as a whole and is best removed by an
+independent drift correction rather than by the galvanometer calibration.
+
+A move takes a few hundred microseconds. Measured from the command, the mirror starts to move after
+about 175~\textmu s and passes the midpoint of a step after about 274~\textmu s; a small step
+takes about 200~\textmu s to cover 10 to 90\% of its length; and measured from the edge of its own
+motion, the mirror comes to rest within 280 to 335~\textmu s with an overshoot of about 1\% or
+less. These figures fix the latency of the re-centring loop at several pattern cycles of
+100~\textmu s, during which a molecule diffusing at the rate of EGFR moves of order 10 to 20~nm. The loop must therefore either wait for each move to settle before
+trusting the pattern position again, or account for the known delay and asymmetry of each axis,
+312 against 242~\textmu s on the two edges of $x$, in its model of where the pattern is.
+
+Three things remain open. The explanation of the $y$ scale factor by the mounting of G2 should be
+confirmed directly, by checking the orientation of its axis against the beam or by measuring the
+slight curvature that geometry imposes on a $y$ scan. The 200~mm standoff of the photodiode, which
+scales every micrometre figure above, was not measured. And the scale factors must be carried from
+beam angle at the scanner to displacement at the sample, which depends on the relay to the objective
+and is outside this bench.
+\FloatBarrier
 \printbibliography
 \section{apendix}
 

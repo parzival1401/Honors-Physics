@@ -139,3 +139,10 @@ eod-delay-trace-50khz.png         delay_trace_50khz.png
 eod-delay-vs-frequency.png        delay_vs_frequency.png
 eod-delay-settled-fraction.png    delay_settled_fraction.png
 eod-delay-step-response.png       delay_step_response.png
+
+# ---------------------------------------------------------------------------
+# Galvanometer pair (Galvo/), September-October 2026
+# ---------------------------------------------------------------------------
+# Setup drawing: G1 = X galvo, relayed 1:1 (L1-L2, f = 100 mm) onto G2 = Y
+# galvo; L3 (f = 100 mm) maps angle to position on the camera.
+galvo-setup.png                   galvo_setup.png

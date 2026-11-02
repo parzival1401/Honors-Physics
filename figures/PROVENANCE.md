@@ -393,3 +393,34 @@ Key numbers (10–50 kHz):
 | `eod-delay-trace-10khz` | copied but not used in the manuscript |
 
 Manuscript figure: `fig:eod-delay` (2×2).
+
+## Galvanometer pair (September–October 2026)
+
+Data: `Y:\Projects\NSF-MINFLUX\projects\Data\Evaluation Experiments\Galvo\`. Setup drawing:
+`optics_svg/EOD/galvo_setup.png` (Photoshop source `galvo.psd` beside it) → `galvo-setup.png`.
+
+Bench, in path order (user, 2026-11-02): 642 nm laser → M1 → M2 → G1 (X galvo) → L1 → L2 → G2
+(Y galvo) → L3 → camera. L1–L2 is a 1:1 4f relay (both f = 100 mm) imaging G1 onto G2. The camera
+sits at the focal plane of L3 (f = 100 mm) for the angle calibration; for every time-resolved run a
+bare PDQ80A sits 200 mm from the galvo (standoff taken from the run notes, not measured).
+
+Hardware: Cambridge Technology 6230K + Model 671 servo, 12 mm Si mirrors, factory-set for 40°
+optical p-p over ±10 V = 2.0 optical °/V (quote QU200428gt). The "4.0 °/V" in the run notes is
+the 671's generic 0.5 V/mech° factor and does not apply. "Off" in the on/off runs = servo driver
+powered off (user).
+
+| Set | Folder | Detector | Numbers used in the text |
+|---|---|---|---|
+| Angle calibration | `9-16-2026/1v-1v sweep` | camera, f = 100 mm | X 2.0304 °/V, Y 1.4451 °/V (on-sensor points only) |
+| Power cycling | `off-on comparation`, `9-28-2026` | camera; QPD | Δr 2327 µm; ON sd 5e-4 / 8e-4 vs noise 19e-4 / 10e-4 (normalized) |
+| Return and drift | `9-30-2026 drift` | QPD | X 0.185 / 0.38 / −1.32 µm; Y 0.68 / 0.58 / 0.22 µm (stability / noise / drift) |
+| Step response | `10-2-2026_xy_high_speed` | QPD, 10 kS/s | overshoot X 0.8–1.2 %, Y 0.33–0.42 %; settling X 280–307 µs, Y 313–333 µs |
+| Delay | `10-7-2026 delay` | scope, CH2 photodiode | 50–50 %: X 274.5 (rise 312, fall 242), Y 272.7 µs |
+| Small-step delay | `10-16-2026 small amp delay` | scope | 10–10 %: X 171–184, Y 166–180 µs; 10–90 rise 190–205 µs |
+
+Numbers are from the run write-ups (EXPERIMENT.md, RESULTS.md, README.md, summary PNGs). The peer
+was asked on 2026-11-02 to re-analyse and draw article-style figures. Results text to be re-checked
+when those land.
+
+Interpretation in the text, flagged for confirmation: Y/X = 0.712 ≈ cos 45° = 0.707, which fits G2
+rotating about an axis in its plane of incidence (45° fold, scanning out of the table plane).
