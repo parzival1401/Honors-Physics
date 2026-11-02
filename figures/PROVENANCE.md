@@ -418,7 +418,7 @@ powered off (user).
 | Delay | `10-7-2026 delay` | scope, CH2 photodiode | 50–50 %: X 274.5 (rise 312, fall 242), Y 272.7 µs |
 | Small-step delay | `10-16-2026 small amp delay` | scope: CH1 wave generator (also driving the galvo), CH2 QPD | 10–10 %: X 171–184, Y 166–180 µs; 10–90 rise 190–205 µs |
 
-Numbers are from the run write-ups (EXPERIMENT.md, RESULTS.md, README.md, summary PNGs). The peer
+SUPERSEDED by the re-analysis below. Numbers were from the run write-ups (EXPERIMENT.md, RESULTS.md, README.md, summary PNGs). The peer
 was asked on 2026-11-02 to re-analyse and draw article-style figures. Results text to be re-checked
 when those land.
 
@@ -443,3 +443,19 @@ Discrepancies resolved in the text:
   should be corrected.
 - The report's "Unit 1/Unit 2" saturating at 6.71/8.04 V is the reverse of the ramp plot (AO0/HVA1
   about 7.5–7.8 V, AO1/HVA2 about 6.6–6.8 V), so the text does not assign the two values to units.
+
+### Re-analysis used in the text (peer, 2026-11-02, `dev/analysis/galvo_thesis.jl` @ a4acb2e)
+
+Branch `worktree-galvo-delay-analysis` was local only when this was written. CSVs sit beside the
+figures on the NAS.
+
+| Figure | Key numbers |
+|---|---|
+| `galvo-cal-angle` | X 2.0287 ± 0.0005 °/V (183 frames), Y 1.4446 °/V (187); ±0.1 V sweeps 2.0312 / 1.4525 (folder `sweep_x_…163844` is really Y) |
+| `galvo-cal-residuals` | X rms 6.2 µm, quadratic −0.0139 °/V²; Y rms 0.5 µm, none |
+| `galvo-cal-bow` | Y bow 28.8 ± 0.1 µm/V² vs f·φ²/2 = 31.8 predicted; X 2.4 µm/V². Scan axes 7.6° off orthogonal |
+| `galvo-onoff-landing` | 12 settled ON readings, 4.5 min: sd x 0.29 / y 0.47 µm; noise 0.15 / 0.16; trend −0.12 / +1.04 µm/min. µm from the erf spot model (w = 0.841 mm) |
+| `galvo-drift-return` | X 0.22 µm scatter, −0.44 µm/min (−1.50 µm in 3.59 min); Y 0.63 µm, +0.06 µm/min. Dwell SEM 0.12 / 0.14 µm |
+| `galvo-step-*` | erfinv-linearised; overshoot X 1.6–1.8 %, Y 0.33–0.49 %; settling ±2 % from the 10 % point X 240–258, Y 274–288 µs; 10–90 X 198–205, Y 211–218 µs |
+| `galvo-delay-amplitude`, `-rise-`, `-edges` | 10-16: drive 50 % → 10 % 152–168 µs, → 50 % 246–261 µs, 10–90 201–213 µs, X = Y, flat 10–100 mVpp; X 5 mVpp unresolved |
+| `galvo-delay-frequency` | 10-7 (0.52 Vpp): QPD saturated; the X 312/240 rise/fall split is gap-crossing geometry, not the axis; rise/fall mean X 276–278, Y 270–275 µs |

@@ -1,0 +1,14 @@
+# Provenance for galvo_onoff_landing.png -- written by save_figure() in dev/plot_style.jl.
+# The same fields are embedded in the PNG (read_figure_info). One figure = one file.
+figure_id: "galvo_onoff_landing"
+former_title: "ON vs OFF landing positions / Galvo power-cycle repeatability"   # title removed from the image; the caption replaces it
+what_it_shows: "Landing position after each driver power cycle (12 settled ON readings over 4.5 min). Scatter about the trend: x 0.29 µm, y 0.47 µm; noise of one reading: x 0.15 µm, y 0.16 µm; trend: x -0.12 µm/min, y +1.04 µm/min."
+axes:
+  x: "time since the first settled ON reading (min)"
+  y: "beam position at the QPD at 0 V after each power cycle, minus its mean (µm); bars = noise of one reading"
+data:
+  source: "Galvo/9-28-2026/galvo_off_on_2026-09-28_155733.h5 (13 ON / 13 OFF readings, alternating, drivers power-cycled by hand)"
+  script: "MicroscopeMinFlux.jl/dev/analysis/galvo_thesis.jl"
+  commit: "a4acb2e on worktree-galvo-delay-analysis"
+created: "2026-11-02 17:13:41"
+notes: "Bench: 642 nm laser -> M1 -> M2 -> G1 (X galvo) -> L1 -> L2 -> G2 (Y galvo) -> L3 -> camera. L1-L2 is a 1:1 4f relay of two 100 mm lenses imaging G1 onto G2; the camera (ThorCam DCx, 5.2 µm pixels) sits in the focal plane of L3 (f = 100 mm), so position = f tan(optical angle). For the QPD runs a Thorlabs PDQ80A sits bare 200 mm from the galvo, no lens (optics_svg/EOD/galvo_setup.png). Galvos: Cambridge Technology 6230K, Model 671 servo drivers, 12 mm silicon mirrors, configured for 40 deg optical over ±10 V (quote QU200428gt), i.e. 2.0 optical deg/V as ordered, not the generic 671 figure of 4.0 deg/V (0.5 V per mechanical degree). 'Off' in the on/off runs means the servo driver is powered off. G2 tips the beam out of its fold plane (user-confirmed), so the Y deflection is the X-type deflection times cos45°. The 200 mm galvo-to-QPD standoff was measured. Positions are dark-corrected quadrant ratios X/SUM, Y/SUM. No scale was recorded in this run (SUM 0.07-0.19 V, about 2.8 V on 9-30). µm use a Gaussian-spot quadrant model, ratio = erf(sqrt2 (p - p0)/w), with w = 0.841 mm taken from the 9-30 two-level fits (same laser, same 200 mm, no lens; X and Y fits agree), evaluated at this run's operating point (ratio x 0.217, y -0.051): 547 and 528 µm per unit. In normalised units: scatter x 5.27e-04, y 8.89e-04; noise x 2.82e-04, y 3.05e-04. Each reading is 5 sub-reads of 800 samples at 5 kHz after a 3 s settle; noise = sd of the power-normalised sub-reads / sqrt(5). The first ON reading is excluded: its sub-reads walk by 0.1 V (mirror still settling). OFF readings sit at x ≈ 0.93, y ≈ 0.91, near the ratio's rail, so the OFF-ON distance comes from the camera (9-16): |Δr| = 2327 µm at f = 100 mm (1.333 deg optical), i.e. -0.638 V of X command and -0.372 V of Y command."

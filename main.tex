@@ -1574,7 +1574,9 @@ incoming and reflected beams. That doubling is why galvanometer angles are quote
 degrees, twice the mechanical ones. It holds only for that orientation of the axis. A mirror at
 an angle of incidence $i$, turned instead about an axis that lies in its own surface and in the
 plane of incidence, tips the reflected beam out of that plane by $2\theta\cos i$, which for the
-$45^\circ$ fold of a scanning mirror is $\sqrt{2}\,\theta$ rather than $2\theta$. Which case
+$45^\circ$ fold of a scanning mirror is $\sqrt{2}\,\theta$ rather than $2\theta$. The same rotation
+also swings the beam slightly within the plane, by $\theta^2$, so a scan of this kind traces a
+shallow parabola rather than a straight line. Which case
 applies depends only on how the scanner is mounted relative to the beam, and it matters below.
 
 The Model 671 converts command voltage to mirror angle at a fixed scale factor, which on these units
@@ -1672,7 +1674,7 @@ were made between 16 September and 16 October 2026.
 \paragraph{Angle calibration.}
 On 16 September each axis in turn was swept from $-1$ to $+1$~V in steps of 0.01~V, one camera
 frame per step, with the other axis held at 0~V. A narrower sweep of $\pm0.1$~V was recorded on
-the $x$ axis.
+each axis.
 
 \paragraph{Power cycling.}
 The same day, the spot was recorded on the camera with the servo drivers powered off and then
@@ -1692,163 +1694,323 @@ streamed point by point by the software, which reproduces the commanded frequenc
 300~Hz; above it the converter drops commands, so the set stops there.
 
 \paragraph{Delay.}
-On 7 October the function generator drove each axis with a square wave of 0.56~V peak to peak at
-1, 100, 500 and 1000~Hz, with the oscilloscope recording the generator on its first channel and
-the photodiode on its second. On 16 October the measurement was repeated at 1~kHz with smaller
+On 7 October the function generator drove each axis with a square wave of about 0.52~V peak to
+peak at 1, 100, 500 and 1000~Hz, with the oscilloscope recording the generator on its first channel
+and the photodiode on its second. On 16 October the measurement was repeated at 1~kHz with smaller
 steps, 5, 10, 50 and 100~mV peak to peak, on both axes, with the same two channels.
 
 \subsubsection{Methods}
 
 \paragraph{Angle from the camera.}
-Each calibration frame is reduced to the centroid of the spot, converted to micrometres by the
-pixel size, and to an optical angle by dividing by the 100~mm focal length of L3. The angle is
-fitted against the command voltage by a straight line, whose slope is the scale factor of that
-axis in optical degrees per volt. Frames in which the spot has left the sensor are excluded.
+Each calibration frame is reduced to the centroid of the spot, taken over the pixels above a fifth
+of its peak after subtracting the median level of the frame. The direction of the scan is found by
+a straight-line fit to the centroids in two dimensions, and each centroid is resolved into a
+displacement along that direction and one perpendicular to it. The displacement along the scan,
+divided by the 100~mm focal length of L3, gives the optical angle, which is fitted against the
+command voltage by a straight line; its slope is the scale factor of that axis in optical degrees
+per volt. The residuals of that fit show whether the response is linear, and the perpendicular
+displacement shows whether the scan is straight. Frames are excluded when the spot has left the
+sensor or lies within a few spot widths of its edge, and three consecutive frames of the $x$ sweep
+are excluded because they are about 30\% dimmer than their neighbours and smeared.
 
 \paragraph{Position from the quadrant photodiode.}
 The photodiode reports the difference between the light on opposite halves of its face. Divided by
 the sum of all four quadrants, after subtracting the dark level, that difference becomes a
-dimensionless position that is independent of laser power. Its scale depends on the size of the
-spot rather than on the detector alone, so it is converted to micrometres from each run's own
-data: a run that visits two commanded voltages moves the spot by a distance known from the
-calibrated scale factor and the 200~mm standoff, and the ratio of that distance to the change in
-the normalized signal gives the scale. A run whose sum signal falls toward the dark level is
-rejected, since its position is then a ratio of noise to noise.
+dimensionless position that is independent of laser power. It is not proportional to the position
+of the spot over any great range. For a Gaussian spot of radius $w$ centred a distance $p$ from the
+gap between the halves, the normalized signal is $\mathrm{erf}(\sqrt{2}\,p/w)$, which is linear only
+while the spot straddles the gap and saturates at $\pm1$ once it lies wholly on one side. The spot
+radius, 0.84~mm at the photodiode, is found by fitting that relation to the two commanded levels of
+the 30 September runs, whose separation is known from the calibrated scale factor and the measured
+200~mm standoff; the two axes give 0.834 and 0.849~mm. Positions are then converted to micrometres
+with the local slope of the relation at each run's operating point, and the step responses are
+linearised by the inverse error function before they are analysed. A run whose sum signal falls
+toward the dark level is rejected, since its position is then a ratio of noise to noise.
 
 \paragraph{Repeatability and drift.}
-For the return measurements the readings at 0~V are averaged within each cycle and a straight line
-is fitted through the per-cycle values against cycle number. The scatter about that line is the
-repeatability; the change along it over the run is the drift. The two are kept apart because a
-slow walk of the whole pattern and a cycle-to-cycle scatter are different failures with different
-remedies. Each is judged against the measurement noise, the scatter of the readings within a single
-dwell while the mirror is held still: a repeatability at or below that noise means the mirror
-returns better than this detector can tell.
+For the return and power-cycling measurements, the readings at 0~V are averaged within each cycle and
+a straight line is fitted through the per-cycle values against time. The scatter about that line is
+the repeatability, and its slope is the drift. The two are kept apart because a slow walk of the
+whole pattern and a cycle-to-cycle scatter are different failures with different remedies. Each is
+judged against the measurement noise, taken from the scatter of the readings within a single dwell
+while the mirror is held still.
 
 \paragraph{Step response.}
 A single cycle at 10\,000 samples per second contains only a handful of points across a transient of
-a few hundred microseconds. Many cycles are therefore folded into one, each aligned on its own
-measured edge rather than on the nominal period, since the software-paced command jitters by a
-fifth of a period or more. The sampling rate is chosen not to divide the drive frequency, so that
-successive cycles sample different phases and fill in the transient. The folded step gives the
-overshoot, as a percentage of the step, and the settling time; the scatter between cycles at each
-phase gives the noise floor against which the overshoot is judged.
+a few hundred microseconds. Many cycles are therefore folded into one. Each edge is normalized to its
+own two levels and aligned on its own crossing rather than on the nominal period, since the
+software-paced command jitters by a fifth of a period or more. The edges are then realigned on the
+folded template and averaged in 10~\textmu s bins. The sampling rate is chosen not to divide the
+drive frequency, so that successive cycles sample different phases and fill in the transient. The
+folded step gives the 10 to 90\% rise; the overshoot, as the largest excursion past the final level
+in percent of the step; and the settling time, from the 10\% point to the last exit from a band of
+$\pm2\%$ about the final level. The cycle-to-cycle scatter of a single sample is the noise floor
+against which the overshoot is judged.
 
 \paragraph{Delay.}
-The delay is measured edge by edge from the oscilloscope traces. On 7 October it runs from the
-generator crossing the midpoint of its swing to the photodiode signal crossing the midpoint of its
-own, each midpoint taken from its own channel so that the very different amplitudes of the two do
-not matter, with the crossings interpolated between samples. Every rising and falling edge in each
-record is measured, from 9 to 25 per capture, and the two directions are reported separately. The
-photodiode signal is inverted relative to the command on this bench, and its polarity is fixed by
-sliding each polarity across the plausible range of delays and keeping the better match; that range
-must stay below half a period, beyond which an inverted square wave and a delayed one cannot be
-told apart. The 16 October set is timed instead from 10\% of the drive's swing to 10\% of the
-response, and gives the 10 to 90\% rise of the response as well.
+The timing is measured from the oscilloscope records. All the edges of a capture, from 9 to 25,
+are aligned on the drive crossing the midpoint of its swing and averaged on the raw samples, without
+smoothing. The averaged response gives the delay to 10\% and to 50\% of its swing and its 10 to
+90\% rise, and the scatter between edges, by a jackknife over them, gives the uncertainty. Rising
+and falling edges are kept apart. The photodiode signal is inverted relative to the command on this
+bench, and its polarity is fixed by sliding each polarity across the plausible range of delays and
+keeping the better match; that range must stay below half a period, beyond which an inverted square
+wave and a delayed one cannot be told apart.
 
 \subsubsection{Results}
 
 \paragraph{Scale factor.}
 Over the range in which the spot stays on the sensor, the beam angle follows the command voltage on
-a straight line on both axes. G1 deflects the beam by $2.03^\circ$ per volt in $x$ and G2 by
-$1.45^\circ$ per volt in $y$ ($R^2 \geq 0.9999$ on both). Below about $-0.87$~V the spot runs off
-the edge of the camera and the frames carry no position; those points are not a property of the
-scanners. On the camera these scale factors are 3.54~mm and 2.52~mm of displacement per volt; on
-the quadrant photodiode at 200~mm, 7.09~mm and 5.04~mm per volt.
+a straight line on both axes, Figure~\ref{fig:galvo-cal-angle}. G1 deflects the beam by
+$2.0287 \pm 0.0005^\circ$ per volt in $x$, and G2 by $1.4446^\circ$ per volt in $y$, with an
+uncertainty below $10^{-4}$ ($R^2 = 0.99999$ and $1.000000$, from 183 and 187 frames). Narrower
+sweeps of $\pm0.1$~V on each axis give 2.031 and $1.453^\circ$ per volt. Below about $-0.87$~V the
+spot runs off the edge of the camera and the frames carry no position; those points are not a
+property of the scanners. At the camera these scale factors are 3.54~mm and 2.52~mm of displacement
+per volt; at the quadrant photodiode at 200~mm, 7.08~mm and 5.04~mm per volt.
 
-The $x$ value agrees within 1.5\% with the factory setting of $2^\circ$ per volt. The $y$ value
-does not: it is 28\% low. Its ratio to the $x$ value, 0.712, is within 1\% of $\cos 45^\circ =
-0.707$, the factor by which a $45^\circ$ fold mirror turned about an axis in its plane of incidence
-deflects the beam less than one turned about the perpendicular axis. On this bench both scanners
-fold the beam in the plane of the table, G1 steering within that plane and G2 out of it, which is
-the geometry that produces this factor. The two scanners therefore rotate equally per volt, as
-configured, and the difference between the axes arises from how G2 meets the beam rather than from
-G2 itself. The consequence for the instrument is that each axis needs its own measured scale factor, and the generic $4^\circ$ per volt of the servo
-documentation would overstate the deflection by a factor of two in $x$ and nearly three in $y$.
+The $x$ value agrees within 1.5\% with the factory setting of $2^\circ$ per volt. The $y$ value is
+28\% lower. Its ratio to the $x$ value, 0.712, is within 1\% of $\cos 45^\circ = 0.707$, the factor
+by which a $45^\circ$ fold mirror turned about an axis in its plane of incidence deflects the beam
+less than one turned about the perpendicular axis. On this bench both scanners fold the beam in the
+plane of the table, G1 steering within that plane and G2 out of it, which is the geometry that
+produces this factor. The two scanners therefore rotate equally per volt, as configured, and the
+difference between the axes arises from how G2 meets the beam rather than from G2 itself. The same
+geometry predicts a second, smaller effect, and it is there. As G2 tips the beam out of the plane it
+also swings it slightly within it, so the $y$ scan bows sideways in proportion to the square of the
+command, Figure~\ref{fig:galvo-cal-bow}. The measured bow is $28.8 \pm 0.1$~\textmu m/V$^2$ at the
+camera, against 31.8~\textmu m/V$^2$ predicted with no free parameter; the $x$ scan bows by only
+2.4~\textmu m/V$^2$. The consequence for the instrument is that each axis needs its own measured
+scale factor, and the generic $4^\circ$ per volt of the servo documentation would overstate the
+deflection by a factor of two in $x$ and nearly three in $y$.
+
+The two axes also differ in linearity, Figure~\ref{fig:galvo-cal-residuals}. The $y$ residuals
+are 0.5~\textmu m rms with no curvature. The $x$ residuals are 6.2~\textmu m rms and follow a
+shallow parabola, a quadratic term of $-0.0139^\circ$ per V$^2$ that takes the local slope from
+$2.05^\circ$ per volt at $-0.85$~V to $2.00^\circ$ per volt at $+1$~V. Only the $x$ deflection
+passes through the L1--L2 relay, where it carries the beam up to 3.5~mm off the lens axis, and the
+aberration of the relay is the likely cause, although a nonlinearity of G1 itself is not excluded.
+Finally, the two scan directions meet at $82.4^\circ$ on the sensor rather than at a right angle. A
+roll of the camera and a skew between the scanners cannot be told apart with these data, but either
+way the control software should calibrate the two axes together, in two dimensions, as for the
+rotated deflector of Section~\ref{sec:eod}.
+
+\begin{figure}[!htbp]
+    \centering
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{galvo-cal-angle}
+        \caption{}
+        \label{fig:galvo-cal-angle}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{galvo-cal-residuals}
+        \caption{}
+        \label{fig:galvo-cal-residuals}
+    \end{subfigure}
+
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{galvo-cal-bow}
+        \caption{}
+        \label{fig:galvo-cal-bow}
+    \end{subfigure}
+    \caption{Angle calibration of G1 ($x$) and G2 ($y$) on the camera at the focal plane of L3.
+    (a) Optical angle against command voltage with straight-line fits; the shaded band is the spot
+    off the sensor, excluded. (b) Residuals of those fits in micrometres at the camera. (c) Spot
+    displacement perpendicular to the scan: G2 bows quadratically, as a $45^\circ$ fold mirror
+    tipped out of its plane of incidence should (dashed, no free parameter).}
+    \label{fig:galvo-cal}
+\end{figure}
 
 \paragraph{Power cycling.}
 With the drivers powered off, the unheld mirrors come to rest 2.33~mm from their commanded zero on
-the camera, mostly along $x$, an offset of $1.3^\circ$ in beam angle. Powered on again, they return
-to zero. Over thirteen cycles on the quadrant photodiode, the position held while powered fluctuates
-about its trend by $5\times10^{-4}$ in $x$ and $8\times10^{-4}$ in $y$ in units of the normalized
-signal, below the measurement noise of $19\times10^{-4}$ and $10\times10^{-4}$. The first reading
-after power-up in that series had not settled and is excluded. Losing power is therefore not a
-loss of calibration: the servo brings each mirror back to the angle its own detector reads as zero,
-to within what this bench resolves.
+the camera, an offset of $1.33^\circ$ in beam angle, equivalent to $-0.64$~V of $x$ command and
+$-0.37$~V of $y$. Powered on again, they return to zero, Figure~\ref{fig:galvo-onoff-landing}. Over
+twelve settled power cycles on the quadrant photodiode in 4.5 minutes, the landing position scatters
+about its trend by 0.29~\textmu m in $x$ and 0.47~\textmu m in $y$, or 1.5 and 2.4~\textmu rad of
+beam angle, against a noise of 0.15 and 0.16~\textmu m per reading. The first reading after power-up
+in that series had not settled and is excluded, and the readings with power off lie beyond the
+linear range of the photodiode, so the camera gives the offset. Losing power is therefore not a loss
+of calibration: the servo brings each mirror back to the angle its own detector reads as zero, to
+within a few microradians. The landing position in $y$ also walked steadily, by 1.0~\textmu m per
+minute, 4.7~\textmu m over the series, while $x$ moved by only 0.12~\textmu m per minute.
 
 \paragraph{Return and drift.}
-Commanded repeatedly away and back, both mirrors return to the same place to within the
-measurement noise. Over twenty returns the scatter about the trend is 0.19~\textmu m in $x$ against
-a noise of 0.38~\textmu m, and 0.68~\textmu m in $y$ against 0.58~\textmu m, or about 1 and
-3~\textmu rad of beam angle at the 200~mm standoff. Superposed on that is a slow walk. In $x$ the
-return position moves by $-1.3$~\textmu m over the run, seven times its own cycle-to-cycle scatter;
-in $y$ it moves by only 0.2~\textmu m, within the scatter. The repeatability is at or below the
-8~\textmu rad specified for these scanners, and the walk in $x$, about 7~\textmu rad, is of the
-size their specified zero drift of 15~\textmu rad per degree Celsius would give for a fraction of a
-degree of warming. A walk of that kind moves the whole pattern without degrading it, and is the
-kind of error that an independent drift reference \cite{lopezOpensourceSubNanometerStabilization2025}
-removes.
+Commanded repeatedly away and back with power held on, both mirrors return to nearly the same place,
+Figure~\ref{fig:galvo-drift-return}. Over twenty returns in 3.6 minutes, the return position
+scatters about its trend by 0.22~\textmu m in $x$ and 0.63~\textmu m in $y$, against a standard
+error of 0.12 and 0.14~\textmu m for each dwell; that is 1.1 and 3.2~\textmu rad of beam angle,
+within the 8~\textmu rad repeatability specified for these scanners. Superposed on that is a slow
+walk. In $x$ the return position drifts by $-0.44$~\textmu m per minute, $-1.5$~\textmu m over the
+run and several times its own scatter; in $y$ it drifts by only 0.06~\textmu m per minute, within
+the scatter. The walk in $x$, about 7~\textmu rad over the run, is of the size the specified zero
+drift of 15~\textmu rad per degree Celsius would give for half a degree of warming, and the faster
+walk in $y$ after the power cycles is consistent with the same cause. A walk of that kind moves the
+whole pattern without degrading it, and is the kind of error that an independent drift reference
+\cite{lopezOpensourceSubNanometerStabilization2025} removes.
+
+\begin{figure}[!htbp]
+    \centering
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{galvo-onoff-landing}
+        \caption{}
+        \label{fig:galvo-onoff-landing}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{galvo-drift-return}
+        \caption{}
+        \label{fig:galvo-drift-return}
+    \end{subfigure}
+    \caption{Return of the beam to the commanded zero, on the quadrant photodiode. (a) Landing
+    position after each power cycle of the servo drivers, against time; bars are the noise of one
+    reading. (b) Return position after each 0.05~V excursion, against cycle; bars are the standard
+    error of the readings in each dwell.}
+    \label{fig:galvo-return}
+\end{figure}
 
 \paragraph{Step response.}
-Both axes follow a commanded step cleanly at every frequency measured. From 50 to 300~Hz the
-mirror in $x$ overshoots its final position by 0.8 to 1.2\% of the step and settles within 280 to
-310~\textmu s of the edge of its own motion; the mirror in $y$ overshoots by 0.33 to 0.42\% and settles within 310 to
-335~\textmu s. Neither figure changes with frequency over that range, which is what a property of
-the mirror and its servo should do, and the overshoot is close to the cycle-to-cycle noise on
-several runs, so it is bounded at about 1.3\% rather than ranked axis by axis. At 10~Hz the fold
-resolves the transient in coarser steps and the settling is reported as 600~\textmu s; that is the
-resolution of the fold, not a slower mirror. The two axes are not identical, $x$ overshooting
-about three times more and settling about 30~\textmu s faster than $y$, but neither is the weaker
-in every respect.
+Both axes follow a commanded step cleanly at every frequency measured,
+Figure~\ref{fig:galvo-step-100hz}. At 100~Hz the step rises from 10 to 90\% in 204~\textmu s in
+$x$ and 214~\textmu s in $y$, overshoots by 1.64 and 0.43\%, and settles to within $\pm2\%$ of its
+final level 254 and 284~\textmu s after its 10\% point. From 10 to 300~Hz the overshoot is 1.6 to
+1.8\% in $x$ and 0.33 to 0.49\% in $y$, against a noise floor of about 0.2\%, and it does not change
+with frequency, Figure~\ref{fig:galvo-step-overshoot}. Nor does the settling time, 240 to
+258~\textmu s in $x$ and 274 to 288~\textmu s in $y$, Figure~\ref{fig:galvo-step-settling}, or the
+rise, 198 to 205 and 211 to 218~\textmu s. That is what a property of the mirror and its servo
+should do. Rising and falling steps agree once the photodiode is linearised: without it, the
+compression of the detector near the edge of its range makes the $x$ overshoot read 1.33\% on rising
+and 1.78\% on falling edges, and with it 1.63 and 1.68\%. The two axes are not identical, $x$
+overshooting about four times more but settling about 30~\textmu s sooner than $y$, but neither is
+the weaker in every respect.
+
+\begin{figure}[!htbp]
+    \centering
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{galvo-step-100hz}
+        \caption{}
+        \label{fig:galvo-step-100hz}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{galvo-step-overshoot}
+        \caption{}
+        \label{fig:galvo-step-overshoot}
+    \end{subfigure}
+
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{galvo-step-settling}
+        \caption{}
+        \label{fig:galvo-step-settling}
+    \end{subfigure}
+    \caption{Step response of G1 ($x$) and G2 ($y$) to a 0.05~V square wave, folded over about
+    150 edges. (a) Rising step at 100~Hz as a fraction of the step, from its 10\% point, with the
+    $\pm2\%$ band. (b) Overshoot against drive frequency, rising edges filled and falling hollow;
+    bars are the cycle-to-cycle noise floor. (c) Settling time to $\pm2\%$ against drive
+    frequency.}
+    \label{fig:galvo-step}
+\end{figure}
 
 \paragraph{Delay.}
-Between 100~Hz and 1~kHz, the beam follows the command after a fixed delay of 274~\textmu s in
-$x$ and 273~\textmu s in $y$, measured midpoint to midpoint. The delay changes by less than 3\%
-across a tenfold change in frequency, within the scatter. A fixed delay is a phase lag that grows
-in proportion to frequency, $10^\circ$ at 100~Hz but $99^\circ$ at 1~kHz, where the beam is a
-quarter of a cycle behind the command; it has to be compensated as a time offset, the same at every
-rate, not as a phase fitted at each frequency. In $x$ the delay depends on direction. The mirror
-reaches its midpoint 312~\textmu s after a rising command and 242~\textmu s after a falling one,
-at all three frequencies, so the 35~\textmu s spread of the pooled $x$ value is this systematic
-asymmetry and not noise. In $y$ the two directions differ by only about 15~\textmu s, 274 to
-283~\textmu s against 263 to 268~\textmu s. The 1~Hz records were sampled at 1~ms intervals, longer
-than the delay itself, and cannot resolve it.
+The small steps of 16 October keep the spot within the linear range of the photodiode and give the
+delay directly, Figure~\ref{fig:galvo-delay-amplitude}. Measured from the drive's midpoint, the
+response reaches 10\% of its swing after 152 to 168~\textmu s and 50\% after 246 to
+261~\textmu s, on both axes, and its 10 to 90\% rise takes 201 to 213~\textmu s,
+Figure~\ref{fig:galvo-rise-amplitude}, in agreement with the folded steps of 2 October. None of
+these changes with the size of the step from 10 to 100~mV: the edge has the same shape at every
+amplitude, Figure~\ref{fig:galvo-delay-edges}, as expected of a linear servo far from its current
+limit. The 5~mV step in $x$ is at the noise floor and is not resolved.
 
-The smaller steps of 16 October give the start of the motion rather than its midpoint. From 10\%
-of the drive to 10\% of the response, the delay is 171 to 184~\textmu s in $x$ and 166 to
-180~\textmu s in $y$ for steps of 10 to 100~mV, and the 10 to 90\% rise of the response takes
-about 190 to 205~\textmu s on both axes. The 5~mV steps are at the noise floor and scatter widely.
-Adding the time from 10\% to 50\% of a rise of that length to the 10\% delay recovers roughly the
-274~\textmu s measured midpoint to midpoint, so the two sets agree once their different reference
-points are allowed for. The response time does not depend on the size of the step from 10 to
-100~mV, as expected of a linear servo far from its current limit.
+The larger steps of 7 October behave differently, and the reason is the detector. A 0.52~V step
+moves the spot 3.7~mm in $x$ and 2.6~mm in $y$ at the photodiode, several times its 0.84~mm radius,
+so the signal saturates at both ends and changes only while the spot crosses the gap between the
+quadrants. Its 50\% point marks that crossing, and its 10 to 90\% time, 75 to 129~\textmu s, is the
+time taken to cross the gap rather than the rise of the mirror. If the swing is not centred on the
+gap, rising and falling steps cross it at different fractions of their travel and so at different
+times. That is the origin of the apparent asymmetry in $x$, Figure~\ref{fig:galvo-delay-frequency},
+where rising steps cross at 312~\textmu s and falling steps at 240~\textmu s: the same split appears,
+smaller, at 50 and 100~mV on 16 October and vanishes at 10~mV, so it belongs to the detector and
+not to the axis. Averaged over the two directions, the crossing comes 276 to 278~\textmu s after the
+drive in $x$ and 270 to 275~\textmu s in $y$, the same at 100~Hz, 500~Hz and 1~kHz, about
+20~\textmu s later than the 50\% point of the small steps. The 1~Hz records were sampled at 1~ms
+intervals, longer than the delay itself, and cannot resolve it.
+
+Both sets show a fixed delay. A fixed delay is a phase lag that grows in proportion to frequency,
+$10^\circ$ at 100~Hz but $99^\circ$ at 1~kHz, where the beam is a quarter of a cycle behind the
+command. It has to be compensated as a time offset, the same at every rate, not as a phase fitted at
+each frequency.
+
+\begin{figure}[!htbp]
+    \centering
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{galvo-delay-amplitude}
+        \caption{}
+        \label{fig:galvo-delay-amplitude}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{galvo-rise-amplitude}
+        \caption{}
+        \label{fig:galvo-rise-amplitude}
+    \end{subfigure}
+
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{galvo-delay-edges}
+        \caption{}
+        \label{fig:galvo-delay-edges}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \includegraphics[width=\linewidth]{galvo-delay-frequency}
+        \caption{}
+        \label{fig:galvo-delay-frequency}
+    \end{subfigure}
+    \caption{Delay of G1 ($x$) and G2 ($y$) behind the function-generator drive. (a) Delay from
+    the drive's midpoint to 10\% (filled) and 50\% (hollow) of the response, against step size at
+    1~kHz. (b) The 10 to 90\% rise against step size. (c) Edge-averaged $x$ response at 10, 50 and
+    100~mV, with guides at 10, 50 and 90\%: the same shape at every amplitude. (d) Delay to the
+    midpoint of the photodiode swing for 0.52~V steps against frequency, rising edges filled and
+    falling hollow; at this step size the photodiode saturates, and the split between the $x$
+    edges is the detector's, not the mirror's.}
+    \label{fig:galvo-delay}
+\end{figure}
 
 \subsubsection{Conclusion}
 
 The galvanometer pair does what the tracking scheme asks of it, and the measurements give the
 numbers its control software needs. Each axis turns the beam in proportion to its command, but the
-two axes do not share a scale factor: $2.03^\circ$ per volt in $x$ against $1.45^\circ$ in $y$,
-with $y$ smaller by $\cos 45^\circ$ because G2 tips the beam out of the plane in which it folds
-it, not because of a fault in the scanner. Neither matches the generic factor of the servo documentation, so the measured values, not
-the nominal one, must be written into the control software, and the $y$ value must be measured again
-whenever the scanners are remounted.
+two axes do not share a scale factor: $2.029^\circ$ per volt in $x$ against $1.445^\circ$ in $y$.
+The $y$ value is smaller by $\cos 45^\circ$ because G2 tips the beam out of the plane in which it
+folds it, not because of a fault in the scanner, and the sideways bow of the $y$ scan matches the
+same geometry with no adjustable parameter. Neither value matches the generic factor of the servo
+documentation, so the measured values, not the nominal one, must be written into the control
+software, and the $y$ value must be measured again whenever the scanners are remounted. The $x$
+response bends by about 2.5\% in slope across $\pm1$~V, probably in the relay, and the two scan
+directions are $7.6^\circ$ from perpendicular on the sensor, so the calibration should be made in
+two dimensions rather than one axis at a time.
 
-Positioning is repeatable to the limit of the detector, about a micrometre at the bench detector or
-a few microradians of beam angle, both after a commanded move and after power has been removed and
-restored. The slow walk seen in $x$, of a few microradians over a run, is consistent with the
-specified thermal drift of the scanners; it moves the pattern as a whole and is best removed by an
-independent drift correction rather than by the galvanometer calibration.
+Positioning is repeatable to a few microradians of beam angle, both after a commanded move and after
+power has been removed and restored, within the scanners' specification. The slow walks seen, about
+2~\textmu rad per minute in $x$ with power held and about 5~\textmu rad per minute in $y$ after power
+cycling, are consistent with the specified thermal drift of the scanners. They move the pattern as a
+whole and are best removed by an independent drift correction rather than by the galvanometer
+calibration, and the scanners should be left powered and warm before a measurement.
 
-A move takes a few hundred microseconds. Measured from the command, the mirror starts to move after
-about 175~\textmu s and passes the midpoint of a step after about 274~\textmu s; a small step
-takes about 200~\textmu s to cover 10 to 90\% of its length; and measured from the edge of its own
-motion, the mirror comes to rest within 280 to 335~\textmu s with an overshoot of about 1\% or
-less. These figures fix the latency of the re-centring loop at several pattern cycles of
-100~\textmu s, during which a molecule diffusing at the rate of EGFR moves of order 10 to 20~nm. The loop must therefore either wait for each move to settle before
-trusting the pattern position again, or account for the known delay and asymmetry of each axis,
-312 against 242~\textmu s on the two edges of $x$, in its model of where the pattern is.
+A move takes a few hundred microseconds. Measured from the command, the mirror reaches a tenth of a
+small step after about 160~\textmu s and half of it after about 250~\textmu s, covers 10 to 90\% of
+it in about 200~\textmu s, and is within $\pm2\%$ of its final position 240 to 290~\textmu s after
+it began to move, with an overshoot of 1.7\% in $x$ and 0.4\% in $y$. The whole move is therefore
+complete 0.4 to 0.45~ms after the command, the same for both directions and for every step size
+measured. That fixes the latency of the re-centring loop at four or five pattern cycles of
+100~\textmu s, during which a molecule diffusing at the rate of EGFR moves about 16~nm. The loop must
+therefore either wait for each move to settle before trusting the pattern position again, or carry
+the fixed delay of each axis in its model of where the pattern is. The direction-dependent delay that
+the large steps appeared to show belongs to the detector and needs no compensation.
 
-One step remains: the scale factors must be carried from beam angle at the scanner to
-displacement at the sample, which depends on the relay to the objective and is outside this bench.
+Two things remain open. The curvature of the $x$ response should be traced, by recentring the beam
+in the relay and repeating the sweep. And the scale factors must be carried from beam angle at the
+scanner to displacement at the sample, which depends on the relay to the objective and is outside
+this bench.
 \FloatBarrier
 \printbibliography
 \section{apendix}

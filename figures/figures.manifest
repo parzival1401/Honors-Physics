@@ -153,3 +153,17 @@ galvo-setup.png                   galvo_setup.png
 # USB-6001 AO0/AO1 -> LF411 followers -> HVA1/HVA2 (1 kOhm inputs). See the
 # impedance-mismatch report beside it for the diagnosis.
 eod-drive-circuit.png             SCH_Schematic1_1-P1_2026-03-13*.png
+# Article-style graphs from dev/analysis/galvo_thesis.jl (MicroscopeMinFlux.jl,
+# worktree-galvo-delay-analysis a4acb2e), 2026-11-02. G1 = X, G2 = Y.
+galvo-cal-angle.png               galvo_cal_angle.png
+galvo-cal-residuals.png           galvo_cal_residuals.png
+galvo-cal-bow.png                 galvo_cal_bow.png
+galvo-onoff-landing.png           galvo_onoff_landing.png
+galvo-drift-return.png            galvo_drift_return.png
+galvo-step-100hz.png              galvo_step_100hz.png
+galvo-step-overshoot.png          galvo_step_overshoot.png
+galvo-step-settling.png           galvo_step_settling.png
+galvo-delay-frequency.png         galvo_delay_frequency.png
+galvo-delay-amplitude.png         galvo_delay_amplitude.png
+galvo-rise-amplitude.png          galvo_rise_amplitude.png
+galvo-delay-edges.png             galvo_delay_edges.png
