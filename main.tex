@@ -70,7 +70,7 @@ typically 10 to 30~ms \cite{becerraQuantifyingProteinInteractions2024}.
 MINFLUX, for minimal photon fluxes, reverses where the information comes from
 \cite{balzarottiNanometerResolutionImaging2017}. Instead of reading the position from the shape of
 the emitted light, it reads it from the excitation light, which the experimenter controls. The
-molecule is illuminated with a beam shaped as a doughnut: a ring of light around a central point
+molecule is illuminated with a beam shaped as a donut: a ring of light around a central point
 where the intensity falls to zero. A fluorophore emits at a rate proportional to the excitation
 intensity it sees, so a molecule sitting exactly at the zero stays dark, and its emission rises
 steeply as it moves away from it. The zero is placed in turn at a small set of known positions
@@ -92,8 +92,8 @@ photon budget. Since then MINFLUX has been extended to three dimensions and mult
 cells \cite{gwoschMINFLUXNanoscopyDelivers2020,papeMulticolor3DMINFLUX2020}. It has also been
 implemented on a standard microscope stand \cite{schmidtMINFLUXNanometerscale3D2021} and used to
 follow molecular motion on sub-millisecond timescales. Fluorophores have been localized to about
-2~nm in 400~$\mu$s \cite{eilersMINFLUXMonitorsRapid2018}, and to better than 20~nm within about
-100~$\mu$s \cite{schmidtMINFLUXNanometerscale3D2021}. The steps of motor proteins have been
+2~nm in 400~\textmu s \cite{eilersMINFLUXMonitorsRapid2018}, and to better than 20~nm within about
+100~\textmu s \cite{schmidtMINFLUXNanometerscale3D2021}. The steps of motor proteins have been
 resolved inside living cells \cite{deguchiDirectObservationMotor2023}.
 
 The same dependence on the pattern is the method's main liability. Because every position is
@@ -101,7 +101,7 @@ computed relative to where the zero is believed to have been placed, anything th
 or mislocates the pattern biases the result, and that bias does not average away with more photons.
 Simulations of fixed absorption dipoles and optical aberrations find systematic errors of up to
 about a quarter of the pattern diameter \cite{stallingaAbsorptionDipoleEffects2026}. The quality of
-the doughnut's zero has become a subject of its own \cite{lopezOptimizationCharacterizationToroidal2023},
+the donut's zero has become a subject of its own \cite{lopezOptimizationCharacterizationToroidal2023},
 and the sample must be held still to sub-nanometre precision
 \cite{lopezOpensourceSubNanometerStabilization2025}.
 
@@ -112,19 +112,19 @@ binding and unbinding events that video-rate tracking cannot capture
 \cite{becerraQuantifyingProteinInteractions2024}. The proposal therefore calls for a MINFLUX system
 that tracks single proteins and protein pairs at kHz rates, and combines it with a mode sorter that
 measures the separation between the two members of a pair. Its worked example sets the scale of the
-instrument. A scan cycle of 100~$\mu$s, a pattern 30~nm across and 42 detected photons per cycle
+instrument. A scan cycle of 100~\textmu s, a pattern 30~nm across and 42 detected photons per cycle
 localize a molecule with a precision of 1.7~nm at a rate of 10~kHz. The stated target is a
 centroid precision below 2~nm from single fluorophores at 10~kHz
 \cite{becerraQuantifyingProteinInteractions2024}.
 
 \paragraph{Why two kinds of beam steering.} Tracking asks two different things of the optics that
 move the excitation, and the proposal assigns them to two different devices
-\cite{becerraQuantifyingProteinInteractions2024}. The first is to step the doughnut between the
-positions of the pattern within every cycle. With four exposures in 100~$\mu$s each position is
-held for about 25~$\mu$s, so a move between positions must take a small fraction of that. The
+\cite{becerraQuantifyingProteinInteractions2024}. The first is to step the donut between the
+positions of the pattern within every cycle. With four exposures in 100~\textmu s each position is
+held for about 25~\textmu s, so a move between positions must take a small fraction of that. The
 positions are only tens of nanometres apart in the sample, but they must be placed exactly,
 because they are the reference against which the molecule is located. In the proposal this task
-belongs to two electro-optic deflectors, one for each transverse axis, which translate the beam
+belongs to two electro-optic deflectors (EODs), one for each transverse axis, which translate the beam
 ``at MHz speed and high precision''. An electro-optic deflector has no moving part, so it can
 switch at electronic rates, but its range is small (Section~\ref{sec:eod}). A calibration error in
 it scales or distorts the pattern itself, and so biases every localization in the way described
@@ -132,7 +132,7 @@ above.
 
 The second task is to follow the molecule. A receptor diffusing in the membrane does not stay
 inside a 30~nm pattern. The diffusion coefficients measured for EGFR, about 0.25 to
-0.37~$\mu$m$^2$/s \cite{becerraQuantifyingProteinInteractions2024}, carry it of order a
+0.37~\textmu m$^2$/s \cite{becerraQuantifyingProteinInteractions2024}, carry it of order a
 micrometre in a second, far beyond what the deflectors can reach. The proposal therefore
 re-centres the whole pattern on each new position estimate through a feedback loop driving a
 two-axis galvanometer mirror system. Here range matters more than speed. A galvanometer moves a
@@ -175,7 +175,7 @@ The galvanometer pair was added to that plan, because the re-centring it perform
 of the steering and is calibrated with the same bench and the same methods
 (Section~\ref{sec:galvo}). Section~\ref{sec:conclusion} returns to these goals and collects the
 operating parameters the measurements establish.
-\section{EOD}
+\section{Electro-optic deflectors}
 \label{sec:eod}
 \subsection{Physical concept}
 
@@ -274,13 +274,15 @@ These deflectors were chosen for this instrument for speed. Of the ways to steer
 an electro-optic deflector is the one that can switch the pattern between its positions at
 electronic rather than mechanical rates, and the MINFLUX cycle is built on exactly that switching;
 the small angle and high voltage are the costs accepted for it. Concretely, the instrument carries
-two Leysop \texttt{ED2-2T-LT-AR561-642} deflectors, one per transverse axis, with a 2~mm clear aperture in a 60~mm housing and an antireflection coating
-covering both the 561 and 642~nm excitation lines. Each is driven single-ended through two MHV
-electrode inputs by a Thorlabs HVA200 high-voltage amplifier ($\times20$, $\pm200$~V), which is
-fed in turn from the FPGA through a digital-to-analog converter and an op-amp preamplifier stage.
+two Leysop \texttt{ED2-2T-LT-AR561-642} deflectors, one per transverse axis, with a 2~mm clear
+aperture in a 60~mm housing and an antireflection coating covering both the 561 and 642~nm
+excitation lines. Each is driven single-ended through two MHV electrode inputs by a Thorlabs HVA200
+high-voltage amplifier (gain $-20$, $\pm200$~V). In the instrument each amplifier is to be fed from
+the FPGA through a fast digital-to-analog converter and an op-amp preamplifier stage; on the bench
+it is fed from a data acquisition card through a voltage follower, as described under Setup.
 The vendor supplies no datasheet for these semi-custom units; the only performance figure given
 in writing is a quoted minimum deflection sensitivity of ${>}3$~mrad/kV, and the deflection pivot
-is stated to lie at the centre of the crystal. Everything else used by the control system is
+is stated to lie at the centre of the crystal, which sits at the centre of the housing. Everything else used by the control system is
 established by the measurements reported below.
 
 The two deflectors are referred to throughout by serial number. EOD34 is the first in the beam
@@ -320,11 +322,10 @@ Timing is the third. The photon economy of MINFLUX is what opens the microsecond
 molecular jumps and conformational changes become observable
 \cite{eilersMINFLUXMonitorsRapid2018}, and reaching that regime on a conventional microscope stand
 has depended specifically on synchronized electro-optical and galvanometric beam steering together
-with sub-nanometer sample stabilization \cite{schmidtMINFLUXNanometerscale3D2021}. The requirement
+with sub-nanometre sample stabilization \cite{schmidtMINFLUXNanometerscale3D2021}. The requirement
 this places on the deflector is that the step settling of the whole drive chain be small compared
 with the dwell at each position of the pattern, so that the excitation is stationary during every
-sub-exposure. Whether that holds is a property of the amplifier and preamplifier as much as of the
-crystal. The camera-rate measurements reported below cannot reach that timescale; they establish
+sub-exposure. Whether that holds is a property of the drive electronics as much as of the crystal. The camera-rate measurements reported below cannot reach that timescale; they establish
 whether a held deflection stays put over seconds. The microsecond step response is measured
 separately, with a fast position detector in place of the camera.
 
@@ -365,7 +366,7 @@ full range. In the first configuration, the card's outputs were connected direct
 amplifier inputs, and a ramp of the command from $-10$ to $+10$~V reached neither end: both the
 command read back at the card and the amplifier monitor followed the setpoint only up to about
 7~to~8~V of either sign and then stayed flat, which limited the drive to the crystals to roughly
-$\pm140$ to $\pm160$~V instead of $\pm200$~V. The cause is an impedance mismatch. The HVA200 has
+$\pm135$ to $\pm160$~V instead of $\pm200$~V. The cause is an impedance mismatch. The HVA200 has
 an input impedance of only 1~k$\Omega$, so a 10~V command must supply 10~mA, while the USB-6001's
 analog outputs are rated for $\pm5$~mA. Measured at the point of saturation, the two outputs
 delivered 6.7 and 7.68~mA into amplifier inputs of 1.002 and 1.045~k$\Omega$. Those products,
@@ -389,7 +390,7 @@ a high-speed digital-to-analog converter, as described above.
     \includegraphics[width=0.85\textwidth]{eod-drive-circuit}
     \caption{Deflector drive circuit. The analog outputs AO0 and AO1 of the USB-6001 each drive an
     LF411 voltage follower, which supplies the 1~k$\Omega$ input of its HVA200 amplifier; HVA1
-    (Voltage Amplifier~1) drives EOD34 and HVA2 drives EOD35. AI1 and AI3 read back the commands,
+    (labelled Voltage Amplifier~1 in the schematic) drives EOD34 and HVA2 drives EOD35. AI1 and AI3 read back the commands,
     and AI0 and AI2 read the amplifier monitor outputs.}
     \label{fig:eod-drive-circuit}
 \end{figure}
@@ -443,7 +444,7 @@ EOD35 with it; the first relay cannot be isolated from EOD35 on this bench.
 \paragraph{Beam quality against deflection.}
 Rather than translating the deflector, this measurement drives it. EOD34 and EOD35 are each
 swept across the full drive range while the beam is recorded at each step, so that beam shape can be followed
-as a function of the commanded deflection instead of being characterised at a single setting.
+as a function of the commanded deflection instead of being characterized at a single setting.
 The sweep is quoted throughout as the command voltage, $\pm10$~V, which the high-voltage
 amplifier raises by a factor of twenty to the $\pm200$~V appearing across the crystal electrodes.
 An undeflected control frame is recorded for each deflector. The arrangement is that of
@@ -478,7 +479,8 @@ measures the pointing stability of the laser and the bench alone, against which 
 are compared. Neither run resolves anything faster than the camera frame interval.
 
 \paragraph{Step response.}
-How quickly the beam follows a change of drive is measured without the camera. The deflected beam
+How quickly the beam follows a change of drive is measured without the camera, with the command
+supplied by a function generator. The deflected beam
 falls on a Thorlabs PDQ80A quadrant photodiode, whose difference output is proportional to the
 position of the beam on the detector for small displacements, with a specified bandwidth of
 150~kHz. Each deflector in turn is driven with a square wave at frequencies from 1 to 50~kHz, of
@@ -528,7 +530,7 @@ A circularly symmetric Gaussian on a constant pedestal,
 \begin{equation}
     I(x,y) = C \exp\!\left(-\frac{2\left[(x-x_0)^2 + (y-y_0)^2\right]}{\omega^2}\right) + b ,
 \end{equation}
-is fitted by Nelder--Mead least squares, to at most five thousand iterations, initialised from
+is fitted by Nelder--Mead least squares, to at most five thousand iterations, initialized from
 the measured peak amplitude, the centroid, the background level, and a radius taken from the
 profile width. The model carries no rotation angle and no separate widths along the two axes; it
 is the ellipticity above, not the fit, that reports departure from circularity.
@@ -536,7 +538,7 @@ is the ellipticity above, not the fit, that reports departure from circularity.
 The fit runs on a square crop about the centre whose half-side is two and a half times the
 starting radius, floored at 250~pixels. Scaling the crop to the beam matters: at the expanded end
 of this bench the spot is several hundred pixels across, and a crop that holds less than the core
-drives the coefficient of determination down to a value that reads as "not Gaussian" when it
+drives the coefficient of determination down to a value that reads as ``not Gaussian'' when it
 means only that the window was too small to contain the Gaussian. The reported $R^2$ is computed
 against that crop.
 
@@ -561,8 +563,8 @@ multiplying by twenty. Each sweep step records this monitor value together with 
 output and a frame.
 
 Deflection is obtained from the displacement of the beam centre across the sweep. With the
-crystal-to-sensor distance $L$ as the lever arm, the angle follows from the displacement as
-$\theta \simeq \Delta x / L$ in the small-angle limit, which at the milliradian angles here is
+crystal-to-sensor distance $d$ as the lever arm, the angle follows from the displacement as
+$\theta \simeq \Delta x / d$ in the small-angle limit, which at the milliradian angles here is
 indistinguishable from the exact inverse tangent. The sensitivity is not read from the endpoints
 but from an ordinary least-squares regression of beam centre against recovered drive voltage
 across the whole sweep, expressed in milliradians per kilovolt and compared against the
@@ -570,7 +572,7 @@ manufacturer's quoted minimum of 3~mrad/kV.
 
 \paragraph{Comparing a frame against the control.}
 Where a frame is compared with an undeflected reference, both are mean-subtracted and their
-two-dimensional cross-correlation is computed by Fourier transform, normalised by the square root
+two-dimensional cross-correlation is computed by Fourier transform, normalized by the square root
 of the product of their summed squares, so that a peak of unity denotes identical frames up to a
 shift. The peak value measures how far the beam still resembles the reference, and the location
 of that peak relative to zero lag gives the displacement between them.
@@ -578,7 +580,7 @@ of that peak relative to zero lag gives the displacement between them.
 \paragraph{Quantifying pointing stability.}
 Within each held voltage the beam centre of every frame is referred to the mean centre of that
 hold, so that the deflection itself is removed and only the wander about it remains. The spread
-of that wander is summarised by its standard deviation and its peak-to-peak range, computed on
+of that wander is summarized by its standard deviation and its peak-to-peak range, computed on
 the radial displacement, and converted to angle through the lever arm as above. At 380~mm one
 camera pixel corresponds to about 0.014~mrad.
 
@@ -595,7 +597,7 @@ captures whose half period is long enough, 40~\textmu s or more, for the beam to
 detector gain is the same in every file, so the throw carries over to the faster captures where
 the beam never settles. The delay is the time from the drive's half-swing crossing to the beam
 reaching a tenth of its throw, and a delay shorter than one sample interval is reported as
-unresolved. The approach is summarised in two ways: by the fraction of the throw reached 5, 10 and
+unresolved. The approach is summarized in two ways: by the fraction of the throw reached 5, 10 and
 25~\textmu s after the edge, and by a fit to the averaged steps from 10 to 50~kHz of a delayed
 two-stage response,
 \begin{equation}
@@ -653,7 +655,7 @@ deflectors most simply as a difference in where each crystal sits relative to th
     \end{subfigure}
     \caption{Cross-correlation of each frame against the control reference, against stage
     position in millimetres, for EOD34 and EOD35. (a) Peak
-    normalised correlation, where unity
+    normalized correlation, where unity
     denotes a beam identical to the control; (b) width of the correlation peak; (c) displacement
     of the beam in $x$ and (d) in $y$, from the location of the peak.}
     \label{fig:eod-beam-xcorr}
@@ -892,8 +894,9 @@ remainder; it has the character of a settling transient and is excluded from the
 
 \paragraph{Pointing stability.}
 The laser and bench alone set the floor, Figure~\ref{fig:laser-stab}. Over 673~s the beam wanders
-with a standard deviation of 0.0019~mrad in $x$ and 0.0046~mrad in $y$, 0.0022~mrad in total,
-and a peak-to-peak range of 0.012, 0.020 and 0.012~mrad respectively. The larger figure in $y$
+with a standard deviation of 0.0019~mrad in $x$ and 0.0046~mrad in $y$, and of 0.0022~mrad in its
+radial distance from the mean position, with peak-to-peak ranges of 0.012, 0.020 and 0.012~mrad
+respectively. The larger figure in $y$
 comes from a slow drift across the run rather than from frame-to-frame scatter.
 
 \begin{figure}[!htbp]
@@ -1150,7 +1153,8 @@ crystal's two electro-optic coefficients, and leaving it uncontrolled makes the 
 depend on how the laser's polarization meets each crystal rather than on the device. With the polarization fixed, EOD34 and EOD35 still differ by about
 six percent, so each needs its own calibration.
 
-Held at a fixed voltage, EOD35 is as steady as the laser beneath it, at about 0.001~mrad. EOD34
+Held at a fixed voltage, EOD35 adds no measurable wander to that of the laser beneath it, about
+0.001~mrad within a hold. EOD34
 is equally steady over most of its range but drifts slowly when held at zero or at most negative
 drives, by up to 0.03~mrad over half a minute. For MINFLUX acquisition this matters less as noise
 than as a systematic offset: a pattern calibrated on EOD34 shortly after a large step would carry
@@ -1158,8 +1162,9 @@ the drift into its positions.
 
 On the microsecond scale the deflectors are fast enough for the MINFLUX cycle, but not
 instantaneous. The beam begins to move about half a microsecond after the amplifier output, a
-fixed delay that timing can absorb, and then arrives in two stages: most of the way within about a
-microsecond, and the remainder over a slower stage with a time constant of 3 to 4~\textmu s. Both
+fixed delay that timing can absorb, and then arrives in two stages: a fast stage within about a
+microsecond, carrying 41 percent of the step for EOD34 and 59 percent for EOD35, and the remainder
+over a slower stage with a time constant of 3 to 4~\textmu s. Both
 deflectors are within the noise of their target by 25~\textmu s, the dwell of each position in a
 100~\textmu s cycle of four, but in the first 5~\textmu s of a dwell EOD34 is up to a fifth of the
 step short and EOD35 up to a tenth. The response is the same at every rate from 10 to 50~kHz, so it
@@ -1181,7 +1186,7 @@ its specification turns on the lever arm: its shortfall corresponds to about 4~m
 separated from EOD35, because station P3 is inaccessible; the station data rest on one frame
 each; and the final station, after the amplification stage, is too dim to interpret. The origin
 of the non-Gaussian wings, and of the slow drift in EOD34 alone, has yet to be identified.
-\section{Donut}
+\section{Donut beam}
 \label{sec:donut}
 \subsection{Physical concept}
 
@@ -1253,7 +1258,7 @@ condition has to be verified at the focus of the objective.
 
 MINFLUX determines an emitter's position by probing it with an intensity minimum rather than by
 collecting the full diffraction pattern of its fluorescence, and this is what allows it to reach
-single-digit nanometer precision while detecting ten to a hundred times fewer photons than
+single-digit nanometre precision while detecting ten to a hundred times fewer photons than
 centroid-based localization
 \cite{balzarottiNanometerResolutionImaging2017,eilersMINFLUXMonitorsRapid2018}. The same property is
 the method's vulnerability. Because the position estimate is referred to the zero of the excitation
@@ -1265,7 +1270,7 @@ whether both survive the deflection that moves the pattern.
 
 Conditions that distort the excitation pattern produce not merely a noisier estimate but a biased
 one: simulations of fixed absorption dipoles and optical aberrations in MINFLUX find systematic
-localization errors reaching roughly a quarter of the diameter of the circle spanned by the doughnut
+localization errors reaching roughly a quarter of the diameter of the circle spanned by the donut
 centre positions \cite{stallingaAbsorptionDipoleEffects2026}. An error of that character cannot be
 averaged away by collecting more photons, which is what distinguishes a compromised null from a
 merely noisy measurement and what makes the depth and symmetry of the null worth measuring in their
@@ -1287,8 +1292,9 @@ plate between them setting the input polarization of the second crystal. Every l
 length of 100~mm except L5, of 13.5~mm. Two further relays follow EOD35, each a pair of lenses
 separated by the sum of their focal lengths: L3 and L4 image the deflection plane of EOD35 at unit
 magnification onto an intermediate plane one focal length beyond L4, and L5 and L6 image that plane
-in turn onto a plane one focal length beyond L6, conjugate to both deflectors. The second relay is
-also the beam expander. Its magnification of $100/13.5\approx7.4$ should take the beam of about
+in turn onto a plane one focal length beyond L6, conjugate to both deflectors. In the naming of the
+stations of Section~\ref{sec:eod}, L1 and L2 form the first relay, L3 and L4 the second, and L5 and
+L6 the beam expander. Its magnification of $100/13.5\approx7.4$ should take the beam of about
 1~mm that passes the deflectors to about 7~mm, inside the 5 to 10~mm window recommended for the
 plate, and reduce every deflection angle by the same factor; the beam size at the plate was not
 measured. The vortex phase plate, a Vortex Photonics \texttt{V-633-10-1} of charge one, sits in
@@ -1363,7 +1369,7 @@ distortion.
 For the deflection sweep, the centre of every frame is located by the same fit and its displacement
 taken relative to the control frame, and straight lines are fitted to the displacement against
 command voltage along both camera axes. The extinction ratio is recomputed for every frame. The
-shape of each frame is compared with the control by the normalised cross-correlation of a
+shape of each frame is compared with the control by the normalized cross-correlation of a
 101-pixel square cropped about each frame's own centre, which is unity for an identical pattern;
 because each crop follows its donut, this measures a change of shape rather than the displacement.
 The first frame of the EOD34 sweep, recorded at $+10$~V before the beam had moved, carries the same
@@ -1514,7 +1520,7 @@ axes square, or the calibration has to carry both components of each deflector's
 than a single sensitivity per axis. The rotation also bears on the polarization of
 Section~\ref{sec:eod}, since the half-wave plate ahead of EOD35 must align the light to the crystal
 axis as actually mounted. The two sensitivities measured here, 4.82 and 4.47~\textmu m/V, differ by
-seven percent, and in the opposite sense from the six percent found at the perpendicular setting of
+eight percent, and in the opposite sense from the six percent found at the perpendicular setting of
 the polarization measurements. Each deflector's response depends on the polarization it receives in
 this particular path, which is a reminder that the calibration belongs to the assembled optics rather
 than to the deflector alone.
@@ -1558,7 +1564,7 @@ than the donut at a known focus.
         \label{fig:donut-sweep-disp-eod35}
     \end{subfigure}
     \caption{The donut as each deflector is swept across $\pm10$~V of command voltage, the other
-    held at 0~V. (a) Normalised cross-correlation with the undeflected control, each frame cropped
+    held at 0~V. (a) Normalized cross-correlation with the undeflected control, each frame cropped
     about its own centre so that only a change of shape registers. (b) Extinction ratio: filled where
     the null is resolved, open for an upper bound, with the one-unit floor dotted. (c, d)
     Displacement of the donut at the camera while sweeping (c) EOD34 and (d) EOD35, along $x$ and
@@ -1605,7 +1611,7 @@ should be removed in its mount or carried into a two-axis calibration. Two quest
 the bench altogether: whether the null survives the high numerical aperture of the objective, where
 the handedness of the circular polarization decides it, and how deep it is at the sample.
 
-\section{Galvanometer}
+\section{Galvanometer scanners}
 \label{sec:galvo}
 \subsection{Physical concept}
 
@@ -1621,13 +1627,13 @@ state the mirror angle is proportional to it. The scanners used here are Cambrid
 The servo is what makes the device precise, and it also sets the limits on its precision. A
 mirror that is held by feedback returns to the angle its detector reports, so its repeatability and
 drift are those of the detector rather than of the mechanism: the manufacturer specifies a
-linearity of 99.9\% over $20^\circ$, a zero drift of at most 15~\textmu rad and a scale drift of
-at most 50~ppm per degree Celsius for this series. Its speed is limited by the opposite end of the
+short-term repeatability of 8~\textmu rad, a linearity of 99.9\% over $20^\circ$, and drifts of at
+most 15~\textmu rad in zero and 50~ppm in scale per degree Celsius for this series. Its speed is limited by the opposite end of the
 loop. The rotor and mirror have inertia, the coil current is finite, and the servo has to bring the
 mirror to rest at the new angle without overshooting it, so a commanded step is followed by a delay
 before the mirror moves, a rise as it swings, and a settling interval as it comes to rest. For
-mirrors of this size these times are hundreds of microseconds, a thousand times longer than the
-electro-optic deflectors of Section~\ref{sec:eod}. This is the trade the instrument is built
+mirrors of this size these times are hundreds of microseconds, a hundred times or more longer than
+the response of the electro-optic deflectors of Section~\ref{sec:eod}. This is the trade the instrument is built
 around: the galvanometer is slow, but it can turn the beam through tens of degrees rather than
 milliradians.
 
@@ -1646,7 +1652,7 @@ applies depends only on how the scanner is mounted relative to the beam, and it 
 The Model 671 converts command voltage to mirror angle at a fixed scale factor, which on these units
 was set at the factory for a full scan of $40^\circ$ optical over the $\pm10$~V command range.
 That is $2^\circ$ of optical deflection per volt, or $1^\circ$ of mechanical rotation per volt,
-half the driver's generic factor of $0.5$~V per mechanical degree. The scale factor is what turns
+half the $2^\circ$ per volt of the driver's generic setting of $0.5$~V per mechanical degree. The scale factor is what turns
 the voltages written by the control software into beam angles, and so it is the first thing
 measured below.
 
@@ -1669,7 +1675,7 @@ that single pivot to the objective.
 An angle becomes a position wherever the beam meets a lens or a screen. A lens of focal length
 $f$ maps a beam entering it at angle $\theta$ to a point a distance $f\tan\theta \approx f\theta$
 from its axis in its back focal plane, independent of where the beam crosses the lens; a bare
-detector a distance $L$ from the pivot sees the beam move by $L\theta$. The bench below uses the
+detector a distance $d$ from the pivot sees the beam move by $d\theta$. The bench below uses the
 first arrangement to calibrate angle against voltage and the second to follow the beam in time.
 
 \paragraph{The role in the instrument.}
@@ -1754,8 +1760,9 @@ each cycle records one return to the same commanded position.
 \paragraph{Step response.}
 On 2 October each axis was driven with a 0.05~V square wave at 10, 50, 100, 200 and 300~Hz for 150
 cycles, read on the quadrant photodiode at 10\,000 samples per second per channel. The command was
-streamed point by point by the software, which reproduces the commanded frequency exactly up to
-300~Hz; above it the converter drops commands, so the set stops there.
+streamed point by point by the software, which reproduces the commanded frequency exactly on
+average up to 300~Hz, although the timing of individual steps jitters; above 300~Hz the converter
+drops commands, so the set stops there.
 
 \paragraph{Delay.}
 On 7 October the function generator drove each axis with a square wave of about 0.52~V peak to
@@ -1788,7 +1795,7 @@ radius, 0.84~mm at the photodiode, is found by fitting that relation to the two 
 the 30 September runs, whose separation is known from the calibrated scale factor and the measured
 200~mm standoff; the two axes give 0.834 and 0.849~mm. Positions are then converted to micrometres
 with the local slope of the relation at each run's operating point, and the step responses are
-linearised by the inverse error function before they are analysed. A run whose sum signal falls
+linearized by the inverse error function before they are analysed. A run whose sum signal falls
 toward the dark level is rejected, since its position is then a ratio of noise to noise.
 
 \paragraph{Repeatability and drift.}
@@ -1816,8 +1823,8 @@ The timing is measured from the oscilloscope records. All the edges of a capture
 are aligned on the drive crossing the midpoint of its swing and averaged on the raw samples, without
 smoothing. The averaged response gives the delay to 10\% and to 50\% of its swing and its 10 to
 90\% rise, and the scatter between edges, by a jackknife over them, gives the uncertainty. Rising
-and falling edges are kept apart. The photodiode signal is inverted relative to the command on this
-bench, and its polarity is fixed by sliding each polarity across the plausible range of delays and
+and falling edges are kept apart. Whether the photodiode signal is inverted relative to the
+command depends on the orientation of the detector, so its polarity is determined by sliding each polarity across the plausible range of delays and
 keeping the better match; that range must stay below half a period, beyond which an inverted square
 wave and a delayed one cannot be told apart.
 
@@ -1826,15 +1833,15 @@ wave and a delayed one cannot be told apart.
 \paragraph{Scale factor.}
 Over the range in which the spot stays on the sensor, the beam angle follows the command voltage on
 a straight line on both axes, Figure~\ref{fig:galvo-cal-angle}. G1 deflects the beam by
-$2.0287 \pm 0.0005^\circ$ per volt in $x$, and G2 by $1.4446^\circ$ per volt in $y$, with an
-uncertainty below $10^{-4}$ ($R^2 = 0.99999$ and $1.000000$, from 183 and 187 frames). Narrower
+$2.0287 \pm 0.0005^\circ$ per volt in $x$, and G2 by $1.4446 \pm 0.0001^\circ$ per volt in $y$
+($R^2$ of 0.99999 and better, from 183 and 187 frames). Narrower
 sweeps of $\pm0.1$~V on each axis give 2.031 and $1.453^\circ$ per volt. Below about $-0.87$~V the
 spot runs off the edge of the camera and the frames carry no position; those points are not a
 property of the scanners. At the camera these scale factors are 3.54~mm and 2.52~mm of displacement
 per volt; at the quadrant photodiode at 200~mm, 7.08~mm and 5.04~mm per volt.
 
 The $x$ value agrees within 1.5\% with the factory setting of $2^\circ$ per volt. The $y$ value is
-28\% lower. Its ratio to the $x$ value, 0.712, is within 1\% of $\cos 45^\circ = 0.707$, the factor
+29\% lower. Its ratio to the $x$ value, 0.712, is within 1\% of $\cos 45^\circ = 0.707$, the factor
 by which a $45^\circ$ fold mirror turned about an axis in its plane of incidence deflects the beam
 less than one turned about the perpendicular axis. On this bench both scanners fold the beam in the
 plane of the table, G1 steering within that plane and G2 out of it, which is the geometry that
@@ -1942,7 +1949,7 @@ final level 254 and 284~\textmu s after its 10\% point. From 10 to 300~Hz the ov
 with frequency, Figure~\ref{fig:galvo-step-overshoot}. Nor does the settling time, 240 to
 258~\textmu s in $x$ and 274 to 288~\textmu s in $y$, Figure~\ref{fig:galvo-step-settling}, or the
 rise, 198 to 205 and 211 to 218~\textmu s. That is what a property of the mirror and its servo
-should do. Rising and falling steps agree once the photodiode is linearised: without it, the
+should do. Rising and falling steps agree once the photodiode is linearized: without it, the
 compression of the detector near the edge of its range makes the $x$ overshoot read 1.33\% on rising
 and 1.78\% on falling edges, and with it 1.63 and 1.68\%. The two axes are not identical, $x$
 overshooting about four times more but settling about 30~\textmu s sooner than $y$, but neither is
@@ -2039,6 +2046,7 @@ each frequency.
     \label{fig:galvo-delay}
 \end{figure}
 
+\FloatBarrier
 \subsubsection{Conclusion}
 
 The galvanometer pair does what the tracking scheme asks of it, and the measurements give the
@@ -2088,7 +2096,7 @@ The first goal, characterizing the deflectors, is met. Both deflect linearly acr
 $\pm200$~V, by 2.95 and 3.12~mrad/kV once the input polarization is set perpendicular to the
 deflection axis, which makes the half-wave plate part of the calibration rather than an alignment
 detail. Their six percent difference means each needs its own calibration. Held at a fixed drive,
-EOD35 is as steady as the laser, while EOD34 drifts by up to 0.03~mrad near zero and negative
+EOD35 adds no measurable wander to that of the laser, while EOD34 drifts by up to 0.03~mrad near zero and negative
 drive, a behaviour still to be explained. They begin to move half a microsecond after the drive and
 settle well within the 25~\textmu s dwell, but the slow second stage leaves EOD34 up to a fifth of
 a step short in the first 5~\textmu s, so the first microseconds of each dwell need either to be
@@ -2175,25 +2183,43 @@ characterization to the tracking measurement itself.
 \section{Equipment}
 \label{app:equipment}
 
+Table~\ref{tab:equipment} lists the hardware used in this work, grouped by function. The camera
+pixel pitch of 5.2~\textmu m is an input to every angle derived from a displacement on the camera,
+and the 1~k$\Omega$ input of the HVA200 is the cause of the drive limit described in
+Section~\ref{sec:eod}.
+
 \begin{table}[!htbp]
     \centering
     \small
-    \begin{tabular}{p{0.22\textwidth}p{0.33\textwidth}p{0.37\textwidth}}
+    \begin{tabular}{p{0.21\textwidth}p{0.32\textwidth}p{0.39\textwidth}}
         \hline
-        Component & Model & Role and key specifications \\
+        Component & Model & Specifications and role \\
         \hline
-        Laser diode & Thorlabs HL6366DG & 642~nm, 80~mW; KLD101 driver, LDM9T mount \\
-        Electro-optic deflectors & Leysop ED2-2T-LT-AR561-642 ($\times2$) & EOD34, EOD35; 2~mm aperture, 60~mm housing \\
-        High-voltage amplifiers & Thorlabs HVA200 ($\times2$) & HVA1, HVA2; gain $-20$, $\pm200$~V, 1~k$\Omega$ input \\
-        Buffer amplifiers & LF411 ($\times2$) & Unity-gain followers, $\pm15$~V supply \\
-        Data acquisition & NI USB-6001 & 2 outputs, $\pm10$~V, $\pm5$~mA, 5~kS/s; 8 inputs \\
-        Galvanometer scanners & Cambridge Technology 6230K ($\times2$) & G1, G2; 12~mm Si mirrors, $40^\circ$ optical \\
-        Galvanometer drivers & Cambridge Technology 671 ($\times2$) & Analog servo, $\pm10$~V command \\
-        Galvanometer command & ARC TriggerScope~4 & Digital-to-analog command over USB \\
-        Vortex phase plate & Vortex Photonics V-633-10-1 & Charge one, designed for 633~nm \\
-        Camera & Thorlabs DCx series & 5.2~\textmu m pixels, 8-bit \\
-        Quadrant photodiode & Thorlabs PDQ80A & 7.8~mm active area, 150~kHz \\
-        Oscilloscope & Tektronix TDS1000B series & Two channels, timing measurements \\
+        \multicolumn{3}{l}{\emph{Source}} \\
+        Laser diode & Thorlabs HL6366DG & 642~nm, 80~mW \\
+        Laser diode driver & Thorlabs KLD101 & 230~mA maximum; external modulation input \\
+        Laser diode mount & Thorlabs LDM9T & Temperature-controlled mount with bias tee \\
+        \multicolumn{3}{l}{\emph{Electro-optic steering}} \\
+        Electro-optic deflectors & Leysop ED2-2T-LT-AR561-642 ($\times2$) & EOD34 ($x$), EOD35 ($y$); lithium tantalate; 2~mm aperture, 60~mm housing; antireflection coated for 561 and 642~nm; quoted ${>}3$~mrad/kV \\
+        High-voltage amplifiers & Thorlabs HVA200 ($\times2$) & HVA1 for EOD34, HVA2 for EOD35; gain $-20$, $\pm200$~V, 1~MHz, 1~k$\Omega$ input, monitor at 1/20 of the output \\
+        Buffer amplifiers & Texas Instruments LF411 ($\times2$) & JFET-input unity-gain followers on a $\pm15$~V supply \\
+        \multicolumn{3}{l}{\emph{Galvanometer steering}} \\
+        Galvanometer scanners & Cambridge Technology 6230K ($\times2$) & G1 ($x$), G2 ($y$); 12~mm silicon mirrors; $40^\circ$ optical over $\pm10$~V \\
+        Servo drivers & Cambridge Technology 671 ($\times2$) & Analog servo, $\pm10$~V command, $\pm24$~V supply \\
+        Command source & ARC TriggerScope~4 & Digital-to-analog galvanometer command over USB \\
+        \multicolumn{3}{l}{\emph{Beam shaping}} \\
+        Vortex phase plate & Vortex Photonics V-633-10-1 & Topological charge one, designed for 633~nm \\
+        Lenses & --- & $f = 100$~mm (relays, L3, L7) and $f = 13.5$~mm (L5) \\
+        Polarization optics & --- & Half-wave plate, quarter-wave plate, linear polarizer \\
+        \multicolumn{3}{l}{\emph{Signal generation and acquisition}} \\
+        Data acquisition & National Instruments USB-6001 & 14-bit; 2 outputs, $\pm10$~V, $\pm5$~mA, 5~kS/s; 8 inputs, 20~kS/s shared \\
+        Function generator & Siglent SDG810 & Single channel, 10~MHz \\
+        Function generator & JYE Tech FG085 & miniDDS; amplitude correct only into a high-impedance load \\
+        Oscilloscope & Tektronix TDS1000B series & Two channels; timing measurements \\
+        \multicolumn{3}{l}{\emph{Detection}} \\
+        Camera & Thorlabs DCx series & $1280\times1024$, 5.2~\textmu m pixels, 8-bit \\
+        Quadrant photodiode & Thorlabs PDQ80A & 7.8~mm active area, 150~kHz, 10~kV/A \\
+        Photodetector & Thorlabs DET10A & Biased silicon detector, 200 to 1100~nm \\
         \hline
     \end{tabular}
     \caption{Hardware used in this work.}
@@ -2203,12 +2229,53 @@ characterization to the tracking measurement itself.
 \section{Data and analysis}
 \label{app:data}
 
-The raw data of every measurement are kept on the Lidke laboratory data server, under the project's
-evaluation experiments for the deflector drive and the galvanometers, in folders named by date. The
-analyses were written in Julia and are kept in the instrument's control repository,
-\texttt{MicroscopeMinFlux.jl}, under \texttt{dev/analysis}. Each figure in this document is
-saved with a provenance record naming the data it was drawn from, the script and the commit that
-produced it, and the bench facts it assumes, so that every graph can be traced to its source and
-regenerated.
+The raw data of every measurement are stored on the Lidke laboratory NAS, under
+\begin{center}
+    \path{Y:/Projects/NSF-MINFLUX/projects/Data/Evaluation Experiments/}
+\end{center}
+in two folders: \path{EOD Driver test}, for the deflectors, the drive electronics and the donut,
+and \path{Galvo}, for the galvanometers. Table~\ref{tab:data} gives the folder of each measurement
+relative to that root. The folder names are reproduced as they are on the server, including their
+spelling.
+
+\begin{table}[!htbp]
+    \centering
+    \small
+    \begin{tabular}{p{0.40\textwidth}p{0.12\textwidth}p{0.40\textwidth}}
+        \hline
+        Measurement & Date (2026) & Folder \\
+        \hline
+        \multicolumn{3}{l}{\emph{Electro-optic deflectors}, under \path{EOD Driver test/}} \\
+        Beam quality across the aperture & 4 March & \path{beam characterizatiom/movig EDO1/MAR_3} \\
+        Drive circuit and ramp tests & 13 March & \path{amp_vol} \\
+        Beam quality against deflection & 25 March & \path{beam characterizatiom/angle/mar_25} \\
+        Laser pointing baseline & 27 March & \path{beam characterizatiom/stability_laser/MAR_27} \\
+        Pointing stability at held drive & 4 April & \path{beam characterizatiom/angle_stability/apr_4} \\
+        Sensitivity and polarization & 10 April & \path{beam characterizatiom/polarization/apr10} \\
+        Beam quality along the path & 26 May & \path{beam characterizatiom/gausian/may 26} \\
+        Step response & 16 and 19 October & \path{EOD_delay/10-16-26 high speed} \\
+        \multicolumn{3}{l}{\emph{Donut}, under \path{EOD Driver test/}} \\
+        Donut at rest and polarization & 4 June & \path{beam characterizatiom/donut/jun4} \\
+        Donut under deflection & 4 June & \path{beam characterizatiom/donut/jun4/deflec_donut} \\
+        \multicolumn{3}{l}{\emph{Galvanometers}, under \path{Galvo/}} \\
+        Angle calibration & 16 September & \path{9-16-2026} \\
+        Power cycling, camera & 16 September & \path{off-on comparation} \\
+        Power cycling, photodiode & 28 September & \path{9-28-2026} \\
+        Return and drift & 30 September & \path{9-30-2026 drift} \\
+        Step response & 2 October & \path{10-2-2026_xy_high_speed} \\
+        Delay against frequency & 7 October & \path{10-7-2026 delay} \\
+        Delay against step size & 16 October & \path{10-16-2026 small amp delay} \\
+        \hline
+    \end{tabular}
+    \caption{Location of the raw data of each measurement, relative to the evaluation-experiments
+    folder on the laboratory NAS.}
+    \label{tab:data}
+\end{table}
+
+The analyses were written in Julia and are kept in the instrument's control repository,
+\texttt{MicroscopeMinFlux.jl}, under \path{dev/analysis}. Each graph is saved beside the data it was
+drawn from, together with a provenance record naming that data, the script and the commit that
+produced it, and the bench facts it assumes. A copy of every graph and its record is kept with this
+document, so every figure can be traced to its source and regenerated.
 
 \end{document}
