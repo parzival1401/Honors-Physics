@@ -146,3 +146,10 @@ eod-delay-step-response.png       delay_step_response.png
 # Setup drawing: G1 = X galvo, relayed 1:1 (L1-L2, f = 100 mm) onto G2 = Y
 # galvo; L3 (f = 100 mm) maps angle to position on the camera.
 galvo-setup.png                   galvo_setup.png
+
+# ---------------------------------------------------------------------------
+# Deflector drive circuit (amp_vol), 13 March 2026
+# ---------------------------------------------------------------------------
+# USB-6001 AO0/AO1 -> LF411 followers -> HVA1/HVA2 (1 kOhm inputs). See the
+# impedance-mismatch report beside it for the diagnosis.
+eod-drive-circuit.png             SCH_Schematic1_1-P1_2026-03-13*.png

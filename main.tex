@@ -292,8 +292,46 @@ pivot at the centre of the crystal rather than to the face of its housing.
 
 \subsubsection{Setup}
 
-Every measurement below records the beam directly on the camera sensor, and each reduces the
-recorded frames by the procedures set out under Methods.
+Every measurement below except the step response records the beam directly on the camera sensor,
+and each reduces the recorded frames by the procedures set out under Methods.
+
+\paragraph{Drive electronics.}
+Every measurement that drives the deflectors uses the circuit of
+Figure~\ref{fig:eod-drive-circuit}. The two analog outputs of an NI USB-6001 card, AO0 and AO1,
+issue the command voltages for EOD34 and EOD35. Each passes through an LF411 operational amplifier
+wired as a unity-gain voltage follower to the input of its HVA200, HVA1 for EOD34 and HVA2 for
+EOD35, and the amplifier's output drives the crystal. The amplifier inverts, with a gain of $-20$.
+The card reads back each command on AI1 and AI3, and each amplifier's monitor output, one
+twentieth of its high-voltage output, on AI0 and AI2, so both ends of the chain are recorded at
+every step.
+
+The followers are there because without them the amplifiers could not be driven across their
+full range. In the first configuration, the card's outputs were connected directly to the
+amplifier inputs, and a ramp of the command from $-10$ to $+10$~V reached neither end: both the
+command read back at the card and the amplifier monitor followed the setpoint only up to about
+7~to~8~V of either sign and then stayed flat, which limited the drive to the crystals to roughly
+$\pm140$ to $\pm160$~V instead of $\pm200$~V. The cause is an impedance mismatch. The HVA200 has
+an input impedance of only 1~k$\Omega$, so a 10~V command must supply 10~mA, while the USB-6001's
+analog outputs are rated for $\pm5$~mA. Measured at the point of saturation, the two outputs
+delivered 6.7 and 7.68~mA into amplifier inputs of 1.002 and 1.045~k$\Omega$. Those products,
+6.71 and 8.04~V, are the voltages at which the two ramps flattened, so the outputs had reached the
+limit of the current they could supply. A voltage follower removes the mismatch. Its input draws
+almost no current from the card, and its output supplies the amplifier's 10~mA from its own
+$\pm15$~V supply, passing the command through unchanged. With the followers in place, the command
+and the monitor follow the setpoint linearly across the full $\pm10$~V, and the amplifiers reach
+$\pm200$~V with their gain of $-20$. The external supply at first added high-frequency noise to the
+command. Decoupling capacitors from each supply rail to ground removed it. The circuit was built
+on 13 March 2026, before any of the driven measurements reported below.
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=0.85\textwidth]{eod-drive-circuit}
+    \caption{Deflector drive circuit. The analog outputs AO0 and AO1 of the USB-6001 each drive an
+    LF411 voltage follower, which supplies the 1~k$\Omega$ input of its HVA200 amplifier; HVA1
+    (Voltage Amplifier~1) drives EOD34 and HVA2 drives EOD35. AI1 and AI3 read back the commands,
+    and AI0 and AI2 read the amplifier monitor outputs.}
+    \label{fig:eod-drive-circuit}
+\end{figure}
 
 \paragraph{Beam quality across the deflector aperture.}
 A single deflector is mounted on a micrometer stage after two folding mirrors and translated

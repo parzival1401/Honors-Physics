@@ -424,3 +424,22 @@ when those land.
 
 Stated as fact in the text (confirmed by the user 2026-11-02): Y/X = 0.712 ≈ cos 45° = 0.707, which fits G2
 rotating about an axis in its plane of incidence (45° fold, scanning out of the table plane).
+
+## Deflector drive circuit (13 March 2026)
+
+Source: `EOD Driver test/amp_vol/` → `eod-drive-circuit.png` (schematic export), with the user's
+report `impedance missmacth report .docx` and ramp plots `ramp_test_no_amp.png` (direct drive),
+`ramp_test_amp.png` (buffered, before decoupling) and `ramp_test.png`.
+
+Numbers from the report: HVA200 input measured at 1.002 and 1.045 kΩ; DAQ current at saturation
+6.7 and 7.68 mA → 6.71 and 8.04 V, matching the plateaus. LF411 followers run from ±15 V
+(report). Decoupling capacitors on the rails removed the supply noise.
+
+Discrepancies resolved in the text:
+- The report says the USB-6001 AO is rated ±2 mA. The NI spec sheet gives ±5 mA continuous and
+  ±11 mA short-circuit, so the text uses ±5 mA.
+- The schematic labels the op-amp rails ±5 V and the caps 100 µF. The report says ±15 V and 100 nF.
+  The text follows the report (±10 V out is impossible from ±5 V rails), so the schematic labels
+  should be corrected.
+- The report's "Unit 1/Unit 2" saturating at 6.71/8.04 V is the reverse of the ramp plot (AO0/HVA1
+  about 7.5–7.8 V, AO1/HVA2 about 6.6–6.8 V), so the text does not assign the two values to units.
