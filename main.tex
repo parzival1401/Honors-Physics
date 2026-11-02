@@ -2,9 +2,10 @@
 \usepackage{graphicx} % Required for inserting images
 \usepackage{subcaption} % one graph per image, grouped as (a), (b), ... panels
 \usepackage[section]{placeins} % figures never float past the end of their section
-% The EOD results carry many full-width panel figures. LaTeX's defaults leave too little room for
-% them on a text page, so they all pile up at the end; these limits let each one sit beside the
-% paragraph that describes it.
+\usepackage{float} % [H]: every figure and table sits exactly where it is written, after its paragraph
+\usepackage{adjustbox} % max width: a wide table shrinks to the text width and stays centred
+% Limits kept for any float that is not pinned: LaTeX's defaults leave too little room for
+% full-width panel figures on a text page.
 \renewcommand{\topfraction}{0.9}
 \renewcommand{\bottomfraction}{0.8}
 \renewcommand{\textfraction}{0.07}
@@ -361,6 +362,16 @@ The card reads back each command on AI1 and AI3, and each amplifier's monitor ou
 twentieth of its high-voltage output, on AI0 and AI2, so both ends of the chain are recorded at
 every step.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{eod-drive-circuit}
+    \caption{Deflector drive circuit. The analog outputs AO0 and AO1 of the USB-6001 each drive an
+    LF411 voltage follower, which supplies the 1~k$\Omega$ input of its HVA200 amplifier; HVA1
+    (labelled Voltage Amplifier~1 in the schematic) drives EOD34 and HVA2 drives EOD35. AI1 and
+    AI3 read back the commands, and AI0 and AI2 read the amplifier monitor outputs.}
+    \label{fig:eod-drive-circuit}
+\end{figure}
+
 The followers are there because without them the amplifiers could not be driven across their
 full range. In the first configuration, the card's outputs were connected directly to the
 amplifier inputs, and a ramp of the command from $-10$ to $+10$~V reached neither end: both the
@@ -377,23 +388,14 @@ $\pm15$~V supply, passing the command through unchanged. With the followers in p
 and the monitor follow the setpoint linearly across the full $\pm10$~V, and the amplifiers reach
 $\pm200$~V with their gain of $-20$. The external supply at first added high-frequency noise to the
 command. Decoupling capacitors from each supply rail to ground removed it. The circuit was built
-on 13 March 2026, before any of the driven measurements reported below.
+before any of the driven measurements reported below.
 
 This card is the control path for calibration and for every measurement here in which the drive is
-held or swept slowly. It is not the path for switching the pattern. The USB-6001 updates its outputs at most 5000 times per second,
-far too slowly to step between four positions in 100~\textmu s, so the step response below is driven
-by a function generator instead, and in the instrument the fast command comes from the FPGA through
-a high-speed digital-to-analog converter, as described above.
-
-\begin{figure}[!htbp]
-    \centering
-    \includegraphics[width=0.85\textwidth]{eod-drive-circuit}
-    \caption{Deflector drive circuit. The analog outputs AO0 and AO1 of the USB-6001 each drive an
-    LF411 voltage follower, which supplies the 1~k$\Omega$ input of its HVA200 amplifier; HVA1
-    (labelled Voltage Amplifier~1 in the schematic) drives EOD34 and HVA2 drives EOD35. AI1 and AI3 read back the commands,
-    and AI0 and AI2 read the amplifier monitor outputs.}
-    \label{fig:eod-drive-circuit}
-\end{figure}
+held or swept slowly. It is not the path for switching the pattern. The USB-6001 updates its
+outputs at most 5000 times per second, far too slowly to step between four positions in
+100~\textmu s, so the step response below is driven by a function generator instead, and in the
+instrument the fast command comes from the FPGA through a high-speed digital-to-analog converter,
+as described above.
 
 \paragraph{Beam quality across the deflector aperture.}
 A single deflector is mounted on a micrometer stage after two folding mirrors and translated
@@ -402,7 +404,7 @@ outside one edge of the aperture, through it, to outside the other. A frame is r
 bench serves as the reference. EOD34 and EOD35 are measured in turn. The arrangement is that of
 Figure~\ref{fig:eod-setup-beam-degradation}.
 
-\begin{figure}[!htbp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.85\textwidth]{eod-setup-beam-degradation}
     \caption{Bench layout for the translation measurement: 642~nm source, folding mirrors
@@ -415,24 +417,13 @@ Here nothing is moved but the camera. The two deflectors are assembled in their 
 configuration, relayed onto one another as in Figure~\ref{fig:eod-setup-relay-two-deflectors},
 and the camera is placed in turn at fixed stations along the beam, one frame at each, so that
 beam quality can be compared across the deflector and relay stages against the fibre output
-taken as the reference. The stations are defined by what precedes them in the path, so that the
-change between consecutive stations isolates the element added between them:
+taken as the reference. Each station follows one more element of the path, so the change between
+consecutive stations isolates that element: P1, the control, at the output of the fibre; P2 after
+EOD34; P3 after the first relay; P4 after EOD35; P5 after the second relay; and P6 after the beam
+expander. P3 lies inside the relay, where there is no room for the camera, so the first relay is
+measured together with EOD35, between P2 and P4.
 
-\begin{description}
-    \item[P1 (control)] immediately after the output of the fibre optic.
-    \item[P2] after EOD34, before the first relay system.
-    \item[P3] after the first relay system. \emph{Not measurable:} the camera cannot be placed
-        at this station.
-    \item[P4] after EOD35, before the second relay system.
-    \item[P5] after the second relay system.
-    \item[P6] after the beam amplification system.
-\end{description}
-
-Five of the six stations therefore yield data. P3 falls inside the relay where there is no room
-for the sensor, so the comparison across the first relay is made between P2 and P4 and carries
-EOD35 with it; the first relay cannot be isolated from EOD35 on this bench.
-
-\begin{figure}[!htbp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{eod-setup-relay-two-deflectors}
     \caption{The two deflectors in series, EOD34 first. Lenses L1 and L2, one focal length from
@@ -450,7 +441,7 @@ amplifier raises by a factor of twenty to the $\pm200$~V appearing across the cr
 An undeflected control frame is recorded for each deflector. The arrangement is that of
 Figure~\ref{fig:eod-setup-beam-deflection}.
 
-\begin{figure}[!htbp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.85\textwidth]{eod-setup-beam-deflection}
     \caption{Bench layout for the voltage sweep. The deflector is driven rather than translated:
@@ -489,8 +480,7 @@ amplifier output. A two-channel
 oscilloscope records the monitor output of the HVA200 amplifier on one channel and the detector on
 the other. Because the reference is the amplifier's own output, the timing measured is that of
 the deflector and the detection, from the voltage reaching the crystal to the beam arriving at its
-new position, and excludes the amplifier itself. EOD35 was recorded on 16 October 2026 and EOD34
-on 19 October.
+new position, and excludes the amplifier itself.
 
 \subsubsection{Methods}
 
@@ -628,7 +618,7 @@ it clears both edges of the aperture, so the fall-off on either side reads as cl
 aperture rather than as degradation within the crystal, and the 0.7~mm offset between the two
 deflectors most simply as a difference in where each crystal sits relative to the stage.
 
-\begin{figure}[!htbp]
+\begin{figure}[H]
     \centering
     \begin{subfigure}{0.48\textwidth}
         \includegraphics[width=\linewidth]{eod-beam-xcorr-ncc}
@@ -687,7 +677,7 @@ rises clear of the noise, so the width, the ellipticity and the fit at P6 are no
 measures of shape. Each station is also a single frame, so differences of a few percent between
 stations are not distinguishable from frame-to-frame scatter.
 
-\begin{figure}[!htbp]
+\begin{figure}[H]
     \centering
     \begin{subfigure}{0.32\textwidth}
         \includegraphics[width=\linewidth]{eod-path-fwhm}
@@ -737,7 +727,7 @@ fitted model does not describe. The gap is far smaller than the factor of $\sqrt
 mismatch of radius conventions would produce, so it is a property of the beam rather than of the
 arithmetic.
 
-\begin{figure}[!htbp]
+\begin{figure}[H]
     \centering
     \begin{subfigure}{0.48\textwidth}
         \includegraphics[width=\linewidth]{eod-quality-voltage-fwhm}
@@ -772,7 +762,7 @@ arithmetic.
     \label{fig:eod-quality-voltage}
 \end{figure}
 
-\paragraph{Deflection sensitivity and its polarization dependence.}
+\paragraph{Deflection sensitivity and polarization.}
 Each deflector steers along a single axis: the beam centre moves linearly in $x$ on the camera
 across the full $\pm200$~V of amplifier output while $y$ remains flat, in panels (b) and (c) of
 Figure~\ref{fig:eod-polarization-hva1} for EOD34 and Figure~\ref{fig:eod-polarization-hva2} for
@@ -781,7 +771,7 @@ pixels, but each is flat with drive, so this is a fixed offset between configura
 a response to the applied field. Linearity holds across the whole range for both deflectors; no
 departure from a straight line is visible at either extreme.
 
-\begin{figure}[!htbp]
+\begin{figure}[H]
     \centering
     \begin{subfigure}{0.48\textwidth}
         \includegraphics[width=\linewidth]{eod-polarization-hva1-radial}
@@ -813,7 +803,7 @@ departure from a straight line is visible at either extreme.
     \label{fig:eod-polarization-hva1}
 \end{figure}
 
-\begin{figure}[!htbp]
+\begin{figure}[H]
     \centering
     \begin{subfigure}{0.48\textwidth}
         \includegraphics[width=\linewidth]{eod-polarization-hva2-radial}
@@ -899,7 +889,7 @@ radial distance from the mean position, with peak-to-peak ranges of 0.012, 0.020
 respectively. The larger figure in $y$
 comes from a slow drift across the run rather than from frame-to-frame scatter.
 
-\begin{figure}[!htbp]
+\begin{figure}[H]
     \centering
     \begin{subfigure}{0.48\textwidth}
         \includegraphics[width=\linewidth]{laser-stab-angular-x}
@@ -939,7 +929,7 @@ comparable to the laser alone; the laser figure includes drift accumulated over 
 own. Its time series, the lower row of Figure~\ref{fig:eod-stab-timeseries}, scatter about the
 hold mean without trend.
 
-\begin{figure}[!htbp]
+\begin{figure}[H]
     \centering
     \begin{subfigure}{0.48\textwidth}
         \includegraphics[width=\linewidth]{eod-stab-eod34-std}
@@ -971,7 +961,7 @@ hold mean without trend.
     \label{fig:eod-stab-spread}
 \end{figure}
 
-\begin{figure}[!htbp]
+\begin{figure}[H]
     \centering
     \begin{subfigure}{0.48\textwidth}
         \includegraphics[width=\linewidth]{eod-stab-eod34-angular}
@@ -990,7 +980,7 @@ hold mean without trend.
     \label{fig:eod-stab-angular}
 \end{figure}
 
-\begin{figure}[!htbp]
+\begin{figure}[H]
     \centering
     \begin{subfigure}{0.32\textwidth}
         \includegraphics[width=\linewidth]{eod-stab-eod34-timeseries-m10v}
@@ -1093,7 +1083,7 @@ counted then are counted at an intermediate position. The delay of half a micros
 negligible against the dwell and, being fixed, could be compensated in timing; the slow stage is
 what matters.
 
-\begin{figure}[!htbp]
+\begin{figure}[H]
     \centering
     \begin{subfigure}{0.48\textwidth}
         \includegraphics[width=\linewidth]{eod-delay-trace-50khz}
@@ -1306,7 +1296,7 @@ core is fully formed,
 and because a lens maps angle to position in its focal plane, a deflection appears as a
 displacement of the donut on the sensor, recorded directly with 5.2~\textmu m pixels.
 
-Three measurements were made, all on 4 June 2026. The first records the donut at rest, both
+Three measurements were made in a single session. The first records the donut at rest, both
 deflectors at 0~V, as single frames: a characterization frame and a second frame taken after the
 alignment had been adjusted to darken the centre. The second compares the donut with and without a
 polarizer ahead of the quarter-wave plate, and then with the waveplates set for the darkest centre.
@@ -1316,7 +1306,7 @@ EOD34 is swept from $+10$ to $-10$~V of command voltage, the full $\pm200$~V at 
 200 steps of about 0.1~V and roughly half a second each, with EOD35 held at 0~V; EOD35 is then
 swept the same way with EOD34 held at 0~V.
 
-\begin{figure}[!htbp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{donut-setup-creation}
     \caption{Donut-forming bench, built on the relayed deflector pair of
@@ -1396,12 +1386,15 @@ halo, and the focused beam is a mixture of radial orders rather than the single 
 Equation~\ref{eq:lg-intensity} \cite{karimiHypergeometricGaussianModes2007}, so the shape of the
 ring alone does not separate the two models. The charge is that of the plate, one.
 
-\begin{table}[!htbp]
+\begin{table}[H]
     \centering
     \small
+    \setlength{\tabcolsep}{4pt}
+    \begin{adjustbox}{max width=\linewidth}
     \begin{tabular}{lccccccc}
         \hline
-        Run & $R^2$, $\ell=1$ & $R^2$, $\ell=2$ & $R^2$, Gauss. & Ring peak (ADU) & Extinction ratio & CV & $m_1$ \\
+        Run & \multicolumn{3}{c}{$R^2$} & Ring peak & Extinction & CV & $m_1$ \\
+            & $\ell=1$ & $\ell=2$ & Gaussian & (ADU) & ratio & & \\
         \hline
         Initial                & 0.80 & 0.79 & 0.61 & 12 & $<0.10$           & 0.17 & 0.18 \\
         Darkened centre        & 0.70 & 0.70 & 0.60 & 42 & $<0.030$          & 0.42 & 0.53 \\
@@ -1410,7 +1403,8 @@ ring alone does not separate the two models. The charge is that of the plate, on
         Polarizer, optimized   & 0.89 & 0.90 & 0.61 & 26 & $0.048 \pm 0.018$ & 0.15 & 0.16 \\
         \hline
     \end{tabular}
-    \caption{The five donut runs of 4 June 2026, in the order taken. Fit quality for the
+    \end{adjustbox}
+    \caption{The five donut runs, in the order taken. Fit quality for the
     charge-one, charge-two and Gaussian models; ring peak in camera units; extinction ratio, as an
     upper bound where the null is not resolved; and ring symmetry, as the coefficient of variation
     around the ring and its one-sided component $m_1$. The fitted ring radius lies between 83 and
@@ -1418,7 +1412,7 @@ ring alone does not separate the two models. The charge is that of the plate, on
     \label{tab:donut-runs}
 \end{table}
 
-\begin{figure}[!htbp]
+\begin{figure}[H]
     \centering
     \begin{subfigure}{0.48\textwidth}
         \includegraphics[width=\linewidth]{donut-static-image}
@@ -1475,7 +1469,7 @@ low numerical aperture should not depend on polarization, the improvement in the
 taken half an hour later, is more likely due to the alignment adjusted in between than to the
 polarization itself. Single frames cannot separate the two.
 
-\begin{figure}[!htbp]
+\begin{figure}[H]
     \centering
     \begin{subfigure}{0.48\textwidth}
         \includegraphics[width=\linewidth]{donut-runs-er}
@@ -1538,7 +1532,7 @@ Until the camera distance and the beam size at the plate are measured, these dis
 be converted to deflection angles, and the ring radius describes the image on the camera rather
 than the donut at a known focus.
 
-\begin{figure}[!htbp]
+\begin{figure}[H]
     \centering
     \begin{subfigure}{0.48\textwidth}
         \includegraphics[width=\linewidth]{donut-sweep-ncc}
@@ -1722,7 +1716,7 @@ angle to position. For every measurement in time it falls instead on a Thorlabs 
 photodiode, 7.8~mm across, placed bare at a measured 200~mm from the scanner, whose difference outputs follow
 the position of the spot without the frame rate of a camera.
 
-\begin{figure}[!htbp]
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.85\textwidth]{galvo-setup}
     \caption{Galvanometer bench. The 642~nm source is folded by M1 and M2 onto G1, the $x$
@@ -1738,37 +1732,37 @@ Triggerscope~4 digital-to-analog converter writes the command voltage under the 
 acquisition software, with G1 on its first channel and G2 on its second, and the quadrant
 photodiode's $x$, $y$ and sum outputs are read by an NI USB-6001 data acquisition card. For the
 timing measurements, a function generator drives the servo input directly and an oscilloscope
-records the generator's output on its first channel and the quadrant photodiode on its second. Five measurements
-were made between 16 September and 16 October 2026.
+records the generator's output on its first channel and the quadrant photodiode on its second.
+Five measurements were made.
 
 \paragraph{Angle calibration.}
-On 16 September each axis in turn was swept from $-1$ to $+1$~V in steps of 0.01~V, one camera
+Each axis in turn was swept from $-1$ to $+1$~V in steps of 0.01~V, one camera
 frame per step, with the other axis held at 0~V. A narrower sweep of $\pm0.1$~V was recorded on
 each axis.
 
 \paragraph{Power cycling.}
-The same day, the spot was recorded on the camera with the servo drivers powered off and then
-powered on with both axes commanded to 0~V. On 28 September the comparison was repeated thirteen
-times on the quadrant photodiode, alternating off and on, with 3~s allowed for settling before each
+The spot was recorded on the camera with the servo drivers powered off and then powered on with
+both axes commanded to 0~V. The comparison was then repeated thirteen times on the quadrant photodiode, alternating off and on, with 3~s allowed for settling before each
 reading.
 
 \paragraph{Return and drift.}
-On 30 September each axis was pulsed repeatedly from 0~V to 0.05~V and back, for twenty cycles,
+Each axis was pulsed repeatedly from 0~V to 0.05~V and back, for twenty cycles,
 with the other axis held at 0~V. The detector was read at both levels after 50~ms of settling, so
 each cycle records one return to the same commanded position.
 
 \paragraph{Step response.}
-On 2 October each axis was driven with a 0.05~V square wave at 10, 50, 100, 200 and 300~Hz for 150
+Each axis was driven with a 0.05~V square wave at 10, 50, 100, 200 and 300~Hz for 150
 cycles, read on the quadrant photodiode at 10\,000 samples per second per channel. The command was
 streamed point by point by the software, which reproduces the commanded frequency exactly on
 average up to 300~Hz, although the timing of individual steps jitters; above 300~Hz the converter
 drops commands, so the set stops there.
 
 \paragraph{Delay.}
-On 7 October the function generator drove each axis with a square wave of about 0.52~V peak to
-peak at 1, 100, 500 and 1000~Hz, with the oscilloscope recording the generator on its first channel
-and the photodiode on its second. On 16 October the measurement was repeated at 1~kHz with smaller
-steps, 5, 10, 50 and 100~mV peak to peak, on both axes, with the same two channels.
+The delay was measured in two sets. In the large-step set, the function generator drove each axis
+with a square wave of about 0.52~V peak to peak at 1, 100, 500 and 1000~Hz, with the oscilloscope
+recording the generator on its first channel and the photodiode on its second. In the small-step
+set, the measurement was repeated at 1~kHz with steps of 5, 10, 50 and 100~mV peak to peak, on both
+axes, with the same two channels.
 
 \subsubsection{Methods}
 
@@ -1792,7 +1786,7 @@ of the spot over any great range. For a Gaussian spot of radius $w$ centred a di
 gap between the halves, the normalized signal is $\mathrm{erf}(\sqrt{2}\,p/w)$, which is linear only
 while the spot straddles the gap and saturates at $\pm1$ once it lies wholly on one side. The spot
 radius, 0.84~mm at the photodiode, is found by fitting that relation to the two commanded levels of
-the 30 September runs, whose separation is known from the calibrated scale factor and the measured
+the return-and-drift runs, whose separation is known from the calibrated scale factor and the measured
 200~mm standoff; the two axes give 0.834 and 0.849~mm. Positions are then converted to micrometres
 with the local slope of the relation at each run's operating point, and the step responses are
 linearized by the inverse error function before they are analysed. A run whose sum signal falls
@@ -1830,7 +1824,7 @@ wave and a delayed one cannot be told apart.
 
 \subsubsection{Results}
 
-\paragraph{Scale factor.}
+\paragraph{Angle calibration.}
 Over the range in which the spot stays on the sensor, the beam angle follows the command voltage on
 a straight line on both axes, Figure~\ref{fig:galvo-cal-angle}. G1 deflects the beam by
 $2.0287 \pm 0.0005^\circ$ per volt in $x$, and G2 by $1.4446 \pm 0.0001^\circ$ per volt in $y$
@@ -1866,7 +1860,7 @@ roll of the camera and a skew between the scanners cannot be told apart with the
 way the control software should calibrate the two axes together, in two dimensions, as for the
 rotated deflector of Section~\ref{sec:eod}.
 
-\begin{figure}[!htbp]
+\begin{figure}[H]
     \centering
     \begin{subfigure}{0.48\textwidth}
         \includegraphics[width=\linewidth]{galvo-cal-angle}
@@ -1920,7 +1914,7 @@ walk in $y$ after the power cycles is consistent with the same cause. A walk of 
 whole pattern without degrading it, and is the kind of error that an independent drift reference
 \cite{lopezOpensourceSubNanometerStabilization2025} removes.
 
-\begin{figure}[!htbp]
+\begin{figure}[H]
     \centering
     \begin{subfigure}{0.48\textwidth}
         \includegraphics[width=\linewidth]{galvo-onoff-landing}
@@ -1955,7 +1949,7 @@ and 1.78\% on falling edges, and with it 1.63 and 1.68\%. The two axes are not i
 overshooting about four times more but settling about 30~\textmu s sooner than $y$, but neither is
 the weaker in every respect.
 
-\begin{figure}[!htbp]
+\begin{figure}[H]
     \centering
     \begin{subfigure}{0.48\textwidth}
         \includegraphics[width=\linewidth]{galvo-step-100hz}
@@ -1983,16 +1977,16 @@ the weaker in every respect.
 \end{figure}
 
 \paragraph{Delay.}
-The small steps of 16 October keep the spot within the linear range of the photodiode and give the
+The small-step set keeps the spot within the linear range of the photodiode and give the
 delay directly, Figure~\ref{fig:galvo-delay-amplitude}. Measured from the drive's midpoint, the
 response reaches 10\% of its swing after 152 to 168~\textmu s and 50\% after 246 to
 261~\textmu s, on both axes, and its 10 to 90\% rise takes 201 to 213~\textmu s,
-Figure~\ref{fig:galvo-rise-amplitude}, in agreement with the folded steps of 2 October. None of
+Figure~\ref{fig:galvo-rise-amplitude}, in agreement with the folded steps of the step-response measurement. None of
 these changes with the size of the step from 10 to 100~mV: the edge has the same shape at every
 amplitude, Figure~\ref{fig:galvo-delay-edges}, as expected of a linear servo far from its current
 limit. The 5~mV step in $x$ is at the noise floor and is not resolved.
 
-The larger steps of 7 October behave differently, and the reason is the detector. A 0.52~V step
+The large-step set behaves differently, and the reason is the detector. A 0.52~V step
 moves the spot 3.7~mm in $x$ and 2.6~mm in $y$ at the photodiode, several times its 0.84~mm radius,
 so the signal saturates at both ends and changes only while the spot crosses the gap between the
 quadrants. Its 50\% point marks that crossing, and its 10 to 90\% time, 75 to 129~\textmu s, is the
@@ -2000,7 +1994,7 @@ time taken to cross the gap rather than the rise of the mirror. If the swing is 
 gap, rising and falling steps cross it at different fractions of their travel and so at different
 times. That is the origin of the apparent asymmetry in $x$, Figure~\ref{fig:galvo-delay-frequency},
 where rising steps cross at 312~\textmu s and falling steps at 240~\textmu s: the same split appears,
-smaller, at 50 and 100~mV on 16 October and vanishes at 10~mV, so it belongs to the detector and
+smaller, at 50 and 100~mV in the small-step set and vanishes at 10~mV, so it belongs to the detector and
 not to the axis. Averaged over the two directions, the crossing comes 276 to 278~\textmu s after the
 drive in $x$ and 270 to 275~\textmu s in $y$, the same at 100~Hz, 500~Hz and 1~kHz, about
 20~\textmu s later than the 50\% point of the small steps. The 1~Hz records were sampled at 1~ms
@@ -2011,7 +2005,7 @@ $10^\circ$ at 100~Hz but $99^\circ$ at 1~kHz, where the beam is a quarter of a c
 command. It has to be compensated as a time offset, the same at every rate, not as a phase fitted at
 each frequency.
 
-\begin{figure}[!htbp]
+\begin{figure}[H]
     \centering
     \begin{subfigure}{0.48\textwidth}
         \includegraphics[width=\linewidth]{galvo-delay-amplitude}
@@ -2128,10 +2122,10 @@ and~\ref{tab:galvo-parameters}. Every scale in them is referred to the bench, at
 scanner. Carrying them to the sample through the relay and objective is the step that joins this
 characterization to the tracking measurement itself.
 
-\begin{table}[!htbp]
+\begin{table}[H]
     \centering
     \small
-    \begin{tabular}{p{0.36\textwidth}p{0.27\textwidth}p{0.27\textwidth}}
+    \begin{tabular}{p{0.34\textwidth}p{0.26\textwidth}p{0.26\textwidth}}
         \hline
         Parameter & EOD34 & EOD35 \\
         \hline
@@ -2153,10 +2147,10 @@ characterization to the tracking measurement itself.
     \label{tab:eod-parameters}
 \end{table}
 
-\begin{table}[!htbp]
+\begin{table}[H]
     \centering
     \small
-    \begin{tabular}{p{0.36\textwidth}p{0.27\textwidth}p{0.27\textwidth}}
+    \begin{tabular}{p{0.34\textwidth}p{0.26\textwidth}p{0.26\textwidth}}
         \hline
         Parameter & G1 ($x$) & G2 ($y$) \\
         \hline
@@ -2188,10 +2182,10 @@ pixel pitch of 5.2~\textmu m is an input to every angle derived from a displacem
 and the 1~k$\Omega$ input of the HVA200 is the cause of the drive limit described in
 Section~\ref{sec:eod}.
 
-\begin{table}[!htbp]
+\begin{table}[H]
     \centering
     \small
-    \begin{tabular}{p{0.21\textwidth}p{0.32\textwidth}p{0.39\textwidth}}
+    \begin{tabular}{p{0.20\textwidth}p{0.30\textwidth}p{0.38\textwidth}}
         \hline
         Component & Model & Specifications and role \\
         \hline
@@ -2238,33 +2232,33 @@ and \path{Galvo}, for the galvanometers. Table~\ref{tab:data} gives the folder o
 relative to that root. The folder names are reproduced as they are on the server, including their
 spelling.
 
-\begin{table}[!htbp]
+\begin{table}[H]
     \centering
     \small
-    \begin{tabular}{p{0.40\textwidth}p{0.12\textwidth}p{0.40\textwidth}}
+    \begin{tabular}{p{0.38\textwidth}p{0.52\textwidth}}
         \hline
-        Measurement & Date (2026) & Folder \\
+        Measurement & Folder \\
         \hline
-        \multicolumn{3}{l}{\emph{Electro-optic deflectors}, under \path{EOD Driver test/}} \\
-        Beam quality across the aperture & 4 March & \path{beam characterizatiom/movig EDO1/MAR_3} \\
-        Drive circuit and ramp tests & 13 March & \path{amp_vol} \\
-        Beam quality against deflection & 25 March & \path{beam characterizatiom/angle/mar_25} \\
-        Laser pointing baseline & 27 March & \path{beam characterizatiom/stability_laser/MAR_27} \\
-        Pointing stability at held drive & 4 April & \path{beam characterizatiom/angle_stability/apr_4} \\
-        Sensitivity and polarization & 10 April & \path{beam characterizatiom/polarization/apr10} \\
-        Beam quality along the path & 26 May & \path{beam characterizatiom/gausian/may 26} \\
-        Step response & 16 and 19 October & \path{EOD_delay/10-16-26 high speed} \\
-        \multicolumn{3}{l}{\emph{Donut}, under \path{EOD Driver test/}} \\
-        Donut at rest and polarization & 4 June & \path{beam characterizatiom/donut/jun4} \\
-        Donut under deflection & 4 June & \path{beam characterizatiom/donut/jun4/deflec_donut} \\
-        \multicolumn{3}{l}{\emph{Galvanometers}, under \path{Galvo/}} \\
-        Angle calibration & 16 September & \path{9-16-2026} \\
-        Power cycling, camera & 16 September & \path{off-on comparation} \\
-        Power cycling, photodiode & 28 September & \path{9-28-2026} \\
-        Return and drift & 30 September & \path{9-30-2026 drift} \\
-        Step response & 2 October & \path{10-2-2026_xy_high_speed} \\
-        Delay against frequency & 7 October & \path{10-7-2026 delay} \\
-        Delay against step size & 16 October & \path{10-16-2026 small amp delay} \\
+        \multicolumn{2}{l}{\emph{Electro-optic deflectors}, under \path{EOD Driver test/}} \\
+        Beam quality across the aperture & \path{beam characterizatiom/movig EDO1/MAR_3} \\
+        Drive circuit and ramp tests & \path{amp_vol} \\
+        Beam quality against deflection & \path{beam characterizatiom/angle/mar_25} \\
+        Laser pointing baseline & \path{beam characterizatiom/stability_laser/MAR_27} \\
+        Pointing stability at held drive & \path{beam characterizatiom/angle_stability/apr_4} \\
+        Sensitivity and polarization & \path{beam characterizatiom/polarization/apr10} \\
+        Beam quality along the path & \path{beam characterizatiom/gausian/may 26} \\
+        Step response & \path{EOD_delay/10-16-26 high speed} \\
+        \multicolumn{2}{l}{\emph{Donut}, under \path{EOD Driver test/}} \\
+        Donut at rest and polarization & \path{beam characterizatiom/donut/jun4} \\
+        Donut under deflection & \path{beam characterizatiom/donut/jun4/deflec_donut} \\
+        \multicolumn{2}{l}{\emph{Galvanometers}, under \path{Galvo/}} \\
+        Angle calibration & \path{9-16-2026} \\
+        Power cycling, camera & \path{off-on comparation} \\
+        Power cycling, photodiode & \path{9-28-2026} \\
+        Return and drift & \path{9-30-2026 drift} \\
+        Step response & \path{10-2-2026_xy_high_speed} \\
+        Delay, large-step set & \path{10-7-2026 delay} \\
+        Delay, small-step set & \path{10-16-2026 small amp delay} \\
         \hline
     \end{tabular}
     \caption{Location of the raw data of each measurement, relative to the evaluation-experiments
