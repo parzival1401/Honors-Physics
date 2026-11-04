@@ -5,7 +5,6 @@
 \usetikzlibrary{calc}
 \usepackage{subcaption} % one graph per image, grouped as (a), (b), ... panels
 \usepackage[section]{placeins} % figures never float past the end of their section
-\usepackage{float} % [H]: every figure and table sits exactly where it is written, after its paragraph
 \usepackage{adjustbox} % max width: a wide table shrinks to the text width and stays centered
 % Limits kept for any float that is not pinned: LaTeX's defaults leave too little room for
 % full-width panel figures on a text page.
@@ -235,7 +234,7 @@ are: positions can be addressed in any order at the same cost, where a mirror ha
 drive electronics still take time to charge the crystal, and how long is measured below.
 Figure~\ref{fig:eod-concept} sets the two ways of steering side by side.
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
     \centering
     \begin{tikzpicture}[>=stealth, font=\small]
         % (a) Galvanometer: a mirror turned through theta turns the beam through 2 theta.
@@ -414,7 +413,7 @@ The card reads back each command on AI1 and AI3, and each amplifier's monitor ou
 twentieth of its high-voltage output, on AI0 and AI2, so both ends of the chain are recorded at
 every step.
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
     \centering
     \includegraphics[width=0.85\textwidth]{eod-drive-circuit}
     \caption{EOD drive circuit. The analog outputs AO0 and AO1 of the USB-6001 each drive an
@@ -458,7 +457,7 @@ outside one edge of the aperture, through it, to outside the other. A frame is r
 bench serves as the reference. EOD34 and EOD35 are measured in turn. The arrangement is that of
 Figure~\ref{fig:eod-setup-beam-degradation}.
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
     \centering
     \includegraphics[width=0.85\textwidth]{eod-setup-beam-degradation}
     \caption{Bench layout for the translation measurement: 642~nm source, folding mirrors
@@ -478,7 +477,7 @@ EOD34; P3 after the first relay, L1 and L2; P4 after EOD35; P5 after the second 
 and P6 after the beam expander, L5 and L6, which are shown in Figure~\ref{fig:donut-setup-creation}. P3 lies inside the relay, where there is no room for the camera, so the first relay is
 measured together with EOD35, between P2 and P4.
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
     \centering
     \includegraphics[width=\textwidth]{eod-setup-relay-two-deflectors}
     \caption{The two EODs in series, EOD34 first. Lenses L1 and L2, one focal length from
@@ -496,7 +495,7 @@ amplifier raises by a factor of twenty to the $\pm200$~V appearing across the cr
 An undeflected control frame is recorded for each EOD. The arrangement is that of
 Figure~\ref{fig:eod-setup-beam-deflection}.
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
     \centering
     \includegraphics[width=0.85\textwidth]{eod-setup-beam-deflection}
     \caption{Bench layout for the voltage sweep. The EOD is driven rather than translated:
@@ -674,7 +673,7 @@ degradation within the crystal. The wider plateau of EOD35, as wide as the quote
 does not fit that picture as simply, and these data do not explain the difference between the two
 units.
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
     \centering
     \begin{subfigure}{0.48\textwidth}
         \includegraphics[width=\linewidth]{eod-beam-xcorr-ncc}
@@ -733,7 +732,7 @@ rises clear of the noise, so the width, the ellipticity and the fit at P6 are no
 measures of shape. Each station is also a single frame, so differences of a few percent between
 stations are not distinguishable from frame-to-frame scatter.
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
     \centering
     \begin{subfigure}{0.32\textwidth}
         \includegraphics[width=\linewidth]{eod-path-fwhm}
@@ -783,7 +782,7 @@ fitted model does not describe. The gap is far smaller than the factor of $\sqrt
 mismatch of radius conventions would produce, so it is a property of the beam rather than of the
 arithmetic.
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
     \centering
     \begin{subfigure}{0.48\textwidth}
         \includegraphics[width=\linewidth]{eod-quality-voltage-fwhm}
@@ -828,7 +827,7 @@ pixels, but each is flat with drive, so this is a fixed offset between configura
 a response to the applied field. Linearity holds across the whole range for both EODs; no
 departure from a straight line is visible at either extreme.
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
     \centering
     \begin{subfigure}{0.48\textwidth}
         \includegraphics[width=\linewidth]{eod-polarization-hva1-radial}
@@ -860,7 +859,7 @@ departure from a straight line is visible at either extreme.
     \label{fig:eod-polarization-hva1}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
     \centering
     \begin{subfigure}{0.48\textwidth}
         \includegraphics[width=\linewidth]{eod-polarization-hva2-radial}
@@ -947,7 +946,7 @@ radial distance from the mean position, with peak-to-peak ranges of 0.012, 0.020
 respectively. The larger figure in $y$
 comes from a slow drift across the run rather than from frame-to-frame scatter.
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
     \centering
     \begin{subfigure}{0.48\textwidth}
         \includegraphics[width=\linewidth]{laser-stab-angular-x}
@@ -987,7 +986,7 @@ comparable to the laser alone; the laser figure includes drift accumulated over 
 own. Its time series, the lower row of Figure~\ref{fig:eod-stab-timeseries}, scatter about the
 hold mean without trend.
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
     \centering
     \begin{subfigure}{0.48\textwidth}
         \includegraphics[width=\linewidth]{eod-stab-eod34-std}
@@ -1019,7 +1018,7 @@ hold mean without trend.
     \label{fig:eod-stab-spread}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
     \centering
     \begin{subfigure}{0.48\textwidth}
         \includegraphics[width=\linewidth]{eod-stab-eod34-angular}
@@ -1038,7 +1037,7 @@ hold mean without trend.
     \label{fig:eod-stab-angular}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
     \centering
     \begin{subfigure}{0.32\textwidth}
         \includegraphics[width=\linewidth]{eod-stab-eod34-timeseries-m10v}
@@ -1141,7 +1140,7 @@ counted then are counted at an intermediate position. The delay of half a micros
 negligible against the dwell and, being fixed, could be compensated in timing; the slow stage is
 what matters.
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
     \centering
     \begin{subfigure}{0.48\textwidth}
         \includegraphics[width=\linewidth]{eod-delay-trace-50khz}
@@ -1349,7 +1348,7 @@ EOD34 is swept from $+10$ to $-10$~V of command voltage, the full $\pm200$~V at 
 200 steps of about 0.1~V and roughly half a second each, with EOD35 held at 0~V; EOD35 is then
 swept the same way with EOD34 held at 0~V.
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
     \centering
     \includegraphics[width=\textwidth]{donut-setup-creation}
     \caption{Donut-forming bench, built on the relayed EOD pair of
@@ -1429,7 +1428,7 @@ halo, and the focused beam is a mixture of radial orders rather than the single 
 Equation~\ref{eq:lg-intensity} \cite{karimiHypergeometricGaussianModes2007}, so the shape of the
 ring alone does not separate the two models. The charge is that of the plate, one.
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
     \centering
     \begin{subfigure}{0.48\textwidth}
         \includegraphics[width=\linewidth]{donut-static-image}
@@ -1462,7 +1461,7 @@ ring alone does not separate the two models. The charge is that of the plate, on
     \label{fig:donut-static}
 \end{figure}
 
-\begin{table}[H]
+\begin{table}[!htbp]
     \centering
     \small
     \setlength{\tabcolsep}{4pt}
@@ -1512,7 +1511,7 @@ low numerical aperture should not depend on polarization, the improvement in the
 taken half an hour later, is more likely due to the alignment adjusted in between than to the
 polarization itself. Single frames cannot separate the two.
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
     \centering
     \begin{subfigure}{0.48\textwidth}
         \includegraphics[width=\linewidth]{donut-runs-er}
@@ -1575,7 +1574,7 @@ Until the camera distance and the beam size at the plate are measured, these dis
 be converted to deflection angles, and the ring radius describes the image on the camera rather
 than the donut at a known focus.
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
     \centering
     \begin{subfigure}{0.48\textwidth}
         \includegraphics[width=\linewidth]{donut-sweep-ncc}
@@ -1761,7 +1760,7 @@ angle to position. For every measurement in time it falls instead on a Thorlabs 
 photodiode, 7.8~mm across, placed bare at a measured 200~mm from the scanner, whose difference outputs follow
 the position of the spot without the frame rate of a camera.
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
     \centering
     \includegraphics[width=0.85\textwidth]{galvo-setup}
     \caption{Galvanometer bench. The 642~nm source is folded by M1 and M2 onto G1, the $x$
@@ -1910,7 +1909,7 @@ roll of the camera and a skew between the scanners cannot be told apart with the
 way the control software should calibrate the two axes together, in two dimensions, as for the
 rotated EOD axis found in Section~\ref{sec:donut}.
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
     \centering
     \begin{subfigure}{0.48\textwidth}
         \includegraphics[width=\linewidth]{galvo-cal-angle}
@@ -1964,7 +1963,7 @@ walk in $y$ after the power cycles is consistent with the same cause. A walk of 
 whole pattern without degrading it, and is the kind of error that an independent drift reference
 \cite{lopezOpensourceSubNanometerStabilization2025} removes.
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
     \centering
     \begin{subfigure}{0.48\textwidth}
         \includegraphics[width=\linewidth]{galvo-onoff-landing}
@@ -1999,7 +1998,7 @@ and 1.78\% on falling edges, and with it 1.63 and 1.68\%. The two axes are not i
 overshooting about four times more but settling about 30~\textmu s sooner than $y$, but neither is
 the weaker in every respect.
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
     \centering
     \begin{subfigure}{0.48\textwidth}
         \includegraphics[width=\linewidth]{galvo-step-100hz}
@@ -2055,7 +2054,7 @@ $10^\circ$ at 100~Hz but $99^\circ$ at 1~kHz, where the beam is a quarter of a c
 command. It has to be compensated as a time offset, the same at every rate, not as a phase fitted at
 each frequency.
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
     \centering
     \begin{subfigure}{0.48\textwidth}
         \includegraphics[width=\linewidth]{galvo-delay-amplitude}
@@ -2183,7 +2182,7 @@ and~\ref{tab:galvo-parameters}. Every scale in them is referred to the bench, at
 scanner. Carrying them to the sample through the relay and objective is the step that joins this
 characterization to the tracking measurement itself.
 
-\begin{table}[H]
+\begin{table}[!htbp]
     \centering
     \small
     \begin{tabular}{p{0.34\textwidth}p{0.26\textwidth}p{0.26\textwidth}}
@@ -2208,7 +2207,7 @@ characterization to the tracking measurement itself.
     \label{tab:eod-parameters}
 \end{table}
 
-\begin{table}[H]
+\begin{table}[!htbp]
     \centering
     \small
     \begin{tabular}{p{0.34\textwidth}p{0.26\textwidth}p{0.26\textwidth}}
@@ -2277,7 +2276,7 @@ pixel pitch of 5.2~\textmu m is an input to every angle derived from a displacem
 and the 1~k$\Omega$ input of the HVA200 is the cause of the drive limit described in
 Section~\ref{sec:eod}.
 
-\begin{table}[H]
+\begin{table}[!htbp]
     \centering
     \small
     \begin{tabular}{p{0.20\textwidth}p{0.30\textwidth}p{0.38\textwidth}}
@@ -2327,7 +2326,7 @@ and \path{Galvo}, for the galvanometers. Table~\ref{tab:data} gives the folder o
 relative to that root. The folder names are reproduced as they are on the server, including their
 spelling.
 
-\begin{table}[H]
+\begin{table}[!htbp]
     \centering
     \small
     \begin{tabular}{p{0.38\textwidth}p{0.52\textwidth}}
