@@ -1427,32 +1427,6 @@ halo, and the focused beam is a mixture of radial orders rather than the single 
 Equation~\ref{eq:lg-intensity} \cite{karimiHypergeometricGaussianModes2007}, so the shape of the
 ring alone does not separate the two models. The charge is that of the plate, one.
 
-\begin{table}[H]
-    \centering
-    \small
-    \setlength{\tabcolsep}{4pt}
-    \begin{adjustbox}{max width=\linewidth}
-    \begin{tabular}{lccccccc}
-        \hline
-        Run & \multicolumn{3}{c}{$R^2$} & Ring peak & Extinction & CV & $m_1$ \\
-            & $\ell=1$ & $\ell=2$ & Gaussian & (ADU) & ratio & & \\
-        \hline
-        Initial                & 0.80 & 0.79 & 0.61 & 12 & $<0.10$           & 0.17 & 0.18 \\
-        Darkened center        & 0.70 & 0.70 & 0.60 & 42 & $<0.030$          & 0.42 & 0.53 \\
-        No polarizer           & 0.60 & 0.57 & 0.64 & 50 & $<0.030$          & 0.50 & 0.62 \\
-        Polarizer              & 0.64 & 0.63 & 0.61 & 14 & $<0.071$          & 0.52 & 0.68 \\
-        Polarizer, optimized   & 0.89 & 0.90 & 0.61 & 26 & $0.048 \pm 0.018$ & 0.15 & 0.16 \\
-        \hline
-    \end{tabular}
-    \end{adjustbox}
-    \caption{The five donut runs, in the order taken. Fit quality for the
-    charge-one, charge-two and Gaussian models; ring peak in camera units; extinction ratio, as an
-    upper bound where the null is not resolved; and ring symmetry, as the coefficient of variation
-    around the ring and its one-sided component $m_1$. The fitted ring radius lies between 83 and
-    91~\textmu m in every run.}
-    \label{tab:donut-runs}
-\end{table}
-
 \begin{figure}[H]
     \centering
     \begin{subfigure}{0.48\textwidth}
@@ -1485,6 +1459,32 @@ ring alone does not separate the two models. The charge is that of the plate, on
     around the ring at the radius of peak intensity, with its mean dashed.}
     \label{fig:donut-static}
 \end{figure}
+
+\begin{table}[H]
+    \centering
+    \small
+    \setlength{\tabcolsep}{4pt}
+    \begin{adjustbox}{max width=\linewidth}
+    \begin{tabular}{lccccccc}
+        \hline
+        Run & \multicolumn{3}{c}{$R^2$} & Ring peak & Extinction & CV & $m_1$ \\
+            & $\ell=1$ & $\ell=2$ & Gaussian & (ADU) & ratio & & \\
+        \hline
+        Initial                & 0.80 & 0.79 & 0.61 & 12 & $<0.10$           & 0.17 & 0.18 \\
+        Darkened center        & 0.70 & 0.70 & 0.60 & 42 & $<0.030$          & 0.42 & 0.53 \\
+        No polarizer           & 0.60 & 0.57 & 0.64 & 50 & $<0.030$          & 0.50 & 0.62 \\
+        Polarizer              & 0.64 & 0.63 & 0.61 & 14 & $<0.071$          & 0.52 & 0.68 \\
+        Polarizer, optimized   & 0.89 & 0.90 & 0.61 & 26 & $0.048 \pm 0.018$ & 0.15 & 0.16 \\
+        \hline
+    \end{tabular}
+    \end{adjustbox}
+    \caption{The five donut runs, in the order taken. Fit quality for the
+    charge-one, charge-two and Gaussian models; ring peak in camera units; extinction ratio, as an
+    upper bound where the null is not resolved; and ring symmetry, as the coefficient of variation
+    around the ring and its one-sided component $m_1$. The fitted ring radius lies between 83 and
+    91~\textmu m in every run.}
+    \label{tab:donut-runs}
+\end{table}
 
 How dark the center is cannot be read from these data beyond a bound. In four of the five runs the
 null reads less than one unit above the background, within its uncertainty, and only an upper
@@ -2231,6 +2231,13 @@ characterization to the tracking measurement itself.
 \end{table}
 
 \FloatBarrier
+
+\section*{Acknowledgments}
+\label{sec:acknowledgments}
+
+\section*{AI use}
+\label{sec:ai-use}
+
 \printbibliography
 \appendix
 \section{Equipment}
