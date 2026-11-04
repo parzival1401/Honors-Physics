@@ -17,6 +17,7 @@
 \setcounter{bottomnumber}{2}
 \setcounter{totalnumber}{4}
 \graphicspath{{figures/}} % cite figures by stable name: \includegraphics{eod-beam-xcorr-ncc}
+\DeclareUnicodeCharacter{2212}{\ensuremath{-}} % Unicode minus in exported bibliography titles
 \usepackage{biblatex}
 \addbibresource{references.bib}
 \usepackage{amsmath}
@@ -465,7 +466,7 @@ Figure~\ref{fig:eod-setup-beam-degradation}.
 
 \paragraph{Beam quality along the path.}
 Here nothing is moved but the camera. The two EODs are assembled in their working
-configuration, relayed onto one another as in Figure~\ref{fig:eod-setup-relay-two-EODs},
+configuration, relayed onto one another as in Figure~\ref{fig:eod-setup-relay-two-deflectors},
 and the camera is placed in turn at fixed stations along the beam, one frame at each, so that
 beam quality can be compared across the EOD and relay stages against the fiber output
 taken as the reference. Each station follows one more element of the path, so the change between
@@ -477,11 +478,11 @@ measured together with EOD35, between P2 and P4.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{eod-setup-relay-two-EODs}
+    \includegraphics[width=\textwidth]{eod-setup-relay-two-deflectors}
     \caption{The two EODs in series, EOD34 first. Lenses L1 and L2, one focal length from
     each crystal and two focal lengths apart, image the deflection plane of EOD34 onto EOD35.
     The half-wave plate between them rotates the polarization into the axis of EOD35.}
-    \label{fig:eod-setup-relay-two-EODs}
+    \label{fig:eod-setup-relay-two-deflectors}
 \end{figure}
 
 \paragraph{Beam quality against deflection.}
@@ -1350,7 +1351,7 @@ swept the same way with EOD34 held at 0~V.
     \centering
     \includegraphics[width=\textwidth]{donut-setup-creation}
     \caption{Donut-forming bench, built on the relayed EOD pair of
-    Figure~\ref{fig:eod-setup-relay-two-EODs}. A half-wave plate (HWP) ahead of EOD35 sets
+    Figure~\ref{fig:eod-setup-relay-two-deflectors}. A half-wave plate (HWP) ahead of EOD35 sets
     the polarization that crystal requires. The relays L3--L4 and L5--L6 image the EODs onto
     the vortex phase plate, one focal length beyond L6; mirror M3 folds the beam through a
     quarter-wave plate (QWP), which sets circular polarization, into L7, and the camera lies at the
