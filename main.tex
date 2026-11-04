@@ -419,7 +419,8 @@ configuration, relayed onto one another as in Figure~\ref{fig:eod-setup-relay-tw
 and the camera is placed in turn at fixed stations along the beam, one frame at each, so that
 beam quality can be compared across the deflector and relay stages against the fibre output
 taken as the reference. Each station follows one more element of the path, so the change between
-consecutive stations isolates that element: P1, the control, at the output of the fibre; P2 after
+consecutive stations isolates that element: P1, the control, at the output of the
+polarization-maintaining fibre that brings the laser to the bench; P2 after
 EOD34; P3 after the first relay, L1 and L2; P4 after EOD35; P5 after the second relay, L3 and L4;
 and P6 after the beam expander, L5 and L6, which are shown in Figure~\ref{fig:donut-setup-creation}. P3 lies inside the relay, where there is no room for the camera, so the first relay is
 measured together with EOD35, between P2 and P4.
@@ -472,7 +473,7 @@ are compared. Neither run resolves anything faster than the camera frame interva
 
 \paragraph{Step response.}
 How quickly the beam follows a change of drive is measured without the camera, with the command
-supplied by a function generator. The deflected beam
+supplied by a Siglent SDG810 function generator. The deflected beam
 falls on a Thorlabs PDQ80A quadrant photodiode, whose difference output is proportional to the
 position of the beam on the detector for small displacements, with a specified bandwidth of
 150~kHz. Each deflector in turn is driven with a square wave at frequencies from 1 to 50~kHz, with
@@ -850,7 +851,8 @@ ratio at the low end of that range is expected, since any small misalignment of 
 mixes some of the stronger response into the weaker setting.
 
 The values with the polarizer removed behave differently, and the difference is instructive. The
-laser is linearly polarized at its output, so with the polarizer removed each crystal still sees
+laser is linearly polarized at its output, and the polarization-maintaining fibre that brings it to
+the bench keeps it so, so with the polarizer removed each crystal still sees
 linearly polarized light, but at whatever angle $\varphi$ to its optic axis the source and the
 optics before it happen to set. The light then divides between the two axes, and the measured
 sensitivity is the weighted mean
@@ -1723,7 +1725,8 @@ acquisition software, with G1 on its first channel and G2 on its second, and the
 photodiode's outputs are read by an NI USB-6001 data acquisition card: $x$, $y$ and sum for the
 slow measurements, and $x$ and $y$ alone for the step response, which needs the card's full
 rate on two channels. For the
-timing measurements, a function generator drives the servo input directly and an oscilloscope
+timing measurements, a Siglent SDG810 function generator drives the servo input directly and an
+oscilloscope
 records the generator's output on its first channel and the quadrant photodiode on its second.
 Five measurements were made.
 
@@ -2198,6 +2201,7 @@ Section~\ref{sec:eod}.
         Laser diode & Thorlabs HL6366DG & 642~nm, 80~mW \\
         Laser diode driver & Thorlabs KLD101 & 230~mA maximum; external modulation input \\
         Laser diode mount & Thorlabs LDM9T & Temperature-controlled mount with bias tee \\
+        Optical fibre & Polarization-maintaining, single-mode & Carries the laser to the bench with its linear polarization preserved \\
         \multicolumn{3}{l}{\emph{Electro-optic steering}} \\
         Electro-optic deflectors & Leysop ED2-2T-LT-AR561-642 ($\times2$) & EOD34 ($x$), EOD35 ($y$); lithium tantalate; 2~mm aperture, 60~mm housing; antireflection coated for 561 and 642~nm; quoted ${>}3$~mrad/kV \\
         High-voltage amplifiers & Thorlabs HVA200 ($\times2$) & HVA1 for EOD34, HVA2 for EOD35; gain $-20$, $\pm200$~V, 1~MHz, 1~k$\Omega$ input, monitor at 1/20 of the output \\
@@ -2212,13 +2216,11 @@ Section~\ref{sec:eod}.
         Polarization optics & --- & Half-wave plate, quarter-wave plate, linear polarizer \\
         \multicolumn{3}{l}{\emph{Signal generation and acquisition}} \\
         Data acquisition & National Instruments USB-6001 & 14-bit; 2 outputs, $\pm10$~V, $\pm5$~mA, 5~kS/s; 8 inputs, 20~kS/s shared \\
-        Function generator & Siglent SDG810 & Single channel, 10~MHz \\
-        Function generator & JYE Tech FG085 & miniDDS; amplitude correct only into a high-impedance load \\
+        Function generator & Siglent SDG810 & Single channel, 10~MHz; drives the timing measurements \\
         Oscilloscope & Tektronix TDS1000B series & Two channels; timing measurements \\
         \multicolumn{3}{l}{\emph{Detection}} \\
         Camera & Thorlabs DCx series & $1280\times1024$, 5.2~\textmu m pixels, 8-bit \\
         Quadrant photodiode & Thorlabs PDQ80A & 7.8~mm active area, 150~kHz, 10~kV/A \\
-        Photodetector & Thorlabs DET10A & Biased silicon detector, 200 to 1100~nm \\
         \hline
     \end{tabular}
     \caption{Hardware used in this work.}
