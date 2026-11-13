@@ -263,7 +263,7 @@ Figure~\ref{fig:eod-concept} sets the two ways of steering side by side.
             \node at (2.3,0.4) {\footnotesize $+\Delta n$};
             \draw[red!70!black, very thick, ->] (-1.6,0) -- (0,0);
             \foreach \x in {-1.3,-0.95,-0.6} \draw[red!70!black] (\x,-0.3) -- (\x,0.3);
-            \draw[red!70!black, very thick] (0,0) -- (3,0.12);
+            \draw[red!70!black, very thick] (0,0) -- (1.5,0) -- (3,0.12);
             \draw[gray, dashed] (3,0.12) -- ++(0:1.9);
             \draw[red!70!black, very thick, ->] (3,0.12) -- ++(12:1.9);
             \foreach \s in {0.6,1.0,1.4} \draw[red!70!black] ($(3,0.12)+(12:\s)+(102:0.3)$) -- ($(3,0.12)+(12:\s)+(282:0.3)$);
@@ -275,8 +275,9 @@ Figure~\ref{fig:eod-concept} sets the two ways of steering side by side.
     mirror through $\theta$, which turns the reflected beam through $2\theta$; how fast it can move
     is limited by the inertia of the mirror and rotor. (b) An EOD has no moving part. The voltage
     across the crystal raises the refractive index in one section and lowers it in the opposed one,
-    so one side of the beam is delayed relative to the other, its wavefront tilts, and the beam
-    leaves at an angle proportional to the voltage.}
+    so one side of the beam is delayed relative to the other and its wavefront tilts. Seen as a
+    ray, the beam bends where the two sections meet, and refraction at the exit face enlarges that
+    bend, so the beam leaves at an angle proportional to the voltage.}
     \label{fig:eod-concept}
 \end{figure}
 
