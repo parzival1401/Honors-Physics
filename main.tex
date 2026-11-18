@@ -38,14 +38,16 @@ cycle of about 100~\textmu s and re-centered on the molecule as it moves, so the
 method rests on the hardware that moves the beam. This work characterizes that hardware for a
 MINFLUX tracking instrument under construction: a pair of electro-optic deflectors (EODs) that step
 the pattern, the donut they move, and a pair of galvanometer scanners that re-center it. The EODs
-deflect linearly across $\pm200$~V, by 2.95 and 3.12~mrad/kV with the input polarization
-perpendicular to the deflection axis and three and a half times less with it parallel.
-They begin to move about half a microsecond after the drive and settle within 25~\textmu s, the
-dwell of one pattern position, but arrive in two stages, reaching 80 to 94\% of a step within the
-first 5~\textmu s. A vortex phase plate of charge one forms a donut whose central intensity is at
-most 3 to 5\% of the ring peak, the limit the camera can resolve, and whose shape changes by about
-one percent under the full deflection of either axis; the same measurement shows the two deflection axes
-$14^\circ$ from perpendicular. The galvanometers deflect the beam by $2.03^\circ$ and $1.44^\circ$
+deflect by 3.15 and 3.31~mrad/kV with the input polarization perpendicular to the deflection
+axis, meeting the vendor's minimum, and about 3.6 times less with it parallel, linearly to about
+3\% of full scale across $\pm200$~V. Seen through a quadrant detector, the beam begins to move
+about half a microsecond after the drive, arrives in two stages, and settles within 25~\textmu s,
+the dwell of one pattern position; the detector alone could produce a response of this size, so
+these figures bound the response of the EODs from above. A vortex phase plate of charge one forms
+a donut whose central intensity is a few percent of the ring peak, $5\pm2\%$ in the best-aligned
+run, at the limit the camera can resolve. Under deflection the donut moves linearly, but its null
+moves 5 to 12\% less per volt than its ring and the ring's one-sided asymmetry grows linearly with
+drive; the same measurement shows the two deflection axes $14^\circ$ from perpendicular. The galvanometers deflect the beam by $2.03^\circ$ and $1.44^\circ$
 per volt, the lower value set by the fold geometry of the second mirror, return to within a few
 microradians, and complete a move 0.4 to 0.45~ms after the command. Together these results give
 the calibration and timing the control system needs, and they identify what remains: the depth of
@@ -154,7 +156,8 @@ galvanometer in Section~\ref{sec:galvo}.
 The worked example of the proposal translates into requirements on each part of the beam-steering
 hardware. The pattern positions are the reference for every localization, so they must be known
 more finely than the precision sought. With a target below 2~nm and a pattern 30~nm across, a
-scale error of one percent already moves the positions by 0.3~nm. The EODs must therefore be
+scale error of one percent already moves each position by 0.15~nm and changes the diameter of the
+pattern by 0.3~nm. The EODs must therefore be
 calibrated to about a percent and must hold their positions to a fraction of a nanometer over a
 measurement. Each position is held for about 25~\textmu s, and photons counted while the beam is
 still moving are assigned to the wrong position, so a step must be complete within a small
@@ -200,10 +203,15 @@ The applied field is what produces the difference. In lithium tantalate the inde
 proportional to the field, so doubling the voltage doubles the deflection and reversing the
 voltage reverses it. A uniform field across a uniform slab, however, shifts the index everywhere
 by the same amount: the whole wavefront is delayed, nothing tilts, and the device is a phase
-modulator rather than an EOD. The index change has to vary across the aperture, and an
-EOD is built so that it does, by dividing the crystal into sections whose orientation is
-opposed, so that a single applied voltage raises the index on one side of the beam while lowering
-it on the other.
+modulator rather than an EOD. The index change has to vary across the aperture, and there are two
+ways of building that in \cite{romerElectroopticAcoustoopticLaser2014}: dividing the crystal into
+prism-shaped sections of opposed orientation, so that the beam is refracted at each boundary
+between them, or shaping the field itself. The EODs used here take the second route. Four
+electrodes surround the crystal as a quadrupole, and the field they produce grows steadily from one
+side of the aperture to the other, so a single applied voltage raises the index on one side of the
+beam, lowers it on the other, and grades it evenly in between. The beam is then bent a little at
+every point along the crystal, and the deflection accumulates over its length rather than
+happening at any one plane.
 
 The mechanism is the linear electro-optic, or Pockels, effect. A field $E$ changes the index seen
 by light polarized along a given crystal axis by
@@ -211,13 +219,13 @@ by light polarized along a given crystal axis by
     \Delta n = \tfrac{1}{2}\, n^3 r E ,
 \end{equation}
 where $n$ is the unperturbed index and $r$ the electro-optic coefficient that couples the field to
-that polarization. With a voltage $V$ across an electrode gap $d$, the field is $V/d$, and opposed
-sections turn the index change into a difference of $2\Delta n$ across a beam aperture $w$. Over
+that polarization. With a voltage $V$ across an electrode gap $d$, the field is of order $V/d$, and
+the graded field turns the index change into a difference of $2\Delta n$ across a beam aperture $w$. Over
 a crystal of length $L$ the wavefront then tilts by
 \begin{equation}
     \theta \approx \frac{n^3 r L}{d\, w}\, V ,
 \end{equation}
-up to a factor of order unity set by the shape of the sections. Three properties of the device
+up to a factor of order unity set by the electrode geometry. Three properties of the device
 follow directly. The deflection is proportional to the voltage. A long, thin crystal deflects
 more per volt. And only the coefficient $r$ for the polarization actually present enters, so the
 sensitivity depends on how the input light is polarized.
@@ -228,7 +236,9 @@ by the servo holding it in place. An EOD has no moving part at all, so its
 speed is set instead by how fast charge can be pushed onto the electrodes, which is a question of
 the crystal's capacitance and the amplifier driving it. The limit moves from mechanics to
 electronics, and electronics is much the faster of the two. Two consequences follow. There is no
-mechanical ringing to wait out, and no wear or vibration to manage. And because there is no
+mirror to ring, and no wear to manage, although lithium tantalate is piezoelectric, so a fast step
+can still excite a small acoustic response in the crystal itself, on timescales of a fraction of a
+microsecond \cite{cassonElectroopticCoefficientsLithium2004}. And because there is no
 mass to accelerate, the time to move between two positions scarcely depends on how far apart they
 are: positions can be addressed in any order at the same cost, where a mirror has to travel. The
 drive electronics still take time to charge the crystal, and how long is measured below.
@@ -248,22 +258,20 @@ Figure~\ref{fig:eod-concept} sets the two ways of steering side by side.
             \draw[->, blue!60!black] ({0.95*cos(45)},{0.95*sin(45)}) arc (45:55:0.95) node[right] {$\theta$};
             \node[align=center, below] at (-0.6,-1.1) {(a) Galvanometer:\\ a mirror turns};
         \end{scope}
-        % (b) EOD: opposed sections raise the index on one side of the beam and lower it on the
-        % other, so the wavefront tilts and the beam leaves at an angle proportional to V.
+        % (b) EOD: the quadrupole field grades the index evenly across the beam, so the beam bends
+        % a little all along the crystal (a parabola), and the exit face enlarges the bend.
         \begin{scope}[xshift=5.2cm]
-            \fill[blue!8] (0,-0.6) -- (3,-0.6) -- (0,0.6) -- cycle;
-            \fill[blue!25] (0,0.6) -- (3,0.6) -- (3,-0.6) -- cycle;
+            \shade[top color=blue!30, bottom color=blue!4] (0,-0.6) rectangle (3,0.6);
             \draw (0,-0.6) rectangle (3,0.6);
-            \draw (0,0.6) -- (3,-0.6);
             \draw[line width=2.5pt, black!70] (0,0.68) -- (3,0.68);
             \draw[line width=2.5pt, black!70] (0,-0.68) -- (3,-0.68);
             \node[above] at (1.5,0.72) {$+V$};
             \node[below] at (1.5,-0.72) {ground};
-            \node at (0.7,-0.4) {\footnotesize $-\Delta n$};
-            \node at (2.3,0.4) {\footnotesize $+\Delta n$};
+            \node at (1.5,-0.4) {\footnotesize $-\Delta n$};
+            \node at (1.5,0.4) {\footnotesize $+\Delta n$};
             \draw[red!70!black, very thick, ->] (-1.6,0) -- (0,0);
             \foreach \x in {-1.3,-0.95,-0.6} \draw[red!70!black] (\x,-0.3) -- (\x,0.3);
-            \draw[red!70!black, very thick] (0,0) -- (1.5,0) -- (3,0.12);
+            \draw[red!70!black, very thick] (0,0) .. controls (1.5,0) .. (3,0.12);
             \draw[gray, dashed] (3,0.12) -- ++(0:1.9);
             \draw[red!70!black, very thick, ->] (3,0.12) -- ++(12:1.9);
             \foreach \s in {0.6,1.0,1.4} \draw[red!70!black] ($(3,0.12)+(12:\s)+(102:0.3)$) -- ($(3,0.12)+(12:\s)+(282:0.3)$);
@@ -273,11 +281,12 @@ Figure~\ref{fig:eod-concept} sets the two ways of steering side by side.
     \end{tikzpicture}
     \caption{Two ways to steer a beam, in schematic and not to scale. (a) A galvanometer turns a
     mirror through $\theta$, which turns the reflected beam through $2\theta$; how fast it can move
-    is limited by the inertia of the mirror and rotor. (b) An EOD has no moving part. The voltage
-    across the crystal raises the refractive index in one section and lowers it in the opposed one,
-    so one side of the beam is delayed relative to the other and its wavefront tilts. Seen as a
-    ray, the beam bends where the two sections meet, and refraction at the exit face enlarges that
-    bend, so the beam leaves at an angle proportional to the voltage.}
+    is limited by the inertia of the mirror and rotor. (b) An EOD has no moving part. Its quadrupole
+    electrodes, drawn here as a single pair, set up a field that grows steadily across the crystal,
+    so the voltage raises the refractive index on one side of the beam, lowers it on the other, and
+    grades it evenly in between. One side of the beam is delayed relative to the other all along
+    the crystal, so the beam bends gradually rather than at any one point, refraction at the exit
+    face enlarges the bend, and the beam leaves at an angle proportional to the voltage.}
     \label{fig:eod-concept}
 \end{figure}
 
@@ -334,10 +343,14 @@ driven by a Thorlabs HVA200 high-voltage amplifier (gain $-20$, $\pm200$~V) and 
 ground. In the instrument each amplifier is to be fed from the instrument's field-programmable gate
 array (FPGA), the controller that times the MINFLUX cycle, through a fast digital-to-analog converter and an op-amp preamplifier stage; on the bench
 it is fed from a data acquisition card through a voltage follower, as described under Setup.
-The vendor supplies no datasheet for these semi-custom units; the only performance figure given
-in writing is a quoted minimum deflection sensitivity of ${>}3$~mrad/kV, and the deflection pivot
-is stated to lie at the center of the crystal, which sits at the center of the housing. Everything else used by the control system is
-established by the measurements reported below.
+The vendor supplies no datasheet for these semi-custom units. The only performance figure given
+in writing is a quoted minimum deflection sensitivity of ${>}3$~mrad/kV. A short operating guide
+adds three instructions: a peak drive of up to about 2~kV, a beam no wider than about 1~mm for the
+best deflected beam quality, and input light polarized parallel to the plane containing the two
+connectors, the beam then being deflected in the plane at right angles. In correspondence the
+vendor added that the deflection accumulates along the length of the crystal and that its center
+can be taken as the deflection pivot; the crystal sits at the center of the housing. Everything
+else used by the control system is established by the measurements reported below.
 
 The two EODs are referred to throughout by serial number. EOD34 is the first in the beam
 path, steers the $x$ axis, and is driven by amplifier HVA1; EOD35 follows it, steers $y$, and is
@@ -352,9 +365,10 @@ control system commands that motion in volts while the experiment is defined in 
 sample. Everything in this subsection exists to establish that conversion and to bound how far it
 can be trusted. The need is sharper here than for a catalog component, because these are
 semi-custom units for which the manufacturer supplies no datasheet: the single performance figure
-available in writing is a quoted minimum sensitivity of ${>}3$~mrad/kV. A quoted minimum is not a
+available in writing is a quoted minimum sensitivity of ${>}3$~mrad/kV, beside an instruction on
+which input polarization to use. A quoted minimum is not a
 calibration. It cannot say whether EOD34 and EOD35 match, whether the response is linear across the
-drive range, how the sensitivity depends on input polarization, or how quickly the deflection
+drive range, how far the sensitivity falls when the polarization is not the one prescribed, or how quickly the deflection
 settles after a commanded step, and each of those enters the position of the excitation pattern
 directly.
 
@@ -422,7 +436,9 @@ every step.
     (labeled Voltage Amplifier~1 in the schematic) drives EOD34 and HVA2 drives EOD35. AI1 and
     AI3 read back the commands, and AI0 and AI2 read the amplifier monitor outputs. The schematic
     labels the follower supply $\pm5$~V and the decoupling capacitors 100~\textmu F; as built, the
-    followers run on $\pm15$~V, which a $\pm10$~V output requires, with 100~nF capacitors.}
+    followers run on $\pm15$~V, which a $\pm10$~V output requires, with 100~nF capacitors. The
+    schematic numbers the op-amp pins as for a dual package; on the single LF411 the output is
+    pin~6 and the positive supply pin~7.}
     \label{fig:eod-drive-circuit}
 \end{figure}
 
@@ -434,9 +450,10 @@ command read back at the card and the amplifier monitor followed the setpoint on
 $\pm135$ to $\pm160$~V instead of $\pm200$~V. The cause is an impedance mismatch. The HVA200 has
 an input impedance of only 1~k$\Omega$, so a 10~V command must supply 10~mA, while the USB-6001's
 analog outputs are rated for $\pm5$~mA. Measured at the point of saturation, the two outputs
-delivered 6.70 and 7.68~mA into amplifier inputs of 1.002 and 1.045~k$\Omega$. Those products,
-6.71 and 8.03~V, are the voltages at which the two ramps flattened, so the outputs had reached the
-limit of the current they could supply. A voltage follower removes the mismatch. Its input draws
+delivered 6.70 and 7.68~mA into amplifier inputs of 1.002 and 1.045~k$\Omega$, above the card's
+rated $\pm5$~mA though below its $\pm11$~mA short-circuit limit. Those products, 6.71 and 8.03~V,
+agree to within about half a volt with the levels at which the two ramps flattened, about 6.7 and
+7.6~V, so the outputs had reached the limit of the current they could supply. A voltage follower removes the mismatch. Its input draws
 almost no current from the card, and its output supplies the amplifier's 10~mA from its own
 $\pm15$~V supply, passing the command through unchanged. With the followers in place, the command
 and the monitor follow the setpoint linearly across the full $\pm10$~V, and the amplifiers reach
@@ -520,17 +537,20 @@ to the sensor and so 380~mm from the deflection pivot. EOD34 and EOD35 are each 
 nine command voltages from $-10$ to $+10$~V in steps of 2.5~V, and the camera records 40 frames
 at each held voltage, about 0.9~s apart, so that every hold lasts roughly 36~s. A baseline run
 records the beam for 673~s, about 0.67~s per frame, with the EOD drive inactive: the
-amplifier monitor stays within 0.5~V and the beam does not move with it, so that run
-measures the pointing stability of the laser and the bench alone, against which the EODs
-are compared. Neither run resolves anything faster than the camera frame interval.
+amplifier monitor stays within 0.5~V. The beam's vertical position does follow the monitor over
+the run (correlation $-0.94$, 1.1 pixels in all), but the command rose steadily throughout, so
+that cannot be told apart from slow drift. The run is taken as measuring the pointing stability
+of the laser and the bench alone, against which the EODs are compared. Neither run resolves anything faster than the camera frame interval.
 
 \paragraph{Step response.}
 How quickly the beam follows a change of drive is measured without the camera, with the command
 supplied by a Siglent SDG810 function generator. The deflected beam
 falls on a Thorlabs PDQ80A quadrant photodiode, whose difference output is proportional to the
 position of the beam on the detector for small displacements, with a specified bandwidth of
-150~kHz. Each EOD in turn is driven with a square wave at frequencies from 1 to 50~kHz, with
-a command of about 4.4~V peak to peak and so of the order of 90~V at the amplifier output. A
+150~kHz. Each EOD in turn is driven with a square wave at frequencies from 1 to 50~kHz. The two units were
+recorded on different days and at different amplitudes: between its settled levels the amplifier
+monitor swung about 3.9~V peak to peak for EOD34 and 5.8~V for EOD35, about 78 and 116~V at the
+crystal. A
 two-channel oscilloscope records the monitor output of the HVA200 amplifier on one channel and the detector on
 the other. Because the reference is the amplifier's own output, the timing measured is that of
 the EOD and the detection, from the voltage reaching the crystal to the beam arriving at its
@@ -552,7 +572,7 @@ reference, a single hot pixel taken as the center propagates into every width de
 frame.
 
 \paragraph{Measuring a width.}
-Profiles through the center are averaged over a band of eleven lines either side rather than read
+Profiles through the center are averaged over a band of ten lines either side, 21 in all, rather than read
 from a single line. For a separable Gaussian this is exact: averaging symmetric rows returns the
 same transverse profile scaled by a constant, so the width is preserved while the noise falls as
 the square root of the number of lines. The frames here peak at only tens of counts, and on a
@@ -601,9 +621,11 @@ alternative definition $I \propto \exp(-r^2/\omega^2)$, and using it beside a $1
 separates the two radii by a flat factor of $\sqrt{2}$ for purely notational reasons.
 
 \paragraph{Calibrating deflection against drive.}
-The high-voltage amplifier presents a monitor output scaled to one twentieth of its true output
-and inverted; the drive applied to the crystal is recovered by negating that reading and
-multiplying by twenty. Each sweep step records this monitor value together with the commanded
+The high-voltage amplifier presents a monitor output at one twentieth of its true output, with the
+same sign; it is the amplifier itself that inverts, its output being $-20$ times the command. The
+analysis multiplies the monitor reading by $-20$, which expresses the drive on the scale of the
+command. The horizontal axes of the sweep figures are therefore $-1$ times the voltage on the
+crystal; only the size of the deflection per volt is used, so the sign affects no result. Each sweep step records this monitor value together with the commanded
 output and a frame.
 
 Deflection is obtained from the displacement of the beam center across the sweep. With the
@@ -633,8 +655,8 @@ The oscilloscope stores 2500 points per channel at 8 bits, with a sample interva
 from 2~\textmu s in the slowest captures to 0.1~\textmu s in the fastest. Each drive edge is
 located at the time its trace crosses half its swing, interpolated between samples; the half-way
 point is used rather than the customary tenth because, at the vertical scale recorded, one
-quantization level is already about a tenth of the drive swing, and a threshold that low fires on
-noise. The raw detector samples around every edge of a capture are aligned on those times and
+quantization level is 3 to 5 percent of the drive swing and the low level flickers over two or
+three levels, so a threshold that low fires on noise. The raw detector samples around every edge of a capture are aligned on those times and
 averaged, without smoothing. The detector signal is then expressed as a fraction of the full
 throw, the difference between the two levels at which the beam comes to rest, taken from the
 captures whose half period is long enough, 40~\textmu s or more, for the beam to settle; the
@@ -660,19 +682,19 @@ crystals and their mounting rather than design. The clearest result of this meas
 working range rather than a degradation curve. The
 correlation against the undeflected control, Figure~\ref{fig:eod-beam-xcorr-ncc}, rises to
 essentially unity over a plateau running from roughly 10.5 to 12~mm of stage travel and falls
-away steeply on both sides, reaching 0.2 to 0.4 at either extreme. Across that plateau the width
+away steeply on both sides, to between 0.04 and 0.37 at the extremes. Across that plateau the width
 of the correlation peak, Figure~\ref{fig:eod-beam-xcorr-fwhm}, is flat and sits on the control
 value, so where the beam is usable at all it is no less sharp than the reference. The
 displacement, Figures~\ref{fig:eod-beam-xcorr-dx} and~\ref{fig:eod-beam-xcorr-dy}, behaves the
 same way: flat within the plateau and running to several hundred pixels in $x$ outside it, while
-$y$ stays near zero throughout. EOD35 reaches the plateau about 0.7~mm of travel earlier than
-EOD34 but leaves it at the same point, so its plateau is about 2.2~mm wide against 1.5~mm for
-EOD34. A plateau about 1.5~mm wide inside a 2~mm aperture is what a beam a fraction of a millimeter
-across would give if the plateau is simply the range over which it clears both edges of the
-aperture, so the fall-off on either side reads as clipping at the aperture rather than as
-degradation within the crystal. The wider plateau of EOD35, as wide as the quoted aperture itself,
-does not fit that picture as simply, and these data do not explain the difference between the two
-units.
+$y$ stays near zero throughout. How wide the plateau is depends on the threshold chosen. At a
+correlation of 0.97 both units span 1.27~mm; at 0.95, 1.59~mm for EOD34 and 1.91~mm for EOD35; and
+at 0.90, 2.38 and 2.70~mm. The millimeter scale takes the stage reading as recorded, 0.100 on the
+dial being 4/32~inch. A plateau of 1.3 to 1.6~mm inside a 2~mm aperture is what a beam a fraction
+of a millimeter across would give if the plateau is simply the range over which it clears both
+edges of the aperture, so the fall-off on either side reads as clipping at the aperture rather than
+as degradation within the crystal. The somewhat wider plateau of EOD35 at the lower thresholds is
+not explained by these data.
 
 \begin{figure}[!htbp]
     \centering
@@ -713,18 +735,24 @@ EOD35 and the second relay. Because the stations sit at different distances alon
 absolute widths of Figure~\ref{fig:eod-path-fwhm} change partly through ordinary propagation; the ellipticity and the
 fit quality are the measures of shape, and they are read here against the control rather than
 against an ideal. The control at P1 is very nearly circular, with an ellipticity of 1.01, and its
-Gaussian fit reaches an $R^2$ of 0.965, which sets the ceiling for the later stations.
+Gaussian fit reaches an $R^2$ of 0.965. That value is not a ceiling for the later stations,
+because $R^2$ on 8-bit frames depends on the brightness as well as on the shape: the peak falls
+from 48 counts at P1 to 34 at P2, 21 at P4 and 23 at P5, and as it falls the pixel noise takes a
+larger share of the variance. A perfect Gaussian under the measured noise would reach only about
+0.99 at P1, 0.96 to 0.97 at P2, 0.92 to 0.95 at P4 and 0.95 to 0.97 at P5, the range reflecting
+how the noise is estimated, and it is the shortfall from that ceiling that measures shape.
 
 EOD34 is where the shape changes most. Between P1 and P2 the width along $x$, its deflection
 axis, grows by about a quarter, from roughly 570 to 720~\textmu m, while the width along $y$ grows
 by under a tenth, and the ellipticity rises to 1.17. Across the first relay and EOD35 together,
-P2 to P4, the beam rounds again to an ellipticity of 1.08, but the fit quality falls to
-0.90, so the profile moves further from Gaussian even as it becomes more nearly circular. The
+P2 to P4, the beam rounds again to an ellipticity of 1.08 while the fit quality falls to
+0.90, but much of that fall follows the dimmer frame. The
 second relay, P4 to P5, leaves the fit quality unchanged but exchanges the axes: the width along
 $x$ returns to the control value while that along $y$ keeps growing, and the ellipticity reaches
 1.19, now elongated along $y$. At every measurable station before the beam expander the
-ellipticity therefore stays below 1.2, and the loss of Gaussian character, from 0.965 to 0.90,
-is accumulated entirely through EOD34, the first relay and EOD35.
+ellipticity therefore stays below 1.2. Of the fall in $R^2$ from 0.965 to 0.90, between a third
+and two thirds is the falling signal; the departure from Gaussian that remains, the shortfall from
+the ceiling, is about 0.02 at P1, 0.02 to 0.05 at P4 and 0.05 to 0.06 at P5.
 
 Station P6 is reported but not interpreted. After the beam expander the beam is more than
 six times wider than at any earlier station, which is the expansion that stage exists to provide,
@@ -778,8 +806,11 @@ Figure~\ref{fig:eod-quality-voltage-r2} lies between about 0.94 and 0.97 across 
 for both EOD34 and EOD35, never approaching unity. More tellingly, the two radii of
 Figure~\ref{fig:eod-quality-voltage-omega} differ by roughly a tenth to a seventh of their value
 throughout, in the same direction for both EODs. Those two quantities are the same radius
-computed two ways and must coincide for a true Gaussian, so their separation measures wings the
-fitted model does not describe. The gap is far smaller than the factor of $\sqrt{2}$ that a
+computed two ways and must coincide for a true Gaussian, so their separation shows that the
+profile departs from the model. It does not by itself show how: wings the model does not
+describe would separate them, but so would a constant pedestal that the fit absorbs into its
+background while the half-maximum search does not. At the stations along the path, above, the two
+radii separate in the opposite sense, the fitted one being the smaller. The gap is far smaller than the factor of $\sqrt{2}$ that a
 mismatch of radius conventions would produce, so it is a property of the beam rather than of the
 arithmetic.
 
@@ -825,8 +856,16 @@ across the full $\pm200$~V of amplifier output while $y$ remains flat, in panels
 Figure~\ref{fig:eod-polarization-hva1} for EOD34 and Figure~\ref{fig:eod-polarization-hva2} for
 EOD35. EOD35 shows its three polarization traces displaced from one another in $y$ by a few
 pixels, but each is flat with drive, so this is a fixed offset between configurations rather than
-a response to the applied field. Linearity holds across the whole range for both EODs; no
-departure from a straight line is visible at either extreme.
+a response to the applied field. The response is close to linear but not exactly so. Fitted
+separately, the two halves of a sweep give slopes that differ by up to 12 percent, for EOD34 at
+the perpendicular setting 3.13~mrad/kV below zero drive and 3.52 above, and a quadratic term is
+significant in four of the six sweeps. The systematic departure from a straight line is 0.5 to
+2.8 percent of the full travel, largest for EOD34 at the perpendicular setting, where the bend is
+visible in panel (b). These data cannot tell whether it belongs to the crystal or to the centroid,
+since the shape of the beam leaving EOD34 changes progressively toward positive drive
+(Figure~\ref{fig:eod-quality-voltage-ellipticity}). Either way, the map from volts to position is
+linear to about 3 percent of full scale, not yet to the one percent that
+Section~\ref{sec:goals} asks of it.
 
 \begin{figure}[!htbp]
     \centering
@@ -891,54 +930,71 @@ departure from a straight line is visible at either extreme.
 \end{figure}
 
 The sensitivity depends strongly on the input polarization, panel (d) of each figure. With the
-polarization perpendicular to the deflection axis, EOD34 gives 2.95~mrad/kV and EOD35 3.12;
-with the polarizer removed, 2.08 and 2.77; and parallel to the deflection axis, 0.83 and 0.88. The
-ratio between the best and worst polarization is about 3.5 for both, so this is a property of the
-device type rather than of one crystal. It is the size of effect the Pockels mechanism predicts.
+polarization perpendicular to the deflection axis, EOD34 gives 3.15~mrad/kV and EOD35 3.31;
+with the polarizer removed, 2.14 and 2.77; and parallel to the deflection axis, 0.89 and 0.90. The
+statistical error of each slope is under one percent. The best setting is the one the vendor's
+operating guide prescribes, light polarized at right angles to the deflection; what the
+measurement adds is how much is lost otherwise. The
+ratio between the best and worst polarization is 3.55 for EOD34 and 3.67 for EOD35, about 3.6 for
+both, so this is a property of the device type rather than of one crystal. It is the size of effect the Pockels mechanism predicts.
 If the perpendicular setting puts the light along the optic axis and the parallel setting at
 right angles to it, the two sensitivities stand in the ratio of the coefficients $r_{33}$ and
 $r_{13}$, the two indices of lithium tantalate being nearly equal. Reported values near 633~nm
 put $r_{33}$ at 30 to 36~pm/V and $r_{13}$ at 7 to 8~pm/V, a ratio of roughly four
 \cite{yarivPhotonicsOpticalElectronics2007,cassonElectroopticCoefficientsLithium2004}. A measured
-ratio at the low end of that range is expected, since any small misalignment of the polarizer
-mixes some of the stronger response into the weaker setting.
+ratio at or a little below the low end of that range is expected, since any small misalignment of
+the polarizer mixes some of the stronger response into the weaker setting.
 
-The values with the polarizer removed behave differently, and the difference is instructive. The
-laser is linearly polarized at its output, and the polarization-maintaining fiber that brings it to
-the bench keeps it so, so with the polarizer removed each crystal still sees
-linearly polarized light, but at whatever angle $\varphi$ to its optic axis the source and the
-optics before it happen to set. The light then divides between the two axes, and the measured
-sensitivity is the weighted mean
+The values with the polarizer removed are harder to read, because without the polarizer the input
+state was not controlled. The laser reaches the bench through a polarization-maintaining fiber,
+but whether it was launched along the fiber's axis was not checked. If the light reaching a
+crystal is linearly polarized at an angle $\varphi$ to its optic axis, it divides between the two
+axes, and the measured sensitivity is the weighted mean
 \begin{equation}
     S(\varphi) = S_\perp \cos^2\varphi + S_\parallel \sin^2\varphi ,
 \end{equation}
-which places the input about $40^\circ$ from the optic axis of EOD34 and about $23^\circ$ from
-that of EOD35. That is why this condition is where the two EODs disagree most, by a third,
-whereas at the two controlled settings they agree to within about six percent: the gap belongs to
-how each crystal sits relative to the laser's polarization, not to the crystals.
+which puts a share $\cos^2\varphi$ of about 0.56 of the power along the optic axis of EOD34 and
+0.78 along that of EOD35. The two crystals, however, sat at the same angle to the bench: both
+deflect within about two degrees of the camera's $x$ axis, and one fixed linear polarization would
+have given both the same share. The input state therefore changed between the two runs, made
+thirteen minutes apart, or was not linear to begin with. This condition is where the two EODs
+disagree most, by about 30 percent, whereas at the two controlled settings they agree to within
+5 percent; the gap reflects the uncontrolled input, not the crystals.
 
 Measured against the manufacturer's quoted minimum of 3~mrad/kV, the outcome depends on the
-polarization first and on the EOD second. Only at the perpendicular setting do the
-EODs approach the specification at all: EOD35 meets it, and EOD34 falls short by under two
-percent, a margin comparable to the uncertainty in the lever arm discussed below. With the polarizer removed,
+polarization first and on the EOD second. At the perpendicular setting both EODs meet the
+specification, EOD34 by 5 percent and EOD35 by 10. With the polarizer removed,
 both fall below it, and at the parallel setting both fail by a factor of
-about three and a half. A half-wave plate correctly set is therefore a precondition for the
+about 3.6. A half-wave plate correctly set is therefore a precondition for the
 EODs reaching their quoted performance, not an optimization applied on top of it.
 
 Two consequences follow for the control system. The orientation of the input polarization has to
 be fixed and recorded as part of the calibration, since it alone moves the volts-to-angle
 conversion across that range. And even with the polarization controlled, EOD34 and EOD35 differ
-by about six percent, so a scan pattern built on a single sensitivity for both axes would be
-stretched along one of them; each EOD needs its own calibration.
+by 5 percent at the perpendicular setting and 2 percent at the parallel one, so a scan pattern
+built on a single sensitivity for both axes would be stretched along one of them. Each unit was
+measured through its own amplifier, whose monitor ratio is specified only to $\pm6$ percent, so the
+difference is established between the two channels, each an EOD with its amplifier, rather than
+between the crystals; either way, each channel needs its own calibration.
 
 Two cautions attach to these numbers. They are inversely proportional to the lever arm, taken
 here as 220~mm: the 190~mm measured on the bench runs from the housing face to the sensor, and
 the manufacturer places the deflection pivot at the center of the 60~mm housing, a further
 30~mm back. Referring the angle to the housing face instead would overstate every sensitivity by
-about sixteen percent and carry both EODs above the specification at the perpendicular
-setting, so where that distance is measured from is not a detail. And the first recorded point
-of every sweep, at the negative extreme of the drive, sits off the line established by the
-remainder; it has the character of a settling transient and is excluded from the regressions.
+about sixteen percent, so where that distance is measured from is not a detail. And the first
+recorded point of five of the six sweeps, at the negative extreme of the drive, sits well off the
+line established by the remainder. It is not a settling of the deflector: the beam in that frame
+sits where it was before the sweep began, at the far end of the previous sweep or at the 0~V
+position, so it is a camera frame taken before the new voltage took effect. It is excluded from
+the regressions and from the figures; included, it would lower the sensitivities at the
+perpendicular setting by about 6 percent.
+
+Beyond the statistical errors, these numbers carry systematic uncertainties that have not been
+combined into a single figure. The voltage axis is the amplifier monitor times twenty, and the
+monitor ratio is specified to $\pm6$ percent. The pixel pitch of 5.2~\textmu m is taken for the
+camera's sensor, whose exact model was not recorded; a sister model of 5.3~\textmu m would change
+every angle by 2 percent. The lever arm was measured once on the bench. And the departure from
+linearity above reaches 3 percent of full scale.
 
 \paragraph{Pointing stability.}
 The laser and bench alone set the floor, Figure~\ref{fig:laser-stab}. Over 673~s the beam wanders
@@ -1087,12 +1143,18 @@ $-5$ and 0~V, where the standard deviation rises to between 0.003 and 0.007~mrad
 Figure~\ref{fig:eod-stab-angular-eod34}. The time series show why: at those voltages the beam
 does not scatter but drifts, relaxing steadily through the hold, by about two pixels or
 0.03~mrad over 36~s at 0~V, Figure~\ref{fig:eod-stab-eod34-timeseries-0v}, and mostly along
-$y$, across its own deflection axis rather than along it. That is a slow settling after the voltage is set, on a timescale of seconds to tens of
-seconds, and it appears in one EOD only. It is small against the deflection itself: at the
+$y$, across its own deflection axis rather than along it. Followed across the whole run rather
+than hold by hold, the drift is a single excursion of about four pixels, about 0.05~mrad, that
+rises over the first two minutes and decays over the next two, largely continuous across the
+boundaries between holds. Within the holds it changes sign, although every step was the same
+$+2.5$~V, which a settling after each step would not do. The voltages were visited once, in
+order, so voltage and time cannot be told apart, and EOD35 was measured in a separate run a few
+minutes earlier. The excursion therefore cannot be assigned either to EOD34 or to the voltages at
+which it appeared; a slow pointing excursion of the bench during the first minutes of the run
+fits the data as well. It is small against the deflection itself: at the
 worst voltage its standard deviation is about one percent of the half-range of EOD34, about
-0.59~mrad at the perpendicular polarization, and the full drift at 0~V about five percent. But it
-is systematic rather than random, and a calibration taken immediately after a large step would
-inherit it.
+0.63~mrad at the perpendicular polarization, and the full drift at 0~V about five percent. Until
+its cause is known, a calibration taken soon after a large step may inherit it.
 
 These measurements bound the stability of a held deflection over seconds; they say nothing about
 the microsecond response on which the MINFLUX cycle depends, which lies far below the camera frame
@@ -1104,42 +1166,53 @@ Figure~\ref{fig:eod-delay}. It begins to move between 0.42 and 0.53~\textmu s af
 output crosses half its swing, measured to the point where the beam has covered a tenth of its
 throw, for both EODs at every frequency from 10 to 50~kHz,
 Figure~\ref{fig:eod-delay-vs-frequency}. Falling edges agree with rising ones to within
-0.06~\textmu s, and the delay shows no trend with frequency beyond that scatter. A detector with a
-150~kHz bandwidth would itself lag a step's tenth point by about 0.1~\textmu s, so at most that
-much of the delay belongs to the detection; the rest, about 0.3 to 0.5~\textmu s, is the time for
-the voltage at the amplifier output to begin moving the beam. At 1, 2 and, for EOD35, 5~kHz the
-oscilloscope samples too coarsely to resolve a delay this short.
+0.06~\textmu s. The delay as read rises slightly with frequency, from 0.42--0.47~\textmu s at
+10~kHz to 0.49--0.53~\textmu s at 50~kHz for both units, but the rise follows the sample interval,
+which shrinks from 0.4 to 0.1~\textmu s over the same range: resampled to a common 0.4~\textmu s,
+the captures show no significant trend. The delay is resolved to about 0.1~\textmu s. At 1,
+2 and, for EOD35, 5~kHz the oscilloscope samples too coarsely to resolve a delay this short. This
+is the delay of the deflector and the detector together, and the data do not divide it between
+them. The detector's only specification is a bandwidth of 150~kHz, and a response made of two or
+three such stages, which a quadrant detector forming its sum and difference signals after its
+amplifiers can have, would itself reach a tenth of a step 0.4 to 0.6~\textmu s after it.
 
 The approach to the new position is not a single exponential. Averaged over all the edges of a
 capture, the step consists of a fast stage, which carries 41 percent of the throw for EOD34 with a
 time constant of 0.32~\textmu s and 59 percent for EOD35 with 0.85~\textmu s, and a slow stage,
 which carries the remainder with a time constant of 3.7~\textmu s for EOD34 and 2.8~\textmu s for
 EOD35, Figure~\ref{fig:eod-delay-step-response}. In practical terms, 5~\textmu s after the edge
-EOD34 has covered 80 to 82 percent of its throw and EOD35 91 to 94 percent; at 10~\textmu s the
-figures are 96 to 97 and 98 to 100 percent; and by 25~\textmu s both have arrived within the noise,
-Figure~\ref{fig:eod-delay-settled-fraction}. The averaged steps from 10 to 50~kHz lie on top of one
+EOD34 has covered about 80 percent of its throw and EOD35 about 92 percent; at 10~\textmu s the
+figures are about 96 and 99 percent; and by 25~\textmu s both have arrived within the noise,
+Figure~\ref{fig:eod-delay-settled-fraction}. Each of these fractions is good to a few percent: one
+level of the 8-bit detector channel is 4 percent of the throw of EOD34 and 2 percent of that of
+EOD35, and the settled levels differ by 2 to 3 percent between captures. The averaged steps from 10 to 50~kHz lie on top of one
 another, so the response is the same at every rate tested: at 50~kHz the half period of
 10~\textmu s simply ends before the slow stage is complete, Figure~\ref{fig:eod-delay-trace-50khz},
 and that truncation, not a faster response, is why a rise time read from each trace in isolation
 appears to shorten as the frequency rises.
 
-Neither stage can be laid entirely on the detector. The fast stage of EOD34, at 0.32~\textmu s, is
-quicker than a single 150~kHz pole would allow, so the detector on this path responds faster than
-its specified bandwidth; the fast time constants are therefore best read as upper bounds on the
-time the EOD itself takes, which may respond faster still. The slow stage, at 3 to 4~\textmu s, is several times slower
-than the detector has just been shown to be, and a single detector pole cannot in any case produce
-two separate stages. It belongs to the drive or to the crystal. The amplifier monitor shows a clean
-edge, 0.37 to 0.51~\textmu s from ten to ninety percent, but it need not report the voltage
-across the crystal itself, and a slow charging of the crystal's capacitance through the cable and
-the amplifier output might not appear on it. These data cannot separate that from a response of
-the crystal itself.
+These data cannot say how much of this response belongs to the EODs. The detector was not
+characterized on its own, and its specification gives nothing beyond the bandwidth. The fast
+stage of EOD34, at 0.32~\textmu s, is quicker than a single 150~kHz pole would allow, so the
+detector is not a single pole; a detector with a fast component and a 150~kHz overall bandwidth
+must have a slower one as well. The fitted two-stage response, taken as a whole, falls by 3~dB at
+about 56~kHz for EOD34 and 96~kHz for EOD35, of the order of the detector's bandwidth, so the whole
+measured response, both stages and the delay, could be the detector's answer to a beam that moved
+at once. The drive is an unlikely source of the slow stage: the amplifier monitor shows a clean
+edge, 0.37 to 0.77~\textmu s from ten to ninety percent across the captures used, and charging an
+estimated few hundred picofarads of crystal and cable through the amplifier's 50~$\Omega$ output
+takes tens of nanoseconds, not microseconds. What the measurement establishes is an upper bound on
+the response of deflector and detector together, settled within the noise by 25~\textmu s. The
+detector's own step response, measured with a fast intensity edge on the same detector, would
+separate the two.
 
 For the MINFLUX cycle of four positions in 100~\textmu s, each held for about 25~\textmu s, the
-EODs arrive within every dwell, but not at its start. During the first 5~\textmu s of a dwell
-EOD34 is still up to a fifth of the step short of its target and EOD35 up to a tenth, so photons
-counted then are counted at an intermediate position. The delay of half a microsecond is
-negligible against the dwell and, being fixed, could be compensated in timing; the slow stage is
-what matters.
+beam is in place within every dwell. Whether it is in place at the start of the dwell depends on
+where the slow stage comes from. If it belongs to the EODs, then during the first 5~\textmu s of a
+dwell EOD34 is still up to a fifth of the step short of its target and EOD35 up to a tenth, and
+photons counted then are counted at an intermediate position; if it belongs to the detector, the
+EODs may already have arrived. The delay of half a microsecond is negligible against the dwell
+either way and, being fixed, could be compensated in timing.
 
 \begin{figure}[!htbp]
     \centering
@@ -1172,7 +1245,7 @@ what matters.
     with the two-stage fit, against an ideal step seen through a 150~kHz detector alone. (c) Delay
     from the drive's half-swing crossing to a tenth of the throw against drive frequency: rising
     edges with their standard error, falling edges as crosses, unresolved captures hollow, and the
-    lag a 150~kHz detector would add dotted. (d) Fraction of the throw reached 5, 10 and
+    lag a single-pole 150~kHz detector would add dotted. (d) Fraction of the throw reached 5, 10 and
     25~\textmu s after the edge.}
     \label{fig:eod-delay}
 \end{figure}
@@ -1183,58 +1256,64 @@ what matters.
 
 The EODs pass the beam with its shape largely intact, provided they are aligned within
 their working range. Translated across the beam, each reproduces the control to a correlation
-near unity only over about 1.5~mm (EOD34) to 2~mm (EOD35) of stage travel, so lateral alignment of the crystal, not the
-crystal itself, is the first limit on beam quality. Within that range, driving the EODs
-across their full span leaves the beam within 14 percent of circular, and along the assembled
-path the ellipticity stays below 1.2 at every station that can be measured. What the path does
-cost is Gaussian character: the fit quality falls from 0.965 at the fiber to 0.90 through EOD34,
-the first relay and EOD35, and the two independent radii disagree by a tenth or more throughout,
-so the beam handed downstream carries wings that a Gaussian model does not describe.
+near unity only over 1.3 to 1.9~mm of stage travel, depending on the threshold, so lateral
+alignment of the crystal, not the crystal itself, is the first limit on beam quality. Within that
+range, driving the EODs across their full span leaves the beam within 14 percent of circular, and
+along the assembled path the ellipticity stays below 1.2 at every station that can be measured.
+The path costs a little Gaussian character. Much of the fall in fit quality along it follows the
+falling signal; what remains is a departure from Gaussian of about 0.02 in $R^2$ at the fiber,
+growing to about 0.05 after the second relay. The two independent radii disagree by a tenth or
+more, though in opposite senses in the voltage sweep and at the stations, so the profile is not
+exactly Gaussian, but these data do not say in what way.
 
-The deflection is linear in drive across the full $\pm200$~V for both EODs, with no
-curvature visible at either extreme, which is what the bulk electro-optic mechanism predicts. Its
-magnitude, however, is set as much by polarization as by the device. Only with the input
-perpendicular to the deflection axis do the EODs approach the quoted 3~mrad/kV: EOD35
-meets it at 3.12, and EOD34 falls just short at 2.95, within the uncertainty of the lever arm.
-Polarization along the wrong axis costs a factor of three and a half, close to the ratio of the
+The deflection is close to linear in drive across the full $\pm200$~V for both EODs, as the bulk
+electro-optic mechanism predicts, but the measured map from volts to position departs from a
+straight line by up to 3 percent of full scale, so linearity is established to that level and not
+to the one percent the requirements ask. Its
+magnitude is set as much by polarization as by the device. With the input
+perpendicular to the deflection axis, as the vendor prescribes, both EODs meet the quoted
+3~mrad/kV: EOD34 at 3.15 and EOD35 at 3.31.
+Polarization along the wrong axis costs a factor of about 3.6, close to the ratio of the
 crystal's two electro-optic coefficients, and leaving it uncontrolled makes the sensitivity
-depend on how the laser's polarization meets each crystal rather than on the device. With the polarization fixed, EOD34 and EOD35 still differ by about
-six percent, so each needs its own calibration.
+depend on the state of the light reaching each crystal rather than on the device. With the
+polarization fixed, the two channels still differ by 5 percent at the perpendicular setting, so
+each needs its own calibration.
 
 Held at a fixed voltage, EOD35 adds no measurable wander to that of the laser beneath it, about
-0.001~mrad within a hold. EOD34
-is equally steady over most of its range but drifts slowly when held at zero or at most negative
-drives, by up to 0.03~mrad over half a minute. For MINFLUX acquisition this matters less as noise
-than as a systematic offset: a pattern calibrated on EOD34 shortly after a large step would carry
-the drift into its positions.
+0.001~mrad within a hold. During the run on EOD34 the beam made a single slow excursion of about
+0.05~mrad across the deflection axis over the first four minutes. The voltages were visited once,
+in order, so the excursion cannot be assigned either to EOD34 or to a voltage, and a pointing
+excursion of the bench fits as well. Until it is understood, a pattern calibrated shortly after a
+large step may carry such a drift into its positions.
 
-On the microsecond scale the EODs are fast enough for the MINFLUX cycle, but not
-instantaneous. The beam begins to move about half a microsecond after the amplifier output, a
-fixed delay that timing can absorb, and then arrives in two stages: a fast stage within about a
-microsecond, carrying 41 percent of the step for EOD34 and 59 percent for EOD35, and the remainder
-over a slower stage with a time constant of 3 to 4~\textmu s. Both
-EODs are within the noise of their target by 25~\textmu s, the dwell of each position in a
-100~\textmu s cycle of four, but in the first 5~\textmu s of a dwell EOD34 is up to a fifth of the
-step short and EOD35 up to a tenth. The response is the same at every rate from 10 to 50~kHz, so it
-is a fixed property of the chain rather than a limit that tightens with speed.
+On the microsecond scale, deflector and detector together are fast enough for the MINFLUX cycle,
+but not instantaneous. The beam signal begins to move about half a microsecond after the amplifier
+output, a fixed delay that timing can absorb, and then arrives in two stages: a fast stage within
+about a microsecond, carrying 41 percent of the step for EOD34 and 59 percent for EOD35, and the
+remainder over a slower stage with a time constant of 3 to 4~\textmu s. Both are within the noise
+of their target by 25~\textmu s, the dwell of each position in a 100~\textmu s cycle of four. The
+whole of this response, delay and both stages, is of the size the quadrant detector could produce
+by itself, and the detector's own step response was not measured, so it is an upper bound on the
+response of the EODs rather than a measurement of it. The response is the same at every rate from
+10 to 50~kHz.
 
 For operation, these results recommend fixing the input polarization perpendicular to each
 deflection axis with the half-wave plate and recording it as part of the calibration; calibrating
 EOD34 and EOD35 separately, each against a lever arm referred to the crystal center; centering each
-crystal laterally within its working range; until the drift of EOD34 is understood, allowing
-it to settle, or recalibrating, after each change of drive, particularly near zero and negative
-drive; and either discarding the
-photons of the first few microseconds of each dwell or shaping the drive step to cancel the slow
-stage, which is possible precisely because the response does not change with rate.
+crystal laterally within its working range; until the drift seen in the run on EOD34 is
+understood, allowing the beam to settle, or recalibrating, after a large change of drive; and, if
+the slow stage of the step response proves to belong to the EODs rather than to the detector,
+either discarding the photons of the first few microseconds of each dwell or shaping the drive step
+to cancel it, which the unchanging response at every rate would allow.
 
-Several questions remain open. The origin of the slow stage of the step response, in the
-amplifier charging the crystal or in the crystal itself, could be settled by measuring the voltage
-across the crystal with a high-voltage probe alongside the beam; and the fast stage is resolved
-only as an upper bound, because the detector on this path is at the limit of its speed. Whether EOD34 meets
-its specification turns on the lever arm: its shortfall corresponds to about 4~mm in 220. The first relay cannot be
+Several questions remain open. Whether the delay and the two stages of the step response belong
+to the EODs or to the detector could be settled by measuring the detector's own response to a
+fast intensity edge, or by reading the beam step on a faster photodiode behind a knife edge. The
+drift seen in the run on EOD34 could be assigned by repeating the holds with the voltages in random
+order, and with EOD34 held at a single voltage. The first relay cannot be
 separated from EOD35, because station P3 is inaccessible; the station data rest on one frame
 each; and the final station, after the beam expander, is too dim to interpret. The origin
-of the non-Gaussian wings, and of the slow drift in EOD34 alone, has yet to be identified.
+of the departure from a Gaussian profile has yet to be identified.
 \section{Donut beam}
 \label{sec:donut}
 \subsection{Physical concept}
@@ -1275,23 +1354,25 @@ Gaussian in brightness; the dark core opens only as it propagates, and it is ful
 focal plane of a lens. What forms there is not a single Laguerre--Gaussian mode. A Gaussian beam
 given a vortex phase is a superposition of charge-one modes with several radial orders, a
 hypergeometric-Gaussian beam \cite{karimiHypergeometricGaussianModes2007}, which shares the zero on
-the axis and the quadratic rise around it but carries weaker outer wings than
-Equation~\ref{eq:lg-intensity} predicts. A fit to the single mode is therefore expected to describe
+the axis and the quadratic rise around it but carries stronger outer wings than
+Equation~\ref{eq:lg-intensity} predicts, falling as a power law of the radius rather than as a
+Gaussian. A fit to the single mode is therefore expected to describe
 the core and the ring better than the tails, and that is how it is used below.
 
 Two properties of the plate set limits on the null. The plate is cut for 633~nm and is used here
 at 642~nm, so its phase step falls short of a full turn by about one and a half percent. A winding
 of $\alpha$ turns, with $\alpha$ not an integer, is a mixture of integer charges in which charge $m$
 carries the fraction $\mathrm{sinc}^2[\pi(\alpha-m)]$ of the power. For $\alpha \approx 0.986$ the
-uncharged part, which is bright on the axis, carries about $2\times10^{-4}$ of the power, enough to
-lift the floor of the null slightly but far below what the camera used here can resolve. The second
+uncharged part, which is bright on the axis, carries about $2\times10^{-4}$ of the power, which on
+the axis amounts to about $6\times10^{-4}$ of the ring peak, enough to lift the floor of the null
+slightly but far below what the camera used here can resolve. The second
 is centering. Moving the plate off the beam axis does not remove the zero, which the topology
 guarantees, but displaces it from the center of the beam and makes the ring brighter on one side
 than the other; an uneven ring is the signature of a decentered plate.
 
 Polarization adds one more condition, but only at high numerical aperture. When the beam is
 focused tightly by a microscope objective, part of the field turns to point along the axis, and that
-component can fill the zero unless the beam is circularly polarized with the handedness opposite to
+component can fill the zero unless the beam is circularly polarized with the same handedness as
 the twist of its phase \cite{lopezOptimizationCharacterizationToroidal2023}. This is why a
 quarter-wave plate sets the beam to circular polarization before it is focused, both on the bench
 below and in the instrument \cite{becerraQuantifyingProteinInteractions2024}; since the vortex
@@ -1329,8 +1410,10 @@ in turn onto a plane one focal length beyond L6, conjugate to both EODs. In the 
 stations of Section~\ref{sec:eod}, L1 and L2 form the first relay, L3 and L4 the second, and L5 and
 L6 the beam expander. Its magnification of $100/13.5\approx7.4$ should take the beam of about
 1~mm that passes the EODs to about 7~mm, inside the 5 to 10~mm window recommended for the
-plate, and reduce every deflection angle by the same factor; the beam size at the plate was not
-measured. The vortex phase plate, a Vortex Photonics \texttt{V-633-10-1} of charge one, sits in
+plate, and reduce every deflection angle by the same factor. The beam size at the plate was not
+measured with this bench in place; station P6 of Section~\ref{sec:eod}, at the output of the same
+expander nine days earlier, gave about 3.7~mm at half maximum, about 6.3~mm at $1/e^2$, from a dim
+frame. The vortex phase plate, a Vortex Photonics \texttt{V-633-10-1} of charge one, sits in
 that conjugate plane. A deflection therefore tilts the beam as it crosses the plate without moving
 it across the plate's center, which is the arrangement the instrument uses to steer the donut
 without degrading it. Mirror M3 then folds the beam through a quarter-wave plate, which sets it to
@@ -1405,16 +1488,18 @@ command voltage along both camera axes. The extinction ratio is recomputed for e
 shape of each frame is compared with the control by the normalized cross-correlation of a
 101-pixel square cropped about each frame's own center, which is unity for an identical pattern;
 because each crop follows its donut, this measures a change of shape rather than the displacement.
-The first frame of the EOD34 sweep, recorded at $+10$~V before the beam had moved, carries the same
-settling transient as the deflection sweeps of Section~\ref{sec:eod} and is excluded; the first
+The first frame of the EOD34 sweep, recorded at $+10$~V before the beam had moved, is, like the
+first frames of the deflection sweeps of Section~\ref{sec:eod}, a frame taken before the new
+voltage took effect, and is excluded; the first
 frame of the EOD35 sweep agrees with those that follow it and is kept.
 
 \subsubsection{Results}
 
 \paragraph{The donut at rest.}
 A donut forms. Figure~\ref{fig:donut-static} shows the cleanest run, taken with the polarizer in
-place and the waveplates set for the darkest center: a closed ring around a dark core, with its
-intensity peak 86~\textmu m from the center at the camera and an outer $1/e^2$ radius of
+place and the waveplates set for the darkest center: a closed ring around a dark core, with a
+fitted ring radius of 86~\textmu m at the camera (the measured radial profile peaks at
+91~\textmu m) and an outer $1/e^2$ radius of
 190~\textmu m. The charge-one fit reaches $R^2 = 0.89$ against 0.61 for the Gaussian, and its
 residuals, Figure~\ref{fig:donut-static-residual}, stay within about 2.5 units across the profile
 where the Gaussian misses the core by twenty. Across the five runs, Table~\ref{tab:donut-runs}, a
@@ -1490,13 +1575,21 @@ ring alone does not separate the two models. The charge is that of the plate, on
 
 How dark the center is cannot be read from these data beyond a bound. In four of the five runs the
 null reads less than one unit above the background, within its uncertainty, and only an upper
-bound can be given, Figure~\ref{fig:donut-runs-er}; the best of those bounds is 0.03. The fifth, the
+bound can be given, Figure~\ref{fig:donut-runs-er}. The lowest of those bounds, 0.03, comes from
+the two most lopsided runs, with a variation around the ring of 0.42 and 0.50, where the darkest
+spot lies well away from the ring center. The fifth, the
 optimized run, resolves a null at $0.048\pm0.018$, but that lies barely above the 0.039 that a single
-unit represents at its ring peak. The limit is the camera, not the donut. With 8-bit values and a ring
+unit represents at its ring peak, and by the rule applied to the others its upper bound is 0.084.
+During the deflection sweeps, at the same alignment, the bound for each frame runs from 0.046 to
+0.092. The method also biases the estimate low, because the null is taken as the darkest of about
+two hundred candidate spots: in the optimized frame the spot at the fitted center reads 0.065,
+against 0.048 at the spot selected. The limit is the camera, not the donut. With 8-bit values and a ring
 peak of only 12 to 50 units at a 10~ms exposure, one unit of signal at the center is already two to
-eight percent of the ring, and the estimate of $2\times10^{-4}$ for the design-wavelength mismatch
-lies two orders of magnitude below anything this measurement can see. What the data establish is
-that the central intensity is at most 3 to 5\% of the ring peak, and no more.
+eight percent of the ring, and the floor of about $6\times10^{-4}$ of the ring peak set by the
+design-wavelength mismatch lies nearly two orders of magnitude below anything this measurement can
+see. What the data establish is that the central intensity is a few percent of the ring peak:
+$5\pm2$ percent in the best-aligned run, with an upper bound of about 8 percent, and bounds of
+3 percent only in two poorly centered runs.
 
 The symmetry of the ring is where the runs differ most, Figure~\ref{fig:donut-runs-cv}. The
 coefficient of variation around the ring runs from 0.15 to 0.52, and in every run the largest
@@ -1533,18 +1626,45 @@ polarization itself. Single frames cannot separate the two.
 \end{figure}
 
 \paragraph{The donut under deflection.}
-The donut follows the EODs linearly and keeps its shape. Driving EOD34 moves it along the
-camera $x$ axis at $4.82$~\textmu m/V of command voltage, with no measurable motion along $y$,
-Figure~\ref{fig:donut-sweep-disp-eod34}; across the full $\pm10$~V, the $\pm200$~V of the
-amplifier, it travels about $\pm48$~\textmu m, a little over half the ring radius. Throughout both
-sweeps the cross-correlation with the control stays at or above 0.987, with a mean of 0.994,
-Figure~\ref{fig:donut-sweep-ncc}. It falls by about one percent from the center of the range to
-either end, alike for both EODs and symmetric in voltage. A decline of that form would follow
-if the beam passed the lenses further from their axes at large deflections and picked up
-aberration, or if the plate sat slightly off the plane conjugate to the EODs, so that a
-deflection also moved the beam a little across it; these data do not isolate the cause. The extinction ratio shows no change at all within what the camera can
-resolve, Figure~\ref{fig:donut-sweep-er}: it sits on the one-unit floor, near 0.04, across both
-sweeps, as it does in the control at $0.035\pm0.016$.
+The donut follows the EODs linearly and remains a donut, but it does not move rigidly: the
+position of its null within the ring, and the evenness of the ring, change with deflection.
+Driving EOD34 moves the fitted ring along the camera $x$ axis at $4.82$~\textmu m/V of command
+voltage, with no measurable motion along $y$, Figure~\ref{fig:donut-sweep-disp-eod34}; across the
+full $\pm10$~V, the $\pm200$~V of the amplifier, it travels about $\pm48$~\textmu m, a little over
+half the ring radius. The null does not move as far. Located frame by frame as for the static
+runs, it moves at $4.25\pm0.03$~\textmu m/V along the same axis, 12 percent less than the ring, so
+that at either end of the range it lags the ring center by about 6~\textmu m, seven percent of the
+ring radius. For EOD35 the null moves at $4.26\pm0.04$~\textmu m/V against the ring's 4.47,
+5 percent less, and lags by about 2~\textmu m at the ends. The null is located to a whole pixel, so
+its position against voltage is a staircase of 5.2~\textmu m steps and its slope is less precise
+than the ring's, but the difference is many times its error. For MINFLUX it is the null that
+locates the emitter, so its scale factor, not the ring's, is the one the calibration must carry.
+
+The ring's symmetry changes in step. Its one-sided component along the deflection axis, signed
+positive when the bright side faces positive drive, runs from $-0.03$ at $-10$~V through $0.07$
+at 0~V to $0.16$ at $+10$~V for EOD34, about 0.009 per volt, and from $-0.24$ to $-0.11$ across
+the sweep of EOD35, about 0.007 per volt. Over either sweep it changes by about as much as the
+whole of $m_1$ in the best static run. The unsigned $m_1$ of Table~\ref{tab:donut-runs} hardly
+moves for EOD34, from 0.19 to 0.185, because a fixed component across the axis masks the change
+along it. An asymmetry that grows linearly with drive along the deflection axis, with the null
+displaced inside the ring, is what a beam walking across the plate produces, as it would if the
+plate sat slightly off the plane conjugate to the EODs, or what an aberration linear in the
+field angle produces. These data narrow the cause to effects odd in voltage but do not isolate it.
+
+Throughout both sweeps the cross-correlation with the control stays at or above 0.987, with a mean
+of 0.994, Figure~\ref{fig:donut-sweep-ncc}. A correlation near unity understates a change of
+shape, because one minus the correlation is half the squared root-mean-square difference between
+the normalized images: the minimum of 0.987 is an rms difference of about 16 percent of the image,
+against 7 percent for a repeat frame at zero deflection. Part of the variation does not belong to
+the donut. A sawtooth with a period of about 1~V, one whole pixel of displacement, comes from
+cropping each frame at whole pixels about a fractional center, and its amplitude, 0.004 peak to
+peak for EOD34 and 0.007 for EOD35, is comparable to the decline from the center of the range to
+the ends, 0.008 and 0.005. Resampling each crop at its exact fitted center largely removes the
+sawtooth and leaves the decline, so the shape does change with deflection, by an amount near the
+floor of this method. The extinction ratio, Figure~\ref{fig:donut-sweep-er}, stays near the
+one-unit floor, around 0.04, across both sweeps, as it does in the control at $0.035\pm0.016$; for
+EOD35 it rises slightly toward the ends, from a mean of 0.039 within 2~V of zero to 0.047 beyond
+8~V, a change of a fifth of a unit at the null.
 
 EOD35 does not steer along the camera axes. Its sweep moves the donut by $4.33$~\textmu m/V along
 $y$ but also by $-1.08$~\textmu m/V along $x$, Figure~\ref{fig:donut-sweep-disp-eod35}: a
@@ -1556,21 +1676,24 @@ sheared by that amount. Either the second EOD has to be turned in its mount to b
 axes square, or the calibration has to carry both components of each EOD's motion rather
 than a single sensitivity per axis. The rotation also bears on the polarization of
 Section~\ref{sec:eod}, since the half-wave plate ahead of EOD35 must align the light to the crystal
-axis as actually mounted. The two sensitivities measured here, 4.82 and 4.47~\textmu m/V, differ by
-eight percent, and in the opposite sense from the six percent found at the perpendicular setting of
-the polarization measurements. Each EOD's response depends on the polarization it receives in
+axis as actually mounted. The two ring sensitivities measured here, 4.82 and 4.47~\textmu m/V,
+differ by eight percent, and in the opposite sense from the 5 percent found at the perpendicular
+setting of the polarization measurements; the two null sensitivities, 4.25 and 4.26, agree. Each EOD's response depends on the polarization it receives in
 this particular path, which is a reminder that the calibration belongs to the assembled optics rather
 than to the EOD alone.
 
 These displacements are left in micrometers at the camera, because the recorded geometry does not
 account for their scale. With the camera at the focal plane of the 100~mm lens L7 and the beam
-expanded 7.4 times ahead of it, an EOD delivering the 2.95~mrad/kV of Section~\ref{sec:eod}
-should move the donut by about 0.8~\textmu m per volt of command; the measured 4.8~\textmu m/V is
-six times that. The size of the ring disagrees in the same direction. An expanded beam of about
+expanded 7.4 times ahead of it, an EOD delivering the 3.15~mrad/kV of Section~\ref{sec:eod}
+should move the donut by about 0.85~\textmu m per volt of command; the measured 4.8~\textmu m/V is
+between five and six times that, as if the angle had been reduced by a factor of about 1.3 rather
+than 7.4. The size of the ring disagrees in the same direction. An expanded beam of about
 7~mm focused by a 100~mm lens would form a ring only a few micrometers in radius, under one pixel,
-whereas the fitted ring radius is 86~\textmu m, some twenty times larger. Both discrepancies would
-follow if the beam reaching L7 were much smaller than expected or if the camera sat away from the
-focal plane, where a ring grows and a deflection moves it further, but neither has been checked.
+whereas the fitted ring radius is 86~\textmu m, some twenty times larger. A beam reaching L7 much
+smaller than expected would explain the ring, but the 3.7~mm measured at station P6 argues
+against it unless the bench changed in between; and a camera away from the focal plane would
+enlarge the ring but could not by itself multiply the displacement per volt by five. Neither has
+been checked directly.
 Until the camera distance and the beam size at the plate are measured, these displacements cannot
 be converted to deflection angles, and the ring radius describes the image on the camera rather
 than the donut at a known focus.
@@ -1613,11 +1736,12 @@ than the donut at a known focus.
 
 \subsubsection{Conclusion}
 
-The vortex plate forms a donut on this bench: a closed ring about 86~\textmu m in radius at the
-camera, around a center that fits a vortex far better than a Gaussian. Its center is dark to within a
+The vortex plate forms a donut on this bench: a closed ring with a fitted radius of about
+86~\textmu m at the camera, around a center that fits a vortex far better than a Gaussian. Its center is dark to within a
 few percent of the ring, but this camera cannot say how much darker. With 8-bit values and rings of
-12 to 50 units, the best bound is 0.03 and the one resolved value, $0.048\pm0.018$, sits on the
-camera's floor. The quantity MINFLUX depends on most has therefore not yet been measured, only bounded.
+12 to 50 units, the one resolved value, $0.048\pm0.018$ in the best-aligned run, sits on the
+camera's floor, with an upper bound of about 0.08; the lower bounds of 0.03 come from poorly
+centered runs, and taking the darkest spot biases every value low. The quantity MINFLUX depends on most has therefore not yet been measured, only bounded.
 
 The ring is uneven, and the evenness depends on the alignment. Its dominant distortion is a ring
 brighter on one side, with the null displaced from the ring center by up to 41~\textmu m, which is
@@ -1625,9 +1749,13 @@ what a vortex plate off the beam center produces. The best alignment brings the 
 ring down to fifteen percent and the null to within 9~\textmu m of the center. Polarization, as
 expected at low numerical aperture, did not change the shape in these frames.
 
-The donut survives deflection. Across the full drive of either EOD its shape stays within about
-one percent of the undeflected pattern and its null stays at the floor of what the camera can resolve, while it
-moves linearly at 4.82 and 4.47~\textmu m/V. The one finding that needs action is geometric: the
+The donut remains a donut under deflection, but it does not move rigidly. Across the full drive of
+either EOD the ring moves linearly at 4.82 and 4.47~\textmu m/V, while its null moves at 4.25 and
+4.26~\textmu m/V, 12 and 5 percent less, and the ring's one-sided asymmetry along the deflection
+axis changes linearly with drive, by 0.009 and 0.007 per volt. The correlation with the undeflected
+pattern falls by at most 0.008, near the floor that whole-pixel registration sets, and the null
+stays at the floor of what the camera can resolve. For MINFLUX the scale factor of the null, not of
+the ring, is the calibration to carry. The other finding that needs action is geometric: the
 deflection axis of EOD35 is rotated $14^\circ$ from that of EOD34, so the two scan axes are not
 orthogonal, and either the mount or the calibration has to account for it. The absolute scale of
 these numbers is less secure than their linearity: both the ring size and the displacement per volt
@@ -1799,8 +1927,8 @@ with the other axis held at 0~V. The detector was read at both levels after 50~m
 each cycle records one return to the same commanded position.
 
 \paragraph{Step response.}
-Each axis was driven with a 0.05~V square wave at 10, 50, 100, 200 and 300~Hz for 150
-cycles, read on the quadrant photodiode at 10\,000 samples per second per channel. The command was
+Each axis was driven with a 0.05~V square wave at 10, 50, 100, 200 and 300~Hz, giving between
+99 and 449 edges of each direction per capture, read on the quadrant photodiode at 10\,000 samples per second per channel. The command was
 streamed point by point by the software, which reproduces the commanded frequency exactly on
 average up to 300~Hz, although the timing of individual steps jitters; above 300~Hz the converter
 drops commands, so the set stops there.
@@ -1862,7 +1990,7 @@ $\pm2\%$ about the final level. The cycle-to-cycle scatter of a single sample is
 against which the overshoot is judged.
 
 \paragraph{Delay.}
-The timing is measured from the oscilloscope records. All the edges of a capture, from 9 to 25,
+The timing is measured from the oscilloscope records. All the edges of a capture, from 8 to 24,
 are aligned on the drive crossing the midpoint of its swing and averaged on the raw samples, without
 smoothing. The averaged response gives the delay to 10\% and to 50\% of its swing and its 10 to
 90\% rise, and the scatter between edges, by a jackknife over them, gives the uncertainty. Rising
@@ -1876,9 +2004,13 @@ wave and a delayed one cannot be told apart.
 \paragraph{Angle calibration.}
 Over the range in which the spot stays on the sensor, the beam angle follows the command voltage on
 a straight line on both axes, Figure~\ref{fig:galvo-cal-angle}. G1 deflects the beam by
-$2.0287 \pm 0.0005^\circ$ per volt in $x$, and G2 by $1.4446 \pm 0.0001^\circ$ per volt in $y$
-($R^2$ of 0.99999 and better, from 183 and 187 frames). Narrower
-sweeps of $\pm0.1$~V on each axis give 2.031 and $1.453^\circ$ per volt. Below about $-0.87$~V the
+$2.03^\circ$ per volt in $x$, and G2 by $1.44^\circ$ per volt in $y$ ($R^2$ of 0.99999 and
+better, from 183 and 187 frames). The statistical errors of these fits, 0.0005 and
+$0.0001^\circ$ per volt, understate the uncertainty. Narrower
+sweeps of $\pm0.1$~V on each axis give 2.031 and $1.453^\circ$ per volt, the second 0.55 percent
+from the wide value; the local slope in $x$ varies by 2.5 percent across the range, as described
+below; and the focal length of L3 and the pixel pitch enter at the percent level. The scale
+factors are therefore good to about a percent. Below about $-0.87$~V the
 spot runs off the edge of the camera and the frames carry no position; those points are not a
 property of the scanners. At the camera these scale factors are 3.54~mm and 2.52~mm of displacement
 per volt; at the quadrant photodiode at 200~mm, 7.08~mm and 5.04~mm per volt.
@@ -1888,13 +2020,19 @@ The $x$ value agrees within 1.5\% with the factory setting of $2^\circ$ per volt
 by which a $45^\circ$ fold mirror turned about an axis in its plane of incidence deflects the beam
 less than one turned about the perpendicular axis. On this bench both scanners fold the beam in the
 plane of the table, G1 steering within that plane and G2 out of it, which is the geometry that
-produces this factor. The two scanners therefore rotate equally per volt, as configured, and the
+produces this factor; the shaft of G1 is therefore vertical and that of G2 horizontal. The
+instrument's own records name the axes the other way round, calling the scanner with the
+horizontal shaft $x$. The labels here are those of this bench, and
+Table~\ref{tab:galvo-parameters} names each column by its shaft as well, so that the scale factors
+are carried to the right scanner. The two scanners therefore rotate equally per volt, as configured, and the
 difference between the axes arises from how G2 meets the beam rather than from G2 itself. The same
 geometry predicts a second, smaller effect, and it is there. As G2 tips the beam out of the plane it
 also swings it slightly within it, so the $y$ scan bows sideways in proportion to the square of the
 command, Figure~\ref{fig:galvo-cal-bow}. The measured bow is $28.8 \pm 0.1$~\textmu m/V$^2$ at the
-camera, against 31.8~\textmu m/V$^2$ predicted with no free parameter; the $x$ scan bows by only
-2.4~\textmu m/V$^2$. The consequence for the instrument is that each axis needs its own measured
+camera, against 31.8~\textmu m/V$^2$ predicted with no free parameter, a difference of
+9 percent; the narrow sweep gives $59.6 \pm 3.4$~\textmu m/V$^2$, so the size of the bow is less
+certain than its fitted error, but its existence and sign agree with the geometry. The $x$ scan
+bows by only 2.4~\textmu m/V$^2$. The consequence for the instrument is that each axis needs its own measured
 scale factor, and the generic $4^\circ$ of optical deflection per volt of the servo documentation
 would overstate the
 deflection by a factor of two in $x$ and nearly three in $y$.
@@ -1961,8 +2099,11 @@ run and several times its own scatter; in $y$ it drifts by only 0.06~\textmu m p
 the scatter. The walk in $x$, about 7~\textmu rad over the run, is of the size the specified zero
 drift of 15~\textmu rad per degree Celsius would give for half a degree of warming, and the faster
 walk in $y$ after the power cycles is consistent with the same cause. A walk of that kind moves the
-whole pattern without degrading it, and is the kind of error that an independent drift reference
-\cite{lopezOpensourceSubNanometerStabilization2025} removes.
+whole pattern without degrading it, and a drift correction could remove it only if its reference
+senses where the excitation beam points. The open-source stabilization system of
+\cite{lopezOpensourceSubNanometerStabilization2025} locks the sample to the microscope stand with
+fiducial markers read on a separate camera path, so it would remove a walk of the galvanometers
+only if that reference passes through the scanners.
 
 \begin{figure}[!htbp]
     \centering
@@ -2095,10 +2236,10 @@ each frequency.
 
 The galvanometer pair is well calibrated and repeatable, and the measurements give the numbers its
 control software needs; its speed is the limit, as the end of this conclusion sets out. Each axis turns the beam in proportion to its command, but the
-two axes do not share a scale factor: $2.029^\circ$ per volt in $x$ against $1.445^\circ$ in $y$.
+two axes do not share a scale factor: $2.03^\circ$ per volt in $x$ against $1.44^\circ$ in $y$.
 The $y$ value is smaller by $\cos 45^\circ$ because G2 tips the beam out of the plane in which it
-folds it, not because of a fault in the scanner, and the sideways bow of the $y$ scan matches the
-same geometry with no adjustable parameter. Neither value matches the generic factor of the servo
+folds it, not because of a fault in the scanner, and the sideways bow of the $y$ scan agrees with
+the same geometry in sign and, with no adjustable parameter, to within about 10 percent in size. Neither value matches the generic factor of the servo
 documentation, so the measured values, not the nominal one, must be written into the control
 software, and the $y$ value must be measured again whenever the scanners are remounted. The $x$
 response bends by about 2.5\% in slope across $\pm1$~V, probably in the relay, and the two scan
@@ -2109,15 +2250,18 @@ Positioning is repeatable to a few microradians of beam angle, both after a comm
 power has been removed and restored, within the scanners' specification. The slow walks seen, about
 2~\textmu rad per minute in $x$ with power held and about 5~\textmu rad per minute in $y$ after power
 cycling, are consistent with the specified thermal drift of the scanners. They move the pattern as a
-whole and are best removed by an independent drift correction rather than by the galvanometer
-calibration, and the scanners should be left powered and warm before a measurement.
+whole and are best removed by a drift correction whose reference passes through the scanners,
+rather than by the galvanometer calibration, and the scanners should be left powered and warm before a measurement.
 
 A move takes a few hundred microseconds. Measured from the command, the mirror reaches a tenth of a
 small step after about 160~\textmu s and half of it after about 250~\textmu s, covers 10 to 90\% of
 it in about 200~\textmu s, and is within $\pm2\%$ of its final position 240 to 290~\textmu s after
 it began to move, with an overshoot of 1.7\% in $x$ and 0.4\% in $y$. The whole move is therefore
 complete 0.4 to 0.45~ms after the command, the same for both directions and for every step size
-measured. That fixes the latency of the re-centering loop at four or five pattern cycles of
+measured. The manufacturer quotes a typical small-step response of 250~\textmu s for scanners of
+this size, settled to 99 percent for a $0.1^\circ$ step with a 10~mm mirror; the measured move
+takes about 1.7 times as long, which the heavier 12~mm mirrors and the tuning of the servo may
+explain. That fixes the latency of the re-centering loop at four or five pattern cycles of
 100~\textmu s, during which a molecule diffusing at the rate of EGFR moves about 23~nm in the plane,
 most of a 30~nm pattern. The loop must therefore either wait for each move to settle before
 trusting the pattern position again, or carry the fixed delay of each axis in its model of where
@@ -2138,16 +2282,18 @@ This work set out to establish whether the beam-steering hardware of a MINFLUX t
 meets the requirements of Section~\ref{sec:goals}, and to measure the parameters its control system
 needs. Taken goal by goal, the results are as follows.
 
-The first goal, characterizing the EODs, is met. Both deflect linearly across the full
-$\pm200$~V, by 2.95 and 3.12~mrad/kV once the input polarization is set perpendicular to the
-deflection axis, which makes the half-wave plate part of the calibration rather than an alignment
-detail. Their six percent difference means each needs its own calibration. Held at a fixed drive,
-EOD35 adds no measurable wander to that of the laser, while EOD34 drifts by up to 0.03~mrad near
-zero and negative drive, a behavior still to be explained. They begin to move half a microsecond
-after the drive and are within the noise of their target by the end of the 25~\textmu s dwell, but
-not within a small fraction of it: the slow second stage leaves EOD34 up to a fifth of a step
-short after 5~\textmu s and still a few percent short after 10~\textmu s. The first microseconds of
-each dwell therefore need either to be discarded or to be corrected by shaping the drive.
+The first goal, characterizing the EODs, is met. Both deflect by 3.15 and 3.31~mrad/kV, meeting
+the vendor's minimum, once the input polarization is set perpendicular to the deflection axis,
+which makes the half-wave plate part of the calibration rather than an alignment detail; the
+response is linear to about 3 percent of full scale across $\pm200$~V. The two channels differ by
+5 percent, so each needs its own calibration. Held at a fixed drive, EOD35 adds no measurable
+wander to that of the laser; during the run on EOD34 the beam made one slow excursion of about
+0.05~mrad that cannot yet be assigned to the unit, to a voltage or to the bench. Seen through the
+quadrant detector, the beam begins to move half a microsecond after the drive, arrives in two
+stages, and is within the noise of its target by the end of the 25~\textmu s dwell. The detector
+alone could produce a response of this size, so these figures bound the response of the EODs from
+above, and whether the first microseconds of each dwell need to be discarded or corrected by
+shaping the drive depends on measuring the detector's own response.
 
 The second goal, the control interface, is met for calibration and slow control. The data
 acquisition card drives both amplifiers across their full range once a voltage follower stands
@@ -2156,9 +2302,11 @@ too slow to switch the pattern, so that task falls to the instrument's FPGA path
 step-response measurements already describe from the amplifier onward.
 
 The third goal, the donut under deflection, is met in part. The charge-one vortex plate forms a
-donut whose shape changes by about one percent under the full deflection of either axis, so
-deflection does not visibly degrade it. Two parts of the goal remain open. The depth of the null is
-bounded only by the camera, at 3 to 5\% of the ring peak, and each axis was deflected alone, never in the
+donut that remains a donut under the full deflection of either axis but does not move rigidly:
+its null moves 5 to 12 percent less per volt than its ring, and the ring's one-sided asymmetry
+grows linearly with drive, so the calibration must follow the null rather than the ring. Two parts
+of the goal remain open. The depth of the null is measured only to the camera's floor, $5\pm2\%$ of
+the ring peak in the best-aligned run, and each axis was deflected alone, never in the
 two-axis pattern itself. The same measurement found the two deflection axes $14^\circ$ from
 perpendicular, which the calibration must carry.
 
@@ -2171,10 +2319,12 @@ moves, the division of labor used in MINFLUX on a standard microscope stand
 \cite{schmidtMINFLUXNanometerscale3D2021}.
 
 Measured against the requirements of Section~\ref{sec:goals}, the picture is mixed. The EOD
-calibration is known to about two percent, limited by the lever arm, close to but not yet at the
-one percent asked for. EOD35 holds its position as well as the laser allows, but EOD34 drifts.
-An EOD step is complete within the dwell but not within a small fraction of it. The depth of
-the null is bounded only at 3 to 5\% of the ring peak. And the galvanometer move is longer than the
+calibration carries systematic uncertainties of a few percent, from the amplifier monitor, the
+pixel pitch and the departure from linearity, against the one percent asked for. EOD35 holds its
+position as well as the laser allows, and an excursion during the run on EOD34 remains
+unexplained. An EOD step, as the detector sees it, is complete within the dwell but not within a
+small fraction of it. The depth of the null is bounded only by the camera, at a few percent of the
+ring peak. And the galvanometer move is longer than the
 time a receptor takes to wander half the pattern. Whether the remaining errors amount to a fraction
 of a nanometer at the sample depends on the scale there, which this bench does not reach.
 
@@ -2191,20 +2341,25 @@ characterization to the tracking measurement itself.
         Parameter & EOD34 & EOD35 \\
         \hline
         Axis & $x$ & $y$, $14^\circ$ from perpendicular to $x$ \\
-        Sensitivity, polarization perpendicular & 2.95~mrad/kV & 3.12~mrad/kV \\
-        Sensitivity, polarization parallel & about 3.5 times lower & about 3.5 times lower \\
+        Sensitivity, polarization perpendicular & 3.15~mrad/kV & 3.31~mrad/kV \\
+        Sensitivity, polarization parallel & about 3.6 times lower & about 3.6 times lower \\
+        Linearity & within 3\% of full scale & within 3\% of full scale \\
         Drive range & $\pm10$~V command, $\pm200$~V & $\pm10$~V command, $\pm200$~V \\
         Delay after amplifier output & 0.42 to 0.53~\textmu s & 0.42 to 0.53~\textmu s \\
-        Fraction of step at 5~\textmu s & 0.80 to 0.82 & 0.91 to 0.94 \\
-        Fraction of step at 10~\textmu s & 0.96 to 0.97 & 0.98 to 1.00 \\
+        Fraction of step at 5~\textmu s & about 0.80 & about 0.92 \\
+        Fraction of step at 10~\textmu s & about 0.96 & about 0.99 \\
         Settled & by 25~\textmu s & by 25~\textmu s \\
-        Hold stability & up to 0.03~mrad in 36~s & about 0.001~mrad \\
-        Lateral working range & about 1.5~mm & about 2~mm \\
+        Hold stability & one 0.05~mrad excursion during the run, unassigned & about 0.001~mrad \\
+        Lateral working range & 1.3 to 1.6~mm & 1.3 to 1.9~mm \\
+        Donut motion at the camera, null (ring) & 4.25 (4.82)~\textmu m/V & 4.26 (4.47)~\textmu m/V \\
         \hline
     \end{tabular}
     \caption{Operating parameters of the electro-optic deflectors (Sections~\ref{sec:eod}
-    and~\ref{sec:donut}). Sensitivities are referred to the center of the crystal; the hold
-    drift of EOD34 appears near zero and at negative drive.}
+    and~\ref{sec:donut}). Sensitivities are referred to the center of the crystal and carry
+    systematic uncertainties of a few percent. The step-response figures are those of the EOD and
+    the quadrant detector together, an upper bound on the response of the EOD. The lateral working
+    range depends on the correlation threshold, here 0.97 to 0.95. Donut motion is per volt of
+    command, at the camera of the donut bench.}
     \label{tab:eod-parameters}
 \end{table}
 
@@ -2213,9 +2368,9 @@ characterization to the tracking measurement itself.
     \small
     \begin{tabular}{p{0.34\textwidth}p{0.26\textwidth}p{0.26\textwidth}}
         \hline
-        Parameter & G1 ($x$) & G2 ($y$) \\
+        Parameter & G1 ($x$, shaft vertical) & G2 ($y$, shaft horizontal) \\
         \hline
-        Scale factor (optical) & $2.029^\circ$/V & $1.445^\circ$/V \\
+        Scale factor (optical) & $2.03^\circ$/V & $1.44^\circ$/V \\
         Residuals over $\pm1$~V & 6.2~\textmu m rms, slope $-2.5\%$ & 0.5~\textmu m rms \\
         Repeatability of return & 1.1~\textmu rad & 3.2~\textmu rad \\
         Drift, power held & about 2~\textmu rad/min & about 0.3~\textmu rad/min \\
@@ -2306,7 +2461,7 @@ Section~\ref{sec:eod}.
         Function generator & Siglent SDG810 & Single channel, 10~MHz; drives the timing measurements \\
         Oscilloscope & Tektronix TDS1000B series & Two channels; timing measurements \\
         \multicolumn{3}{l}{\emph{Detection}} \\
-        Camera & Thorlabs DCx series & $1280\times1024$, 5.2~\textmu m pixels, 8-bit \\
+        Camera & Thorlabs DCx series (model not recorded) & $1280\times1024$, 5.2~\textmu m pixels taken, 8-bit \\
         Quadrant photodiode & Thorlabs PDQ80A & 7.8~mm active area, 150~kHz, 10~kV/A \\
         \hline
     \end{tabular}
