@@ -58,14 +58,18 @@ donut-setup-creation.png              EOD_exp_4_relay system_2EOD_donut_creation
 # ---------------------------------------------------------------------------
 # Four graphs per deflector, named by amplifier: HVA1 drives EOD34, HVA2 drives
 # EOD35 (confirmed 2026-10-26; see the naming table in PROVENANCE.md).
-eod-polarization-hva1-radial.png      HVA1_polarization_radial.png
-eod-polarization-hva1-cx.png          HVA1_polarization_cx.png
-eod-polarization-hva1-cy.png          HVA1_polarization_cy.png
-eod-polarization-hva1-mrad-per-kv.png HVA1_polarization_mrad_per_kV.png
-eod-polarization-hva2-radial.png      HVA2_polarization_radial.png
-eod-polarization-hva2-cx.png          HVA2_polarization_cx.png
-eod-polarization-hva2-cy.png          HVA2_polarization_cy.png
-eod-polarization-hva2-mrad-per-kv.png HVA2_polarization_mrad_per_kV.png
+# The *_step1 versions drop the stale first frame (review of 2026-11-16). They were made by
+# dev/analysis/polarization_angle_step1.jl at 47e3e91 into a local folder, not a source root, and
+# copied in by hand, so the refresh script reports them missing rather than overwriting them with
+# the old NAS versions.
+eod-polarization-hva1-radial.png      HVA1_polarization_radial_step1.png
+eod-polarization-hva1-cx.png          HVA1_polarization_cx_step1.png
+eod-polarization-hva1-cy.png          HVA1_polarization_cy_step1.png
+eod-polarization-hva1-mrad-per-kv.png HVA1_polarization_mrad_per_kV_step1.png
+eod-polarization-hva2-radial.png      HVA2_polarization_radial_step1.png
+eod-polarization-hva2-cx.png          HVA2_polarization_cx_step1.png
+eod-polarization-hva2-cy.png          HVA2_polarization_cy_step1.png
+eod-polarization-hva2-mrad-per-kv.png HVA2_polarization_mrad_per_kV_step1.png
 
 # ---------------------------------------------------------------------------
 # Beam quality against drive voltage (mar_25 angle dataset)

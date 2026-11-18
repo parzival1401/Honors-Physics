@@ -1,14 +1,14 @@
-# Provenance for HVA2_polarization_mrad_per_kV.png -- written by save_figure() in dev/plot_style.jl.
+# Provenance for HVA2_polarization_mrad_per_kV_step1.png -- written by save_figure() in dev/plot_style.jl.
 # The same fields are embedded in the PNG (read_figure_info). One figure = one file.
-figure_id: "HVA2_polarization_mrad_per_kV"
-former_title: "HVA2 — Voltage vs Beam Position by Polarization  (pixel size 5.2 µm, EOD→cam 220.0 mm) / mrad / kV by Polarization  (spec = 3.0 mrad/kV)"   # title removed from the image; the caption replaces it
-what_it_shows: "Deflection sensitivity from a least-squares slope of beam position against HVA2 output, per input polarization, against the vendor minimum."
+figure_id: "HVA2_polarization_mrad_per_kV_step1"
+former_title: ""   # title removed from the image; the caption replaces it
+what_it_shows: "Deflection sensitivity from a least-squares slope of beam position against HVA2 output, step 1 excluded, per input polarization, against the vendor minimum. Standard errors: perpendicular 0.008, polarizer removed 0.009, parallel 0.003 mrad/kV."
 axes:
   x: "Input polarization"
   y: "Sensitivity (mrad/kV)"
 data:
   source: "NAS Y:\\Projects\\NSF-MINFLUX\\projects\\Data\\Evaluation Experiments\\EOD Driver test\\beam characterizatiom\\polarization\\apr10 -- acquired 2026-04-10; folder EOD34 = HVA1, folder EOD35 = HVA2"
-  script: "MicroscopeMinFlux.jl/dev/polarization_angle.jl"
-  commit: "1598356 on worktree-galvo-delay-analysis"
-created: "2026-10-26 14:51:39"
-notes: "Angles use pixel size 5.2 µm and lever arm 220.0 mm (crystal centre to camera); HVA real output = -monitor x 20. HVA1 drives EOD34 (first in the path, x axis) and HVA2 drives EOD35 (second, y axis), confirmed by the user 2026-10-26."
+  script: "MicroscopeMinFlux.jl/dev/analysis/polarization_angle_step1.jl"
+  commit: "47e3e91 on worktree-galvo-delay-analysis"
+created: "2026-11-18 11:15:23"
+notes: "Step 1 of every sweep is a stale camera frame (taken before the new voltage took effect); it is dropped from every panel and every fit. Angles use 5.2 µm pixels and a 220.0 mm lever arm (crystal centre to camera); drive = -monitor x 20."

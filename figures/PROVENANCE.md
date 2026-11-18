@@ -12,9 +12,12 @@ Every data figure is one graph per file with no title; `main.tex` groups related
 `<name>.yaml` beside it, copied in by the refresh script, recording the former title, source
 dataset, producing script and commit, axes and notes. The same record is embedded in the PNG
 itself (read it with `exiftool`, or `read_figure_info` from `MicroscopeMinFlux.jl`
-`dev/plot_style.jl`). The split figures were regenerated on 2026-10-26 from `MicroscopeMinFlux.jl`
-commit `3dc9c23` (branch `worktree-galvo-delay-analysis`); the combined multi-panel originals are
-still on the NAS, unused.
+`dev/plot_style.jl`). Every figure was produced on `MicroscopeMinFlux.jl` branch
+`worktree-galvo-delay-analysis`, and its sidecar names the exact commit; the commits named in this
+file are the same ones. The EOD figures come from `1598356`, the donut from `331cd95`, the EOD step
+response from `4655371`, and the galvanometer from `a4acb2e`; the polarization figures were
+regenerated for the review of 2026-11-16 (see the last section). The combined multi-panel
+originals are still on the NAS, unused.
 
 ## Naming the two deflectors
 
@@ -51,7 +54,7 @@ of these plots is in those units.
 
 The manuscript groups the four cross-correlation graphs as `fig:eod-beam-xcorr`. Legends name
 the deflectors by serial, EOD34 (blue circles) and EOD35 (red squares), since the relabel of
-2026-10-26 (`MicroscopeMinFlux.jl` commit `feb91d5`); earlier versions said EOD P and EOD G.
+2026-10-26; earlier versions said EOD P and EOD G.
 
 **Not used: the width and ellipticity graphs from this sweep** (`beam_quality_fwhm_x/y.png`,
 `beam_quality_ellipticity.png`). The user flagged that data as wrong on 2026-10-26, so the
@@ -59,9 +62,11 @@ figure and the text built on it were removed from the manuscript; they remain in
 only as a record, not for reuse. Their sweep also read exactly zero at both ends of travel, where
 the width search failed.
 
-Produced by `MicroscopeMinFlux.jl` `dev/beam_char_analysis.jl` (branch `beam_char`), which fits
+Produced by `MicroscopeMinFlux.jl` `dev/beam_char_analysis.jl` at `1598356`, which fits
 two-dimensional Gaussian profiles per frame and computes the cross-correlation metrics through its
-`xcorr2d` and `xcorr_metrics` routines.
+`xcorr2d` and `xcorr_metrics` routines. The millimetre scale rests on the code comment "raw 0.100 =
+4/32 inch" (same file, lines 20-29); the HDF5 position attribute carries no unit, and the user
+confirmed the comment on 2026-11-18.
 
 ### Station definitions for the along-the-path measurement
 
@@ -84,7 +89,7 @@ any degradation found there cannot be attributed to one or the other from this d
 
 Measured results: NAS `EOD Driver test/beam characterizatiom/gausian/may 26`, acquired
 2026-05-26, one frame per station; the station key is also in `specs.txt` there. Produced by
-`MicroscopeMinFlux.jl` `dev/analysis/beam_quality_positions.jl` (commit `4ca3fba`). These three
+`MicroscopeMinFlux.jl` `dev/analysis/beam_quality_positions.jl` (commit `1598356`). These three
 replace the combined `beam_quality_3panel.png`, which stays on the NAS unused.
 
 | Figure | Source | Shows |
@@ -152,9 +157,8 @@ The crystal-to-sensor distance is the lever arm that converts measured displacem
 |---|---|
 | `eod-setup-beam-deflection` | bench layout for the voltage-sweep measurement |
 
-Measured results are not in the manuscript yet. The voltage sweep, the calibration curve in
-mrad/V, and the comparison against the manufacturer specification remain to be produced; this
-entry covers the setup drawing only.
+The measurements made on this bench are recorded under "Beam quality against deflection voltage"
+above and "Polarization dependence of the deflection sensitivity" below.
 
 ## Experiment 3 — two deflectors relayed onto one another
 
@@ -171,23 +175,23 @@ directly on the camera.
 |---|---|
 | `eod-setup-relay-two-deflectors` | bench layout for the relayed deflector pair |
 
-Setup drawing only; no measurements from this configuration are in the manuscript yet.
+The measurements made on this configuration are recorded under "Station definitions for the
+along-the-path measurement" above.
 
 ## Experiment 4 — donut creation on the relayed pair
 
 Setup drawing: `optics_svg/EOD/EOD_exp_4_relay system_2EOD_donut_creation.png`, exported from the
 Photoshop source of the same name in the `optics_svg` root.
 
-The relayed deflector pair of experiment 3, with a quarter-wave plate after the second crystal
-and a further lens train (L3 to L5) carrying the beam to the camera. Note that the drawing labels
-no vortex or phase element, so the figure as drawn does not yet show what imposes the helical
-phase; this should be checked against the bench before the donut section is written up.
+The relayed deflector pair of experiment 3, followed by the L3-L4 and L5-L6 relays, the vortex
+phase plate, fold mirror M3, a quarter-wave plate, and L7 forming the donut on the camera. The
+drawing shows the plate and lenses L3 to L7.
 
 | Figure | Shows |
 |---|---|
 | `donut-setup-creation` | bench layout for the donut-forming path |
 
-Setup drawing only; no measurements from this configuration are in the manuscript yet.
+The measurements made on this configuration are recorded under "Donut beam (jun4)" below.
 
 ## Polarization dependence of the deflection sensitivity
 
@@ -211,9 +215,9 @@ sensitivity bars are compared against the vendor's quoted minimum of 3 mrad/kV.
 
 **Lever arm.** The 190 mm measured on the bench runs from the deflector housing face to the
 sensor. The vendor puts the deflection pivot at the centre of the 60 mm housing, 30 mm further
-back, so the angle is referred to 220 mm. The figures were regenerated at 220 mm on 2026-10-26
-(`MicroscopeMinFlux.jl` commit `d390417`); anything computed earlier used 190 mm and overstates
-every sensitivity by the factor 220/190, about sixteen percent.
+back, so the angle is referred to 220 mm. The figures were regenerated at 220 mm on 2026-10-26;
+anything computed earlier used 190 mm and overstates every sensitivity by the factor 220/190,
+about sixteen percent.
 
 | Figure | Shows |
 |---|---|
@@ -225,9 +229,16 @@ every sensitivity by the factor 220/190, about sixteen percent.
 Each deflector is one 2×2 figure in the manuscript, (a) to (d) in the order above. The stable
 filenames keep the amplifier name; the text and captions use the serial.
 
-Measured sensitivities at 220 mm, in mrad/kV: perpendicular 2.95 and 3.12, unpolarized 2.08 and
-2.77, parallel 0.83 and 0.88, for EOD34 and EOD35 respectively. At 190 mm these were 3.42 and
-3.61, 2.40 and 3.21, 0.96 and 1.01; the audit values quoted above are the 190 mm ones.
+Measured sensitivities at 220 mm with step 1 excluded, in mrad/kV: perpendicular 3.15 and 3.31,
+polarizer removed 2.14 and 2.77, parallel 0.89 and 0.90, for EOD34 and EOD35 respectively. Step 1
+of five of the six sweeps is a camera frame taken before the new voltage took effect (its beam
+sits where the previous sweep ended, or at 0 V); it is dropped from every fit and every panel.
+The values before 2026-11-18, 2.95 and 3.12, 2.08 and 2.77, 0.83 and 0.88, included it, as do
+the 190 mm audit values quoted above.
+
+The horizontal axis is -20 times the amplifier monitor. The monitor reads +1/20 of the output (the
+HVA200 inverts between input and output, not between output and monitor), so the axis is -1
+times the crystal voltage, on the scale of the command.
 
 The combined plots labelled the deflector "ODE" rather than "EOD" in legend and title. The split
 graphs have no title and their legends name only the polarization, so that no longer shows.
@@ -237,7 +248,7 @@ graphs have no title and their legends name only the polarization, so that no lo
 Measured results: NAS `EOD Driver test/beam characterizatiom/angle_stability/apr_4`, acquired
 2026-04-03. Each deflector held at nine command voltages, −10 to +10 V in 2.5 V steps, 40 frames
 per hold about 0.9 s apart (from the file timestamps), so roughly 36 s per hold. Regenerated by
-`MicroscopeMinFlux.jl` commit `89db96a`.
+`MicroscopeMinFlux.jl` commit `1598356`.
 
 The sources say EOD1 and EOD2: **EOD1 = HVA1 = EOD34, EOD2 = HVA2 = EOD35** (folders `EOD34`,
 `EOD35` beside them). The stable names use the serial. The `ODE*_` files in the same folder are
@@ -257,8 +268,11 @@ is about 0.0137 mrad.
 
 Manuscript figures: `fig:eod-stab-timeseries` (2×3), `fig:eod-stab-spread` (2×2),
 `fig:eod-stab-angular` (1×2). In brief: EOD35 sits at about 0.001 mrad σ throughout; EOD34
-matches that at −2.5 V and positive voltages but drifts slowly through the hold at −10, −7.5,
-−5 and 0 V (σ 0.003–0.007 mrad; about 0.03 mrad over 36 s at 0 V, mostly in y).
+matches that at −2.5 V and positive voltages but drifts through the hold at −10, −7.5, −5 and
+0 V (σ 0.003–0.007 mrad; about 0.03 mrad over 36 s at 0 V, mostly in y). Across the whole run
+this is one excursion of about 4 px (0.05 mrad) over the first four minutes, continuous across
+holds and changing sign within them. The voltages were visited once in order, so it cannot be
+assigned to EOD34 or to a voltage.
 
 ## Laser pointing stability baseline
 
@@ -270,7 +284,9 @@ Three corrections to what the old combined figure implied:
 - The old time axis was step × settle time and read 100 s; the real span is 673 s, so any drift
   rate read off the old plot was about 6.7 times too fast.
 - It measures the laser and bench, not the deflector: the files come from the sweep program, but
-  the HVA1 monitor stayed within 0.5 V and the beam did not follow the command.
+  the HVA1 monitor stayed within 0.5 V. Beam y correlates with the command and the monitor
+  (r = −0.94, 1.1 px over the run), which cannot be told from drift because the command rose
+  steadily in time.
 - At 380 mm: σ 0.0019 mrad in x, 0.0046 in y, 0.0022 total; peak-to-peak 0.0119, 0.0199, 0.0116.
 
 | Figure | Shows |
@@ -283,8 +299,8 @@ Manuscript figure: `fig:laser-stab` (2×2).
 ## Donut beam (jun4)
 
 Measured results: NAS `EOD Driver test/beam characterizatiom/donut/jun4`, analysed by
-MicroscopeMinFlux.jl `dev/analysis/donut_jun4_thesis.jl` at ce95c01 (branch
-worktree-galvo-delay-analysis, not pushed). Every per-run number is in `donut_runs_summary.csv`,
+MicroscopeMinFlux.jl `dev/analysis/donut_jun4_thesis.jl` at 331cd95 (branch
+worktree-galvo-delay-analysis). Every per-run number is in `donut_runs_summary.csv`,
 and every sweep step is in `deflec_donut/donut_sweep_steps.csv`.
 
 Bench, from the user's third drawing of 2026-10-30, in path order (the two earlier drawings
@@ -300,8 +316,9 @@ placed the QWP and the plate differently):
 7. The camera in the focal plane of L7: a Thorlabs DCx, MONO8 8-bit, 5.2 µm pixels, 10 ms
    exposure.
 
-"Polarizer" runs have a polarizer ahead of the QWP. The focal length of L7 is not recorded, so
-displacements stay in µm at the camera.
+"Polarizer" runs have a polarizer ahead of the QWP. L7 is 100 mm (see the lens note below), but
+the recorded geometry does not reproduce the measured scale, so displacements stay in µm at the
+camera.
 
 Corrections to the earlier analysis of this data:
 
@@ -337,14 +354,14 @@ Sweep pairing: X = HVA1 = EOD34, Y = HVA2 = EOD35, from the sweep_channel attrib
 
 Manuscript: `fig:donut-static`, `tab:donut-runs`, `fig:donut-runs`, `fig:donut-sweep`.
 
-**Lens focal lengths (user, 2026-10-30):** 100 mm for every lens except L5, 13.5 mm; L5-L6 is a 7.4x expander and the camera is 100 mm after L7. These do not reproduce the data: they predict about 0.8 um/V displacement and a ring a few um in radius, against 4.8 um/V and 86 um measured. Displacements therefore stay in um at the camera until the L7-to-camera distance and the beam size at the plate are measured.
+**Lens focal lengths (user, 2026-10-30):** 100 mm for every lens except L5, 13.5 mm; L5-L6 is a 7.4x expander and the camera is 100 mm after L7. These do not reproduce the data: they predict about 0.85 um/V displacement (at 3.15 mrad/kV) and a ring a few um in radius, against 4.8 um/V and 86 um measured. No 13.5 mm lens appears in the inventory or order forms; the value is the user's (reconfirmed 2026-11-18). Displacements therefore stay in um at the camera until the L7-to-camera distance and the beam size at the plate are measured.
 
 ## EOD step response (October 2026)
 
 Measured results: NAS `EOD Driver test/EOD_delay/10-16-26 high speed/{EOD34,EDO35}`. The folder
 `EDO35` is a misspelling of EOD35. Scope stamps: EOD35 16 Oct 2026, EOD34 19 Oct 2026 (a
 recapture). Analysis: MicroscopeMinFlux.jl `dev/analysis/EOD_delay_thesis.jl` at 4655371
-(branch worktree-galvo-delay-analysis, not pushed). Per-capture numbers are in
+(branch worktree-galvo-delay-analysis). Per-capture numbers are in
 `delay_edges_summary.csv`.
 
 Bench:
@@ -352,8 +369,12 @@ Bench:
 - CH1 is the HVA200 monitor output.
 - CH2 is the PDQ80A quadrant detector's difference output (150 kHz specified). It swings
   symmetrically through 0 V: ±92 mV for EOD34, ±164 mV for EOD35.
-- Square drive at 1–50 kHz, about 4.4 Vpp command. The monitor reads about ±2.0 V for EOD34 and
-  ±2.9 V for EOD35, which is unexplained.
+- Square drive at 1–50 kHz. The generator amplitude is not in the files. Between settled levels
+  the monitor swings 3.9 Vpp for EOD34 (78 V at the crystal, recorded 2026-10-19) and 5.8 Vpp for
+  EOD35 (116 V, 2026-10-16); the two units were driven at different amplitudes.
+- The PDQ80A was not characterized on its own. The whole measured response (delay and both
+  stages) is of the size the detector could produce, so the text reports it as an upper bound on
+  the deflector's response.
 - Whether the X or Y difference output was used is not recorded.
 
 Corrections to the first summaries:
@@ -384,6 +405,11 @@ Key numbers (10–50 kHz):
   | EOD34 | 0.80–0.82 | 0.96–0.97 | 1.00 |
   | EOD35 | 0.91–0.94 | 0.98–1.00 | 1.00 |
 
+  One 8 mV level of CH2 is 4% of the EOD34 throw and 2% of EOD35's, and settled levels differ by
+  2–3% between captures, so the text rounds these to about 0.80 / 0.96 and 0.92 / 0.99.
+- **Delay against frequency.** The rise from 10 to 50 kHz follows the sample interval (0.4 to
+  0.1 µs); resampled to a common 0.4 µs there is no significant trend.
+
 | Figure | Shows |
 |---|---|
 | `eod-delay-trace-50khz` | drive and both responses over three edges at 50 kHz |
@@ -409,18 +435,15 @@ optical p-p over ±10 V = 2.0 optical °/V (quote QU200428gt). The "4.0 °/V" in
 the 671's generic 0.5 V/mech° factor and does not apply. "Off" in the on/off runs = servo driver
 powered off (user).
 
-| Set | Folder | Detector | Numbers used in the text |
-|---|---|---|---|
-| Angle calibration | `9-16-2026/1v-1v sweep` | camera, f = 100 mm | X 2.0304 °/V, Y 1.4451 °/V (on-sensor points only) |
-| Power cycling | `off-on comparation`, `9-28-2026` | camera; QPD | Δr 2327 µm; ON sd 5e-4 / 8e-4 vs noise 19e-4 / 10e-4 (normalized) |
-| Return and drift | `9-30-2026 drift` | QPD | X 0.185 / 0.38 / −1.32 µm; Y 0.68 / 0.58 / 0.22 µm (stability / noise / drift) |
-| Step response | `10-2-2026_xy_high_speed` | QPD, 10 kS/s | overshoot X 0.8–1.2 %, Y 0.33–0.42 %; settling X 280–307 µs, Y 313–333 µs |
-| Delay | `10-7-2026 delay` | scope, CH2 photodiode | 50–50 %: X 274.5 (rise 312, fall 242), Y 272.7 µs |
-| Small-step delay | `10-16-2026 small amp delay` | scope: CH1 wave generator (also driving the galvo), CH2 QPD | 10–10 %: X 171–184, Y 166–180 µs; 10–90 rise 190–205 µs |
+Data folders: angle calibration `9-16-2026/1v-1v sweep`; power cycling `off-on comparation` and
+`9-28-2026`; return and drift `9-30-2026 drift`; step response `10-2-2026_xy_high_speed`; delay
+`10-7-2026 delay` and `10-16-2026 small amp delay`. The numbers used in the text are in the
+re-analysis section at the end of this file.
 
-SUPERSEDED by the re-analysis below. Numbers were from the run write-ups (EXPERIMENT.md, RESULTS.md, README.md, summary PNGs). The peer
-was asked on 2026-11-02 to re-analyse and draw article-style figures. Results text to be re-checked
-when those land.
+Axis names: G1 steers in the table plane, so its shaft is vertical; G2 steers out of it, shaft
+horizontal. The instrument record (`instrument/subsystems/galvo/README.md`, "as built") calls the
+shaft-horizontal scanner X, the reverse of this bench, so the thesis table names each column by
+its shaft too.
 
 Stated as fact in the text (confirmed by the user 2026-11-02): Y/X = 0.712 ≈ cos 45° = 0.707, which fits G2
 rotating about an axis in its plane of incidence (45° fold, scanning out of the table plane).
@@ -432,7 +455,7 @@ report `impedance missmacth report .docx` and ramp plots `ramp_test_no_amp.png` 
 `ramp_test_amp.png` (buffered, before decoupling) and `ramp_test.png`.
 
 Numbers from the report: HVA200 input measured at 1.002 and 1.045 kΩ; DAQ current at saturation
-6.7 and 7.68 mA → 6.71 and 8.04 V, matching the plateaus. LF411 followers run from ±15 V
+6.70 and 7.68 mA → 6.71 and 8.03 V, within about half a volt of the plateaus. LF411 followers run from ±15 V
 (report). Decoupling capacitors on the rails removed the supply noise.
 
 Discrepancies resolved in the text:
@@ -440,14 +463,17 @@ Discrepancies resolved in the text:
   ±11 mA short-circuit, so the text uses ±5 mA.
 - The schematic labels the op-amp rails ±5 V and the caps 100 µF. The report says ±15 V and 100 nF.
   The text follows the report (±10 V out is impossible from ±5 V rails), so the schematic labels
-  should be corrected.
+  should be corrected. The schematic also numbers the op-amp pins as for a dual package; on the
+  LF411 the output is pin 6 and V+ pin 7. The caption says so.
 - The report's "Unit 1/Unit 2" saturating at 6.71/8.04 V is the reverse of the ramp plot (AO0/HVA1
   about 7.5–7.8 V, AO1/HVA2 about 6.6–6.8 V), so the text does not assign the two values to units.
 
 ### Re-analysis used in the text (peer, 2026-11-02, `dev/analysis/galvo_thesis.jl` @ a4acb2e)
 
-Branch `worktree-galvo-delay-analysis` was local only when this was written. CSVs sit beside the
-figures on the NAS.
+CSVs sit beside the figures on the NAS. The fit errors on the scale factors (±0.0005, ±0.0001 °/V)
+understate the uncertainty: the narrow sweeps differ by up to 0.55%, the x slope varies 2.5%
+across the range, and focal length and pixel pitch enter at the percent level. The text quotes
+2.03 and 1.44 °/V.
 
 | Figure | Key numbers |
 |---|---|
@@ -459,3 +485,20 @@ figures on the NAS.
 | `galvo-step-*` | erfinv-linearised; overshoot X 1.6–1.8 %, Y 0.33–0.49 %; settling ±2 % from the 10 % point X 240–258, Y 274–288 µs; 10–90 X 198–205, Y 211–218 µs |
 | `galvo-delay-amplitude`, `-rise-`, `-edges` | 10-16: drive 50 % → 10 % 152–168 µs, → 50 % 246–261 µs, 10–90 201–213 µs, X = Y, flat 10–100 mVpp; X 5 mVpp unresolved |
 | `galvo-delay-frequency` | 10-7 (0.52 Vpp): QPD saturated; the X 312/240 rise/fall split is gap-crossing geometry, not the axis; rise/fall mean X 276–278, Y 270–275 µs |
+
+## Review of 2026-11-16
+
+A factual-accuracy review of the manuscript was answered on 2026-11-18. The re-analyses behind the
+changed numbers are committed on `MicroscopeMinFlux.jl` branch `worktree-galvo-delay-analysis`:
+
+| Commit | Script | Answers |
+|---|---|---|
+| `ac39811` | `dev/analysis/polarization_angle_step1.jl` | sensitivities with step 1 dropped, half-range slopes and linearity |
+| `f0a1b80` | `dev/analysis/review_2026_11_16/b3_*.jl`, `donut_funcs.jl` | null against ring under deflection, m1 along the axis, NCC sawtooth floor |
+| `5ded345` | `dev/analysis/review_2026_11_16/s9_*.jl` | peak counts and noise-limited R² ceiling at each station |
+| `d7ca348` | `dev/analysis/review_2026_11_16/n4_stage.jl`, `xcorr_funcs.jl` | plateau widths at 0.97, 0.95 and 0.90 |
+| `47e3e91` | `dev/analysis/review_2026_11_16/s10_donut.jl` | null bounds, sweep range and darkest-spot bias |
+
+The eight polarization figures were regenerated from `47e3e91` with step 1 dropped from every
+panel and fit; their sidecars name that commit. The other review numbers (B3, S9, S10, N4, the
+delay resampling and drive amplitudes) are in the text only and have no figure.

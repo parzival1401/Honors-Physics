@@ -1,14 +1,14 @@
-# Provenance for HVA2_polarization_radial.png -- written by save_figure() in dev/plot_style.jl.
+# Provenance for HVA2_polarization_radial_step1.png -- written by save_figure() in dev/plot_style.jl.
 # The same fields are embedded in the PNG (read_figure_info). One figure = one file.
-figure_id: "HVA2_polarization_radial"
-former_title: "HVA2 — Voltage vs Beam Position by Polarization  (pixel size 5.2 µm, EOD→cam 220.0 mm) / Monitor vs √(cx²+cy²)"   # title removed from the image; the caption replaces it
-what_it_shows: "Radial beam-centre position on the camera against HVA2 output voltage, one series per input polarization."
+figure_id: "HVA2_polarization_radial_step1"
+former_title: ""   # title removed from the image; the caption replaces it
+what_it_shows: "Radial beam-centre position on the camera against HVA2 output voltage, one series per input polarization; the stale first frame of each sweep is dropped."
 axes:
   x: "EOD35 drive, HVA2 output (V)"
   y: "Position √(cx²+cy²) (px)"
 data:
   source: "NAS Y:\\Projects\\NSF-MINFLUX\\projects\\Data\\Evaluation Experiments\\EOD Driver test\\beam characterizatiom\\polarization\\apr10 -- acquired 2026-04-10; folder EOD34 = HVA1, folder EOD35 = HVA2"
-  script: "MicroscopeMinFlux.jl/dev/polarization_angle.jl"
-  commit: "1598356 on worktree-galvo-delay-analysis"
-created: "2026-10-26 14:51:38"
-notes: "Angles use pixel size 5.2 µm and lever arm 220.0 mm (crystal centre to camera); HVA real output = -monitor x 20. HVA1 drives EOD34 (first in the path, x axis) and HVA2 drives EOD35 (second, y axis), confirmed by the user 2026-10-26."
+  script: "MicroscopeMinFlux.jl/dev/analysis/polarization_angle_step1.jl"
+  commit: "47e3e91 on worktree-galvo-delay-analysis"
+created: "2026-11-18 11:15:23"
+notes: "Step 1 of every sweep is a stale camera frame (taken before the new voltage took effect); it is dropped from every panel and every fit. Angles use 5.2 µm pixels and a 220.0 mm lever arm (crystal centre to camera); drive = -monitor x 20."
