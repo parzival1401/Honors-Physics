@@ -356,6 +356,26 @@ Manuscript: `fig:donut-static`, `tab:donut-runs`, `fig:donut-runs`, `fig:donut-s
 
 **Lens focal lengths (user, 2026-10-30):** 100 mm for every lens except L5, 13.5 mm; L5-L6 is a 7.4x expander and the camera is 100 mm after L7. These do not reproduce the data: they predict about 0.85 um/V displacement (at 3.15 mrad/kV) and a ring a few um in radius, against 4.8 um/V and 86 um measured. No 13.5 mm lens appears in the inventory or order forms; the value is the user's (reconfirmed 2026-11-18). Displacements therefore stay in um at the camera until the L7-to-camera distance and the beam size at the plate are measured.
 
+## Donut beam, first deflection sweep (may8)
+
+Data: NAS `EOD Driver test/beam characterizatiom/donut/may8/angle_stability` (each EOD swept
+-10 to +10 V in 200 steps, other at 0 V; control frame at 0 V). Two frames, EOD34 at -10 V and
++10 V, rendered by `scripts/donut-deflection-frames.jl` in this repository at 2f93964, cropped
+about the control frame's stored centre on one colour scale. No numbers from this sweep are in
+the text.
+
+Manuscript: `fig:donut-prelim` (`donut-prelim-eod34-m10v.png`, `donut-prelim-eod34-p10v.png`);
+not in `figures.manifest`, since the script writes them here directly.
+
+**Comparison with jun4 (2026-11-23, not in the text):** the jun4 analysis applied to both sweeps,
+with the ring fit started from each frame's own radius, reproduces the jun4 numbers. The may8 ring
+is 34 um in radius against 86 um, so its extinction ratio (0.21-0.23 against 0.035-0.041) and NCC
+(min 0.966-0.972 against 0.987) are worse mostly because of the smaller ring in pixels: measured
+over ideal extinction ratio is about 2.7 on both dates. The ring CV varies about half as much
+across the jun4 sweeps. In may8 the null tracked the ring (100%, 104%) and the two EOD axes were
+orthogonal within about 3 degrees; the 14-degree rotation of EOD35 appears only in jun4, and
+EOD34 moved the donut along camera y in may8 but x in jun4.
+
 ## EOD step response (October 2026)
 
 Measured results: NAS `EOD Driver test/EOD_delay/10-16-26 high speed/{EOD34,EDO35}`. The folder

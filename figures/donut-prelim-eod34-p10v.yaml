@@ -1,0 +1,14 @@
+# Provenance for donut-prelim-eod34-p10v.png -- written by save_figure() in dev/plot_style.jl.
+# The same fields are embedded in the PNG (read_figure_info). One figure = one file.
+figure_id: "donut_prelim_eod34_p10v"
+former_title: ""   # title removed from the image; the caption replaces it
+what_it_shows: "Camera frame of the donut with EOD34 (HVA1) at +10 V of command, EOD35 at 0 V; cropped ±30 px about the stored centre of the undeflected control frame (cross); colour scale shared by the -10 V and +10 V frames."
+axes:
+  x: "x at the camera from the control frame's centre (µm)"
+  y: "y at the camera from the control frame's centre (µm)"
+data:
+  source: "Y:\\Projects\\NSF-MINFLUX\\projects\\Data\\Evaluation Experiments\\EOD Driver test\\beam characterizatiom\\donut\\may8\\angle_stability\\hva1\\donut_hva1_step200_10.0V_2026-05-08_120648.h5"
+  script: "Honors-Physics/scripts/donut-deflection-frames.jl"
+  commit: "2f93964 on main"
+created: "2026-11-23 11:37:30"
+notes: "Preliminary sweep, before the donut was optimized: each EOD stepped from -10 V to +10 V in 200 steps, control frame at 0 V through all optics. Stored centre of this frame (678.9, 469.9) px against the control's (679.1, 461.5) px. Camera x/y are the first/second index of the stored frame (x = 1280-px side). Counts are 8-bit ADU, 10 ms exposure."
