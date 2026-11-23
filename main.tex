@@ -18,8 +18,9 @@
 \graphicspath{{figures/}} % cite figures by stable name: \includegraphics{eod-beam-xcorr-ncc}
 \DeclareUnicodeCharacter{2212}{\ensuremath{-}} % Unicode minus in exported bibliography titles
 \PassOptionsToPackage{obeyspaces,spaces}{url} % \path keeps the spaces in the NAS folder names
-\usepackage{biblatex}
+\usepackage[style=numeric,sorting=none]{biblatex} % references numbered in order of first citation
 \addbibresource{references.bib}
+\usepackage[title]{appendix} % appendix headings read "Appendix A", "Appendix B"
 \usepackage{amsmath}
 \usepackage{amstext}
 
@@ -2423,7 +2424,8 @@ notes and the cited sources before keeping it. I take full responsibility for th
 thesis and for any errors in it.
 
 \printbibliography
-\appendix
+\begin{appendices}
+\clearpage
 \section{Equipment}
 \label{app:equipment}
 
@@ -2469,6 +2471,7 @@ Section~\ref{sec:eod}.
     \label{tab:equipment}
 \end{table}
 
+\clearpage
 \section{Data and analysis}
 \label{app:data}
 
@@ -2522,5 +2525,7 @@ The analyses were written in Julia and are kept in the instrument's control repo
 drawn from, together with a provenance record naming that data, the script and the commit that
 produced it, and the bench facts it assumes. A copy of every graph and its record is kept with this
 document, so every figure can be traced to its source and regenerated.
+
+\end{appendices}
 
 \end{document}
